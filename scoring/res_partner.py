@@ -9,6 +9,3 @@ class res_partner(models.Model):
     #===========================================================================
     # Adds column score in the partner
     mf_score = fields.Integer(string='Score', default=0, required=False)
-
-
-

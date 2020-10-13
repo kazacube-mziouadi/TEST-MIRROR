@@ -9,7 +9,7 @@
 			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='is_supplier']" position="after">
+				<xpath expr="//field[@name='lang']" position="after">
 					<field name="mf_score" />
 				</xpath>
 			</field>
