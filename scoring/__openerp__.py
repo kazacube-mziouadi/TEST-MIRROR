@@ -11,9 +11,11 @@
     'module_type': 'optional',
     'images' : [],
     'depends' : [
-        'base_openprod'
+        'res_partner'
     ],
-    'data': [],
+    'data': [
+        'view/scoring.xml'
+    ],
     'qweb' : [],
     'demo': [],
     'test': [],

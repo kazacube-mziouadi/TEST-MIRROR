@@ -4,12 +4,12 @@
         <!-- ========== -->
 		<!-- PARTNER    -->
 		<!-- ========== -->
-        <record id="my_fab_partner_instructor" model="ir.ui.view">
-			<field name="name">my_fab_partner_instructor</field>
+        <record id="my_fab_partner_score" model="ir.ui.view">
+			<field name="name">my_fab_partner_score</field>
 			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='is_supplier']" position="before">
+				<xpath expr="//field[@name='is_supplier']" position="after">
 					<field name="mf_score" />
 				</xpath>
 			</field>
