@@ -11,7 +11,7 @@
     'module_type': 'optional',
     'images' : [],
     'depends' : [
-        'res_partner'
+        'partner_openprod'
     ],
     'data': [
         'view/scoring.xml'
