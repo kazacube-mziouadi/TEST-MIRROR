@@ -14,7 +14,7 @@
         'partner_openprod'
     ],
     'data': [
-        'view/scoring.xml'
+        'views/scoring.xml'
     ],
     'qweb' : [],
     'demo': [],
