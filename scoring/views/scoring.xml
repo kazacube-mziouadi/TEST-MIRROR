@@ -16,15 +16,15 @@
 		</record>
 
 		<!-- =================== -->
-		<!-- LOAD FROM INTUIZ    -->
+		<!-- IMPORT FROM INTUIZ    -->
 		<!-- =================== -->
 
-		<!-- Modale affichée lors du clic sur "Load from Intuiz" -->
-		<record id='view_form_wizard_partner_load_from_intuiz' model='ir.ui.view'>
-            <field name="name">view_form_wizard_partner_load_from_intuiz</field>
-            <field name="model">wizard.partner.load.intuiz</field>
+		<!-- Modale affichée lors du clic sur "Import from Intuiz" -->
+		<record id='view_form_wizard_partner_import_from_intuiz' model='ir.ui.view'>
+            <field name="name">view_form_wizard_partner_import_from_intuiz</field>
+            <field name="model">wizard.partner.import.intuiz</field>
             <field name="arch" type="xml">
-                <form string="Load from Intuiz" version="8.0">
+                <form string="Import from Intuiz" version="8.0">
                     <group>
                         <field name="partner_ids" colspan="4" nolabel="1" />
                     </group>
@@ -36,18 +36,18 @@
             </field>
         </record>
 
-		<!-- Bouton d'action "Load from Intuiz" -->
+		<!-- Bouton d'action "Import from Intuiz" -->
 	  	<act_window
-	  	    name="Load from Intuiz"
-	  	    res_model="wizard.partner.load.intuiz"
+	  	    name="Import from Intuiz"
+	  	    res_model="wizard.partner.import.intuiz"
 	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
 	  	    key2="client_action_multi"
-	  	    id="act_wizard_partner_load_from_intuiz" />
+	  	    id="act_wizard_partner_import_from_intuiz" />
 
 		<!-- =================== -->
-		<!-- REFRESH FROM INTUIZ    -->
+		<!-- REFRESH FROM INTUIZ -->
 		<!-- =================== -->
 
 		<!-- Modale affichée lors du clic sur "Refresh from Intuiz" -->
