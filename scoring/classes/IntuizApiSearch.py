@@ -1,17 +1,16 @@
-import intuiz_api
 import requests
 from openerp import models, fields, api, _
 
-class Search():
+class IntuizApiSearch():
     # Constructeur
     def __init__(self,
-                 intuizApi,
+                 intuiz_api,
                  where,
                  who
                  ):
         self.where = where
         self.who = who
-        self.intuiz_api = intuizApi
+        self.intuiz_api = intuiz_api
         self.body = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://serviceobject.service.callisto.newsys.altares.fr" xmlns:xsd="http://request.callisto.newsys.altares.fr/xsd">
    <soapenv:Header/>
@@ -50,5 +49,5 @@ class Search():
         """
 
     def send(self):
-        request = requests.post(self.intuiz_api.url, headers=self.intuiz_api.headers, payload={"body":self.body})
+        request = requests.post(self.intuiz_api.uri, headers=self.intuiz_api.headers, data=self.body)
         return request, request.content

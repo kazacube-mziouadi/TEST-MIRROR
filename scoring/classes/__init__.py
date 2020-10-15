@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import res_partner
-import wizard_import_from_intuiz
-import wizard_refresh_from_intuiz
-import intuiz_api
-import intuiz_api_search
+import ResPartner
+import WizardImportFromIntuiz
+import WizardRefreshFromIntuiz
+import IntuizApi
+import IntuizApiSearch
