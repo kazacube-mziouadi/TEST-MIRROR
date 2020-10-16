@@ -1,6 +1,7 @@
 import hashlib
 from openerp import models, fields, api, _
 
+
 class IntuizApi():
     # Constructeur
     def __init__(self,

@@ -3,4 +3,4 @@ import ResPartner
 import WizardImportFromIntuiz
 import WizardRefreshFromIntuiz
 import IntuizApi
-import IntuizApiSearch
+import IntuizApiService
