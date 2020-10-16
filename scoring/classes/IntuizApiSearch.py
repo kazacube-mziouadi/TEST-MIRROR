@@ -50,4 +50,4 @@ class IntuizApiSearch():
 
     def send(self):
         request = requests.post(self.intuiz_api.uri, headers=self.intuiz_api.headers, data=self.body)
-        return request, request.content
+        return request.content
