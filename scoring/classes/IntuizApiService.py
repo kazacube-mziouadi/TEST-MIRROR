@@ -1,18 +1,19 @@
 import requests
 from openerp import models, fields, api, _
 from IntuizApi import IntuizApi
-from ResPartner import ResPartner
-from IntuizMapInterface import IntuizMapInterface
 import xml.etree.ElementTree as ET
-from openerp.api import Environment as Env
 
 
 class IntuizApiService():
+
     # Constructeur
-    def __init__(self,
-                 where,
-                 who
-                 ):
+    def __init__(
+            self,
+            env,
+            where,
+            who
+            ):
+        self.env = env
         self.where = where
         self.who = who
         self.intuiz_api = IntuizApi()
@@ -57,15 +58,25 @@ class IntuizApiService():
         request = requests.post(self.intuiz_api.uri, headers=self.intuiz_api.headers, data=self.body)
         return request.content
 
-    def getPartners(self):
+    def getPartnersTemp(self):
         response = self.send()
         response_parsed = ET.fromstring(response)
-        partners_api = response_parsed[0][0][0].findall('{http://response.callisto.newsys.altares.fr/xsd}myInfo')
-        partners = []
-        for partner_api in partners_api:
-            # TODO: arriver à créer un res_partner
-            # partner = records.env['res.partner'].create()
-            # partner.map_from_intuiz(partner_api)
-            # partners.append(partner)
-            print(partner_api)
-        return partners
+        partners_temp_api = response_parsed[0][0][0].findall('{http://response.callisto.newsys.altares.fr/xsd}myInfo')
+        partners_temp = []
+        for partner_temp_api in partners_temp_api:
+            # print(partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text)
+            # for partner_temp_api_attr in partner_temp_api:
+            #     print(partner_temp_api_attr)
+            partner_temp = self.env["res.partner.temp"].create({
+                "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
+                "mf_score": 10,
+                "street": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
+                "city": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
+                "zip": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
+                "website": "",
+                "siret": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
+            })
+            partners_temp.append(partner_temp.id)
+        # wizard = self.env["wizard.partner.import.intuiz"].search([("id", '=', self.wizard.id)])
+        # print(wizard.res_partner_temp_ids)
+        return partners_temp

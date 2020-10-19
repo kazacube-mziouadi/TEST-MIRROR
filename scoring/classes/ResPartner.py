@@ -1,6 +1,6 @@
 from openerp import models, fields, api, _
 from IntuizMapInterface import IntuizMapInterface
-
+from IntuizApiService import IntuizApiService
 
 class ResPartner(models.Model, IntuizMapInterface):
     # Inherits partner

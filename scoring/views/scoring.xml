@@ -15,6 +15,28 @@
 			</field>
 		</record>
 
+        <!-- ============ -->
+		<!-- PARTNER TEMP -->
+		<!-- ============ -->
+        <record id='res_partner_temps' model="ir.actions.act_window">
+        	<field name="name">Partners to select</field>
+			<field name="res_model">res.partner.temp</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree</field>
+        </record>
+
+        <record id='res_partner_temps_treeview' model="ir.ui.view">
+        	<field name="name">Partners to select</field>
+			<field name="model">res.partner.temp</field>
+            <field name="arch" type="xml">
+				<tree string="Partners to select">
+					<field name="name"/>
+                    <field name="city"/>
+					<field name="siret"/>
+				</tree>
+			</field>
+        </record>
+
 		<!-- =================== -->
 		<!-- IMPORT FROM INTUIZ    -->
 		<!-- =================== -->
@@ -25,6 +47,7 @@
             <field name="model">wizard.partner.import.intuiz</field>
             <field name="arch" type="xml">
                 <form string="Import from Intuiz" version="8.0">
+                    <field name="res_partner_temp_ids"/>
                     <footer>
                         <button name="action_validate" string="OK" type="object" class="oe_highlight" />
                         <button string="Cancel" class="oe_link" special="cancel" />
@@ -37,7 +60,7 @@
 	  	<act_window
 	  	    name="Import from Intuiz"
 	  	    res_model="wizard.partner.import.intuiz"
-	  	    src_model="res.partner"
+	  	    src_model="res.partner.temp"
 	  	    view_mode="form"
 	  	    target="new"
 	  	    id="act_wizard_partner_import_from_intuiz"

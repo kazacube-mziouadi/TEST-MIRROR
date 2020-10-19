@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import ResPartner
-import WizardImportFromIntuiz
-import WizardRefreshFromIntuiz
+import ResPartnerTemp
+import WizardPartnerImportIntuiz
+import WizardPartnerRefreshIntuiz
 import IntuizApi
 import IntuizApiService
