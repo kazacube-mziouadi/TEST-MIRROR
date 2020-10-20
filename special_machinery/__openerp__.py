@@ -5,7 +5,7 @@
     'author' : 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Modules nécéssaire à aux Machines spéciales',
-    'category' : 'Métiers',
+    'category' : 'Industrial sectors',
     'description' : """Regroupe tous les modules nécessaire aux machines spéciales.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',

@@ -5,7 +5,7 @@
     'author' : 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Modules nécéssaire à la mécanique et décolletage',
-    'category' : 'Métiers',
+    'category' : 'Base',
     'description' : """Regroupe tous les modules nécessaire a la mécanique et aux décolletage.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',

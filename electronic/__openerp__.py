@@ -5,7 +5,7 @@
     'author' : 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Modules nécéssaire à l''életronique',
-    'category' : 'Métiers',
+    'category' : 'Industrial sectors',
     'description' : """Regroupe tous les modules nécessaire aux entreprises industrielles dans l'életronique.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
