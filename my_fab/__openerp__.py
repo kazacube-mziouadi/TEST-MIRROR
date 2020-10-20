@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Mécanique - Décolletage',
+    'name' : 'MyFab base',
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules nécéssaire à la mécanique et décolletage',
+    'summary': 'Modules de base pour MyFab',
     'category' : 'Base',
-    'description' : """Regroupe tous les modules nécessaire a la mécanique et aux décolletage.""",
+    'description' : """Regroupe tous les modules de base pour MyFab.""",
     'website': 'https://www.myfab.fr/',
-    'module_type': 'advanced',
+    'module_type': 'base',
     'images' : [],
     'depends' : [
         'base_openprod'
