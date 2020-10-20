@@ -8,7 +8,7 @@
     'category' : 'Industrial sectors',
     'description' : """Regroupe les modules nécessaire pour la tôlerie.""",
     'website': 'https://www.myfab.fr/',
-    'module_type': 'advanced',
+    'module_type': 'base',
     'images' : [],
     'depends' : [
         'my_fab'

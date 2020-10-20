@@ -8,7 +8,7 @@
     'category' : 'Industrial sectors',
     'description' : """Regroupe tous les modules nécessaire a la Fondrie et la Forge.""",
     'website': 'https://www.myfab.fr/',
-    'module_type': 'advanced',
+    'module_type': 'base',
     'images' : [],
     'depends' : [
         'my_fab'
