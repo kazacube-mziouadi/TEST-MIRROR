@@ -4,9 +4,10 @@
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules EDI avec les transporteur',
+    'summary': 'Gagner du temps lors de vos expéditions.',
     'category' : 'Logistic',
-    'description' : """Modules qui fait de l'EDI avec differents transporteurs.""",
+    'description' : """Gagner du temps lors de vos expéditions.
+    Ce module n'est pas encore disponible.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
     'images' : [],

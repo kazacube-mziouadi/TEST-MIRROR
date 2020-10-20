@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Payement',
+    'name' : 'Payment',
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules de relances (Sortie prochaine)',
+    'summary': 'Réduire votre encours clients et automatiser les relances. (Sortie prochaine)',
     'category' : 'Accounting & Finance',
-    'description' : """Modules qui facilite et automatise vos relances de payement.
+    'description' : """Réduire votre encours clients et automatiser les relances.
     Ce module n'est pas encore disponible.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
