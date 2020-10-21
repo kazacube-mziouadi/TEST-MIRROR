@@ -60,9 +60,10 @@
 	  	<act_window
 	  	    name="Import from Intuiz"
 	  	    res_model="wizard.partner.import.intuiz"
-	  	    src_model="res.partner.temp"
+	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
+			key2="client_action_multi"
 	  	    id="act_wizard_partner_import_from_intuiz"
             />
 
@@ -94,6 +95,7 @@
 	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
+			key2="client_action_multi"
 	  	    id="act_wizard_partner_refresh_from_intuiz" />
     </data>
 </openerp>

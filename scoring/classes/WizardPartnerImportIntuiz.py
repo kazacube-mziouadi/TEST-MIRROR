@@ -16,11 +16,9 @@ class WizardPartnerImportIntuiz(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         res = super(WizardPartnerImportIntuiz, self).default_get(fields_list=fields_list)
-        print("VIEW GET")
         intuiz_api_service = IntuizApiService(self.env, "", "")
         res_partner_temp_ids = intuiz_api_service.getPartnersTemp()
         res["res_partner_temp_ids"] = res_partner_temp_ids
-        print(res["res_partner_temp_ids"])
         return res
 
     @api.multi

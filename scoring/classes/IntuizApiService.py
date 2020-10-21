@@ -69,7 +69,7 @@ class IntuizApiService():
             #     print(partner_temp_api_attr)
             partner_temp = self.env["res.partner.temp"].create({
                 "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
-                "mf_score": 10,
+                "mf_score": 21,
                 "street": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
                 "city": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
                 "zip": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
