@@ -10,7 +10,7 @@
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='lang']" position="after">
-					<field name="mf_score" />
+					<field name="score_mf" />
 				</xpath>
 			</field>
 		</record>
@@ -18,16 +18,16 @@
         <!-- ============ -->
 		<!-- PARTNER TEMP -->
 		<!-- ============ -->
-        <record id='res_partner_temps' model="ir.actions.act_window">
+        <record id='res_partner_temps_mf' model="ir.actions.act_window">
         	<field name="name">Partners to select</field>
-			<field name="res_model">res.partner.temp</field>
+			<field name="res_model">res.partner.temp.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree</field>
         </record>
 
-        <record id='res_partner_temps_treeview' model="ir.ui.view">
+        <record id='res_partner_temps_mf_treeview' model="ir.ui.view">
         	<field name="name">Partners to select</field>
-			<field name="model">res.partner.temp</field>
+			<field name="model">res.partner.temp.mf</field>
             <field name="arch" type="xml">
 				<tree string="Partners to select">
 					<field name="name"/>
@@ -42,9 +42,9 @@
 		<!-- =================== -->
 
 		<!-- Modale affichée lors du clic sur "Import from Intuiz" -->
-		<record id='view_form_wizard_partner_import_from_intuiz' model='ir.ui.view'>
-            <field name="name">view_form_wizard_partner_import_from_intuiz</field>
-            <field name="model">wizard.partner.import.intuiz</field>
+		<record id='view_form_wizard_partner_import_intuiz_mf' model='ir.ui.view'>
+            <field name="name">view_form_wizard_partner_import_intuiz_mf</field>
+            <field name="model">wizard.partner.import.intuiz.mf</field>
             <field name="arch" type="xml">
                 <form string="Import from Intuiz" version="8.0">
                     <field name="res_partner_temp_ids"/>
@@ -59,12 +59,12 @@
 		<!-- Bouton d'action "Import from Intuiz" -->
 	  	<act_window
 	  	    name="Import from Intuiz"
-	  	    res_model="wizard.partner.import.intuiz"
+	  	    res_model="wizard.partner.import.intuiz.mf"
 	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
 			key2="client_action_multi"
-	  	    id="act_wizard_partner_import_from_intuiz"
+	  	    id="act_wizard_partner_import_intuiz_mf"
             />
 
 		<!-- =================== -->
@@ -72,9 +72,9 @@
 		<!-- =================== -->
 
 		<!-- Modale affichée lors du clic sur "Refresh from Intuiz" -->
-		<record id='view_form_wizard_partner_refresh_from_intuiz' model='ir.ui.view'>
-            <field name="name">view_form_wizard_partner_refresh_from_intuiz</field>
-            <field name="model">wizard.partner.refresh.intuiz</field>
+		<record id='view_form_wizard_partner_refresh_intuiz_mf' model='ir.ui.view'>
+            <field name="name">view_form_wizard_partner_refresh_intuiz_mf</field>
+            <field name="model">wizard.partner.refresh.intuiz.mf</field>
             <field name="arch" type="xml">
                 <form string="Refresh from Intuiz" version="8.0">
                     <group>
@@ -91,11 +91,11 @@
 		<!-- Bouton d'action "Refresh from Intuiz" -->
 	  	<act_window
 	  	    name="Refresh from Intuiz"
-	  	    res_model="wizard.partner.refresh.intuiz"
+	  	    res_model="wizard.partner.refresh.intuiz.mf"
 	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
 			key2="client_action_multi"
-	  	    id="act_wizard_partner_refresh_from_intuiz" />
+	  	    id="act_wizard_partner_refresh_intuiz_mf" />
     </data>
 </openerp>

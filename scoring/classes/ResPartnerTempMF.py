@@ -1,10 +1,9 @@
 from openerp import models, fields, api, _
-from IntuizMapInterface import IntuizMapInterface
 
 
-class ResPartnerTemp(models.TransientModel):
+class ResPartnerTempMF(models.TransientModel):
     # Inherits partner
-    _name = "res.partner.temp"
+    _name = "res.partner.temp.mf"
     _log_access = True
 
     # ===========================================================================

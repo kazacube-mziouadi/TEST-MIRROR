@@ -2,7 +2,7 @@ import hashlib
 from openerp import models, fields, api, _
 
 
-class IntuizApi():
+class IntuizApiMF():
     # Constructeur
     def __init__(self,
                  host="intuiz.altares.fr",  #host="https://intuiz.altares.fr/iws-v3.18/services/CallistoIdentiteObjectSecure.CallistoIdentiteObjectSecureHttpsSoap11Endpoint/",

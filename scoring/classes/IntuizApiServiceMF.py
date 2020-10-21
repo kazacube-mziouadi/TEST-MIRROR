@@ -1,10 +1,10 @@
 import requests
 from openerp import models, fields, api, _
-from IntuizApi import IntuizApi
+from IntuizApiMF import IntuizApiMF
 import xml.etree.ElementTree as ET
 
 
-class IntuizApiService():
+class IntuizApiServiceMF():
 
     # Constructeur
     def __init__(
@@ -16,7 +16,7 @@ class IntuizApiService():
         self.env = env
         self.where = where
         self.who = who
-        self.intuiz_api = IntuizApi()
+        self.intuiz_api = IntuizApiMF()
         self.body = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://serviceobject.service.callisto.newsys.altares.fr" xmlns:xsd="http://request.callisto.newsys.altares.fr/xsd">
    <soapenv:Header/>
@@ -67,7 +67,7 @@ class IntuizApiService():
             # print(partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text)
             # for partner_temp_api_attr in partner_temp_api:
             #     print(partner_temp_api_attr)
-            partner_temp = self.env["res.partner.temp"].create({
+            partner_temp = self.env["res.partner.temp.mf"].create({
                 "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
                 "mf_score": 21,
                 "street": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,

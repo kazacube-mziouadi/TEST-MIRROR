@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import ResPartner
-import ResPartnerTemp
-import WizardPartnerImportIntuiz
-import WizardPartnerRefreshIntuiz
-import IntuizApi
-import IntuizApiService
+import ResPartnerTempMF
+import WizardPartnerImportIntuizMF
+import WizardPartnerRefreshIntuizMF
+import IntuizApiMF
+import IntuizApiServiceMF
