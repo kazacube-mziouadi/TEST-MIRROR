@@ -1,6 +1,6 @@
 import requests
 from openerp import models, fields, api, _
-from IntuizApiMF import IntuizApiMF
+from IntuizApiIdentityMF import IntuizApiIdentityMF
 import xml.etree.ElementTree as ET
 
 
@@ -16,7 +16,7 @@ class IntuizApiServiceMF():
         self.env = env
         self.where = where
         self.who = who
-        self.intuiz_api = IntuizApiMF()
+        self.intuiz_api = self.env["intuiz.api.identity.mf"].create({})
         self.body = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://serviceobject.service.callisto.newsys.altares.fr" xmlns:xsd="http://request.callisto.newsys.altares.fr/xsd">
    <soapenv:Header/>
@@ -55,7 +55,8 @@ class IntuizApiServiceMF():
         """
 
     def send(self):
-        request = requests.post(self.intuiz_api.uri, headers=self.intuiz_api.headers, data=self.body)
+        print(self.intuiz_api.uri_mf)
+        request = requests.post(self.intuiz_api.uri_mf, headers=self.intuiz_api.headers_mf, data=self.body)
         return request.content
 
     def getPartnersTemp(self):
@@ -64,9 +65,6 @@ class IntuizApiServiceMF():
         partners_temp_api = response_parsed[0][0][0].findall('{http://response.callisto.newsys.altares.fr/xsd}myInfo')
         partners_temp = []
         for partner_temp_api in partners_temp_api:
-            # print(partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text)
-            # for partner_temp_api_attr in partner_temp_api:
-            #     print(partner_temp_api_attr)
             partner_temp = self.env["res.partner.temp.mf"].create({
                 "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
                 "mf_score": 21,
@@ -77,6 +75,4 @@ class IntuizApiServiceMF():
                 "siret": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
             })
             partners_temp.append(partner_temp.id)
-        # wizard = self.env["wizard.partner.import.intuiz"].search([("id", '=', self.wizard.id)])
-        # print(wizard.res_partner_temp_ids)
         return partners_temp

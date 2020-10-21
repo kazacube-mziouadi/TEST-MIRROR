@@ -9,7 +9,7 @@
     'description' : """Manager le risque client et booster la performance commerciale.(En cours de dev)
     Ce module est en cours de developpement.""",
     'website': 'https://www.myfab.fr/',
-    'module_type': 'optional',
+    'module_type': 'advanced',
     'images' : [],
     'depends' : [
         'partner_openprod'
