@@ -1,5 +1,4 @@
-import hashlib
-from openerp import models, fields, api, _
+import json
 
 
 class ApiHeaderMF:
@@ -19,14 +18,12 @@ class ApiHeaderMF:
         self.content_type = content_type
         self.accept_charset = accept_charset
 
-    def get_formatted_header(self):
-        return {
+    def get_formatted_headers(self):
+        return json.dumps({
             "Host": self.host,
             "Accept": self.accept,
             "Accept-Encoding": self.accept_encoding,
             "Connection": self.connection,
             "Content-Type": self.content_type,
             "Accept-Charset": self.accept_charset,
-        }
-
-
+        })

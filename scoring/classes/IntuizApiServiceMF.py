@@ -2,9 +2,10 @@ import requests
 from openerp import models, fields, api, _
 from IntuizApiIdentityMF import IntuizApiIdentityMF
 import xml.etree.ElementTree as ET
+import json
 
 
-class IntuizApiServiceMF():
+class IntuizApiServiceMF:
 
     # Constructeur
     def __init__(
@@ -55,14 +56,14 @@ class IntuizApiServiceMF():
         """
 
     def send(self):
-        print(self.intuiz_api.uri_mf)
-        request = requests.post(self.intuiz_api.uri_mf, headers=self.intuiz_api.headers_mf, data=self.body)
+        print(self.intuiz_api.headers_mf)
+        request = requests.post(self.intuiz_api.uri_mf, headers=json.loads(self.intuiz_api.headers_mf), data=self.body)
         return request.content
 
     def getPartnersTemp(self):
         response = self.send()
         response_parsed = ET.fromstring(response)
-        partners_temp_api = response_parsed[0][0][0].findall('{http://response.callisto.newsys.altares.fr/xsd}myInfo')
+        partners_temp_api = response_parsed[0][0][0].findall("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         partners_temp = []
         for partner_temp_api in partners_temp_api:
             partner_temp = self.env["res.partner.temp.mf"].create({
