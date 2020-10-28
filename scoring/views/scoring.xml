@@ -29,10 +29,11 @@
         	<field name="name">Partners to select</field>
 			<field name="model">res.partner.temp.mf</field>
             <field name="arch" type="xml">
-				<tree string="Partners to select">
-					<field name="name"/>
-                    <field name="city"/>
-					<field name="siret"/>
+				<tree string="Partners to select" editable="bottom">
+					<field name="selected"/>
+					<field name="name" readonly="1"/>
+                    <field name="city" readonly="1"/>
+					<field name="siret" readonly="1"/>
 				</tree>
 			</field>
         </record>

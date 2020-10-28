@@ -17,4 +17,5 @@ class ResPartnerTempMF(models.TransientModel):
     zip = fields.Char(string='Zip', size=64, required=False, help='')
     website = fields.Char(string='Website', size=64, required=False, help='')
     siret = fields.Char(string='SIRET', size=64, required=False, help='')
+    selected = fields.Boolean(string='Selected', default=False)
 
