@@ -1,6 +1,5 @@
 from openerp import models, fields, api, _
 import xml.etree.ElementTree as ET
-from IntuizApiServiceMF import IntuizApiServiceMF
 
 
 class WizardPartnerImportIntuizMF(models.TransientModel):
@@ -16,13 +15,12 @@ class WizardPartnerImportIntuizMF(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         res = super(WizardPartnerImportIntuizMF, self).default_get(fields_list=fields_list)
-        intuiz_api_service = IntuizApiServiceMF(self.env, "", "")
-        res_partner_temp_ids = intuiz_api_service.getPartnersTemp()
+        print('GOING THERE')
+        intuiz_api_identity = self.env["intuiz.api.identity.mf"].create({})
+        res_partner_temp_ids = intuiz_api_identity.getPartnersTemp("69", "1LIFE")
         res["res_partner_temp_ids"] = res_partner_temp_ids
         return res
 
     @api.multi
     def action_validate(self):
         print("VALIDATE ACTION")
-        # intuiz_api_service = IntuizApiServiceMF(self.id, self.env, "", "")
-        # res_partner_temp_ids = intuiz_api_service.getPartnersTemp()

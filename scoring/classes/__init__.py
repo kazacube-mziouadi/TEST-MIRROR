@@ -5,4 +5,5 @@ import WizardPartnerImportIntuizMF
 import WizardPartnerRefreshIntuizMF
 import IntuizApiIdentityMF
 import IntuizApiMF
-import IntuizApiServiceMF
+import IntuizApiCredentialsMF
+

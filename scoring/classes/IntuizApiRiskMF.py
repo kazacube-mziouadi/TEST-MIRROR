@@ -2,7 +2,7 @@ from openerp import models, fields, api, _
 from IntuizApiMF import IntuizApiMF
 
 
-class IntuizApiRiskMF(models.Model):
+class IntuizApiRiskMF(models.TransientModel):
     _name = "intuiz.api.risk.mf"
     _inherit = "intuiz.api.mf"
 

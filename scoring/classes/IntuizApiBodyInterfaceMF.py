@@ -1,0 +1,2 @@
+class IntuizApiBodyInterfaceMF:
+    body = ""
