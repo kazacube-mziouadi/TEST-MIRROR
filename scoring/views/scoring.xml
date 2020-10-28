@@ -119,7 +119,7 @@
             <field name="model">wizard.partner.import.intuiz.result.mf</field>
             <field name="arch" type="xml">
                 <form string="Import from Intuiz Result" version="8.0">
-                    <field name="res_partner_temp_ids"/>
+                    <field name="res_partner_temps"/>
                     <footer>
                         <button name="action_validate" string="OK" type="object" class="oe_highlight" />
                         <button string="Cancel" class="oe_link" special="cancel" />
