@@ -23,12 +23,11 @@ class IntuizApiIdentityMF(models.TransientModel):
         for partner_temp_api in partners_temp_api:
             partner_temp = self.env["res.partner.temp.mf"].create({
                 "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
-                "mf_score": 21,
-                "street": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
-                "city": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
-                "zip": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
-                "website": "",
-                "siret": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
+                "mf_score_mf": 21,
+                "street_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
+                "city_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
+                "zip_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
+                "siret_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
             })
             partners_temp.append(partner_temp.id)
         return partners_temp

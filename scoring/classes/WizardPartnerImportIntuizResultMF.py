@@ -24,17 +24,18 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
 
     @api.multi
     def action_validate(self):
-        print("VALIDATE ACTION")
         for partner_temp in self.res_partner_temps:
-            if partner_temp.selected:
-                pass
-                # self.env["res.partner"].create({
-                #     "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
-                #     "mf_score": 21,
-                #     "street": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
-                #     "city": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
-                #     "zip": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
-                #     "website": "",
-                #     "siret": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
-                # })
+            print(partner_temp.selected_mf)
+            if partner_temp.selected_mf:
+                print('HERE !!!')
+                self.env["res.partner"].create({
+                    "name": partner_temp.name,
+                    "mf_score": partner_temp.score_mf,
+                    "street": partner_temp.street_mf,
+                    "city": partner_temp.city_mf,
+                    "zip": partner_temp.zip_mf,
+                    "siret_number": partner_temp.siret_mf,
+                    "is_customer": True,
+                    "reference": partner_temp.siret_mf
+                })
 

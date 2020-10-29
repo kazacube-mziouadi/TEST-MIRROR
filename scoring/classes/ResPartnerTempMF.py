@@ -11,11 +11,11 @@ class ResPartnerTempMF(models.TransientModel):
     # ===========================================================================
     # Adds column score in the partner
     name = fields.Char(string='Name', size=64, required=False, help='')
-    mf_score = fields.Integer(string="Score", default=0, required=False)
-    street = fields.Char(string='Street', size=64, required=False, help='')
-    city = fields.Char(string='City', size=64, required=False, help='')
-    zip = fields.Char(string='Zip', size=64, required=False, help='')
-    website = fields.Char(string='Website', size=64, required=False, help='')
-    siret = fields.Char(string='SIRET', size=64, required=False, help='')
-    selected = fields.Boolean(string='Selected', default=False)
+    score_mf = fields.Integer(string="Score", default=0, required=False)
+    street_mf = fields.Char(string='Street', size=64, required=False, help='')
+    city_mf = fields.Char(string='City', size=64, required=False, help='')
+    zip_mf = fields.Char(string='Zip', size=64, required=False, help='')
+    website_mf = fields.Char(string='Website', size=64, required=False, help='')
+    siret_mf = fields.Char(string='SIRET', size=64, required=False, help='')
+    selected_mf = fields.Boolean(string='Selected', default=False)
 

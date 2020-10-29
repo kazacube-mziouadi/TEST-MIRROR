@@ -30,10 +30,10 @@
 			<field name="model">res.partner.temp.mf</field>
             <field name="arch" type="xml">
 				<tree string="Partners to select" editable="bottom">
-					<field name="selected"/>
+					<field name="selected_mf"/>
 					<field name="name" readonly="1"/>
-                    <field name="city" readonly="1"/>
-					<field name="siret" readonly="1"/>
+                    <field name="city_mf" readonly="1"/>
+					<field name="siret_mf" readonly="1"/>
 				</tree>
 			</field>
         </record>
