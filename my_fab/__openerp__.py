@@ -11,7 +11,8 @@
     'module_type': 'base',
     'images' : [],
     'depends' : [
-        'base_openprod'
+        'partner_openprod',
+        'sale_purchase'
     ],
     'data': [],
     'qweb' : [],

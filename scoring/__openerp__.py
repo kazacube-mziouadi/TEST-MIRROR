@@ -12,7 +12,7 @@
     'module_type': 'advanced',
     'images' : [],
     'depends' : [
-        'partner_openprod'
+        'my_fab'
     ],
     'data': [
         'views/scoring.xml',
