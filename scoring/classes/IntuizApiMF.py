@@ -15,6 +15,8 @@ class IntuizApiMF(models.AbstractModel):
     host_mf = fields.Char(string='Host', size=128, required=False, help='')
     headers_mf = fields.Char(string='Headers', required=False, help='')
     uri_mf = fields.Char(string='Uri', required=False, help='')
+    user_mf = fields.Char(string='User', required=False, help='')
+    hash_password_mf = fields.Char(string='Password', required=False, help='')
 
     @api.model
     def default_get(self, fields_list):

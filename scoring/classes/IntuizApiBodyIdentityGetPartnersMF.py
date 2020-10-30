@@ -2,7 +2,7 @@ from IntuizApiBodyInterfaceMF import IntuizApiBodyInterfaceMF
 
 
 class IntuizApiBodyIdentityGetPartnersMF(IntuizApiBodyInterfaceMF):
-    def __init__(self, where, who):
+    def __init__(self, user, password, where, who):
         self.body = """
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://serviceobject.service.callisto.newsys.altares.fr" xmlns:xsd="http://request.callisto.newsys.altares.fr/xsd">
    <soapenv:Header/>
@@ -11,7 +11,7 @@ class IntuizApiBodyIdentityGetPartnersMF(IntuizApiBodyInterfaceMF):
          <!--Optional:-->
          <ser:request>
             <!--Optional:-->
-            <xsd:identification>U2019004798|6c0dcf59bb30429d8ed449048e3ef6fe689cff9a</xsd:identification>
+            <xsd:identification>""" + user + """|""" + password + """</xsd:identification>
             <!--Optional:-->
             <xsd:refClient>recherche</xsd:refClient>
             <!--Optional:-->
