@@ -7,4 +7,5 @@ import WizardPartnerRefreshIntuizMF
 import IntuizApiIdentityMF
 import IntuizApiMF
 import IntuizApiCredentialsMF
+import ScoreMF
 
