@@ -25,9 +25,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
     @api.multi
     def action_validate(self):
         for partner_temp in self.res_partner_temps:
-            print(partner_temp.selected_mf)
             if partner_temp.selected_mf:
-                print('HERE !!!')
                 self.env["res.partner"].create({
                     "name": partner_temp.name,
                     "mf_score": partner_temp.score_mf,
@@ -38,4 +36,8 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
                     "is_customer": True,
                     "reference": partner_temp.siret_mf
                 })
+                intuiz_api_risk = self.env["intuiz.api.risk.mf"].create({})
+
+
+
 
