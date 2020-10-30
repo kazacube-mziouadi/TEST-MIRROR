@@ -25,9 +25,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
     @api.multi
     def action_validate(self):
         for partner_temp in self.res_partner_temps:
-            print(partner_temp.selected_mf)
             if partner_temp.selected_mf:
-                print('HERE !!!')
                 self.env["res.partner"].create({
                     "name": partner_temp.name,
                     "mf_score": partner_temp.score_mf,
