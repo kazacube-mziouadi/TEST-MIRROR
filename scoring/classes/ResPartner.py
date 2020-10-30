@@ -11,7 +11,7 @@ class ResPartner(models.Model, IntuizMapInterfaceMF):
     # ===========================================================================
     # Adds column score in the partner
     score_mf = fields.Integer(string="Score", default=0, required=False)
-    score_history_mf = fields.One2many("score.mf", "partner_id_mf", copy=False)
+    # score_history_mf = fields.One2many("score.mf", "partner_id_mf", copy=False)
 
     # ===========================================================================
     # METHODS
