@@ -16,7 +16,7 @@ class IntuizApiIdentityMF(models.TransientModel):
         return res
 
     def getPartnersTemp(self, where, who):
-        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.hash_password_mf, where, who))
+        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.password_mf, where, who))
         response_parsed = ET.fromstring(response)
         partners_temp_api = response_parsed[0][0][0].findall("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         partners_temp = []
