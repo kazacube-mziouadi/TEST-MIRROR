@@ -22,9 +22,9 @@ class IntuizApiRiskMF(models.TransientModel):
         print("IntuizApiRiskMF.22")
         response_parsed = ET.fromstring(response)
         print("IntuizApiRiskMF.24")
-        sub_keys = response_parsed.keys()
-        for subKey in sub_keys:
-            print(subKey)
+        sub_keys = response_parsed.text
+        # for subKey in sub_keys:
+        print(sub_keys)
         element_my_info = response_parsed[0][0][0].find("ax297:myInfo")
         print("IntuizApiRiskMF.29")
         print(element_my_info)
