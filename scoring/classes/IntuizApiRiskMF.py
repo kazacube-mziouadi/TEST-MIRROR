@@ -13,7 +13,7 @@ class IntuizApiRiskMF(models.TransientModel):
         return res
 
     def get_score_history(self, partner):
-        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.password_mf, partner.siren))
+        response = self.send(IntuizApiBodyRiskGetScoreHistoryMF(self.user_mf, self.password_mf, partner.siren))
         response_parsed = ET.fromstring(response)
         score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
         print(score_history_api)
