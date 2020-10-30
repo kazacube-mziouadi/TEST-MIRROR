@@ -65,7 +65,7 @@
 				<form string="Intuiz API Credentials">
 					<group col="1">
 						<field name="user_mf"/>
-						<field name="password" password="True"/>
+						<field name="password_mf" password="True"/>
 					</group>
                 </form>
 			</field>
