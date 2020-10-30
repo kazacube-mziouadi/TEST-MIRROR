@@ -22,12 +22,12 @@ class IntuizApiRiskMF(models.TransientModel):
         print("IntuizApiRiskMF.22")
         response_parsed = ET.fromstring(response)
         print("IntuizApiRiskMF.24")
-        sub_keys = response_parsed.text
+        # sub_keys = response_parsed.text
         # for subKey in sub_keys:
-        print(sub_keys)
-        element_my_info = response_parsed[0][0][0].find("ax297:myInfo")
+        # print(sub_keys)
+        element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         print("IntuizApiRiskMF.29")
-        print(element_my_info)
+        print(element_my_info.text)
 
         # THIS METHOD DIDN'T WORK (no findAll on element)
         # element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
