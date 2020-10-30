@@ -22,10 +22,10 @@ class IntuizApiRiskMF(models.TransientModel):
         response_parsed = ET.fromstring(response)
 
         # THIS METHOD DIDN'T WORK (no findAll on element)
-        element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
-        score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.27")
-        print(score_history_api)
+        # element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
+        # score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        # print("IntuizApiRiskMF.27")
+        # print(score_history_api)
 
         # THIS METHOD DIDN'T WORK (return none)
         score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
