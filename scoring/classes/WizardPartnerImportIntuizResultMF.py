@@ -36,7 +36,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
                     "is_customer": True,
                     "reference": partner_temp.siret_mf
                 })
-                intuiz_api_risk = self.env["intuiz.api.risk.mf"].create({})
+                # intuiz_api_risk = self.env["intuiz.api.risk.mf"].create({})
 
 
 
