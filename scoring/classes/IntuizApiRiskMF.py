@@ -28,17 +28,17 @@ class IntuizApiRiskMF(models.TransientModel):
         # print(score_history_api)
 
         # THIS METHOD DIDN'T WORK (return none)
-        score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.32")
-        print(score_history_api)
+        # score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        # print("IntuizApiRiskMF.32")
+        # print(score_history_api)
+
+        # THIS METHOD DIDN'T WORK (return none)
+        # score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        # print("IntuizApiRiskMF.37")
+        # print(score_history_api)
 
 
-        score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.37")
-        print(score_history_api)
-
-
-        score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
         print("IntuizApiRiskMF.42")
         print(score_history_api)
 
