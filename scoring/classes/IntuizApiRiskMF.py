@@ -13,15 +13,15 @@ class IntuizApiRiskMF(models.TransientModel):
         return res
 
     def getScoreHistory(self, partner):
-        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.hash_password_mf, partner.siren))
+        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.password_mf, partner.siren))
         response_parsed = ET.fromstring(response)
         score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print(score_history_api);
+        print(score_history_api)
         score_history_temp = []
         for score_api in score_history_api:
-            print(score_api);
+            print(score_api)
             score_temp = self.env["res.partner.temp.mf"].create({
-                "score_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
+                "score_cent_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
                 "date_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}dateValeur").text,
                 "partner_id": partner.id
             })
