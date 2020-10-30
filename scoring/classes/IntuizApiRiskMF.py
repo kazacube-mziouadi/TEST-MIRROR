@@ -1,4 +1,6 @@
 from openerp import models, fields, api, _
+import xml.etree.ElementTree as ET
+from IntuizApiBodyRiskGetScoreHistoryMF import IntuizApiBodyRiskGetScoreHistoryMF
 from IntuizApiMF import IntuizApiMF
 
 
