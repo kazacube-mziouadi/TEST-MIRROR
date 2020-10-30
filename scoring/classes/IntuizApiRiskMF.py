@@ -21,27 +21,30 @@ class IntuizApiRiskMF(models.TransientModel):
         print(response)
         response_parsed = ET.fromstring(response)
 
+        # Ne fonction pas
+        # element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
+        # score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        # print("IntuizApiRiskMF.27")
+        # print(score_history_api)
 
-        element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
-        score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.27")
-        print(score_history_api)
 
         score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
-        print("IntuizApiRiskMF.31")
+        print("IntuizApiRiskMF.32")
         print(score_history_api)
+
 
         score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
-        print("IntuizApiRiskMF.35")
+        print("IntuizApiRiskMF.37")
         print(score_history_api)
 
+
         score_history_api = response_parsed[0][0][0][3].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.38")
+        print("IntuizApiRiskMF.42")
         print(score_history_api)
 
         score_history_temp = []
         for score_api in score_history_api:
-            print("IntuizApiRiskMF.44")
+            print("IntuizApiRiskMF.47")
             print(score_api)
             score_temp = self.env["res.partner.temp.mf"].create({
                 "score_cent_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
