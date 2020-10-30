@@ -12,19 +12,18 @@ class IntuizApiRiskMF(models.TransientModel):
         res["uri_mf"] = "https://" + res["host_mf"] + "/iws-v3.18/services/CallistoRisqueSecure.CallistoRisqueSecureHttpsSoap11Endpoint/"
         return res
 
-    def getPartnersTemp(self, siren):
-        response = self.send(IntuizApiBodyIdentityGetPartnersMF(identification, siren))
+    def getScoreHistory(self, partner):
+        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.hash_password_mf, partner.siren))
         response_parsed = ET.fromstring(response)
-        partners_temp_api = response_parsed[0][0][0].findall("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
-        partners_temp = []
-        for partner_temp_api in partners_temp_api:
-            partner_temp = self.env["res.partner.temp.mf"].create({
-                "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
-                "mf_score_mf": 21,
-                "street_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
-                "city_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
-                "zip_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
-                "siret_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
+        score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        print(score_history_api);
+        score_history_temp = []
+        for score_api in score_history_api:
+            print(score_api);
+            score_temp = self.env["res.partner.temp.mf"].create({
+                "score_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
+                "date_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}dateValeur").text,
+                "partner_id": partner.id
             })
-            partners_temp.append(partner_temp.id)
-        return partners_temp
+            score_history_temp.append(score_temp.id)
+        return score_history_temp
