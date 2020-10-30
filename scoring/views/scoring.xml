@@ -4,8 +4,8 @@
         <!-- ========== -->
 		<!-- PARTNER    -->
 		<!-- ========== -->
-        <record id="my_fab_partner_score" model="ir.ui.view">
-			<field name="name">my_fab_partner_score</field>
+        <record id="partner_score_mf" model="ir.ui.view">
+			<field name="name">partner_score_mf</field>
 			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
@@ -29,27 +29,68 @@
         	<field name="name">Partners to select</field>
 			<field name="model">res.partner.temp.mf</field>
             <field name="arch" type="xml">
-				<tree string="Partners to select">
-					<field name="name"/>
-                    <field name="city"/>
-					<field name="siret"/>
+				<tree string="Partners to select" editable="bottom">
+					<field name="selected_mf"/>
+					<field name="name" readonly="1"/>
+                    <field name="city_mf" readonly="1"/>
+					<field name="siret_mf" readonly="1"/>
 				</tree>
 			</field>
         </record>
 
-		<!-- =================== -->
-		<!-- IMPORT FROM INTUIZ    -->
-		<!-- =================== -->
+		<!-- ============ -->
+		<!-- INTUIZ API   -->
+		<!-- ============ -->
+        <record id='intuiz_api_credentials_mf' model="ir.actions.act_window">
+        	<field name="name">Intuiz API Credentials</field>
+			<field name="res_model">intuiz.api.credentials.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='intuiz_api_credentials_mf_treeview' model="ir.ui.view">
+        	<field name="name">Intuiz API Credentials</field>
+			<field name="model">intuiz.api.credentials.mf</field>
+            <field name="arch" type="xml">
+				<tree string="Intuiz API Users">
+					<field name="user_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='intuiz_api_credentials_mf_form' model="ir.ui.view">
+        	<field name="name">intuiz.api.credentials.mf.form</field>
+			<field name="model">intuiz.api.credentials.mf</field>
+            <field name="arch" type="xml">
+				<form string="Intuiz API Credentials">
+					<group col="1">
+						<field name="user_mf"/>
+						<field name="password" password="True"/>
+					</group>
+                </form>
+			</field>
+        </record>
+
+		<!-- =========================== -->
+		<!-- IMPORT FROM INTUIZ SEARCH   -->
+		<!-- =========================== -->
 
 		<!-- Modale affichée lors du clic sur "Import from Intuiz" -->
-		<record id='view_form_wizard_partner_import_intuiz_mf' model='ir.ui.view'>
-            <field name="name">view_form_wizard_partner_import_intuiz_mf</field>
-            <field name="model">wizard.partner.import.intuiz.mf</field>
+		<record id='view_form_wizard_partner_import_intuiz_search_mf' model='ir.ui.view'>
+            <field name="name">view_form_wizard_partner_import_intuiz_search_mf</field>
+            <field name="model">wizard.partner.import.intuiz.search.mf</field>
             <field name="arch" type="xml">
                 <form string="Import from Intuiz" version="8.0">
-                    <field name="res_partner_temp_ids"/>
+					<group col="1">
+						<field name="where_mf"/>
+						<field name="who_mf"/>
+					</group>
                     <footer>
-                        <button name="action_validate" string="OK" type="object" class="oe_highlight" />
+                        <button
+								name="button_return_wizard_search_result"
+								string="Search"
+								type="object"
+								class="oe_highlight" />
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>
@@ -59,13 +100,33 @@
 		<!-- Bouton d'action "Import from Intuiz" -->
 	  	<act_window
 	  	    name="Import from Intuiz"
-	  	    res_model="wizard.partner.import.intuiz.mf"
+	  	    res_model="wizard.partner.import.intuiz.search.mf"
 	  	    src_model="res.partner"
 	  	    view_mode="form"
 	  	    target="new"
 			key2="client_action_multi"
-	  	    id="act_wizard_partner_import_intuiz_mf"
+			context="{'sidebar_without_id':True}"
+	  	    id="act_wizard_partner_import_intuiz_search_mf"
             />
+
+		<!-- =========================== -->
+		<!-- IMPORT FROM INTUIZ RESULT   -->
+		<!-- =========================== -->
+
+		<!-- Modale affichée lors du clic sur "Import from Intuiz" -->
+		<record id='view_form_wizard_partner_import_intuiz_result_mf' model='ir.ui.view'>
+            <field name="name">Import from Intuiz Result</field>
+            <field name="model">wizard.partner.import.intuiz.result.mf</field>
+            <field name="arch" type="xml">
+                <form string="Import from Intuiz Result" version="8.0">
+                    <field name="res_partner_temps"/>
+                    <footer>
+                        <button name="action_validate" string="OK" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
 
 		<!-- =================== -->
 		<!-- REFRESH FROM INTUIZ -->

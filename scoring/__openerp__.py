@@ -12,10 +12,11 @@
     'module_type': 'advanced',
     'images' : [],
     'depends' : [
-        'partner_openprod'
+        'my_fab'
     ],
     'data': [
-        'views/scoring.xml'
+        'views/scoring.xml',
+        'views/base_menus.xml'
     ],
     'qweb' : [],
     'demo': [],
