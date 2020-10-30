@@ -28,7 +28,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
             if partner_temp.selected_mf:
                 partner = self.env["res.partner"].create({
                     "name": partner_temp.name,
-                    "mf_score": partner_temp.score_mf,
+                    "score_mf": partner_temp.score_mf,
                     "street": partner_temp.street_mf,
                     "city": partner_temp.city_mf,
                     "zip": partner_temp.zip_mf,
