@@ -12,7 +12,7 @@ class IntuizApiRiskMF(models.TransientModel):
         res["uri_mf"] = "https://" + res["host_mf"] + "/iws-v3.18/services/CallistoRisqueSecure.CallistoRisqueSecureHttpsSoap11Endpoint/"
         return res
 
-    def getScoreHistory(self, partner):
+    def get_score_history(self, partner):
         response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.password_mf, partner.siren))
         response_parsed = ET.fromstring(response)
         score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
