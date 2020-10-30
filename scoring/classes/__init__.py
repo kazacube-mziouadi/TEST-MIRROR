@@ -4,8 +4,11 @@ import ResPartnerTempMF
 import WizardPartnerImportIntuizSearchMF
 import WizardPartnerImportIntuizResultMF
 import WizardPartnerRefreshIntuizMF
-import IntuizApiIdentityMF
 import IntuizApiMF
+import IntuizApiIdentityMF
+import IntuizApiBodyIdentityGetPartnersMF
+import IntuizApiRiskMF
 import IntuizApiCredentialsMF
+import IntuizApiBodyRiskGetScoreHistoryMF
 import ScoreMF
 
