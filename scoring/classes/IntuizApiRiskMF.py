@@ -25,7 +25,7 @@ class IntuizApiRiskMF(models.TransientModel):
         # sub_keys = response_parsed.text
         # for subKey in sub_keys:
         # print(sub_keys)
-        element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
+        element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}:myInfo")
         print("IntuizApiRiskMF.29")
         print(element_my_info.text)
 
