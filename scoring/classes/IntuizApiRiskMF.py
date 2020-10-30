@@ -15,7 +15,8 @@ class IntuizApiRiskMF(models.TransientModel):
         return res
 
     def get_score_history(self, partner):
-        response = self.send(IntuizApiBodyRiskGetScoreHistoryMF(self.user_mf, self.password_mf, partner.siret_number))
+        siren = partner.siret_number[0:9]
+        response = self.send(IntuizApiBodyRiskGetScoreHistoryMF(self.user_mf, self.password_mf, siren))
         print("IntuizApiRiskMF.19")
         print(response)
         response_parsed = ET.fromstring(response)
