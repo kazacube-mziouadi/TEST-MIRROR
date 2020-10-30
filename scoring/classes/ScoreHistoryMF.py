@@ -1,6 +1,6 @@
 from openerp import models, fields, api, _
 
-class ScoreHistory(models.Model):
+class ScoreHistoryMF(models.Model):
     _name="score.history.mf"
     _description="history of partner scores"
 
