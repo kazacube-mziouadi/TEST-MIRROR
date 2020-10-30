@@ -21,9 +21,9 @@ class IntuizApiRiskMF(models.TransientModel):
         print(response)
         response_parsed = ET.fromstring(response)
 
-        subElements = response_parsed.findAll();
-        for subElement in subElements:
-            print(subElement)
+        # subElements = response_parsed.findAll();
+        # for subElement in subElements:
+        #     print(subElement)
         element_my_info = response_parsed[0][0][0].find("ax297:myinfo")
         print("IntuizApiRiskMF.28")
         print(element_my_info)
