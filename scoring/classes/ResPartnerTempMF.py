@@ -9,7 +9,6 @@ class ResPartnerTempMF(models.TransientModel):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    # Adds column score in the partner
     name = fields.Char(string='Name', size=64, required=False, help='')
     score_mf = fields.Integer(string="Score", default=0, required=False)
     street_mf = fields.Char(string='Street', size=64, required=False, help='')

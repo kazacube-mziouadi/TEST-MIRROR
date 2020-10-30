@@ -9,6 +9,21 @@ class IntuizApiRiskMF(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         res = super(IntuizApiRiskMF, self).default_get(fields_list=fields_list)
-        # TODO : instantiate Risk uri
-        res["uri_mf"] = "https://" + res["host_mf"] + "/iws-v3.18/services/CallistoIdentiteObjectSecure.CallistoIdentiteObjectSecureHttpsSoap11Endpoint/"
+        res["uri_mf"] = "https://" + res["host_mf"] + "/iws-v3.18/services/CallistoRisqueSecure.CallistoRisqueSecureHttpsSoap11Endpoint/"
         return res
+
+    def getScoreHistory(self, partner):
+        response = self.send(IntuizApiBodyIdentityGetPartnersMF(self.user_mf, self.hash_password_mf, partner.siren))
+        response_parsed = ET.fromstring(response)
+        score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
+        print(score_history_api);
+        score_history_temp = []
+        for score_api in score_history_api:
+            print(score_api);
+            score_temp = self.env["res.partner.temp.mf"].create({
+                "score_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
+                "date_mf": score_api.find("{http://vo.callisto.newsys.altares.fr/xsd}dateValeur").text,
+                "partner_id": partner.id
+            })
+            score_history_temp.append(score_temp.id)
+        return score_history_temp
