@@ -19,8 +19,8 @@ class IntuizApiRiskMF(models.TransientModel):
         response = self.send(IntuizApiBodyRiskGetScoreHistoryMF(self.user_mf, self.password_mf, siren))
         print("IntuizApiRiskMF.19")
         print(response)
+        print("IntuizApiRiskMF.22")
         response_parsed = ET.fromstring(response)
-
         print("IntuizApiRiskMF.24")
         subElements = response_parsed.keys()
         for subElement in subElements:
