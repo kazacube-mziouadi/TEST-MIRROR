@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-        <!-- ========== -->
-		<!-- PARTNER    -->
-		<!-- ========== -->
+        <!-- =================== -->
+		<!-- PARTNER  OVERWRITE  -->
+		<!-- =================== -->
         <record id="partner_score_mf" model="ir.ui.view">
 			<field name="name">partner_score_mf</field>
 			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='lang']" position="after">
-					<field name="score_mf" />
+					<field name="siren" />
 				</xpath>
+
 			</field>
 		</record>
 
