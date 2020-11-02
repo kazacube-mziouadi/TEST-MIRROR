@@ -23,12 +23,15 @@ class IntuizApiRiskMF(models.TransientModel):
         response_parsed = ET.fromstring(response)
         print("IntuizApiRiskMF.24")
         element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
+        print("IntuizApiRiskMF.26")
+        print(element_my_info)
         score_history_api = element_my_info.findAll("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreList")
-        print("IntuizApiRiskMF.27")
+        print("IntuizApiRiskMF.29")
+        print(score_history_api)
 
         score_history_temp = []
         for score_api in score_history_api:
-            print("IntuizApiRiskMF.55")
+            print("IntuizApiRiskMF.33")
             print(score_api)
             score_temp = self.env["score.mf"].create({
                 "score_cent_mf": score_api.find("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
