@@ -84,9 +84,15 @@ class IntuizApiRiskMF(models.TransientModel):
         # print("IntuizApiRiskMF.37")
         # print(score_history_api)
 
+        # THIS METHOD DIDN'T WORK (return none)
+        # print("IntuizApiRiskMF.88")
+        # element_my_info = response_parsed.find("Envelope")
+        # print(element_my_info)
+        # print(element_my_info.text)
 
-        print("IntuizApiRiskMF.88")
-        element_my_info = response_parsed.find("Envelope")
+
+        print("IntuizApiRiskMF.94")
+        element_my_info = response_parsed.find("Body")
         print(element_my_info)
         print(element_my_info.text)
 
