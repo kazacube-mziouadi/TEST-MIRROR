@@ -38,11 +38,11 @@ class IntuizApiRiskMF(models.TransientModel):
         # print(element_my_info)
         # print(element_my_info.text)
 
-
-        print("IntuizApiRiskMF.42")
-        element_my_info = response_parsed.find("ax297:myInfo")
-        print(element_my_info)
-        print(element_my_info.text)
+        # THIS METHOD DIDN'T WORK (prefixe ax297 not found in prefix map)
+        # print("IntuizApiRiskMF.42")
+        # element_my_info = response_parsed.find("ax297:myInfo")
+        # print(element_my_info)
+        # print(element_my_info.text)
 
 
         print("IntuizApiRiskMF.48")
