@@ -25,7 +25,7 @@ class IntuizApiRiskMF(models.TransientModel):
         element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         print("IntuizApiRiskMF.26")
         print(element_my_info)
-        score_history_api = element_my_info.findAll("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreList")
+        score_history_api = element_my_info.findall("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreList")
         print("IntuizApiRiskMF.29")
         print(score_history_api)
 
