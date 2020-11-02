@@ -31,17 +31,42 @@ class IntuizApiRiskMF(models.TransientModel):
         # element_my_info = response_parsed.find("soapenv:Envelope")
         # print(element_my_info)
         # print(element_my_info.text)
-        print("IntuizApiRiskMF.34")
-        element_my_info = response_parsed.find("soapenv:Body")
-        print(element_my_info)
-        print(element_my_info.text)
-        print("IntuizApiRiskMF.38")
+
+        # THIS METHOD DIDN'T WORK (prefixe soapenv not found in prefix map)
+        # print("IntuizApiRiskMF.36")
+        # element_my_info = response_parsed.find("soapenv:Body")
+        # print(element_my_info)
+        # print(element_my_info.text)
+
+
+        print("IntuizApiRiskMF.42")
         element_my_info = response_parsed.find("ax297:myInfo")
         print(element_my_info)
         print(element_my_info.text)
-        print("IntuizApiRiskMF.42")
+
+
+        print("IntuizApiRiskMF.48")
+        element_my_info = response_parsed[0].find("ax297:myInfo")
+        print(element_my_info)
         print(element_my_info.text)
 
+
+        print("IntuizApiRiskMF.54")
+        element_my_info = response_parsed[0][0].find("ax297:myInfo")
+        print(element_my_info)
+        print(element_my_info.text)
+
+
+        print("IntuizApiRiskMF.60")
+        element_my_info = response_parsed[0][0][0].find("ax297:myInfo")
+        print(element_my_info)
+        print(element_my_info.text)
+
+
+        print("IntuizApiRiskMF.66")
+        element_my_info = response_parsed[0][0][0][0].find("ax297:myInfo")
+        print(element_my_info)
+        print(element_my_info.text)
         # THIS METHOD DIDN'T WORK (no findAll on element)
         # element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         # score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
