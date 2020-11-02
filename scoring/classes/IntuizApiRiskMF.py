@@ -18,7 +18,8 @@ class IntuizApiRiskMF(models.TransientModel):
         siren = partner.siret_number[0:9]
         response = self.send(IntuizApiBodyRiskGetScoreHistoryMF(self.user_mf, self.password_mf, siren))
         print("IntuizApiRiskMF.20")
-        print(repr(partner));
+        print(repr(partner))
+        print(repr(partner.id))
         print("IntuizApiRiskMF.22")
         print(response)
         print("IntuizApiRiskMF.24")
