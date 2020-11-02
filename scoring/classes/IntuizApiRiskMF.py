@@ -25,8 +25,16 @@ class IntuizApiRiskMF(models.TransientModel):
         # sub_keys = response_parsed.text
         # for subKey in sub_keys:
         # print(sub_keys)
+        print("IntuizApiRiskMF.28")
+        element_my_info = response_parsed[0][0][0].find("soapenv:Envelope")
+        print(element_my_info)
+        print("IntuizApiRiskMF.30")
+        element_my_info = response_parsed[0][0][0].find("soapenv:Body")
+        print(element_my_info)
+        print("IntuizApiRiskMF.32")
         element_my_info = response_parsed[0][0][0].find("ax297:myInfo")
-        print("IntuizApiRiskMF.29")
+        print(element_my_info)
+        print("IntuizApiRiskMF.34")
         print(element_my_info.text)
 
         # THIS METHOD DIDN'T WORK (no findAll on element)
