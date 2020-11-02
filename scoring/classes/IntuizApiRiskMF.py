@@ -39,7 +39,7 @@ class IntuizApiRiskMF(models.TransientModel):
             score_temp = self.env["score.mf"].create({
                 "score_cent_mf": score_api.find("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
                 "date_mf": score_api.find("{http://risque.vo.callisto.newsys.altares.fr/xsd}dateValeur").text,
-                "partner_id": partner.id
+                "partner_id_mf": partner.id
             })
             score_history_temp.append(score_temp.id)
         return score_history_temp
