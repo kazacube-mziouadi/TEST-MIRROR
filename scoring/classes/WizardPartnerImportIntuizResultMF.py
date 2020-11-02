@@ -34,7 +34,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
                     "zip": partner_temp.zip_mf,
                     "siret_number": partner_temp.siret_mf,
                     "is_customer": True,
-                    "reference": partner_temp.siret_mf
+                    "reference": self.env['ir.sequence'].get('res.partner')
                 })
                 intuiz_api_risk = self.env["intuiz.api.risk.mf"].create({})
                 intuiz_api_risk.get_score_history(partner)

@@ -10,7 +10,7 @@
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='lang']" position="after">
-					<field name="siren" />
+					<field name="siret_number" />
 				</xpath>
 				<xpath expr="//page[@name='transport_partner_page']" position="after">
 					<page string="Score" name="score.mf">
