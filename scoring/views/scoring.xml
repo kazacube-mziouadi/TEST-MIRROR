@@ -139,11 +139,11 @@
             <field name="arch" type="xml">
                 <form string="Refresh from Intuiz" version="8.0">
                     <group>
-                        <field name="partner_ids" colspan="4" nolabel="1" />
+						<field name="name"  attrs="{'invisible':[True]}" />
+                        <p>Le(s) client(s) a/ont bien été mis à jour.</p>
                     </group>
                     <footer>
-                        <button name="action_validate" string="OK" type="object" class="oe_highlight" />
-                        <button string="Cancel" class="oe_link" special="cancel" />
+                        <button string="OK" class="oe_highlight" special="cancel" />
                     </footer>
                 </form>
             </field>
