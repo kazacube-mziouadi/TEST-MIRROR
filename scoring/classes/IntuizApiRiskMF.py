@@ -25,19 +25,21 @@ class IntuizApiRiskMF(models.TransientModel):
         # sub_keys = response_parsed.text
         # for subKey in sub_keys:
         # print(sub_keys)
-        print("IntuizApiRiskMF.28")
-        element_my_info = response_parsed.find("soapenv:Envelope")
-        print(element_my_info)
-        print(element_my_info.text)
-        print("IntuizApiRiskMF.30")
+
+        # THIS METHOD DIDN'T WORK (prefixe soapenv not found in prefix map)
+        # print("IntuizApiRiskMF.30")
+        # element_my_info = response_parsed.find("soapenv:Envelope")
+        # print(element_my_info)
+        # print(element_my_info.text)
+        print("IntuizApiRiskMF.34")
         element_my_info = response_parsed.find("soapenv:Body")
         print(element_my_info)
         print(element_my_info.text)
-        print("IntuizApiRiskMF.32")
+        print("IntuizApiRiskMF.38")
         element_my_info = response_parsed.find("ax297:myInfo")
         print(element_my_info)
         print(element_my_info.text)
-        print("IntuizApiRiskMF.34")
+        print("IntuizApiRiskMF.42")
         print(element_my_info.text)
 
         # THIS METHOD DIDN'T WORK (no findAll on element)
