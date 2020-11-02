@@ -62,11 +62,12 @@ class IntuizApiRiskMF(models.TransientModel):
         # print(element_my_info)
         # print(element_my_info.text)
 
+        # THIS METHOD DIDN'T WORK (prefixe ax297 not found in prefix map)
+        # print("IntuizApiRiskMF.66")
+        # element_my_info = response_parsed[0][0][0][0].find("ax297:myInfo")
+        # print(element_my_info)
+        # print(element_my_info.text)
 
-        print("IntuizApiRiskMF.66")
-        element_my_info = response_parsed[0][0][0][0].find("ax297:myInfo")
-        print(element_my_info)
-        print(element_my_info.text)
         # THIS METHOD DIDN'T WORK (no findAll on element)
         # element_my_info = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo")
         # score_history_api = element_my_info.findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
@@ -82,6 +83,12 @@ class IntuizApiRiskMF(models.TransientModel):
         # score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
         # print("IntuizApiRiskMF.37")
         # print(score_history_api)
+
+
+        print("IntuizApiRiskMF.88")
+        element_my_info = response_parsed.find("Envelope")
+        print(element_my_info)
+        print(element_my_info.text)
 
         # THIS METHOD DIDN'T WORK (no findAll on element)
         score_history_api = response_parsed[0][0][0].find("{http://response.callisto.newsys.altares.fr/xsd}myInfo").findAll("{http://response.callisto.newsys.altares.fr/xsd}scoreList")
