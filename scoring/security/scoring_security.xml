@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
 	<data noupdate="0">
+		<!-- Category -->
+		<record model="ir.module.category" id="category_scoring">
+			<field name="name">Scoring</field>
+			<field name="sequence">20</field>
+		</record>
 		<!-- GROUP  -->
 		<record model="res.groups" id="group_user">
 			<field name="name">User</field>
@@ -11,10 +16,6 @@
 			<field name="implied_ids" eval="[(4, ref('group_user'))]"/>
 			<field name="category_id" ref="category_scoring"/>
 		</record>
-		<!-- Category -->
-		<record model="ir.module.category" id="category_scoring">
-			<field name="name">Scoring</field>
-			<field name="sequence">20</field>
-		</record>
+
 	</data>
 </openerp>
