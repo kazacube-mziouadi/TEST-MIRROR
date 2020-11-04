@@ -1,8 +1,8 @@
 from openerp import models, fields, api, _
-from IntuizMapInterfaceMF import IntuizMapInterfaceMF
+from CreatableFromObjectTempInterfaceMF import CreatableFromObjectTempInterfaceMF
 
 
-class ResPartner(models.Model, IntuizMapInterfaceMF):
+class ResPartner(models.Model, CreatableFromObjectTempInterfaceMF):
     # Inherits partner
     _inherit = "res.partner"
 
@@ -16,11 +16,18 @@ class ResPartner(models.Model, IntuizMapInterfaceMF):
     # METHODS
     # ===========================================================================
 
-    def map_from_intuiz(self, data):
-        self.score_mf = 50.
-        self.name = "name from intuiz"
-        self.street = "street from intuiz"
-        self.city = "city from intuiz"
-        self.zip = "zip from intuiz"
-        self.website = "website from intuiz"
-        self.phone = "phone from intuiz"
+    @staticmethod
+    def create_from_object_temp(self, res_partner_temp, generate_reference=True):
+        # As the method is static, "self" is not a ResPartner here, but the "self" of the class using this method.
+        object_partner = {
+            "name": res_partner_temp.name,
+            "score_mf": res_partner_temp.score_mf,
+            "street": res_partner_temp.street_mf,
+            "city": res_partner_temp.city_mf,
+            "zip": res_partner_temp.zip_mf,
+            "is_customer": True,
+            "siret_number": res_partner_temp.siret_mf
+        }
+        if generate_reference:
+            object_partner["reference"] = self.env['ir.sequence'].get('res.partner')
+        return object_partner

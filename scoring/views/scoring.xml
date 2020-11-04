@@ -15,7 +15,7 @@
 				<xpath expr="//page[@name='transport_partner_page']" position="after">
 					<page string="Score" name="score.mf">
 						<field name="score_history_mf" nolabel="1">
-							<!-- Surchage de la three view pour les score -->
+							<!-- Surcharge de la tree view pour les scores -->
 							<tree string="Liste des personnes" editable="bottom">
 								<field name="score_cent_mf" />
 								<field name="date_mf" />
