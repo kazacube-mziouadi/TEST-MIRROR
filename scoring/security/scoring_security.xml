@@ -14,6 +14,7 @@
 		<!-- Category -->
 		<record model="ir.module.category" id="category_scoring">
 			<field name="name">Scoring</field>
+			<field name="sequence">20</field>
 		</record>
 	</data>
 </openerp>
