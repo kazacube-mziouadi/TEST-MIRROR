@@ -18,7 +18,7 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
     def default_get(self, fields_list):
         res = super(WizardPartnerImportIntuizResultMF, self).default_get(fields_list=fields_list)
         intuiz_api_identity = self.env["intuiz.api.identity.mf"].create({})
-        res_partner_temps = intuiz_api_identity.getPartnersTemp(self.env.context.get('where'), self.env.context.get('who'))
+        res_partner_temps = intuiz_api_identity.get_partners_temp(self.env.context.get('where'), self.env.context.get('who'))
         res["res_partner_temps"] = res_partner_temps
         return res
 
@@ -27,7 +27,6 @@ class WizardPartnerImportIntuizResultMF(models.TransientModel):
         for partner_temp in self.res_partner_temps:
             if partner_temp.selected_mf:
                 partner = self.env["res.partner"].create(ResPartner.create_from_object_temp(self, partner_temp))
-                print(partner)
                 intuiz_api_risk = self.env["intuiz.api.risk.mf"].create({})
                 intuiz_api_risk.get_score_history(partner)
 

@@ -1,7 +1,8 @@
 from openerp import models, fields, api, _
+from CreatableFromObjectTempInterfaceMF import CreatableFromObjectTempInterfaceMF
 
 
-class ResPartnerTempMF(models.TransientModel):
+class ResPartnerTempMF(models.TransientModel, CreatableFromObjectTempInterfaceMF):
     # Inherits partner
     _name = "res.partner.temp.mf"
     _log_access = True
@@ -18,3 +19,16 @@ class ResPartnerTempMF(models.TransientModel):
     siret_mf = fields.Char(string='SIRET', size=64, required=False, help='')
     selected_mf = fields.Boolean(string='Selected', default=False)
 
+    # ===========================================================================
+    # METHODS
+    # ===========================================================================
+
+    @staticmethod
+    def create_from_object_temp(partner_temp_api):
+        return {
+            "name": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}raisonSociale").text,
+            "street_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}rue").text,
+            "city_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}ville").text,
+            "zip_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}codePostal").text,
+            "siret_mf": partner_temp_api.find("{http://vo.callisto.newsys.altares.fr/xsd}siret").text
+        }

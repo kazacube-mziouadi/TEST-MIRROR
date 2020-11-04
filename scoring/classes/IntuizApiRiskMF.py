@@ -1,6 +1,7 @@
 from openerp import models, fields, api, _
 import xml.etree.ElementTree as ET
 from IntuizApiBodyRiskGetScoreHistoryMF import IntuizApiBodyRiskGetScoreHistoryMF
+from ScoreMF import ScoreMF
 from IntuizApiMF import IntuizApiMF
 
 
@@ -22,8 +23,4 @@ class IntuizApiRiskMF(models.TransientModel):
         score_history_api = element_my_info.findall("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreList")
 
         for score_api in score_history_api:
-            self.env["score.mf"].create({
-                "score_cent_mf": score_api.find("{http://risque.vo.callisto.newsys.altares.fr/xsd}scoreCent").text,
-                "date_mf": score_api.find("{http://risque.vo.callisto.newsys.altares.fr/xsd}dateValeur").text,
-                "partner_id_mf": partner.id
-            })
+            self.env["score.mf"].create(ScoreMF.create_from_object_temp(score_api, partner))
