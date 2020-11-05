@@ -1,12 +1,13 @@
 from openerp import models, fields, api, _
 
 class ScoreMF(models.Model):
-    _name="score.mf"
-    _description="history of partner's scores"
+    _name = "score.mf"
+    _description = "history of partner's scores"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
+    name = fields.Char(string="Name", size=64, required=False, help='')
     score_hundred_mf = fields.Integer(string="Score Hundred", required=True)
     score_twenty_mf = fields.Integer(string="Score Twenty", required=True)
     date_mf = fields.Date(string="Date", required=True)
