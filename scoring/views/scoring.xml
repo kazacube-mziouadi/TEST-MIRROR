@@ -24,7 +24,7 @@
 					<page string="Score" name="score.mf">
 						<field name="score_history_mf" mode="graph">
 							<!-- Graphique de visualisation des scores -->
-							<graph string="Partner's reliability score" type="line">
+							<graph string="Partner's reliability score" type="line" min_value="0">
 								<field name="score_hundred_mf" type="measure"/>
 								<field name="score_twenty_mf" type="measure"/>
 								<field name="date_mf" type="row"/>
