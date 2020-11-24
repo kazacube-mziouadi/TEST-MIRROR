@@ -16,7 +16,9 @@
     ],
     'data': [
         'views/scoring.xml',
-        'views/base_menus.xml'
+        'views/baseMenus.xml',
+        'security/scoringSecurity.xml',
+        'security/ir.model.access.csv'
     ],
     'qweb' : [],
     'demo': [],

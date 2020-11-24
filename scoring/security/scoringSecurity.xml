@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+	<data noupdate="0">
+		<!-- Category -->
+		<record model="ir.module.category" id="category_scoring">
+			<field name="name">Scoring</field>
+			<field name="sequence">17</field>
+		</record>
+		<!-- GROUP  -->
+		<record model="res.groups" id="scoring_user">
+			<field name="name">User</field>
+			<field name="category_id" ref="category_scoring"/>
+		</record>
+		<record model="res.groups" id="scoring_administrator">
+			<field name="name">Administrator</field>
+			<field name="category_id" ref="category_scoring"/>
+			<field name="implied_ids" eval="[(4, ref('scoring_user'))]"/>
+		</record>b
+	</data>
+</openerp>

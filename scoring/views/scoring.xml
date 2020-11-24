@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-        <!-- ========== -->
-		<!-- PARTNER    -->
-		<!-- ========== -->
+        <!-- =================== -->
+		<!-- PARTNER OVERWRITE   -->
+		<!-- =================== -->
+		<record id="partner_siret_number_mf" model="ir.ui.view">
+			<field name="name">partner_siret_number_mf</field>
+			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='lang']" position="after">
+					<field name="siret_number" />
+				</xpath>
+			</field>
+		</record>
+
         <record id="partner_score_mf" model="ir.ui.view">
 			<field name="name">partner_score_mf</field>
 			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
 			<field name="model">res.partner</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='lang']" position="after">
-					<field name="score_mf" />
+				<xpath expr="//page[@name='transport_partner_page']" position="after">
+					<page string="Score" name="score.mf">
+						<field name="score_history_mf" mode="graph">
+							<!-- Graphique de visualisation des scores -->
+							<graph string="Partner's reliability score" type="line" min_value="0">
+								<field name="score_hundred_mf" type="measure"/>
+								<field name="score_twenty_mf" type="measure"/>
+								<field name="date_mf" type="row"/>
+							</graph>
+						</field>
+					</page>
 				</xpath>
 			</field>
 		</record>
@@ -158,5 +178,36 @@
 	  	    target="new"
 			key2="client_action_multi"
 	  	    id="act_wizard_partner_refresh_intuiz_mf" />
+
+		<!-- ========================= -->
+		<!-- REFRESH FROM INTUIZ SCORE -->
+		<!-- ========================= -->
+
+		<!-- Modale affichée lors du clic sur "Refresh score from Intuiz" -->
+		<record id='view_form_wizard_partner_refresh_intuiz_score_mf' model='ir.ui.view'>
+            <field name="name">view_form_wizard_partner_refresh_intuiz_score_mf</field>
+            <field name="model">wizard.partner.refresh.intuiz.score.mf</field>
+            <field name="arch" type="xml">
+                <form string="Refresh Score from Intuiz" version="8.0">
+                    <group>
+						<field name="name"  attrs="{'invisible':[True]}" />
+                        <p>Le(s) client(s) a/ont bien été mis à jour.</p>
+                    </group>
+                    <footer>
+                        <button string="OK" class="oe_highlight" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<!-- Bouton d'action "Refresh from Intuiz" -->
+	  	<act_window
+	  	    name="Refresh score from Intuiz"
+	  	    res_model="wizard.partner.refresh.intuiz.score.mf"
+	  	    src_model="res.partner"
+	  	    view_mode="form"
+	  	    target="new"
+			key2="client_action_multi"
+	  	    id="act_wizard_partner_refresh_intuiz_score_mf" />
     </data>
 </openerp>

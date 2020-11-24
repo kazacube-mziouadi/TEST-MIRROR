@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_score_mf_scoring_user,access_score_mf_scoring_user,model_score_mf,scoring_user,1,0,0,0
+access_score_mf_scoring_administrator,access_score_mf_scoring_administrator,model_score_mf,scoring_administrator,1,1,1,1
