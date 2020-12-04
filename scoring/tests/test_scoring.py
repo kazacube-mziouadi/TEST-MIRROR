@@ -24,4 +24,4 @@ class test_scoring(TransactionCase):
                                                                   self.partner_model.siret_number)
         res_partner_temp = self.env["res.partner.temp.mf"].search([["id", "=", res_partner_temps[0]]], None, 1)
         self.partner_model.write(self.env["res.partner"].create_from_object_temp(self, res_partner_temp, False))
-        self.assertEquals(self.partner_model.zip, "38082", _("The SIRET isn't right"))
+        self.assertEquals(self.partner_model.zip, "38850", _("The ZIP isn't right"))
