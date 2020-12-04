@@ -9,6 +9,10 @@ class test_scoring(TransactionCase):
 
     def setUp(self):
         super(test_scoring, self).setUp()
+        self.env["intuiz.api.credentials.mf"].create({
+            "user_mf": "U2019004798",
+            "password_mf": "1Life2020*"
+        })
         self.partner_model = self.env["res.partner"].create({
             "name": "TEST_PARTNER",
             "zip": "38",
