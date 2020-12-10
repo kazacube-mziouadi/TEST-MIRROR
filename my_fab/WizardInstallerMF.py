@@ -10,7 +10,7 @@ class WizardInstallerMF(models.TransientModel):
     name = fields.Char(string="Name", size=32, required=False)
 
     def trigger_wizard(self, cr, uid, context=None):
-        print("WIZARD TRIGGERED MF")
+        pass
 
-    def action_validate_config(self):
+    def action_validate_config(self, cr, uid, context=None):
         pass
