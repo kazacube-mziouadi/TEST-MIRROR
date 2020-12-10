@@ -15,11 +15,7 @@ class myfab_installer(models.TransientModel):
     _name = 'myfab.installer'
     _inherit = 'res.config.installer'
 
-    def open_wizard(self, cr, uid, context=None):
-        return {
-            'name': _("MyFab Pre-Install Config"),
-            'view_mode': 'form',
-            'res_model': 'wizard.myfab.preinstall.config.mf',
-            'type': 'ir.actions.act_window',
-            'target': 'new'
-        }
+    # ===========================================================================
+    # COLUMNS
+    # ===========================================================================
+    name = fields.Char(string="Name", size=32, required=False)

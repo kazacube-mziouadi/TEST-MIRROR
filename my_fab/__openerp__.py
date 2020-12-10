@@ -17,7 +17,7 @@
     ],
     'data': [
         'myfab_pre_install.yml',
-        'WizardPreInstallConfigMF.xml'
+        'myfab_installer.xml'
     ],
     'qweb' : [],
     'demo': [],
