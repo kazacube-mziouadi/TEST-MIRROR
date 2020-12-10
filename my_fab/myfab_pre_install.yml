@@ -5,5 +5,5 @@
     print('TEST YML OK')
     modules = self.pool.get('ir.module.module')
     wizards = self.pool.get('ir.actions.todo')
-    wiz = wizards.browse(cr, uid, ref('my_fab.myfab_configuration_installer_todo'))
+    wiz = wizards.browse(cr, uid, ref('myfab.installer.myfab_configuration_installer_todo'))
     wiz.state = 'open'
