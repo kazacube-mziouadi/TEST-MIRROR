@@ -1,16 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import time
-import datetime
-from dateutil.relativedelta import relativedelta
+from openerp import models, fields, api, _
 
-import openerp
-from openerp import SUPERUSER_ID
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT as DF
-from openerp.tools.translate import _
-from openerp.osv import fields, osv
-
-class myfab_config_settings(osv.osv):
+class myfab_config_settings(models.Model):
     _name = 'myfab.config.settings'
     _inherit = 'res.config.settings'
 
@@ -20,6 +12,12 @@ class myfab_config_settings(osv.osv):
         # Hence we write on those fields here.
         print("CREATE MYFAB")
         return id
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(myfab_config_settings, self).default_get(fields_list=fields_list)
+        print("DEFAULT GET MYFAB")
+        return res
 
     def set_default_params(self, cr, uid, ids, context=None):
         """ set default sale and purchase taxes for products """
