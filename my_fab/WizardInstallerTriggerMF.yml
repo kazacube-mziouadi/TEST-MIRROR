@@ -3,4 +3,4 @@
 -
   !python {model: myfab.installer}: |
     print('TEST YML OK')
-    self.execute_simple(cr, uid)
+    self.trigger_wizard(cr, uid)

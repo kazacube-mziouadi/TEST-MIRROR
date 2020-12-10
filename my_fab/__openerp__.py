@@ -16,8 +16,8 @@
         # 'sale_purchase'
     ],
     'data': [
-        'myfab_pre_install.yml',
-        'myfab_installer.xml'
+        'WizardInstallerTriggerMF.yml',
+        'WizardInstallerMF.xml'
     ],
     'qweb' : [],
     'demo': [],

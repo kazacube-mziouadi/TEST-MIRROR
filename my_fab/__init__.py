@@ -1,1 +1,1 @@
-import myfab_installer
+import WizardInstallerMF
