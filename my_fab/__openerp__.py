@@ -15,7 +15,10 @@
         # 'partner_openprod',
         # 'sale_purchase'
     ],
-    'data': ['myfab_pre_install.yml'],
+    'data': [
+        'myfab_pre_install.yml',
+        'WizardPreInstallConfigMF.xml'
+    ],
     'qweb' : [],
     'demo': [],
     'test': [],

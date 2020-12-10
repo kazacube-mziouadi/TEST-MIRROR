@@ -1,2 +1,2 @@
-import installer
-import res_config
+import myfab_installer
+import WizardPreInstallConfigMF

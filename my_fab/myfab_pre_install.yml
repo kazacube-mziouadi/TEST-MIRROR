@@ -2,4 +2,5 @@
   MyFab pre-install config
 -
   !python {model: myfab.installer}: |
-    self.open_wizard()
+    print('TEST YML OK')
+    self.open_wizard(cr, uid)
