@@ -13,7 +13,7 @@
                 </form>
                 <footer position="replace">
                     <footer>
-                      <button name="action_next" type="object" string="Continue" class="oe_highlight"/>
+                      <button name="action_validate_config" type="object" string="Continue" class="oe_highlight"/>
                     </footer>
                 </footer>
                 <separator name="title" position="replace">

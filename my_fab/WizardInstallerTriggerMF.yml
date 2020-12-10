@@ -2,5 +2,4 @@
   MyFab pre-install config
 -
   !python {model: myfab.installer.mf}: |
-    print('TEST YML OK')
     self.trigger_wizard(cr, uid)
