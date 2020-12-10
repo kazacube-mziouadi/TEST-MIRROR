@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+        <!-- =========================== -->
+		<!-- MYFAB PRE-INSTALL CONFIG    -->
+		<!-- =========================== -->
+
+		<!-- Modale affichée lors de l'installation de MyFab -->
+		<record id='view_form_wizard_myfab_preinstall_config' model='ir.ui.view'>
+            <field name="name">view_form_wizard_myfab_preinstall_config</field>
+            <field name="model">wizard.myfab.preinstall.config</field>
+            <field name="arch" type="xml">
+                <form string="Import from Intuiz" version="8.0">
+					<p>MyFab Pre-Install TEST</p>
+                    <field name="name"/>
+                    <footer>
+                        <button
+								name="button_return_wizard_search_result"
+								string="Search"
+								type="object"
+								class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
