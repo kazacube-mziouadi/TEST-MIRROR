@@ -13,7 +13,6 @@ _logger = logging.getLogger(__name__)
 
 class myfab_installer(models.TransientModel):
     _name = 'myfab.installer'
-    _inherit = 'res.config.installer'
 
     # ===========================================================================
     # COLUMNS

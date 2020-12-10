@@ -1,2 +1,1 @@
 import myfab_installer
-import WizardPreInstallConfigMF
