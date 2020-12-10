@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+        <record id="view_myfab_configuration_installer" model="ir.ui.view">
+            <field name="name">myfab.installer.form</field>
+            <field name="model">myfab.installer</field>
+            <field name="inherit_id" ref="base.res_config_installer"/>
+            <field name="arch" type="xml">
+                <p>TEST MYFAB INSTALLER</p>
+            </field>
+        </record>
+
+        <record id="action_myfab_configuration_installer" model="ir.actions.act_window">
+            <field name="name">Configure Accounting Data</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">myfab.installer</field>
+            <field name="view_id" ref="view_myfab_configuration_installer"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="myfab_configuration_installer_todo" model="ir.actions.todo">
+            <field name="action_id" ref="action_myfab_configuration_installer"/>
+            <field name="sequence">3</field>
+            <field name="type">automatic</field>
+        </record>
+
+    </data>
+</openerp>

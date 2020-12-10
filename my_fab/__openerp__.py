@@ -15,7 +15,7 @@
         # 'partner_openprod',
         # 'sale_purchase'
     ],
-    'data': [],
+    'data': ['myfab_pre_install.yml'],
     'qweb' : [],
     'demo': [],
     'test': [],
