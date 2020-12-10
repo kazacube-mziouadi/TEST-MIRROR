@@ -12,5 +12,5 @@ class WizardInstallerMF(models.TransientModel):
     def trigger_wizard(self, cr, uid, context=None):
         pass
 
-    def action_validate_config(self, cr, uid, context=None):
+    def action_validate_config(self, cr, uid, context=None, view_type='form'):
         pass
