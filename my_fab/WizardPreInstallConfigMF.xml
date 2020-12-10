@@ -7,7 +7,7 @@
 		<!-- Modale affichée lors de l'installation de MyFab -->
 		<record id='view_form_wizard_myfab_preinstall_config' model='ir.ui.view'>
             <field name="name">view_form_wizard_myfab_preinstall_config</field>
-            <field name="model">wizard.myfab.preinstall.config</field>
+            <field name="model">wizard.myfab.preinstall.config.mf</field>
             <field name="arch" type="xml">
                 <form string="Import from Intuiz" version="8.0">
 					<p>MyFab Pre-Install TEST</p>

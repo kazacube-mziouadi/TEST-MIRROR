@@ -19,7 +19,7 @@ class myfab_installer(models.TransientModel):
         return {
             'name': _("MyFab Pre-Install Config"),
             'view_mode': 'form',
-            'res_model': 'wizard.partner.import.intuiz.result.mf',
+            'res_model': 'wizard.myfab.preinstall.config.mf',
             'type': 'ir.actions.act_window',
             'target': 'new'
         }
