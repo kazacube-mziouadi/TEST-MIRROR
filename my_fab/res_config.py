@@ -2,12 +2,13 @@
 
 from openerp import models, fields, api, _
 
-class myfab_config_settings(models.Model):
+class my_fab_config_settings(models.TransientModel):
     _name = 'myfab.config.settings'
     _inherit = 'res.config.settings'
 
+    @api.model
     def create(self, cr, uid, values, context=None):
-        id = super(myfab_config_settings, self).create(cr, uid, values, context)
+        id = super(my_fab_config_settings, self).create(cr, uid, values, context)
         # Hack: to avoid some nasty bug, related fields are not written upon record creation.
         # Hence we write on those fields here.
         print("CREATE MYFAB")
@@ -15,7 +16,7 @@ class myfab_config_settings(models.Model):
 
     @api.model
     def default_get(self, fields_list):
-        res = super(myfab_config_settings, self).default_get(fields_list=fields_list)
+        res = super(my_fab_config_settings, self).default_get(fields_list=fields_list)
         print("DEFAULT GET MYFAB")
         return res
 
@@ -28,6 +29,3 @@ class myfab_config_settings(models.Model):
 
     def set_default_dp(self, cr, uid, ids, context=None):
         print("SET DEFAULT DP")
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
