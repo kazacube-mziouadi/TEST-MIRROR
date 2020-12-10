@@ -3,7 +3,4 @@
 -
   !python {model: myfab.installer}: |
     print('TEST YML OK')
-    modules = self.pool.get('ir.module.module')
-    wizards = self.pool.get('ir.actions.todo')
-    wiz = wizards.browse(cr, uid, ref('myfab.installer.myfab_configuration_installer_todo'))
-    wiz.state = 'open'
+    self.execute_simple(cr, uid)

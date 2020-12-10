@@ -19,3 +19,10 @@ class myfab_installer(models.TransientModel):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=32, required=False)
+
+    def execute_simple(self, cr, uid, context=None):
+        print("EXECUTE SIMPLE")
+        # modules = self.pool.get('ir.module.module')
+        # wizards = self.pool.get('ir.actions.todo')
+        # wiz = wizards.browse(cr, uid, ref('myfab.installer.myfab_configuration_installer_todo'))
+        # wiz.state = 'open'
