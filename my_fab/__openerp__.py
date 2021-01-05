@@ -17,7 +17,8 @@
     ],
     'data': [
         'WizardInstallerTriggerMF.yml',
-        'WizardInstallerMF.xml'
+        'WizardInstallerMF.xml',
+        'views/modules.xml'
     ],
     'qweb' : [],
     'demo': [],

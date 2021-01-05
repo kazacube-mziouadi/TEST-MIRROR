@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- =================== -->
+		<!-- FILTERS OVERWRITE   -->
+		<!-- =================== -->
+        <record id="view_module_filter_my_fab_only" model="ir.ui.view">
+			<field name="name">view_module_filter_my_fab_only</field>
+			<field name="inherit_id" ref="base.view_module_filter" />
+			<field name="model">ir.module.module</field>
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@name='not_obsolete']" position="after">
+                    <filter name="my_fab_only" string="MyFab only" domain="[('author', '=', 'MyFab')]"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- Filtre applique par defaut -->
+		<record id="base.open_module_tree" model="ir.actions.act_window">
+			<field name="search_view_id" ref="base.view_module_filter"/>
+			<field name="context">{'search_default_my_fab_only': 1}</field>
+		</record>
+
+		<record id="base.open_all_module_tree" model="ir.actions.act_window">
+			<field name="search_view_id" ref="base.view_module_filter"/>
+			<field name="context">{'search_default_my_fab_only': 1}</field>
+		</record>
+    </data>
+</openerp>
