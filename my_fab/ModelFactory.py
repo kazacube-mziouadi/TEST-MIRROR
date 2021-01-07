@@ -1,4 +1,5 @@
 from openerp import models, fields, api, _
+from psycopg2 import DatabaseError
 
 
 class ModelFactory(models.TransientModel):
@@ -19,6 +20,10 @@ class ModelFactory(models.TransientModel):
             object_elem = {}
             for j in range(len(array[i])):
                 object_elem[column_names[j]] = array[i][j]
-
-            self.env[model_name].create(object_elem)
             i += 1
+            try:
+                self.env[model_name].create(object_elem)
+                self.env.cr.commit()
+            except DatabaseError:
+                self.env.cr.rollback()
+                continue
