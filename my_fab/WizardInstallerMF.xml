@@ -11,17 +11,16 @@
                 <form position="attributes">
                     <attribute name="string">MyFab Pre-Install Config</attribute>
                 </form>
+                <separator name="title" position="replace">
+                    <field name="name" class="oe_inline"/>
+                    <field type="file" id-attf-id="file_#{_id}"
+                       name="file" class="oe_import_file" accept=".csv, .xls, .xlsx, .ods"/>
+                </separator>
                 <footer position="replace">
                     <footer>
-                      <button name="action_validate_config" type="object" string="Continue" class="oe_highlight"/>
+                        <button name="action_validate_config" type="object" string="Continue" class="oe_highlight"/>
                     </footer>
                 </footer>
-                <separator name="title" position="replace">
-                    <p class="oe_grey">
-                        MyFab pre-install config test
-                    </p>
-                    <field name="name" class="oe_inline"/>
-                </separator>
             </field>
         </record>
 
