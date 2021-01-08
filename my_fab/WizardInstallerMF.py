@@ -19,6 +19,7 @@ class WizardInstallerMF(models.TransientModel):
 
     @api.multi
     def action_validate_config(self):
+        print(self.file)
         csv_file_decoded = base64.b64decode(self.file)
         csv_reader = csv.reader(csv_file_decoded.split('\n'), delimiter=',', quotechar='"')
         self.env["model.factory.mf"].create_from_array(list(csv_reader), "res.country")

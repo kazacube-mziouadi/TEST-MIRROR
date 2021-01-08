@@ -18,7 +18,8 @@
     'data': [
         'WizardInstallerTriggerMF.yml',
         'WizardInstallerMF.xml',
-        'views/modules.xml'
+        'views/modules.xml',
+        'views/my_fab_web.xml'
     ],
     'qweb' : [],
     'demo': [],

@@ -13,8 +13,11 @@
                 </form>
                 <separator name="title" position="replace">
                     <field name="name" class="oe_inline"/>
-                    <field type="file" id-attf-id="file_#{_id}"
-                       name="file" class="oe_import_file" accept=".csv, .xls, .xlsx, .ods"/>
+                    <field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field"
+                       name="file" class="oe_import_file my_fab_drag_and_drop" accept=".csv, .xls, .xlsx, .ods"/>
+                    <div class="drag_and_drop_area">
+                        <p>Glissez un fichier .csv ici.</p>
+                    </div>
                 </separator>
                 <footer position="replace">
                     <footer>
