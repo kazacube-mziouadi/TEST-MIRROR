@@ -12,8 +12,8 @@
     'images' : [],
     'depends' : [
         'base_setup',
-        # 'partner_openprod',
-        # 'sale_purchase'
+        'base_openprod',
+        # TODO : compta + MRP
     ],
     'data': [
         'WizardInstallerTriggerMF.yml',

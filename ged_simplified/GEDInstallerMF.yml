@@ -1,0 +1,5 @@
+-
+  MyFab pre-install config
+-
+  !python {model: ged.installer.mf}: |
+    self.trigger_installer(cr, uid)

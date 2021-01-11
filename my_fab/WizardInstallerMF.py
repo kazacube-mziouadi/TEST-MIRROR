@@ -14,12 +14,11 @@ class WizardInstallerMF(models.TransientModel):
     name = fields.Char(string="Name", size=32, required=False)
     file = fields.Binary(string='File', required=False, ondelete='restrict')
 
-    def trigger_wizard(self, cr, uid, context=None):
+    @api.model
+    def trigger_wizard(self):
         pass
-
     @api.multi
     def action_validate_config(self):
-        print(self.file)
         csv_file_decoded = base64.b64decode(self.file)
         csv_reader = csv.reader(csv_file_decoded.split('\n'), delimiter=',', quotechar='"')
         self.env["model.factory.mf"].create_from_array(list(csv_reader), "res.country")
