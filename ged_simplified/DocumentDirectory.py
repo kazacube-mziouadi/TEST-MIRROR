@@ -10,6 +10,7 @@ class DocumentDirectory(models.Model):
     # COLUMNS
     # ===========================================================================
 
+    @api.multi
     def put_documents(self, documents):
         for document in documents:
             if document.directory_id != self:
