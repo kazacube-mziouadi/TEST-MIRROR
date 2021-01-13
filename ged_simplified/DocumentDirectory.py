@@ -13,6 +13,8 @@ class DocumentDirectory(models.Model):
 
     def put_documents(self, documents):
         print("####DocumentDirectory::put_document - in")
+        print(self)
+        print(documents)
         for document in documents:
             print("########DocumentDirectory::put_document - for : " + document.name)
             if document.directory_id != self:
