@@ -40,9 +40,10 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        self.write({
-            "directory_id_mf": partner_directory.id
-        })
+        # self.write({
+        #     "directory_id_mf": partner_directory.id
+        # })
+        self.compute_directory(partner_directory)
         return partner_directory
 
     def put_documents_in_current_directory(self):
