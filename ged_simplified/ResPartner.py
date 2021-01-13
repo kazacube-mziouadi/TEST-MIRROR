@@ -46,10 +46,7 @@ class ResPartner(models.Model):
         return partner_directory
 
     def put_documents_in_current_directory(self):
-        print("*********res.partner::put_documents_in_current_directory*******")
-        print(self.directory_id_mf)
-        print(self.directory_id_mf.name)
-        self.directory_id_mf.put_documents(self.partner_doc_ids())
+        self.directory_id_mf.put_documents(self.partner_doc_ids)
         pass
 
     def index_documents_in_current_directory(self):
