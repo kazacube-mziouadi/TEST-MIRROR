@@ -49,7 +49,7 @@ class DocumentOpenProd(models.Model):
                 self._uid,
                 self._uid,
                 self._uid,
-                self.env.company.id,
+                self.env.user.company_id.id,
                 "draft"
             )
         )
