@@ -36,10 +36,10 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        # self.write({
-        #     "directory_id_mf": partner_directory.id
-        # })
-        self.compute_directory(partner_directory)
+        self.write({
+            "directory_id_mf": partner_directory.id
+        })
+        # self.compute_directory(partner_directory)
         return partner_directory
 
     def put_documents_in_current_directory(self):
@@ -57,7 +57,7 @@ class ResPartner(models.Model):
         self.create_directory()
         return res
 
-    @api.model
+    @api.one
     def write(self, vals):
         res = super(ResPartner, self).write(vals=vals)
         if "directory_id_mf" in vals:
