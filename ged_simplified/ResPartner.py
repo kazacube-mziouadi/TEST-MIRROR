@@ -57,7 +57,7 @@ class ResPartner(models.Model):
         self.create_directory()
         return res
 
-    @api.multi
+    @api.model
     def write(self, vals):
         res = super(ResPartner, self).write(vals=vals)
         if "directory_id_mf" in vals:
