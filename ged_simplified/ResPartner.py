@@ -11,6 +11,17 @@ class ResPartner(models.Model):
     # ===========================================================================
     directory_id_mf = fields.Many2one("document.directory", string="Directory")
 
+    def compute_directory(self, directory):
+        self.env.cr.execute('''
+                        UPDATE
+                            res_partner
+                        SET
+                            directory_id_mf = %s
+                        WHERE
+                             id = %s
+                    ''' % (
+        directory.id, partner_rc.id))
+
     def create_directory(self):
         if self.directory_id_mf:
             return self.directory_id_mf
@@ -25,10 +36,7 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        self.write({
-            "directory_id_mf": partner_directory.id,
-            "country_id": self.country.id
-        })
+        self.compute_directory(directory)
         return partner_directory
 
     def put_documents_in_current_directory(self):
