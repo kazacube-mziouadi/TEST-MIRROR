@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
-
+from os import walk, path
 
 class ResPartner(models.Model):
     # Inherits res.partner
@@ -46,12 +46,30 @@ class ResPartner(models.Model):
         self.directory_id_mf.put_documents(self.partner_doc_ids)
 
     def index_documents_in_current_directory(self):
-        # TODO: put file in BDD
-        pass
+        indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
+        indexed_files_names = map(lambda indexed_file: indexed_file.name + '.' + indexed_file.extension, indexed_files)
+        directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
+        for root, dirs, files in walk(directory_path):
+            for filename in files:
+                if filename not in indexed_files_names:
+                    document_path = path.join(directory_path, filename)
+                    print(document_path)
+                    with open(document_path, 'r') as f:
+                        file_content = f.read().encode('base64')
+                    filename_split = filename.split('.')
+                    file_attributes = {
+                        "name": filename_split[0],
+                        "extension": filename_split[1],
+                        "index_content": file_content,
+                        "full_path": document_path,
+                        "directory_id": self.directory_id_mf.id
+                    }
+                    self.env["document.openprod"].compute_link_document(file_attributes)
 
     @api.one
     def write(self, vals):
         self.create_directory()
         res = super(ResPartner, self).write(vals=vals)
         self.put_documents_in_current_directory()
+        self.index_documents_in_current_directory()
         return res

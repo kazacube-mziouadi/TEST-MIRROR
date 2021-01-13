@@ -1,3 +1,4 @@
 import GEDInstallerMF
 import ResPartner
 import DocumentDirectory
+import DocumentOpenProd
