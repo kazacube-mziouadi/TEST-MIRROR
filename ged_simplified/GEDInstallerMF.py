@@ -15,7 +15,7 @@ class GEDInstallerMF(models.TransientModel):
         root_directory = self.env["document.directory"].search([], None, 1)
         partners_directory = self.env["document.directory"].search([["name", "=", "Partners"]], None, 1)
         if not partners_directory:
-            partners_directory = self.env["document.directory"].create({
+            self.env["document.directory"].create({
                 "name": "Partners",
                 "model_directory": True,
                 "root_directory": False,
@@ -25,12 +25,8 @@ class GEDInstallerMF(models.TransientModel):
         partners = self.env["res.partner"].search([])
 
         for partner in partners:
-            partner_directory = partner.directory_id_mf
-            for document in partner.partner_doc_ids:
-                if document.directory_id != partner_directory:
-                    document.write({
-                        "directory_id": partner_directory.id
-                    })
+            partner.create_directory()
+            partner.put_documents_in_current_directory()
 
 
 

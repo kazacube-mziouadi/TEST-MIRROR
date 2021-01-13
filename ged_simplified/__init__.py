@@ -1,2 +1,3 @@
 import GEDInstallerMF
 import ResPartner
+import DocumentDirectory

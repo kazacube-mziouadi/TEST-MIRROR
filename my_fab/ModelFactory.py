@@ -10,7 +10,7 @@ class ModelFactory(models.TransientModel):
     # ===========================================================================
     name = fields.Char(string='Name', size=64, required=False, help='')
 
-    def create_from_array(self, array, model_name):
+    def create_from_array(self, array, model_name, convert=[]):
         if len(array) < 1:
             return
 
@@ -19,6 +19,7 @@ class ModelFactory(models.TransientModel):
         while i < len(array):
             object_elem = {}
             for j in range(len(array[i])):
+                # Conversion de la valeur si besoin
                 object_elem[column_names[j]] = array[i][j]
             i += 1
             try:
@@ -27,3 +28,7 @@ class ModelFactory(models.TransientModel):
             except DatabaseError:
                 self.env.cr.rollback()
                 continue
+
+    def convert(self, model_name, column_name_origin, column_origin_value, column_name_destination):
+        model = self.env[model_name].search([[column_name_origin, "=", column_origin_value]], None, 1)
+        return model[column_name_destination]

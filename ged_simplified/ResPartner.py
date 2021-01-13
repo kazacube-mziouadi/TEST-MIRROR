@@ -3,18 +3,17 @@ from openerp import models, fields, api, _
 
 
 class ResPartner(models.Model):
-    # Inherits document.openprod
+    # Inherits res.partner
     _inherit = "res.partner"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    _directory_id_mf = fields.Many2one("document.directory", string="Directory")
+    directory_id_mf = fields.Many2one("document.directory", string="Directory")
 
-    @property
-    def directory_id_mf(self):
-        if self._directory_id_mf:
-            return self._directory_id_mf
+    def create_directory(self):
+        if self.directory_id_mf:
+            return self.directory_id_mf
         partner_directory_name = self.name
         partners_directory = self.env["document.directory"].search([["name", "=", "Partners"]], None, 1)
         partner_directory = self.env["document.directory"].search([["name", "=", partner_directory_name]], None, 1)
@@ -26,18 +25,28 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        print(partner_directory.id)
-        # self.directory_id_mf = partner_directory.id
+            # TODO: Associer l'id du directory au partner
+            self.write({
+                "directory_id_mf": partner_directory.id,
+            })
         return partner_directory
 
-    @directory_id_mf.setter
-    def directory_id_mf(self, directory_id):
-        self._directory_id_mf = directory_id
-        # self.write({
-        #     "_directory_id_mf": directory_id
-        # })
+    def put_documents_in_current_directory(self):
+        self.directory_id.put_documents(self.partner_doc_ids())
+
+    def index_documents_in_current_directory(self):
+        # TODO: put file in BDD
+        pass
+
 
     @api.model
     def create(self, vals):
-        vals["_directory_id_mf"] = self.directory_id_mf.id
+        vals["directory_id_mf"] = self.directory_id_mf.id
         return super(ResPartner, self).create(vals=vals)
+
+    @api.multi
+    def write(self, vals):
+        res = super(ResPartner, self).create(vals=vals)
+        if "directory_id_mf" in vals:
+            self.put_documents_in_current_directory()
+        return res
