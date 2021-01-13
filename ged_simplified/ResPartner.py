@@ -22,10 +22,13 @@ class ResPartner(models.Model):
                     ''' % (
         directory.id, self.id))
 
-    def create_directory(self, name=self.name):
+    def create_directory(self, name=None):
         if self.directory_id_mf:
             return self.directory_id_mf
-        partner_directory_name = name
+        if not name:
+            partner_directory_name = self.name
+        else:
+            partner_directory_name = name
         partners_directory = self.env["document.directory"].search([["name", "=", "Partners"]], None, 1)
         partner_directory = self.env["document.directory"].search([["name", "=", partner_directory_name]], None, 1)
         if not partner_directory:
