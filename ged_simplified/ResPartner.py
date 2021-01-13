@@ -25,8 +25,10 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
+        country = self.env["res.country"].search([["name", "=", "France"]], None, 1)
         self.write({
             "directory_id_mf": partner_directory.id,
+            "country_id": country.id
         })
         return partner_directory
 
