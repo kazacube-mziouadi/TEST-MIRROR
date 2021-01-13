@@ -20,7 +20,7 @@ class ResPartner(models.Model):
                         WHERE
                              id = %s
                     ''' % (
-        directory.id, partner_rc.id))
+        directory.id, self.id))
 
     def create_directory(self):
         if self.directory_id_mf:
