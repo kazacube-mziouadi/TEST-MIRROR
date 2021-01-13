@@ -46,7 +46,7 @@ class ResPartner(models.Model):
 
     def put_documents_in_current_directory(self):
         print("####ResPartner::put_documents_in_current_directory - in")
-        print(self)
+        print(self.name)
         # documents = self.env["documents.openprod"].search([["partner_id", "=", self.id]])
         self.directory_id_mf.put_documents(self.partner_doc_ids)
         pass
