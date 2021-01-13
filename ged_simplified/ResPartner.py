@@ -23,6 +23,7 @@ class ResPartner(models.Model):
         directory.id, self.id))
 
     def create_directory(self, name=None):
+        print("####ResPartner::create_directory - in")
         if self.directory_id_mf:
             return self.directory_id_mf
         if not name:
@@ -46,8 +47,8 @@ class ResPartner(models.Model):
 
     def put_documents_in_current_directory(self):
         print("####ResPartner::put_documents_in_current_directory - in")
+        print(self.name)
         self.directory_id_mf.put_documents(self.partner_doc_ids)
-        pass
 
     def index_documents_in_current_directory(self):
         # TODO: put file in BDD
@@ -62,6 +63,7 @@ class ResPartner(models.Model):
 
     @api.one
     def write(self, vals):
+        print("####ResPartner::write - in")
         res = super(ResPartner, self).write(vals=vals)
         self.put_documents_in_current_directory()
         return res
