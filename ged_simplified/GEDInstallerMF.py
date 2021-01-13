@@ -10,7 +10,7 @@ class GEDInstallerMF(models.TransientModel):
     # ===========================================================================
     name = fields.Char(string="Name", size=32, required=False)
 
-    @api.model
+    @api.multi
     def trigger_installer(self):
         root_directory = self.env["document.directory"].search([], None, 1)
         partners_directory = self.env["document.directory"].search([["name", "=", "Partners"]], None, 1)
