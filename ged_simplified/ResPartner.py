@@ -25,14 +25,14 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-            # TODO: Associer l'id du directory au partner
-            # self.write({
-            #     "directory_id_mf": partner_directory.id,
-            # })
+        self.write({
+            "directory_id_mf": partner_directory.id,
+        })
         return partner_directory
 
     def put_documents_in_current_directory(self):
-        self.directory_id.put_documents(self.partner_doc_ids())
+        self.directory_id_mf.put_documents(self.partner_doc_ids())
+        # pass
 
     def index_documents_in_current_directory(self):
         # TODO: put file in BDD
@@ -41,8 +41,10 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
-        vals["directory_id_mf"] = self.create_directory.id
-        return super(ResPartner, self).create(vals=vals)
+        res = super(ResPartner, self).create(vals=vals)
+        directory = self.create_directory()
+        res["directory_id_mf"] = directory.id
+        return res
 
     @api.multi
     def write(self, vals):
