@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
-from os import walk, path
 import time
+import os
 from datetime import datetime
 
 class DocumentOpenProd(models.Model):
