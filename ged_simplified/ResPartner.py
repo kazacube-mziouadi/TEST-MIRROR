@@ -22,10 +22,10 @@ class ResPartner(models.Model):
                     ''' % (
         directory.id, self.id))
 
-    def create_directory(self):
+    def create_directory(self, name=self.name):
         if self.directory_id_mf:
             return self.directory_id_mf
-        partner_directory_name = self.name
+        partner_directory_name = name
         partners_directory = self.env["document.directory"].search([["name", "=", "Partners"]], None, 1)
         partner_directory = self.env["document.directory"].search([["name", "=", partner_directory_name]], None, 1)
         if not partner_directory:
@@ -54,10 +54,7 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         res = super(ResPartner, self).create(vals=vals)
-        print("******res.partner::create*********")
-        print(vals)
-        self.env.cr.commit()
-        self.create_directory()
+        self.create_directory(vals["name"])
         return res
 
     @api.one
