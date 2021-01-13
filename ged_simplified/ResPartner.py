@@ -60,13 +60,13 @@ class ResPartner(models.Model):
     def create(self, vals):
         print("####ResPartner::create - in")
         res = super(ResPartner, self).create(vals=vals)
-        self.create_directory(vals["name"])
+        # self.create_directory(vals["name"])
         return res
 
     @api.one
     def write(self, vals):
         print("####ResPartner::write - in")
-        self.create_directory()
+        self.create_directory(vals["name"])
         res = super(ResPartner, self).write(vals=vals)
         self.put_documents_in_current_directory()
         return res
