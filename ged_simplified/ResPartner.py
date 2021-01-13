@@ -54,6 +54,8 @@ class ResPartner(models.Model):
     @api.model
     def create(self, vals):
         res = super(ResPartner, self).create(vals=vals)
+        print("******res.partner::create*********")
+        print(self)
         self.create_directory()
         return res
 
