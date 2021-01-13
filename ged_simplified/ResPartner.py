@@ -55,7 +55,7 @@ class ResPartner(models.Model):
     def create(self, vals):
         res = super(ResPartner, self).create(vals=vals)
         print("******res.partner::create*********")
-        print(self)
+        print(vals)
         self.env.cr.commit()
         self.create_directory()
         return res
