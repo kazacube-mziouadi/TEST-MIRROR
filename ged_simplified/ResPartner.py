@@ -56,7 +56,7 @@ class ResPartner(models.Model):
                 if filename not in indexed_files_names:
                     document_path = path.join(directory_path, filename)
                     print(document_path)
-                    self.env["document.openprod"].compute_link_document(document_path)
+                    self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
 
     @api.one
     def write(self, vals):

@@ -8,7 +8,7 @@ class DocumentOpenProd(models.Model):
     # Inherits document.directory
     _inherit = "document.openprod"
 
-    def compute_link_document(self, document_path):
+    def compute_link_document(self, document_path, directory):
         created_timestamp = time.ctime(os.path.getctime(document_path))
         last_modified_timestamp = time.ctime(os.path.getmtime(document_path))
         month_number = datetime.fromtimestamp(os.path.getmtime(document_path)).strftime('%m')
@@ -25,7 +25,7 @@ class DocumentOpenProd(models.Model):
             "extension": filename_split[1],
             "index_content": file_content,
             "full_path": document_path,
-            "directory_id": self.directory_id_mf.id,
+            "directory_id": directory.id,
             "create_date": created_timestamp,
             "write_date": last_modified_timestamp,
             "month": month_number,
