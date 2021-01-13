@@ -11,8 +11,8 @@ class DocumentOpenProd(models.Model):
     def compute_link_document(self, document_path):
         created_timestamp = time.ctime(os.path.getctime(document_path))
         last_modified_timestamp = time.ctime(os.path.getmtime(document_path))
-        month_number = datetime.fromtimestamp(last_modified_timestamp).strftime('%m')
-        year_number = datetime.fromtimestamp(last_modified_timestamp).strftime('%Y')
+        month_number = datetime.fromtimestamp(os.path.getmtime(document_path)).strftime('%m')
+        year_number = datetime.fromtimestamp(os.path.getmtime(document_path)).strftime('%Y')
         print("last modified: %s" % time.ctime(os.path.getmtime(document_path)))
         print("created: %s" % time.ctime(os.path.getctime(document_path)))
         print(document_path)
