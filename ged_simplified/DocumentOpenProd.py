@@ -16,6 +16,7 @@ class DocumentOpenProd(models.Model):
         print("last modified: %s" % time.ctime(os.path.getmtime(document_path)))
         print("created: %s" % time.ctime(os.path.getctime(document_path)))
         print(document_path)
+        filename = os.path.basename(document_path)
         with open(document_path, 'r') as f:
             file_content = f.read()
         filename_split = filename.split('.')
