@@ -13,7 +13,8 @@
     'depends' : [
         'base_setup',
         'base_openprod',
-        # TODO : compta + MRP
+        'l10n_fr',
+        'mrp'
     ],
     'data': [
         'WizardInstallerTriggerMF.yml',

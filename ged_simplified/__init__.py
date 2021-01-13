@@ -1,1 +1,2 @@
 import GEDInstallerMF
+import ResPartner
