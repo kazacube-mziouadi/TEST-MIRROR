@@ -36,7 +36,7 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        self.compute_directory(directory)
+        self.compute_directory(partner_directory)
         return partner_directory
 
     def put_documents_in_current_directory(self):
