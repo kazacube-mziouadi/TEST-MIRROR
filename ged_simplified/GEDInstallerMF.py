@@ -26,7 +26,7 @@ class GEDInstallerMF(models.TransientModel):
 
         for partner in partners:
             partner.create_directory()
-            # partner.put_documents_in_current_directory()
+            partner.put_documents_in_current_directory()
 
 
 
