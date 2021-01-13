@@ -26,9 +26,9 @@ class ResPartner(models.Model):
                 "active": True
             })
             # TODO: Associer l'id du directory au partner
-            self.write({
-                "directory_id_mf": partner_directory.id,
-            })
+            # self.write({
+            #     "directory_id_mf": partner_directory.id,
+            # })
         return partner_directory
 
     def put_documents_in_current_directory(self):
@@ -41,7 +41,7 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
-        vals["directory_id_mf"] = self.directory_id_mf.id
+        vals["directory_id_mf"] = self.create_directory.id
         return super(ResPartner, self).create(vals=vals)
 
     @api.multi
