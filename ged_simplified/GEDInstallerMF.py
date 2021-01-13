@@ -25,7 +25,10 @@ class GEDInstallerMF(models.TransientModel):
         partners = self.env["res.partner"].search([])
 
         for partner in partners:
-            partner.create_directory()
+            partner_directory = partner.create_directory()
+            # partner.write({
+            #     "directory_id_mf": partner_directory.id
+            # })
             partner.put_documents_in_current_directory()
 
 
