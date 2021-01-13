@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
 from os import walk, path
+import time
+from datetime import datetime
 
 class ResPartner(models.Model):
     # Inherits res.partner
@@ -54,17 +56,7 @@ class ResPartner(models.Model):
                 if filename not in indexed_files_names:
                     document_path = path.join(directory_path, filename)
                     print(document_path)
-                    with open(document_path, 'r') as f:
-                        file_content = f.read().encode('base64')
-                    filename_split = filename.split('.')
-                    file_attributes = {
-                        "name": filename_split[0],
-                        "extension": filename_split[1],
-                        "index_content": file_content,
-                        "full_path": document_path,
-                        "directory_id": self.directory_id_mf.id
-                    }
-                    self.env["document.openprod"].compute_link_document(file_attributes)
+                    self.env["document.openprod"].compute_link_document(document_path)
 
     @api.one
     def write(self, vals):
