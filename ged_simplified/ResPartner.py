@@ -23,7 +23,6 @@ class ResPartner(models.Model):
         directory.id, self.id))
 
     def create_directory(self, name=None):
-        print("####ResPartner::create_directory - in")
         if self.directory_id_mf:
             return self.directory_id_mf
         if not name:
@@ -40,36 +39,18 @@ class ResPartner(models.Model):
                 "parent_id": partners_directory.id,
                 "active": True
             })
-        # self.write({
-        #     "directory_id_mf": partner_directory.id
-        # })
         self.compute_directory(partner_directory)
         return partner_directory
 
     def put_documents_in_current_directory(self):
-        print("####ResPartner::put_documents_in_current_directory - in")
-        print(self.name)
         self.directory_id_mf.put_documents(self.partner_doc_ids)
 
     def index_documents_in_current_directory(self):
         # TODO: put file in BDD
         pass
 
-
-    @api.model
-    def create(self, vals):
-        print("####ResPartner::create - in")
-        print(self.name)
-        print(vals)
-        res = super(ResPartner, self).create(vals=vals)
-        # self.create_directory(vals["name"])
-        return res
-
     @api.one
     def write(self, vals):
-        print("####ResPartner::write - in")
-        print(self.name)
-        print(vals)
         self.create_directory()
         res = super(ResPartner, self).write(vals=vals)
         self.put_documents_in_current_directory()
