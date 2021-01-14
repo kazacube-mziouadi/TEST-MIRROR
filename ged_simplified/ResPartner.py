@@ -78,7 +78,7 @@ class ResPartner(models.Model):
                                VALUES 
                                ('%(partner_id)s','%(document_id)s')
                            ''' % ({
-            "partner_id" : self.id,
-            "document_id" : document.id
+            "partner_id": self.id,
+            "document_id": document.id
         })
         )
