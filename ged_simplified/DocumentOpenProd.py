@@ -23,7 +23,7 @@ class DocumentOpenProd(models.Model):
         file_base_name, file_extension = os.path.splitext(filename)
         file_attributes = {
             "name": file_base_name,
-            "extension": file_extension,
+            "extension": file_extension[1:],
             "index_content": file_content,
             "full_path": os.path.join(directory.full_path, filename),
             "directory_id": directory.id,
