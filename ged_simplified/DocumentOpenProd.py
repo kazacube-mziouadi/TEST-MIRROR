@@ -11,14 +11,10 @@ class DocumentOpenProd(models.Model):
     _inherit = "document.openprod"
 
     def compute_link_document(self, document_path, directory):
-        print("DocumentOpenProd::compute_link_document")
-        print(self)
-        print(document_path)
-        print(directory)
         created_timestamp = time.ctime(os.path.getctime(document_path))
         last_modified_timestamp = time.ctime(os.path.getmtime(document_path))
         last_modified_date = datetime.fromtimestamp(os.path.getmtime(document_path))
-        print(document_path)
+        # recuperation du nom du fichier avec son extension
         filename = os.path.basename(document_path)
         with open(document_path, 'r') as f:
             file_content = f.read()
@@ -59,6 +55,4 @@ class DocumentOpenProd(models.Model):
                 button_save_visible = sql.Literal("False"),
             )
         self.env.cr.execute(query)
-        document = self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
-        print(document)
-        return document
+        return self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
