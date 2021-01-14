@@ -81,7 +81,7 @@ class ResPartner(models.Model):
         print(self)
         print(document)
         self.env.cr.execute('''
-                               INSERT INTO res_partner_document_openprod_rel (name, extension)
+                               INSERT INTO res_partner_document_openprod_rel (partner_id, document_id)
                                VALUES 
                                ('%s','%s')
                            ''' % (
