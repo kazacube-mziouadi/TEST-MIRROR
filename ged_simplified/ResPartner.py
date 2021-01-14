@@ -22,7 +22,7 @@ class ResPartner(models.Model):
                         WHERE
                              id = %s
                     ''' % (
-        directory.id, self.id))
+            directory.id, self.id))
 
     def create_directory(self, name=None):
         if self.directory_id_mf:
@@ -47,9 +47,10 @@ class ResPartner(models.Model):
     def put_documents_in_current_directory(self):
         self.directory_id_mf.put_documents(self.partner_doc_ids)
 
+    @api.model
     def index_documents_in_current_directory(self):
         indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
-        indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else "") , indexed_files)
+        indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else ""), indexed_files)
         directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
         for root, dirs, files in walk(directory_path):
             for filename in files:
@@ -71,6 +72,17 @@ class ResPartner(models.Model):
         self.index_documents_in_current_directory()
         return res
 
+    @api.multi
+    def read(self, fields, load='_classic_read'):
+        res = super(ResPartner, self).read(fields, load=load)
+        if len(self) == 1:
+            # TODO : on ne veut réaliser l'indexation qu'une fois par accès au Partner (actuellement + de 5...)
+            # TODO : tester la longueur de partner_doc_ids par rapport à la longueur de la liste des fichiers dans la directory du Partner
+            # (si différence entre les deux = indexation)
+            print("INDEXING")
+            # self.index_documents_in_current_directory()
+        return res
+
     # @deprecated
     def link_document(self, document):
         self.env.cr.execute('''
@@ -81,4 +93,4 @@ class ResPartner(models.Model):
             "partner_id": self.id,
             "document_id": document.id
         })
-        )
+                            )
