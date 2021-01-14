@@ -23,7 +23,7 @@ class DocumentOpenProd(models.Model):
         filename_split = filename.split('.')
         file_attributes = {
             "name": filename_split[0],
-            "extension": filename_split[1],
+            "extension": filename_split.get(1, default = ''),
             "index_content": file_content,
             "full_path": os.path.join(directory.full_path, filename),
             "directory_id": directory.id,
