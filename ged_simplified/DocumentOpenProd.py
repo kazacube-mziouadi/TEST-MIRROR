@@ -50,7 +50,6 @@ class DocumentOpenProd(models.Model):
                 self.env.user.company_id.id,
                 "draft",
                 file_attributes["date"],
-                "False"
-
-            )
+                "False")
         )
+        return self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)

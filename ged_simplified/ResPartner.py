@@ -56,7 +56,12 @@ class ResPartner(models.Model):
                 if filename not in indexed_files_names:
                     document_path = path.join(directory_path, filename)
                     print(document_path)
-                    self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
+                    document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
+                    self.documents_ids.push(document)
+                    #Add existing record on many2many
+                    self.write({
+                        "partner_doc_ids": (4, document.id, _)
+                    })
 
     @api.one
     def write(self, vals):
@@ -65,3 +70,6 @@ class ResPartner(models.Model):
         self.put_documents_in_current_directory()
         self.index_documents_in_current_directory()
         return res
+
+    def link_document(self, document):
+        pass
