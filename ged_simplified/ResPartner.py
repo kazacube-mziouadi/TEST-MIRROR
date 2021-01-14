@@ -60,12 +60,16 @@ class ResPartner(models.Model):
                     print(document_path)
                     document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
                     #Add existing record on many2many
-                    self.write({
-                        "partner_doc_ids": (4, document.id, _)
-                    })
+                    # self.write({
+                    #     "partner_doc_ids": (4, document.id, _)
+                    # })
+                    self.link_document(document)
 
     @api.one
     def write(self, vals):
+        print("ResPartner::index_documents_in_current_directory")
+        print(self)
+        print(vals)
         self.create_directory()
         res = super(ResPartner, self).write(vals=vals)
         self.put_documents_in_current_directory()
@@ -73,4 +77,14 @@ class ResPartner(models.Model):
         return res
 
     def link_document(self, document):
-        pass
+        print("ResPartner::index_documents_in_current_directory")
+        print(self)
+        print(document)
+        self.env.cr.execute('''
+                               INSERT INTO res_partner_document_openprod_rel (name, extension)
+                               VALUES 
+                               ('%s','%s')
+                           ''' % (
+            self.id,
+            document.id)
+        )
