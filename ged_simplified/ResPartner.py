@@ -60,10 +60,10 @@ class ResPartner(models.Model):
                     print(document_path)
                     document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
                     #Add existing record on many2many
-                    self.write({
-                        "partner_doc_ids": self.partner_doc_ids + [document.id]#(4, document.id, _)
-                    })
-                    # self.link_document(document)
+                    # self.write({
+                    #     "partner_doc_ids": self.partner_doc_ids + [document.id]#(4, document.id, _)
+                    # })
+                    self.link_document(document)
 
     @api.one
     def write(self, vals):
