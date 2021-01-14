@@ -25,7 +25,7 @@ class DocumentOpenProd(models.Model):
             "name": filename_split[0],
             "extension": filename_split[1],
             "index_content": file_content,
-            "full_path": document_path,
+            "full_path": os.path.join(directory.full_path, filename),
             "directory_id": directory.id,
             "create_date": created_timestamp,
             "write_date": last_modified_timestamp,
