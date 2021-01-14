@@ -51,7 +51,7 @@ class ResPartner(models.Model):
         print("ResPartner::index_documents_in_current_directory")
         print(self)
         indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
-        indexed_files_names = map(lambda indexed_file: indexed_file.name + '.' + indexed_file.extension, indexed_files)
+        indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else "") , indexed_files)
         directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
         for root, dirs, files in walk(directory_path):
             for filename in files:
@@ -83,8 +83,9 @@ class ResPartner(models.Model):
         self.env.cr.execute('''
                                INSERT INTO res_partner_document_openprod_rel (partner_id, document_id)
                                VALUES 
-                               ('%s','%s')
-                           ''' % (
-            self.id,
-            document.id)
+                               ('%(partner_id)s','%(document_id)s')
+                           ''' % ({
+            "partner_id" : self.id,
+            "document_id" : document.id
+        })
         )
