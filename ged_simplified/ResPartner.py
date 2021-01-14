@@ -48,6 +48,8 @@ class ResPartner(models.Model):
         self.directory_id_mf.put_documents(self.partner_doc_ids)
 
     def index_documents_in_current_directory(self):
+        print("ResPartner::index_documents_in_current_directory")
+        print(self)
         indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
         indexed_files_names = map(lambda indexed_file: indexed_file.name + '.' + indexed_file.extension, indexed_files)
         directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
@@ -57,7 +59,6 @@ class ResPartner(models.Model):
                     document_path = path.join(directory_path, filename)
                     print(document_path)
                     document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
-                    self.documents_ids.push(document)
                     #Add existing record on many2many
                     self.write({
                         "partner_doc_ids": (4, document.id, _)

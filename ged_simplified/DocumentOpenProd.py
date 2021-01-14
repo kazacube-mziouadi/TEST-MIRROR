@@ -9,6 +9,10 @@ class DocumentOpenProd(models.Model):
     _inherit = "document.openprod"
 
     def compute_link_document(self, document_path, directory):
+        print("DocumentOpenProd::compute_link_document")
+        print(self)
+        print(document_path)
+        print(directory)
         created_timestamp = time.ctime(os.path.getctime(document_path))
         last_modified_timestamp = time.ctime(os.path.getmtime(document_path))
         last_modified_date = datetime.fromtimestamp(os.path.getmtime(document_path))
@@ -52,4 +56,6 @@ class DocumentOpenProd(models.Model):
                 file_attributes["date"],
                 "False")
         )
-        return self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
+        document = self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
+        print(document)
+        return document
