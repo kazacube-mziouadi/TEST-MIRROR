@@ -37,24 +37,26 @@ class DocumentOpenProd(models.Model):
                         INSERT INTO
                             document_openprod
                         (name, extension, index_content, full_path, directory_id, create_date, write_date, month, year, write_uid, create_uid, user_id, company_id, state, date, button_save_visible)
-                        VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s', %s)
-                    ''' % (
-                file_attributes["name"],
-                file_attributes["extension"],
-                file_attributes["index_content"],
-                file_attributes["full_path"],
-                file_attributes["directory_id"],
-                file_attributes["create_date"],
-                file_attributes["write_date"],
-                file_attributes["month"],
-                file_attributes["year"],
-                self._uid,
-                self._uid,
-                self._uid,
-                self.env.user.company_id.id,
-                "draft",
-                file_attributes["date"],
-                "False")
+                        VALUES 
+                        (%(name)s, %(extension)s, %(index_content)s, %(full_path)s, %(directory_id)s, %(create_date)s, %(write_date)s, %(month)s, %(year)s, %(write_uid)s, %(create_uid)s, %(user_id)s, %(company_id)s, %(state)s, %(date)s, %(button_save_visible)s)
+                    ''' % ({
+                "name" : file_attributes["name"],
+                "extension" : file_attributes["extension"],
+                "index_content" : file_attributes["index_content"],
+                "full_path" : file_attributes["full_path"],
+                "directory_id" : file_attributes["directory_id"],
+                "create_date" : file_attributes["create_date"],
+                "write_date" : file_attributes["write_date"],
+                "month" : file_attributes["month"],
+                "year" : file_attributes["year"],
+                "write_uid" : self._uid,
+                "create_uid" : self._uid,
+                "user_id" : self._uid,
+                "company_id" : self.env.user.company_id.id,
+                "state" : "draft",
+                "date" : file_attributes["date"],
+                "button_save_visible" : "False"
+            })
         )
         document = self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
         print(document)
