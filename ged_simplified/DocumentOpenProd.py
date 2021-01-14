@@ -38,7 +38,7 @@ class DocumentOpenProd(models.Model):
                             document_openprod
                         (name, extension, index_content, full_path, directory_id, create_date, write_date, month, year, write_uid, create_uid, user_id, company_id, state, date, button_save_visible)
                         VALUES 
-                        (%(name)s, %(extension)s, %(index_content)s, %(full_path)s, %(directory_id)s, %(create_date)s, %(write_date)s, %(month)s, %(year)s, %(write_uid)s, %(create_uid)s, %(user_id)s, %(company_id)s, %(state)s, %(date)s, %(button_save_visible)s)
+                        ('%(name)s', '%(extension)s', '%(index_content)s', '%(full_path)s', '%(directory_id)s', '%(create_date)s', '%(write_date)s', '%(month)s', '%(year)s', '%(write_uid)s', '%(create_uid)s', '%(user_id)s', '%(company_id)s', '%(state)s', '%(date)s', '%(button_save_visible)s')
                     ''' % ({
                 "name" : file_attributes["name"],
                 "extension" : file_attributes["extension"],
