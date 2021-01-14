@@ -45,18 +45,18 @@ class DocumentOpenProd(models.Model):
                 "extension" : cgi.escape(file_attributes["extension"]).encode("ascii", "xmlcharrefreplace"),
                 "index_content" : cgi.escape(file_attributes["index_content"]).encode("ascii", "xmlcharrefreplace"),
                 "full_path" : cgi.escape(file_attributes["full_path"]).encode("ascii", "xmlcharrefreplace"),
-                "directory_id" : cgi.escape(file_attributes["directory_id"]).encode("ascii", "xmlcharrefreplace"),
-                "create_date" : cgi.escape(file_attributes["create_date"]).encode("ascii", "xmlcharrefreplace"),
-                "write_date" : cgi.escape(file_attributes["write_date"]).encode("ascii", "xmlcharrefreplace"),
-                "month" : cgi.escape(file_attributes["month"]).encode("ascii", "xmlcharrefreplace"),
-                "year" : cgi.escape(file_attributes["year"]).encode("ascii", "xmlcharrefreplace"),
-                "write_uid" : cgi.escape(self._uid).encode("ascii", "xmlcharrefreplace"),
-                "create_uid" : cgi.escape(self._uid).encode("ascii", "xmlcharrefreplace"),
-                "user_id" : cgi.escape(self._uid).encode("ascii", "xmlcharrefreplace"),
-                "company_id" : cgi.escape(self.env.user.company_id.id).encode("ascii", "xmlcharrefreplace"),
-                "state" : cgi.escape("draft").encode("ascii", "xmlcharrefreplace"),
-                "date" : cgi.escape(file_attributes["date"]).encode("ascii", "xmlcharrefreplace"),
-                "button_save_visible" : cgi.escape("False").encode("ascii", "xmlcharrefreplace")
+                "directory_id" : file_attributes["directory_id"],
+                "create_date" : file_attributes["create_date"],
+                "write_date" : file_attributes["write_date"],
+                "month" : file_attributes["month"],
+                "year" : file_attributes["year"],
+                "write_uid" : self._uid,
+                "create_uid" : self._uid,
+                "user_id" : self._uid,
+                "company_id" : self.env.user.company_id.id,
+                "state" : "draft",
+                "date" : file_attributes["date"],
+                "button_save_visible" : "False"
             })
         )
         document = self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
