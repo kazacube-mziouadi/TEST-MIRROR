@@ -12,6 +12,7 @@ class ResPartner(models.Model):
     # COLUMNS
     # ===========================================================================
     directory_id_mf = fields.Many2one("document.directory", string="Directory")
+    is_indexing_mf = fields.Boolean(string='Is indexing', default=False)
 
     def compute_directory(self, directory):
         self.env.cr.execute('''
@@ -63,6 +64,7 @@ class ResPartner(models.Model):
                     })
                     # @deprecated
                     # self.link_document(new_document)
+        self.is_indexing_mf = False
 
     @api.one
     def write(self, vals):
@@ -75,13 +77,24 @@ class ResPartner(models.Model):
     @api.multi
     def read(self, fields, load='_classic_read'):
         res = super(ResPartner, self).read(fields, load=load)
-        if len(self) == 1:
+        if len(self) == 1 and self.has_to_index_documents() and not self.is_indexing_mf:
+            self.is_indexing_mf = True
             # TODO : on ne veut réaliser l'indexation qu'une fois par accès au Partner (actuellement + de 5...)
             # TODO : tester la longueur de partner_doc_ids par rapport à la longueur de la liste des fichiers dans la directory du Partner
             # (si différence entre les deux = indexation)
             print("INDEXING")
-            # self.index_documents_in_current_directory()
+            self.index_documents_in_current_directory()
+
         return res
+
+    def has_to_index_documents(self):
+        indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
+        directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
+        for root, dirs, files in walk(directory_path):
+            if len(files) == len(indexed_files):
+                return False
+            else:
+                return True
 
     # @deprecated
     def link_document(self, document):

@@ -3,8 +3,8 @@ from openerp import models, fields, api, _
 import time
 import os
 from datetime import datetime
-import cgi
 from psycopg2 import sql
+
 
 class DocumentOpenProd(models.Model):
     # Inherits document.directory
