@@ -50,21 +50,24 @@ class ResPartner(models.Model):
 
     @api.model
     def index_documents_in_current_directory(self):
-        indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
-        indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else ""), indexed_files)
-        directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
-        for root, dirs, files in walk(directory_path):
-            for filename in files:
-                if filename not in indexed_files_names:
-                    document_path = path.join(directory_path, filename)
-                    new_document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
-                    #Add existing record on many2many
-                    self.write({
-                        "partner_doc_ids": [(4, [new_document.id])]
-                    })
-                    # @deprecated
-                    # self.link_document(new_document)
-        self.is_indexing_mf = False
+        if len(self) == 1 and self.has_to_index_documents() and not self.is_indexing_mf:
+            print("INDEXING")
+            self.is_indexing_mf = True
+            indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
+            indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else ""), indexed_files)
+            directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
+            for root, dirs, files in walk(directory_path):
+                for filename in files:
+                    if filename not in indexed_files_names:
+                        document_path = path.join(directory_path, filename)
+                        new_document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
+                        #Add existing record on many2many
+                        self.write({
+                            "partner_doc_ids": [(4, [new_document.id])]
+                        })
+                        # @deprecated
+                        # self.link_document(new_document)
+            self.is_indexing_mf = False
 
     @api.one
     def write(self, vals):
@@ -77,14 +80,7 @@ class ResPartner(models.Model):
     @api.multi
     def read(self, fields, load='_classic_read'):
         res = super(ResPartner, self).read(fields, load=load)
-        if len(self) == 1 and self.has_to_index_documents() and not self.is_indexing_mf:
-            self.is_indexing_mf = True
-            # TODO : on ne veut réaliser l'indexation qu'une fois par accès au Partner (actuellement + de 5...)
-            # TODO : tester la longueur de partner_doc_ids par rapport à la longueur de la liste des fichiers dans la directory du Partner
-            # (si différence entre les deux = indexation)
-            print("INDEXING")
-            self.index_documents_in_current_directory()
-
+        self.index_documents_in_current_directory()
         return res
 
     def has_to_index_documents(self):
