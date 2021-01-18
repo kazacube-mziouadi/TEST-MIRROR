@@ -12,6 +12,7 @@ class ResPartner(models.Model):
     # COLUMNS
     # ===========================================================================
     directory_id_mf = fields.Many2one("document.directory", string="Directory")
+    is_indexing_mf = fields.Boolean(string='Is indexing', default=False)
 
     def compute_directory(self, directory):
         self.env.cr.execute('''
@@ -22,7 +23,7 @@ class ResPartner(models.Model):
                         WHERE
                              id = %s
                     ''' % (
-        directory.id, self.id))
+            directory.id, self.id))
 
     def create_directory(self, name=None):
         if self.directory_id_mf:
@@ -47,21 +48,26 @@ class ResPartner(models.Model):
     def put_documents_in_current_directory(self):
         self.directory_id_mf.put_documents(self.partner_doc_ids)
 
+    @api.model
     def index_documents_in_current_directory(self):
-        indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
-        indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else "") , indexed_files)
-        directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
-        for root, dirs, files in walk(directory_path):
-            for filename in files:
-                if filename not in indexed_files_names:
-                    document_path = path.join(directory_path, filename)
-                    new_document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
-                    #Add existing record on many2many
-                    self.write({
-                        "partner_doc_ids": [(4, [new_document.id])]
-                    })
-                    # @deprecated
-                    # self.link_document(new_document)
+        if len(self) == 1 and self.has_to_index_documents() and not self.is_indexing_mf:
+            print("INDEXING")
+            self.is_indexing_mf = True
+            indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
+            indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else ""), indexed_files)
+            directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
+            for root, dirs, files in walk(directory_path):
+                for filename in files:
+                    if filename not in indexed_files_names:
+                        document_path = path.join(directory_path, filename)
+                        new_document = self.env["document.openprod"].compute_link_document(document_path, self.directory_id_mf)
+                        #Add existing record on many2many
+                        self.write({
+                            "partner_doc_ids": [(4, [new_document.id])]
+                        })
+                        # @deprecated
+                        # self.link_document(new_document)
+            self.is_indexing_mf = False
 
     @api.one
     def write(self, vals):
@@ -71,6 +77,21 @@ class ResPartner(models.Model):
         self.index_documents_in_current_directory()
         return res
 
+    @api.multi
+    def read(self, fields, load='_classic_read'):
+        res = super(ResPartner, self).read(fields, load=load)
+        self.index_documents_in_current_directory()
+        return res
+
+    def has_to_index_documents(self):
+        indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
+        directory_path = path.join(self.directory_id_mf.datadir, self.directory_id_mf.full_path)
+        for root, dirs, files in walk(directory_path):
+            if len(files) == len(indexed_files):
+                return False
+            else:
+                return True
+
     # @deprecated
     def link_document(self, document):
         self.env.cr.execute('''
@@ -78,7 +99,7 @@ class ResPartner(models.Model):
                                VALUES 
                                ('%(partner_id)s','%(document_id)s')
                            ''' % ({
-            "partner_id" : self.id,
-            "document_id" : document.id
+            "partner_id": self.id,
+            "document_id": document.id
         })
-        )
+                            )

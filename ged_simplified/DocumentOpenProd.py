@@ -3,8 +3,8 @@ from openerp import models, fields, api, _
 import time
 import os
 from datetime import datetime
-import cgi
 from psycopg2 import sql
+
 
 class DocumentOpenProd(models.Model):
     # Inherits document.directory
@@ -44,22 +44,22 @@ class DocumentOpenProd(models.Model):
             VALUES 
                 ({name}, {extension}, {index_content}, {full_path}, {directory_id}, {create_date}, {write_date}, {month}, {year}, {write_uid}, {create_uid}, {user_id}, {company_id}, {state}, {date}, {button_save_visible})
             ''').format(
-                name = sql.Literal(file_attributes["name"]),
-                extension = sql.Literal(file_attributes["extension"]),
-                index_content = sql.Literal(file_attributes["index_content"]),
-                full_path = sql.Literal(file_attributes["full_path"]),
-                directory_id = sql.Literal(file_attributes["directory_id"]),
-                create_date = sql.Literal(file_attributes["create_date"]),
-                write_date = sql.Literal(file_attributes["write_date"]),
-                month = sql.Literal(file_attributes["month"]),
-                year = sql.Literal(file_attributes["year"]),
-                write_uid = sql.Literal(self._uid),
-                create_uid = sql.Literal(self._uid),
-                user_id = sql.Literal(self._uid),
-                company_id = sql.Literal(self.env.user.company_id.id),
-                state = sql.Literal("draft"),
-                date = sql.Literal(file_attributes["date"]),
-                button_save_visible = sql.Literal("False"),
+                name=sql.Literal(file_attributes["name"]),
+                extension=sql.Literal(file_attributes["extension"]),
+                index_content=sql.Literal(file_attributes["index_content"]),
+                full_path=sql.Literal(file_attributes["full_path"]),
+                directory_id=sql.Literal(file_attributes["directory_id"]),
+                create_date=sql.Literal(file_attributes["create_date"]),
+                write_date=sql.Literal(file_attributes["write_date"]),
+                month=sql.Literal(file_attributes["month"]),
+                year=sql.Literal(file_attributes["year"]),
+                write_uid=sql.Literal(self._uid),
+                create_uid=sql.Literal(self._uid),
+                user_id=sql.Literal(self._uid),
+                company_id=sql.Literal(self.env.user.company_id.id),
+                state=sql.Literal("draft"),
+                date=sql.Literal(file_attributes["date"]),
+                button_save_visible=sql.Literal("False"),
             )
         self.env.cr.execute(query)
         return self.env["document.openprod"].search([["full_path", "=", file_attributes["full_path"]]], None, 1)
