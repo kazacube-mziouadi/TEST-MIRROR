@@ -10,6 +10,13 @@ class DocumentOpenProd(models.Model):
     # Inherits document.directory
     _inherit = "document.openprod"
 
+    @api.model
+    def create(self, values):
+        print("[DEBUG]DocumentOpenProd::create(self, values)")
+        print(self)
+        print(values)
+        return super(DocumentOpenProd, self).create(values)
+
     def compute_link_document(self, document_path, directory):
         created_timestamp = time.ctime(os.path.getctime(document_path))
         last_modified_timestamp = time.ctime(os.path.getmtime(document_path))
