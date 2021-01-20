@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
 from os import walk, path
-import time
-from datetime import datetime
+from openerp.tools import config
+import webbrowser
+
 
 class ResPartner(models.Model):
     # Inherits res.partner
@@ -12,6 +13,8 @@ class ResPartner(models.Model):
     # COLUMNS
     # ===========================================================================
     directory_id_mf = fields.Many2one("document.directory", string="Directory")
+    directory_id_mf_absolute_path = fields.Char(related='directory_id_mf.absolute_path', store=False)
+    directory_id_mf_absolute_path_windows = fields.Char(related='directory_id_mf.absolute_path_windows', store=False)
     is_indexing_mf = fields.Boolean(string='Is indexing', default=False)
 
     def compute_directory(self, directory):
@@ -50,7 +53,7 @@ class ResPartner(models.Model):
 
     @api.model
     def index_documents_in_current_directory(self):
-        if len(self) == 1 and self.has_to_index_documents() and not self.is_indexing_mf:
+        if self.has_to_index_documents() and not self.is_indexing_mf:
             print("INDEXING")
             self.is_indexing_mf = True
             indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
@@ -80,7 +83,8 @@ class ResPartner(models.Model):
     @api.multi
     def read(self, fields, load='_classic_read'):
         res = super(ResPartner, self).read(fields, load=load)
-        self.index_documents_in_current_directory()
+        if len(self) == 1:
+            self.index_documents_in_current_directory()
         return res
 
     def has_to_index_documents(self):
@@ -102,4 +106,7 @@ class ResPartner(models.Model):
             "partner_id": self.id,
             "document_id": document.id
         })
-                            )
+    )
+
+    def button_open_directory(self):
+        pass

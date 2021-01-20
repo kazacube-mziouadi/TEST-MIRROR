@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <template id="assets_backend" name="web_openprod assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/ged_simplified/static/src/css/ged_simplified.css" />
+                <script type="text/javascript" src="/ged_simplified/static/src/js/ged_simplified.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

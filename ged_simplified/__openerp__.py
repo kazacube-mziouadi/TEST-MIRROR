@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'GED Simplifiee',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name': 'GED Simplifiee',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'GED Simplifiee par MyFab (sous-dossiers clients, ...)',
-    'category' : 'Administration',
-    'description' : """GED Simplifiee par MyFab (sous-dossiers clients, ...)""",
+    'category': 'Administration',
+    'description': """GED Simplifiee par MyFab (sous-dossiers clients, ...)""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'optional',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'my_fab'
     ],
     'data': [
-        'GEDInstallerMF.yml'
+        'GEDInstallerMF.yml',
+        'views/ged_simplified.xml',
+        'views/ged_simplified_web.xml'
     ],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,
