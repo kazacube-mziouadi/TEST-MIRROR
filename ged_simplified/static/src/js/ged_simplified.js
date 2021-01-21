@@ -4,12 +4,14 @@ odoo.define('module.open_file_browser', function (require) {
     if (navigator.userAgent.includes('Linux')) {
         console.log('CLIENT ON LINUX');
         var intervalId = setInterval(function() {
-            if ($('.res\\.partner__directory_id_mf_absolute_path_windows').length > 0) {
+            const spanPathValueWindows = $('.res\\.partner__directory_id_mf_absolute_path_windows');
+            if ($(spanPathValueWindows).length > 0) {
                 const buttonOpenDirectory = $('.button_open_directory');
                 $('label[field-name=directory_id_mf_absolute_path_windows]').parent().hide();
-                $('.res\\.partner__directory_id_mf_absolute_path_windows').parent().hide();
+                $(spanPathValueWindows).parent().hide();
                 $(buttonOpenDirectory).attr("href", "myfab:/" + $('.res\\.partner__directory_id_mf_absolute_path > span').html());
-                $('.res\\.partner__directory_id_mf_absolute_path_windows').parent().parent().append($(buttonOpenDirectory));
+                $(spanPathValueWindows).parent().parent().append($(buttonOpenDirectory).parent());
+                $(buttonOpenDirectory).parent().css("text-align", "right");
                 clearInterval(intervalId)
             }
         }, 1000)
@@ -22,7 +24,8 @@ odoo.define('module.open_file_browser', function (require) {
                 $('label[field-name=directory_id_mf_absolute_path]').parent().hide();
                 $(spanPathValueLinux).parent().hide();
                 $(buttonOpenDirectory).attr("href", "myfab://explorer/" + $('.res\\.partner__directory_id_mf_absolute_path_windows > span').html());
-                $('.res\\.partner__directory_id_mf_absolute_path_windows').parent().parent().append($(buttonOpenDirectory));
+                $(spanPathValueLinux).parent().parent().append($(buttonOpenDirectory).parent());
+                $(buttonOpenDirectory).parent().css("text-align", "right");
                 clearInterval(intervalId);
             }
         }, 1000)
