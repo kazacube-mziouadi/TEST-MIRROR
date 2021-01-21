@@ -8,7 +8,8 @@ odoo.define('module.open_file_browser', function (require) {
                 const buttonOpenDirectory = $('.button_open_directory');
                 $('label[field-name=directory_id_mf_absolute_path_windows]').parent().hide();
                 $('.res\\.partner__directory_id_mf_absolute_path_windows').parent().hide();
-                $(buttonOpenDirectory).hide()
+                $(buttonOpenDirectory).attr("href", "myfab:/" + $('.res\\.partner__directory_id_mf_absolute_path > span').html());
+                $('.res\\.partner__directory_id_mf_absolute_path_windows').parent().parent().append($(buttonOpenDirectory));
                 clearInterval(intervalId)
             }
         }, 1000)
