@@ -12,7 +12,6 @@ odoo.define('module.open_file_browser', function (require) {
                 $(buttonOpenDirectory).attr("href", "myfab:/" + $('.res\\.partner__directory_id_mf_absolute_path > span').html());
                 $(spanPathValueWindows).parent().parent().append($(buttonOpenDirectory).parent());
                 $(buttonOpenDirectory).parent().css("text-align", "right");
-                clearInterval(intervalId)
             }
         }, 1000)
     } else if (navigator.userAgent.includes('Windows')) {
@@ -26,7 +25,6 @@ odoo.define('module.open_file_browser', function (require) {
                 $(buttonOpenDirectory).attr("href", "myfab://explorer/" + $('.res\\.partner__directory_id_mf_absolute_path_windows > span').html());
                 $(spanPathValueLinux).parent().parent().append($(buttonOpenDirectory).parent());
                 $(buttonOpenDirectory).parent().css("text-align", "right");
-                clearInterval(intervalId);
             }
         }, 1000)
     }
