@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, _
+from openerp import models, fields, api, _, http
 from os import walk, path
 from openerp.tools import config
 import webbrowser
@@ -54,7 +54,6 @@ class ResPartner(models.Model):
     @api.model
     def index_documents_in_current_directory(self):
         if self.has_to_index_documents() and not self.is_indexing_mf:
-            print("INDEXING")
             self.is_indexing_mf = True
             indexed_files = self.env["document.openprod"].search([["directory_id", "=", self.directory_id_mf.id]])
             indexed_files_names = map(lambda indexed_file: indexed_file.name + ('.' + indexed_file.extension if len(indexed_file.extension) > 0 else ""), indexed_files)
@@ -108,5 +107,3 @@ class ResPartner(models.Model):
         })
     )
 
-    def button_open_directory(self):
-        pass

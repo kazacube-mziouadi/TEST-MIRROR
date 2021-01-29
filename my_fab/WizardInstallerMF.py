@@ -17,6 +17,7 @@ class WizardInstallerMF(models.TransientModel):
     @api.model
     def trigger_wizard(self):
         pass
+    
     @api.multi
     def action_validate_config(self):
         csv_file_decoded = base64.b64decode(self.file)
