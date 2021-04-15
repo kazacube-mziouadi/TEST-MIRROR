@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- =================== -->
+		<!-- DOCUMENT OVERWRITE  -->
+		<!-- =================== -->
+		<record id="document_openprod_tree_directory_id_mf" model="ir.ui.view">
+			<field name="name">document_openprod_tree_directory_id_mf</field>
+			<field name="inherit_id" ref="base_openprod.view_tree_document_openprod_id" />
+			<field name="model">document.openprod</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='directory_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="document_openprod_form_directory_id_mf" model="ir.ui.view">
+			<field name="name">document_openprod_form_directory_id_mf</field>
+			<field name="inherit_id" ref="base_openprod.view_form_document_openprod_id" />
+			<field name="model">document.openprod</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='directory_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- =================== -->
+		<!-- PARTNER OVERWRITE   -->
+		<!-- =================== -->
+		<record id="partner_directory_id_mf" model="ir.ui.view">
+			<field name="name">partner_directory_id_mf</field>
+			<field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
+			<field name="model">res.partner</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_doc_ids']" position="before">
+					<field name="directory_id_mf_absolute_path" />
+					<field name="directory_id_mf_absolute_path_windows" />
+					<a href="#" class="oe_highlight button_open_directory">Open directory</a>
+					<input type="hidden" name="id" t-att-value="partner.id"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>
+

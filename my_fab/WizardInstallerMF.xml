@@ -28,7 +28,7 @@
         </record>
 
         <record id="action_wizard_installer_mf" model="ir.actions.act_window">
-            <field name="name">Configure Accounting Data</field>
+            <field name="name">Configure General Settings</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">myfab.installer.mf</field>
             <field name="view_id" ref="view_wizard_installer_mf"/>

@@ -12,8 +12,9 @@
     'images' : [],
     'depends' : [
         'base_setup',
-        # 'partner_openprod',
-        # 'sale_purchase'
+        'base_openprod',
+        'l10n_fr',
+        'mrp'
     ],
     'data': [
         'WizardInstallerTriggerMF.yml',
