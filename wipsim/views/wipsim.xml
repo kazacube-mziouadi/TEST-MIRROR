@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- =============== -->
+		<!-- WIPSIM EXPORT   -->
+		<!-- =============== -->
+        <record id='intuiz_wipsim_export_mf' model="ir.actions.act_window">
+        	<field name="name">WipSim Export</field>
+			<field name="res_model">wipsim.export.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='intuiz_wipsim_export_mf_treeview' model="ir.ui.view">
+        	<field name="name">WipSim Export</field>
+			<field name="model">wipsim.export.mf</field>
+            <field name="arch" type="xml">
+				<tree string="WipSim Export Configurations">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='intuiz_wipsim_export_mf_form' model="ir.ui.view">
+        	<field name="name">wipsim.export.mf.form</field>
+			<field name="model">wipsim.export.mf</field>
+            <field name="arch" type="xml">
+				<form string="WipSim Export Configuration">
+					<group col="1">
+						<field name="name"/>
+						<field name="date_min"/>
+						<field name="date_max"/>
+						<field name="resources"/>
+						<button
+							name="button_export_work_orders"
+							string="Export OTs"
+							type="object"
+							class="oe_highlight" />
+					</group>
+                </form>
+			</field>
+        </record>
+    </data>
+</openerp>

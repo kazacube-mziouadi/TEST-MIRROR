@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem id="base.menu_external_apis_mf" name="External APIs" parent="base.menu_administration" sequence="200"/>
+			<menuitem id="menu_intuiz_api" name="WIPSIM Export" parent="base.menu_external_apis_mf" sequence="0" action="intuiz_wipsim_export_mf"/>
+	</data>
+</openerp>
