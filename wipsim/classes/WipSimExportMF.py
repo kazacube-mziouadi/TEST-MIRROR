@@ -22,6 +22,7 @@ class WipSimExportMF(models.Model):
     @api.multi
     def button_export_work_orders(self):
         print("EXPORTING")
+        print(self.resources)
         work_orders = self.env["mrp.workorder"].search([
             ('requested_date', '>=', self.date_min)
             , ('requested_date', '<=', self.date_max)

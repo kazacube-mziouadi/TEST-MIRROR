@@ -6,7 +6,7 @@
     'license': 'Open-prod license',
     'summary': 'Modules tôlerie',
     'category' : 'Industrial sectors',
-    'description' : """Regroupe les modules nécessaire pour la tôlerie.""",
+    'description' : """Regroupe les modules nécessaires pour la tôlerie.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images' : [],

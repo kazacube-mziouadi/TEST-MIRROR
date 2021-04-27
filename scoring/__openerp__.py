@@ -7,7 +7,7 @@
     'summary': 'Manager le risque client et booster la performance commerciale.(En cours de dev)',
     'category' : 'Partner',
     'description' : """Manager le risque client et booster la performance commerciale.(En cours de dev)
-    Ce module est en cours de developpement.""",
+    Ce module est en cours de développement.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
     'images' : [],
