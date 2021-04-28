@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'WIPSIM Interface',
+    'name' : 'WipSim Interface',
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Interface pour échanger avec le logiciel de pilotage de production WIPSIM',
+    'summary': 'Interface pour échanger avec le logiciel de pilotage de production WipSim',
     'category' : 'Base',
-    'description' : """Interface pour échanger avec le logiciel de pilotage de production WIPSIM.""",
+    'description' : """Interface pour échanger avec le logiciel de pilotage de production WipSim.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images' : [],

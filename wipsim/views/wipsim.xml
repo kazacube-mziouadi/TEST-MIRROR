@@ -26,19 +26,22 @@
 			<field name="model">wipsim.export.mf</field>
             <field name="arch" type="xml">
 				<form string="WipSim Export Configuration">
-					<group col="1">
+					<group col="4">
 						<field name="name"/>
-						<field name="date_min"/>
-						<field name="date_max"/>
-						<field name="resources"/>
-						<button
+						<field name="date_min_mf"/>
+						<field name="files_path_mf"/>
+						<field name="date_max_mf"/>
+					</group>
+					<group col="1">
+						<field name="resources_mf"/>
+					</group>
+					<button
 							name="button_export_work_orders"
-							string="Export OTs"
+							string="Export Work Orders"
 							type="object"
 							class="oe_highlight" />
-					</group>
-                </form>
+				</form>
 			</field>
-        </record>
+		</record>
     </data>
 </openerp>
