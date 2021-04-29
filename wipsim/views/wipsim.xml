@@ -26,22 +26,55 @@
 			<field name="model">wipsim.export.mf</field>
             <field name="arch" type="xml">
 				<form string="WipSim Export Configuration">
-					<group col="4">
-						<field name="name"/>
-						<field name="date_min_mf"/>
-						<field name="files_path_mf"/>
-						<field name="date_max_mf"/>
+					<group col="9">
+						<group colspan="8" col="1">
+							<group col="4">
+								<field name="name"/>
+								<field name="date_min_mf"/>
+								<field name="files_path_mf"/>
+								<field name="date_max_mf"/>
+								<field name="area_mf"/>
+							</group>
+							<group col="1">
+								<field name="resources_mf"/>
+							</group>
+							<button
+								name="button_export_work_orders"
+								string="Export Work Orders"
+								type="object"
+								class="oe_highlight" />
+							<group col="1">
+								<field name="last_json_generated"/>
+							</group>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="wipsim_export_action_menu_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button" type="object" string="Generate cron for this export" name="generate_cron_for_export" icon="fa-repeat" />
+							<button class="oe_inline oe_stat_button" type="object" string="Delete the cron for this export" name="delete_cron_for_export" icon="fa-trash" />
+						</group>
 					</group>
-					<group col="1">
-						<field name="resources_mf"/>
-					</group>
-					<button
-							name="button_export_work_orders"
-							string="Export Work Orders"
-							type="object"
-							class="oe_highlight" />
 				</form>
 			</field>
 		</record>
+
+		<!-- =========================== -->
+		<!-- WIZARD WIPSIM EXPORT CRON   -->
+		<!-- =========================== -->
+
+		<!-- Modale affichée lors du clic sur "Generate cron for this export" -->
+		<record id='view_form_wizard_wipsim_export_cron_mf' model='ir.ui.view'>
+            <field name="name">Import from Intuiz Result</field>
+            <field name="model">wizard.wipsim.export.cron.mf</field>
+            <field name="arch" type="xml">
+                <form string="WipSim export cron creation" version="8.0">
+                    <field name="name"/>
+                    <field name="wipsim_export_mf"/>
+                    <footer>
+                        <button name="action_validate" string="OK" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
     </data>
 </openerp>
