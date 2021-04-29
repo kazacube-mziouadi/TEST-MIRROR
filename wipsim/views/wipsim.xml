@@ -67,8 +67,10 @@
             <field name="model">wizard.wipsim.export.cron.mf</field>
             <field name="arch" type="xml">
                 <form string="WipSim export cron creation" version="8.0">
-                    <field name="name"/>
-                    <field name="wipsim_export_mf"/>
+                    <field name="active"/>
+                    <field name="interval_number"/>
+                    <field name="interval_type"/>
+                    <field name="nextcall"/>
                     <footer>
                         <button name="action_validate" string="OK" type="object" class="oe_highlight" />
                         <button string="Cancel" class="oe_link" special="cancel" />

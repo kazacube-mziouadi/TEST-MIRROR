@@ -25,7 +25,19 @@ class WipSimExportMF(models.Model):
     # ===========================================================================
 
     @api.multi
+    def _export_work_orders_for_wipsim_export_mf(self, wipsim_export_mf_id):
+        print("*************")
+        print(self)
+        print(wipsim_export_mf_id)
+        wipsim_export_mf = self.env["wipsim.export.mf"].search([("id", "=", wipsim_export_mf_id)], None, 1)
+        print(wipsim_export_mf)
+        wipsim_export_mf.export_work_orders()
+
+    @api.multi
     def button_export_work_orders(self):
+        self.export_work_orders()
+
+    def export_work_orders(self):
         print("EXPORTING")
         work_orders = self.get_work_orders_to_send_to_wipsim()
         json_content = self.format_work_orders_to_json(work_orders)
