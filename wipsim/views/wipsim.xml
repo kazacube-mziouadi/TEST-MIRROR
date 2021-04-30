@@ -30,9 +30,9 @@
 						<group colspan="8" col="1">
 							<group col="4">
 								<field name="name"/>
-								<field name="date_requested_min_mf"/>
+								<field name="planned_start_date_min_mf"/>
 								<field name="files_path_mf"/>
-								<field name="date_requested_max_mf"/>
+								<field name="planned_start_date_max_mf"/>
 							</group>
 							<group col="1">
 								<field name="resources_mf"/>
