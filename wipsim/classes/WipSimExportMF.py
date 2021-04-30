@@ -13,8 +13,8 @@ class WipSimExportMF(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
     files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/WipSim/OTs")
-    date_min_mf = fields.Date(string="Minimum date", required=True)
-    date_max_mf = fields.Date(string="Maximum date", required=True)
+    date_requested_min_mf = fields.Date(string="Minimum requested date", required=True)
+    date_requested_max_mf = fields.Date(string="Maximum requested date", required=True)
     areas_mf = fields.Many2many("mrp.area", "wipsim_export_mf_areas_rel", "wipsim_export_id_mf",
                                 "area_id_mf", string="Areas", copy=False, readonly=False)
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
@@ -25,15 +25,7 @@ class WipSimExportMF(models.Model):
     # METHODS
     # ===========================================================================
 
-    @api.multi
-    def _export_work_orders_for_wipsim_export_mf(self, wipsim_export_mf_id):
-        wipsim_export_mf = self.env["wipsim.export.mf"].search([("id", "=", wipsim_export_mf_id)], None, 1)
-        wipsim_export_mf.export_work_orders()
-
-    @api.multi
-    def button_export_work_orders(self):
-        self.export_work_orders()
-
+    @api.one
     def export_work_orders(self):
         work_orders = self.get_work_orders_to_send_to_wipsim()
         json_content = self.format_work_orders_to_json(work_orders)
@@ -43,8 +35,8 @@ class WipSimExportMF(models.Model):
     def get_work_orders_to_send_to_wipsim(self):
         return self.env["mrp.workorder"].search([
             ('id', 'in', self.get_ids_of_work_orders_with_resources_or_area_in_common())
-            , ('requested_date', '>=', self.date_min_mf)
-            , ('requested_date', '<=', self.date_max_mf)
+            , ('requested_date', '>=', self.date_requested_min_mf)
+            , ('requested_date', '<=', self.date_requested_max_mf)
         ])
 
     def get_ids_of_work_orders_with_resources_or_area_in_common(self):
@@ -86,7 +78,7 @@ class WipSimExportMF(models.Model):
         json_content = []
         for work_order in work_orders:
             json_content.append({
-                "name": work_order.name,
+                "name": work_order.display_name,
                 "final_product": work_order.final_product_id.name,
                 "state": work_order.state,
                 "requested_date": work_order.requested_date,
@@ -97,7 +89,7 @@ class WipSimExportMF(models.Model):
                 "real_start_date": work_order.real_start_date,
                 "real_end_date": work_order.real_end_date,
                 "manufacturing_order": work_order.mo_id.name,
-                "sale_line": work_order.sale_line_id.name,
+                "sale_line": work_order.sale_line_id.display_name,
                 "affair": work_order.affair_id.name,
                 "sequence": work_order.sequence,
                 "quantity": work_order.quantity,
