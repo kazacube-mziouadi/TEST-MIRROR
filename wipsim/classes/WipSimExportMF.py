@@ -15,7 +15,8 @@ class WipSimExportMF(models.Model):
     files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/WipSim/OTs")
     date_min_mf = fields.Date(string="Minimum date", required=True)
     date_max_mf = fields.Date(string="Maximum date", required=True)
-    area_mf = fields.Many2one('mrp.area', string='Area')
+    areas_mf = fields.Many2many("mrp.area", "wipsim_export_mf_areas_rel", "wipsim_export_id_mf",
+                                "area_id_mf", string="Areas", copy=False, readonly=False)
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
                                     "resource_id_mf", string="Resources", copy=False, readonly=False)
     last_json_generated = fields.Text(string="Last JSON generated", readonly=True)
@@ -26,11 +27,7 @@ class WipSimExportMF(models.Model):
 
     @api.multi
     def _export_work_orders_for_wipsim_export_mf(self, wipsim_export_mf_id):
-        print("*************")
-        print(self)
-        print(wipsim_export_mf_id)
         wipsim_export_mf = self.env["wipsim.export.mf"].search([("id", "=", wipsim_export_mf_id)], None, 1)
-        print(wipsim_export_mf)
         wipsim_export_mf.export_work_orders()
 
     @api.multi
@@ -38,10 +35,8 @@ class WipSimExportMF(models.Model):
         self.export_work_orders()
 
     def export_work_orders(self):
-        print("EXPORTING")
         work_orders = self.get_work_orders_to_send_to_wipsim()
         json_content = self.format_work_orders_to_json(work_orders)
-        print(json.dumps(json_content))
         self.write_wipsim_json_file(json_content)
         self.last_json_generated = json_content
 
@@ -56,18 +51,34 @@ class WipSimExportMF(models.Model):
         all_work_orders = self.env["mrp.workorder"].search([])
         work_orders_with_resources_in_common = []
         for work_order in all_work_orders:
-            if (len(self.resources_mf) < 1 and self.area_mf is None) \
-                    or self.work_order_has_a_resource_or_area_in_common(work_order):
+            if (len(self.resources_mf) < 1 and self.areas_mf is None) \
+                    or self.work_order_has_a_resource_and_an_area_in_common(work_order):
                 work_orders_with_resources_in_common.append(work_order.id)
         return work_orders_with_resources_in_common
 
-    def work_order_has_a_resource_or_area_in_common(self, work_order):
+    def work_order_has_a_resource_and_an_area_in_common(self, work_order):
         for wo_resource in work_order.wo_resource_ids:
-            if wo_resource.resource_id.area_id.id == self.area_mf.id:
+            if (len(self.resources_mf) < 1 or self.resource_is_in_self_resources(wo_resource.resource_id)) \
+                    and (len(self.areas_mf) < 1 or self.work_order_has_a_an_area_in_common(work_order)):
                 return True
-            for resource in self.resources_mf:
-                if resource.id == wo_resource.resource_id.id:
-                    return True
+        return False
+
+    def resource_is_in_self_resources(self, resource):
+        for selected_resource in self.resources_mf:
+            if selected_resource.id == resource.id:
+                return True
+        return False
+
+    def work_order_has_a_an_area_in_common(self, work_order):
+        for wo_resource in work_order.wo_resource_ids:
+            if self.area_is_in_self_areas(wo_resource.resource_id.area_id):
+                return True
+        return False
+
+    def area_is_in_self_areas(self, area):
+        for selected_area in self.areas_mf:
+            if selected_area.id == area.id:
+                return True
         return False
 
     @staticmethod
@@ -95,7 +106,8 @@ class WipSimExportMF(models.Model):
                 "advancement": work_order.advancement,
                 "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
                 "customer": work_order.customer_id.name,
-                "resources": work_order.get_resources_names_array()
+                "resources": work_order.get_resources_names_array(),
+                "areas": work_order.get_resources_area_names_array()
             })
         return json_content
 
@@ -109,7 +121,6 @@ class WipSimExportMF(models.Model):
 
     @api.multi
     def generate_cron_for_export(self):
-        print(self)
         return {
             'name': _("Generate cron for export"),
             'view_mode': 'form',
@@ -121,4 +132,5 @@ class WipSimExportMF(models.Model):
 
     @api.multi
     def delete_cron_for_export(self):
+        # TODO
         pass

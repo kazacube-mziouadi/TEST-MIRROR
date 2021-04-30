@@ -33,10 +33,10 @@
 								<field name="date_min_mf"/>
 								<field name="files_path_mf"/>
 								<field name="date_max_mf"/>
-								<field name="area_mf"/>
 							</group>
 							<group col="1">
 								<field name="resources_mf"/>
+								<field name="areas_mf"/>
 							</group>
 							<button
 								name="button_export_work_orders"
