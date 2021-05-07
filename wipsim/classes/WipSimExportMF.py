@@ -19,7 +19,7 @@ class WipSimExportMF(models.Model):
                                 "area_id_mf", string="Areas", copy=False, readonly=False)
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
                                     "resource_id_mf", string="Resources", copy=False, readonly=False)
-    last_json_generated = fields.Text(string="Last JSON generated", readonly=True)
+    last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
 
     # ===========================================================================
     # METHODS

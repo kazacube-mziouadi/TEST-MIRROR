@@ -7,14 +7,15 @@ class WizardWipSimExportCronMF(models.TransientModel):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", size=32, required=False)
+    name = fields.Char(string="Name", size=32, required=False, default="default")
     wipsim_export_mf = fields.Many2one("wipsim.export.mf", string="Area")
     interval_number = fields.Integer(string="Interval Number", help="Repeat every x.", required=True)
     interval_type = fields.Selection([
-            ("minutes", "Minutes"), ("hours", "Hours"), ("work_days", "Work Days"),
-            ("days", "Days"), ("weeks", "Weeks"), ("months", "Months")
-        ], "Interval Unit", required=True)
-    nextcall = fields.Datetime(string="Next Execution Date", required=True, help="Next planned execution date for this job.")
+        ("minutes", "Minutes"), ("hours", "Hours"), ("work_days", "Work Days"),
+        ("days", "Days"), ("weeks", "Weeks"), ("months", "Months")
+    ], "Interval Unit", required=True)
+    nextcall = fields.Datetime(string="Next Execution Date", required=True,
+                               help="Next planned execution date for this job.")
 
     @api.model
     def default_get(self, fields_list):

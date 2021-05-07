@@ -4,14 +4,14 @@
 		<!-- =============== -->
 		<!-- WIPSIM EXPORT   -->
 		<!-- =============== -->
-        <record id='intuiz_wipsim_export_mf' model="ir.actions.act_window">
+        <record id='wipsim_export_mf' model="ir.actions.act_window">
         	<field name="name">WipSim Export</field>
 			<field name="res_model">wipsim.export.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
-		<record id='intuiz_wipsim_export_mf_treeview' model="ir.ui.view">
+		<record id='wipsim_export_mf_treeview' model="ir.ui.view">
         	<field name="name">WipSim Export</field>
 			<field name="model">wipsim.export.mf</field>
             <field name="arch" type="xml">
@@ -21,12 +21,13 @@
 			</field>
         </record>
 
-        <record id='intuiz_wipsim_export_mf_form' model="ir.ui.view">
+        <record id='wipsim_export_mf_form' model="ir.ui.view">
         	<field name="name">wipsim.export.mf.form</field>
 			<field name="model">wipsim.export.mf</field>
             <field name="arch" type="xml">
 				<form string="WipSim Export Configuration">
 					<group col="9">
+						<field name="ir_cron_wipsim_export_mf" invisible="1" required="0" colspan="4" />
 						<group colspan="8" col="1">
 							<group col="4">
 								<field name="name"/>
@@ -44,7 +45,7 @@
 								type="object"
 								class="oe_highlight" />
 							<group col="1">
-								<field name="last_json_generated"/>
+								<field name="last_json_generated_mf"/>
 							</group>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="wipsim_export_action_menu_mf">
@@ -57,27 +58,22 @@
 			</field>
 		</record>
 
-		<!-- =========================== -->
-		<!-- WIZARD WIPSIM EXPORT CRON   -->
-		<!-- =========================== -->
+		<!-- ===================== -->
+		<!-- CRON WIPSIM EXPORT MF -->
+		<!-- ===================== -->
 
-		<!-- Modale affichée lors du clic sur "Generate cron for this export" -->
-		<record id='view_form_wizard_wipsim_export_cron_mf' model='ir.ui.view'>
-            <field name="name">Import from Intuiz Result</field>
-            <field name="model">wizard.wipsim.export.cron.mf</field>
+		<record id='ir_cron_wipsim_export_mf_form' model="ir.ui.view">
+        	<field name="name">ir.cron.wipsim.export.mf.form</field>
+			<field name="model">ir.cron.wipsim.export.mf</field>
             <field name="arch" type="xml">
-                <form string="WipSim export cron creation" version="8.0">
+				<form string="WipSim Export Cron Configuration">
 					<group col="2">
 						<field name="interval_number"/>
 						<field name="interval_type"/>
 						<field name="nextcall"/>
 					</group>
-                    <footer>
-                        <button name="action_validate" string="Generate Cron" type="object" class="oe_highlight" />
-                        <button string="Cancel" class="oe_link" special="cancel" />
-                    </footer>
-                </form>
-            </field>
-        </record>
+				</form>
+			</field>
+		</record>
     </data>
 </openerp>
