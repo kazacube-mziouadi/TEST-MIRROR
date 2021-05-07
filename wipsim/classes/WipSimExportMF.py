@@ -20,33 +20,45 @@ class WipSimExportMF(models.Model):
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
                                     "resource_id_mf", string="Resources", copy=False, readonly=False)
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
+    cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
 
     @api.one
+    def _compute_cron_already_exists(self):
+        if self.env["ir.cron"].search([
+            ("model", "=", "wipsim.export.mf"),
+            ("function", "=", "export_work_orders"),
+            ("args", "=", repr([self.id]))
+        ], None, 1):
+            self.cron_already_exists = True
+        self.cron_already_exists = False
+
+    @api.one
     def export_work_orders(self):
         work_orders = self.get_work_orders_to_send_to_wipsim()
+        print(work_orders)
         json_content = self.format_work_orders_to_json(work_orders)
         self.write_wipsim_json_file(json_content)
-        self.last_json_generated = json_content
+        self.last_json_generated_mf = json_content
 
     def get_work_orders_to_send_to_wipsim(self):
         return self.env["mrp.workorder"].search([
-            ('id', 'in', self.get_ids_of_work_orders_with_resources_or_area_in_common())
+            ('id', 'in', self.get_ids_of_work_orders_with_resources_or_areas_in_common())
             , ('planned_start_date', '>=', self.planned_start_date_min_mf)
             , ('planned_start_date', '<=', self.planned_start_date_max_mf)
         ])
 
-    def get_ids_of_work_orders_with_resources_or_area_in_common(self):
+    def get_ids_of_work_orders_with_resources_or_areas_in_common(self):
         all_work_orders = self.env["mrp.workorder"].search([])
-        work_orders_with_resources_in_common = []
+        work_orders_with_resources_or_areas_in_common = []
         for work_order in all_work_orders:
             if (len(self.resources_mf) < 1 and self.areas_mf is None) \
                     or self.work_order_has_a_resource_and_an_area_in_common(work_order):
-                work_orders_with_resources_in_common.append(work_order.id)
-        return work_orders_with_resources_in_common
+                work_orders_with_resources_or_areas_in_common.append(work_order.id)
+        return work_orders_with_resources_or_areas_in_common
 
     def work_order_has_a_resource_and_an_area_in_common(self, work_order):
         for wo_resource in work_order.wo_resource_ids:
