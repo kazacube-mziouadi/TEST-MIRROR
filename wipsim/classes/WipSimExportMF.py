@@ -41,7 +41,6 @@ class WipSimExportMF(models.Model):
     @api.one
     def export_work_orders(self):
         work_orders = self.get_work_orders_to_send_to_wipsim()
-        print(work_orders)
         json_content = self.format_work_orders_to_json(work_orders)
         self.write_wipsim_json_file(json_content)
         self.last_json_generated_mf = json_content

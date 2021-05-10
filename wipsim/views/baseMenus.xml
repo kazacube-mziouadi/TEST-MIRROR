@@ -2,6 +2,6 @@
 <openerp>
 	<data>
 		<menuitem id="base.menu_external_apis_mf" name="External APIs" parent="base.menu_administration" sequence="200"/>
-			<menuitem id="menu_wipsim_exports" name="WipSim Export" parent="base.menu_external_apis_mf" sequence="10" action="wipsim_export_mf"/>
+			<menuitem id="menu_wipsim_exports" name="WipSim Exports" parent="base.menu_external_apis_mf" sequence="10" action="wipsim_export_mf"/>
 	</data>
 </openerp>
