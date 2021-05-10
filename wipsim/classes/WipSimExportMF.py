@@ -13,8 +13,8 @@ class WipSimExportMF(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
     files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/WipSim/OTs")
-    planned_start_date_min_mf = fields.Date(string="Minimum planned start date", required=True)
-    planned_start_date_max_mf = fields.Date(string="Maximum planned start date", required=True)
+    planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", string="Planned start date delta min")
+    planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", string="Planned start date delta max")
     areas_mf = fields.Many2many("mrp.area", "wipsim_export_mf_areas_rel", "wipsim_export_id_mf",
                                 "area_id_mf", string="Areas", copy=False, readonly=False)
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
@@ -46,10 +46,12 @@ class WipSimExportMF(models.Model):
         self.last_json_generated_mf = json_content
 
     def get_work_orders_to_send_to_wipsim(self):
+        planned_start_date_min = self.planned_start_date_delta_min_mf.get_datetime_from_now()
+        planned_start_date_max = self.planned_start_date_delta_max_mf.get_datetime_from_now()
         return self.env["mrp.workorder"].search([
             ('id', 'in', self.get_ids_of_work_orders_with_resources_or_areas_in_common())
-            , ('planned_start_date', '>=', self.planned_start_date_min_mf)
-            , ('planned_start_date', '<=', self.planned_start_date_max_mf)
+            , ('planned_start_date', '>=', planned_start_date_min)
+            , ('planned_start_date', '<=', planned_start_date_max)
         ])
 
     def get_ids_of_work_orders_with_resources_or_areas_in_common(self):
