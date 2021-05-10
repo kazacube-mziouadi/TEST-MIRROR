@@ -1,0 +1,271 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* wipsim
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-10 08:44+0000\n"
+"PO-Revision-Date: 2021-05-10 08:44+0000\n"
+"Last-Translator: Jérémy Martin\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base
+#: model:ir.ui.menu,name:base.menu_external_apis_mf
+msgid "External APIs"
+msgstr "APIs Externes"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
+msgid "Actions"
+msgstr "Actions"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_wipsim_export_mf
+msgid "Area"
+msgstr "Atelier"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_areas_mf
+msgid "Areas"
+msgstr "Ateliers"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.view_form_wizard_wipsim_export_cron_mf
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_create_uid
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_create_date
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_cron_already_exists_mf
+msgid "Cron already exists mf"
+msgstr "Le cron existe déjà"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Days"
+msgstr "Jours"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
+msgid "Delete the cron for this export"
+msgstr "Supprimer le cron pour cet export"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_display_name
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
+msgid "Export Work Orders"
+msgstr "Exporter OTs"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_files_path_mf
+msgid "Files path"
+msgstr "Chemin des fichiers"
+
+#. module: wipsim
+#: code:addons/wipsim/classes/WipSimExportMF.py:130
+#, python-format
+msgid "Generate cron for export"
+msgstr "Générer le cron pour cet export"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
+msgid "Generate cron for this export"
+msgstr "Générer le cron pour cet export"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Hours"
+msgstr "Heures"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_id
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_id
+msgid "ID"
+msgstr "ID"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_interval_number
+msgid "Interval Number"
+msgstr "Nombre d'intervalle"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_interval_type
+msgid "Interval Unit"
+msgstr "Unité d'intervalle"
+
+#. module: wipsim
+#: model:ir.model,name:wipsim.model_ir_cron_wipsim_export_mf
+msgid "Ir cron"
+msgstr "Cron"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_last_json_generated_mf
+msgid "Last JSON generated"
+msgstr "Dernier JSON généré"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf___last_update
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_write_uid
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_write_date
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_planned_start_date_max_mf
+msgid "Maximum planned start date"
+msgstr "Date de début planifiée maximale"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_planned_start_date_min_mf
+msgid "Minimum planned start date"
+msgstr "Date de début planifiée minimale"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Minutes"
+msgstr "Minutes"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Months"
+msgstr "Months"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_name
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_nextcall
+msgid "Next Execution Date"
+msgstr "Date de prochaine exécution"
+
+#. module: wipsim
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_nextcall
+msgid "Next planned execution date for this job."
+msgstr "Date de prochaine exécution de ce travail"
+
+#. module: wipsim
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf___last_update
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_areas_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_create_date
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_create_uid
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_cron_already_exists_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_display_name
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_files_path_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_id
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_last_json_generated_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_name
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_planned_start_date_max_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_planned_start_date_min_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_resources_mf
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_write_date
+#: model:ir.model.fields,help:wipsim.field_wipsim_export_mf_write_uid
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf___last_update
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_create_date
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_create_uid
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_display_name
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_id
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_interval_type
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_name
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_wipsim_export_mf
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_write_date
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.view_form_wizard_wipsim_export_cron_mf
+msgid "OK"
+msgstr "OK"
+
+#. module: wipsim
+#: model:ir.model.fields,help:wipsim.field_wizard_wipsim_export_cron_mf_interval_number
+msgid "Repeat every x."
+msgstr "Répéter tous les X"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_resources_mf
+msgid "Resources"
+msgstr "Ressources"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Weeks"
+msgstr "Semaines"
+
+#. module: wipsim
+#: model:ir.actions.act_window,name:wipsim.wipsim_export_mf
+#: model:ir.ui.menu,name:wipsim.menu_wipsim_exports
+msgid "WipSim Exports"
+msgstr "Exports WipSim"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
+msgid "WipSim Export Configuration"
+msgstr "Configuration d'Export WipSim"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_treeview
+msgid "WipSim Export Configurations"
+msgstr "Configurations d'Export WipSim"
+
+#. module: wipsim
+#: model:ir.model,name:wipsim.model_wipsim_export_mf
+msgid "WipSim export configuration"
+msgstr "Configuration d'Export WipSim"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.view_form_wizard_wipsim_export_cron_mf
+msgid "WipSim export cron creation"
+msgstr "Création du cron d'export WipSim"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "Work Days"
+msgstr "Jours ouvrés"
+
+#. module: wipsim
+#: model:ir.model,name:wipsim.model_mrp_workorder
+msgid "Workorder"
+msgstr "Ordre de travail"
+
+#. module: wipsim
+#: model:ir.model,name:wipsim.model_wizard_wipsim_export_cron_mf
+msgid "wizard.wipsim.export.cron.mf"
+msgstr "wizard.wipsim.export.cron.mf"
+
