@@ -28,13 +28,15 @@ class WipSimExportMF(models.Model):
 
     @api.one
     def _compute_cron_already_exists(self):
-        if self.env["ir.cron"].search([
+        existing_crons = self.env["ir.cron"].search([
             ("model", "=", "wipsim.export.mf"),
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
-        ], None, 1):
-            self.cron_already_exists = True
-        self.cron_already_exists = False
+        ], None, 1)
+        if len(existing_crons) > 0:
+            self.cron_already_exists_mf = True
+        else:
+            self.cron_already_exists_mf = False
 
     @api.one
     def export_work_orders(self):
@@ -136,5 +138,8 @@ class WipSimExportMF(models.Model):
 
     @api.multi
     def delete_cron_for_export(self):
-        # TODO
-        pass
+        self.env["ir.cron"].search([
+            ("model", "=", "wipsim.export.mf"),
+            ("function", "=", "export_work_orders"),
+            ("args", "=", repr([self.id]))
+        ], None, 1).unlink()
