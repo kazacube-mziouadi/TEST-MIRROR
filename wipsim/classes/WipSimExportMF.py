@@ -13,8 +13,10 @@ class WipSimExportMF(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
     files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/WipSim/OTs")
-    planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", string="Planned start date delta min")
-    planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", string="Planned start date delta max")
+    planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", required=True,
+                                                      string="Planned start date delta min")
+    planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", required=True,
+                                                      string="Planned start date delta max")
     areas_mf = fields.Many2many("mrp.area", "wipsim_export_mf_areas_rel", "wipsim_export_id_mf",
                                 "area_id_mf", string="Areas", copy=False, readonly=False)
     resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
@@ -107,19 +109,19 @@ class WipSimExportMF(models.Model):
                 "sale_line": work_order.sale_line_id.display_name,
                 "affair": work_order.affair_id.name,
                 "sequence": work_order.sequence,
-                "quantity": work_order.quantity,
+                "quantity_produced": work_order.produce_total_qty,
+                "quantity_needed": work_order.quantity,
                 "unit_of_measure": work_order.uom_id.name,
                 "availability": work_order.availability,
                 "advancement": work_order.advancement,
                 "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
                 "customer": work_order.customer_id.name,
-                "resources": work_order.get_resources_names_array(),
-                "areas": work_order.get_resources_area_names_array()
+                "resources": work_order.get_resources_names_and_areas_array()
             })
         return json_content
 
     def write_wipsim_json_file(self, json_content):
-        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%d%m%Y_%H%M%S")
+        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         if not os.path.exists(self.files_path_mf):
             os.makedirs(self.files_path_mf)
         file = open(os.path.join(self.files_path_mf, "WipSim-WorkOrders-" + now + ".json"), "a")
