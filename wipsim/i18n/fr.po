@@ -63,6 +63,11 @@ msgid "Days"
 msgstr "Jours"
 
 #. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "days"
+msgstr "jours"
+
+#. module: wipsim
 #: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
 msgid "Delete the cron for this export"
 msgstr "Supprimer le cron pour cet export"
@@ -98,6 +103,11 @@ msgstr "Générer le cron pour cet export"
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
 msgid "Hours"
 msgstr "Heures"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "hours"
+msgstr "heures"
 
 #. module: wipsim
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_id
@@ -160,8 +170,18 @@ msgstr "Minutes"
 
 #. module: wipsim
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "minutes"
+msgstr "minutes"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
 msgid "Months"
 msgstr "Months"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "months"
+msgstr "months"
 
 #. module: wipsim
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_name
@@ -227,6 +247,11 @@ msgstr "Ressources"
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
 msgid "Weeks"
 msgstr "Semaines"
+
+#. module: wipsim
+#: selection:wizard.wipsim.export.cron.mf,interval_type:0
+msgid "weeks"
+msgstr "semaines"
 
 #. module: wipsim
 #: model:ir.actions.act_window,name:wipsim.wipsim_export_mf
