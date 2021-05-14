@@ -52,8 +52,8 @@ class WipSimExportMF(models.Model):
         planned_start_date_max = self.planned_start_date_delta_max_mf.get_datetime_from_now()
         return self.env["mrp.workorder"].search([
             ('id', 'in', self.get_ids_of_work_orders_with_resources_or_areas_in_common())
-            , ('planned_start_date', '>=', planned_start_date_min)
-            , ('planned_start_date', '<=', planned_start_date_max)
+            , ('planned_start_date', '>=', str(planned_start_date_min))
+            , ('planned_start_date', '<=', str(planned_start_date_max))
         ])
 
     def get_ids_of_work_orders_with_resources_or_areas_in_common(self):
