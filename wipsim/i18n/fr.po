@@ -26,6 +26,11 @@ msgid "Actions"
 msgstr "Actions"
 
 #. module: wipsim
+#: selection:datetime.delta.mf,delta_orientation_mf:0
+msgid "After now"
+msgstr "Après maintenant"
+
+#. module: wipsim
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_wipsim_export_mf
 msgid "Area"
 msgstr "Atelier"
@@ -36,17 +41,24 @@ msgid "Areas"
 msgstr "Ateliers"
 
 #. module: wipsim
+#: selection:datetime.delta.mf,delta_orientation_mf:0
+msgid "Before now"
+msgstr "Avant maintenant"
+
+#. module: wipsim
 #: model:ir.ui.view,arch_db:wipsim.view_form_wizard_wipsim_export_cron_mf
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_create_uid
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_create_uid
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_create_date
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_create_date
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_create_date
 msgid "Created on"
@@ -58,7 +70,19 @@ msgid "Cron already exists mf"
 msgstr "Le cron existe déjà"
 
 #. module: wipsim
+#: model:ir.actions.act_window,name:wipsim.datetime_delta_mf
+msgid "Datetime Delta"
+msgstr "Delta Temporel"
+
+#. module: wipsim
+#: model:ir.ui.view,arch_db:wipsim.datetime_delta_mf_form
+msgid "Datetime Delta Configuration"
+msgstr "Configuration du Delta Temporel"
+
+#. module: wipsim
+#: code:addons/wipsim/classes/DatetimeDeltaMF.py:27
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+#, python-format
 msgid "Days"
 msgstr "Jours"
 
@@ -71,6 +95,26 @@ msgstr "jours"
 #: model:ir.ui.view,arch_db:wipsim.wipsim_export_mf_form
 msgid "Delete the cron for this export"
 msgstr "Supprimer le cron pour cet export"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_delta_number_mf
+msgid "Delta Number"
+msgstr "Nombre du delta"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_delta_orientation_mf
+msgid "Delta Orientation"
+msgstr "Orientation du delta"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_delta_type_mf
+msgid "Delta Type"
+msgstr "Type du delta"
+
+#. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_delta_type_mf
+msgid "Delta Unit"
+msgstr "Unité du delta"
 
 #. module: wipsim
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_display_name
@@ -89,7 +133,7 @@ msgid "Files path"
 msgstr "Chemin des fichiers"
 
 #. module: wipsim
-#: code:addons/wipsim/classes/WipSimExportMF.py:130
+#: code:addons/wipsim/classes/WipSimExportMF.py:134
 #, python-format
 msgid "Generate cron for export"
 msgstr "Générer le cron pour cet export"
@@ -100,16 +144,20 @@ msgid "Generate cron for this export"
 msgstr "Générer le cron pour cet export"
 
 #. module: wipsim
+#: selection:datetime.delta.mf,delta_type_mf:0
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
 msgid "Hours"
 msgstr "Heures"
 
 #. module: wipsim
+#: code:addons/wipsim/classes/DatetimeDeltaMF.py:27
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+#, python-format
 msgid "hours"
 msgstr "heures"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_id
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_id
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_id
 msgid "ID"
@@ -136,18 +184,21 @@ msgid "Last JSON generated"
 msgstr "Dernier JSON généré"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf___last_update
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf___last_update
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_write_uid
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_write_uid
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_write_date
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_write_date
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_write_date
 msgid "Last Updated on"
@@ -164,12 +215,15 @@ msgid "Minimum planned start date"
 msgstr "Date de début planifiée minimale"
 
 #. module: wipsim
+#: selection:datetime.delta.mf,delta_type_mf:0
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
 msgid "Minutes"
 msgstr "Minutes"
 
 #. module: wipsim
+#: code:addons/wipsim/classes/DatetimeDeltaMF.py:27
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+#, python-format
 msgid "minutes"
 msgstr "minutes"
 
@@ -179,11 +233,14 @@ msgid "Months"
 msgstr "Months"
 
 #. module: wipsim
+#: code:addons/wipsim/classes/DatetimeDeltaMF.py:27
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+#, python-format
 msgid "months"
 msgstr "months"
 
 #. module: wipsim
+#: model:ir.model.fields,field_description:wipsim.field_datetime_delta_mf_name
 #: model:ir.model.fields,field_description:wipsim.field_wipsim_export_mf_name
 #: model:ir.model.fields,field_description:wipsim.field_wizard_wipsim_export_cron_mf_name
 msgid "Name"
@@ -249,7 +306,9 @@ msgid "Weeks"
 msgstr "Semaines"
 
 #. module: wipsim
+#: code:addons/wipsim/classes/DatetimeDeltaMF.py:27
 #: selection:wizard.wipsim.export.cron.mf,interval_type:0
+#, python-format
 msgid "weeks"
 msgstr "semaines"
 

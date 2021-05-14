@@ -23,9 +23,6 @@ class DatetimeDeltaMF(models.Model):
 
     @api.model
     def create(self, fields_list):
-        print("#################")
-        print(_(fields_list["delta_type_mf"]))
-        print(fields_list["delta_type_mf"])
         fields_list["name"] = fields_list["delta_orientation_mf"] + " " + str(fields_list["delta_number_mf"]) \
                               + " " + _(fields_list["delta_type_mf"])
         return super(DatetimeDeltaMF, self).create(fields_list)
