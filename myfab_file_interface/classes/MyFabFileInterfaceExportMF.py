@@ -99,8 +99,12 @@ class MyFabFileInterfaceExportMF(models.Model):
         json_content = []
         for work_order in work_orders:
             json_content.append({
-                "name": work_order.display_name,
-                "final_product": work_order.final_product_id.name,
+                "work_order": work_order.display_name,
+                "final_product": {
+                    "name": work_order.final_product_id.name,
+                    "code": work_order.final_product_id.code
+                },
+                "raw_material": work_order.get_raw_materials_array(),
                 "state": work_order.state,
                 "requested_date": work_order.requested_date,
                 "min_date": work_order.min_date,
@@ -120,7 +124,8 @@ class MyFabFileInterfaceExportMF(models.Model):
                 "advancement": work_order.advancement,
                 "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
                 "customer": work_order.customer_id.name,
-                "resources": work_order.get_resources_names_and_areas_array()
+                "resources": work_order.get_resources_array(),
+                "note_manufacturing": work_order.note_manufacturing
             })
         return json.dumps(json_content, sort_keys=True, indent=4)
 
