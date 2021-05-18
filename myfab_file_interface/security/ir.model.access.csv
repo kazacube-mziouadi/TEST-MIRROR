@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_myfab_file_interface_export_mf,myfab.file.interface.export.mf,model_myfab_file_interface_export_mf,group_myfab_file_interface_export,1,1,1,1
+

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'WipSim Interface',
+    'name': 'MyFab File Interface',
     'version': '0.1.0',
     'author': 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Interface pour échanger avec le logiciel de pilotage de production WipSim',
+    'summary': 'Interface MyFab pour échanger avec des logiciels externes via fichiers à plat JSON',
     'category': 'Base',
-    'description': """Interface pour échanger avec le logiciel de pilotage de production WipSim.""",
+    'description': """Interface MyFab pour échanger avec des logiciels externes via fichiers à plat JSON.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
@@ -15,9 +15,9 @@
         'affair'
     ],
     'data': [
-        'security/wipsim_security.xml',
+        'security/myfab_file_interface_security.xml',
         'security/ir.model.access.csv',
-        'views/wipsim.xml',
+        'views/myfab_file_interface.xml',
         'views/baseMenus.xml'
     ],
     'qweb': [],

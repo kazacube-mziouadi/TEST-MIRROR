@@ -1,0 +1,355 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* myfab_file_interface
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-10 08:44+0000\n"
+"PO-Revision-Date: 2021-05-10 08:44+0000\n"
+"Last-Translator: Jérémy Martin\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base
+#: model:ir.ui.menu,name:base.menu_external_apis_mf
+msgid "External APIs MyFab"
+msgstr "APIs Externes MyFab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "Actions"
+msgstr "Actions"
+
+#. module: myfab_file_interface
+#: selection:datetime.delta.mf,delta_orientation_mf:0
+msgid "After now"
+msgstr "Après maintenant"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_myfab_file_interface_export_mf
+msgid "Area"
+msgstr "Atelier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_areas_mf
+msgid "Areas"
+msgstr "Ateliers"
+
+#. module: myfab_file_interface
+#: selection:datetime.delta.mf,delta_orientation_mf:0
+msgid "Before now"
+msgstr "Avant maintenant"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_export_cron_mf
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_cron_already_exists_mf
+msgid "Cron already exists mf"
+msgstr "Le cron existe déjà"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.datetime_delta_mf
+msgid "Datetime Delta"
+msgstr "Delta Temporel"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.datetime_delta_mf_form
+msgid "Datetime Delta Configuration"
+msgstr "Configuration du Delta Temporel"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/DatetimeDeltaMF.py:27
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#, python-format
+msgid "Days"
+msgstr "Jours"
+
+#. module: myfab_file_interface
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "days"
+msgstr "jours"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "Delete the cron for this export"
+msgstr "Supprimer le cron pour cet export"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_delta_number_mf
+msgid "Delta Number"
+msgstr "Nombre du delta"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_delta_orientation_mf
+msgid "Delta Orientation"
+msgstr "Orientation du delta"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_delta_type_mf
+msgid "Delta Type"
+msgstr "Type du delta"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_delta_type_mf
+msgid "Delta Unit"
+msgstr "Unité du delta"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "Export Work Orders"
+msgstr "Exporter OTs"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_files_path_mf
+msgid "Files path"
+msgstr "Chemin des fichiers"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/MyFabFileInterfaceExportMF.py:134
+#, python-format
+msgid "Generate cron for export"
+msgstr "Générer le cron pour cet export"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "Generate cron for this export"
+msgstr "Générer le cron pour cet export"
+
+#. module: myfab_file_interface
+#: selection:datetime.delta.mf,delta_type_mf:0
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "Hours"
+msgstr "Heures"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/DatetimeDeltaMF.py:27
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#, python-format
+msgid "hours"
+msgstr "heures"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_id
+msgid "ID"
+msgstr "ID"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_interval_number
+msgid "Interval Number"
+msgstr "Nombre d'intervalle"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_interval_type
+msgid "Interval Unit"
+msgstr "Unité d'intervalle"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_ir_cron_myfab_file_interface_export_mf
+msgid "Ir cron"
+msgstr "Cron"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_last_json_generated_mf
+msgid "Last JSON generated"
+msgstr "Dernier JSON généré"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_planned_start_date_delta_max_mf
+msgid "Planned start date delta max"
+msgstr "Delta maximum de la date de début planifiée"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_planned_start_date_delta_min_mf
+msgid "Planned start date delta min"
+msgstr "Delta minimum de la date de début planifiée"
+
+#. module: myfab_file_interface
+#: selection:datetime.delta.mf,delta_type_mf:0
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "Minutes"
+msgstr "Minutes"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/DatetimeDeltaMF.py:27
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#, python-format
+msgid "minutes"
+msgstr "minutes"
+
+#. module: myfab_file_interface
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "Months"
+msgstr "Mois"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/DatetimeDeltaMF.py:27
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#, python-format
+msgid "months"
+msgstr "mois"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_nextcall
+msgid "Next Execution Date"
+msgstr "Date de prochaine exécution"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_nextcall
+msgid "Next planned execution date for this job."
+msgstr "Date de prochaine exécution de ce travail"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_areas_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_cron_already_exists_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_files_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_last_json_generated_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_planned_start_date_max_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_planned_start_date_min_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_resources_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_myfab_file_interface_export_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_interval_type
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_myfab_file_interface_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_export_cron_mf
+msgid "OK"
+msgstr "OK"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_interval_number
+msgid "Repeat every x."
+msgstr "Répéter tous les X"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_resources_mf
+msgid "Resources"
+msgstr "Ressources"
+
+#. module: myfab_file_interface
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "Weeks"
+msgstr "Semaines"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/DatetimeDeltaMF.py:27
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#, python-format
+msgid "weeks"
+msgstr "semaines"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.myfab_file_interface_export_mf
+#: model:ir.ui.menu,name:myfab_file_interface.menu_myfab_file_interface_exports
+msgid "Exports File Interface MyFab"
+msgstr "Exports Interface Fichiers MyFab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "MyFab File Interface Export Configuration"
+msgstr "Configuration d'Export MyFab File Interface"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_treeview
+msgid "MyFab File Interface Export Configurations"
+msgstr "Configurations d'Export MyFab File Interface"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_myfab_file_interface_export_mf
+msgid "MyFab File Interface Export configuration"
+msgstr "Configuration d'Export MyFab File Interface"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_export_cron_mf
+msgid "MyFab File Interface Export cron creation"
+msgstr "Création du cron d'export MyFab File Interface"
+
+#. module: myfab_file_interface
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+msgid "Work Days"
+msgstr "Jours ouvrés"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_mrp_workorder
+msgid "Workorder"
+msgstr "Ordre de travail"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_wizard_myfab_file_interface_export_cron_mf
+msgid "wizard.myfab_file_interface.export.cron.mf"
+msgstr "wizard.myfab_file_interface.export.cron.mf"
+

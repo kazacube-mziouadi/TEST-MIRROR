@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-		<!-- =============== -->
-		<!-- WIPSIM EXPORT   -->
-		<!-- =============== -->
-        <record id='wipsim_export_mf' model="ir.actions.act_window">
-        	<field name="name">WipSim Export</field>
-			<field name="res_model">wipsim.export.mf</field>
+		<!-- ============================ -->
+		<!-- MYFAB FILE INTERFACE EXPORT  -->
+		<!-- ============================ -->
+        <record id='myfab_file_interface_export_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface Export</field>
+			<field name="res_model">myfab.file.interface.export.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
-		<record id='wipsim_export_mf_treeview' model="ir.ui.view">
-        	<field name="name">WipSim Export</field>
-			<field name="model">wipsim.export.mf</field>
+		<record id='myfab_file_interface_export_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface Export</field>
+			<field name="model">myfab.file.interface.export.mf</field>
             <field name="arch" type="xml">
-				<tree string="WipSim Export Configurations">
+				<tree string="MyFab File Interface Export Configurations">
 					<field name="name"/>
 				</tree>
 			</field>
         </record>
 
-        <record id='wipsim_export_mf_form' model="ir.ui.view">
-        	<field name="name">wipsim.export.mf.form</field>
-			<field name="model">wipsim.export.mf</field>
+        <record id='myfab_file_interface_export_mf_form' model="ir.ui.view">
+        	<field name="name">myfab.file.interface.export.mf.form</field>
+			<field name="model">myfab.file.interface.export.mf</field>
             <field name="arch" type="xml">
-				<form string="WipSim Export Configuration">
+				<form string="MyFab File Interface Export Configuration">
 					<group col="9">
 						<group colspan="8" col="1">
 							<group col="4">
@@ -48,7 +48,7 @@
 							</group>
 							<field name="cron_already_exists_mf" invisible="1"/>
 						</group>
-						<group colspan="1" col="1" class="op_shortcuts" name="wipsim_export_action_menu_mf">
+						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">
 							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
@@ -68,16 +68,16 @@
 			</field>
 		</record>
 
-		<!-- =========================== -->
-		<!-- WIZARD WIPSIM EXPORT CRON   -->
-		<!-- =========================== -->
+		<!-- ========================================= -->
+		<!-- WIZARD MYFAB FILE INTERFACE EXPORT CRON   -->
+		<!-- ========================================= -->
 
 		<!-- Modale affichée lors du clic sur "Generate cron for this export" -->
-		<record id='view_form_wizard_wipsim_export_cron_mf' model='ir.ui.view'>
-            <field name="name">Import from Intuiz Result</field>
-            <field name="model">wizard.wipsim.export.cron.mf</field>
+		<record id='view_form_wizard_myfab_file_interface_export_cron_mf' model='ir.ui.view'>
+            <field name="name">MyFab File Interface Export cron creation</field>
+            <field name="model">wizard.myfab.file.interface.export.cron.mf</field>
             <field name="arch" type="xml">
-                <form string="WipSim export cron creation" version="8.0">
+                <form string="MyFab File Interface Export cron creation" version="8.0">
 					<group col="2">
 						<field name="interval_number"/>
 						<field name="interval_type"/>

@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wipsim_export_mf,wipsim.export.mf,model_wipsim_export_mf,group_wipsim_export,1,1,1,1
-

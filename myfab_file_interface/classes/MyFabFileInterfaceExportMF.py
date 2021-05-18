@@ -4,23 +4,25 @@ import datetime
 import os
 
 
-class WipSimExportMF(models.Model):
-    _name = "wipsim.export.mf"
-    _description = "WipSim export configuration"
+class MyFabFileInterfaceExportMF(models.Model):
+    _name = "myfab.file.interface.export.mf"
+    _description = "MyFab file interface export configuration"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/WipSim/OTs")
+    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/WorkOrders")
     planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", required=True,
                                                       string="Planned start date delta min")
     planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", required=True,
                                                       string="Planned start date delta max")
-    areas_mf = fields.Many2many("mrp.area", "wipsim_export_mf_areas_rel", "wipsim_export_id_mf",
-                                "area_id_mf", string="Areas", copy=False, readonly=False)
-    resources_mf = fields.Many2many("mrp.resource", "wipsim_export_mf_resources_rel", "wipsim_export_id_mf",
-                                    "resource_id_mf", string="Resources", copy=False, readonly=False)
+    areas_mf = fields.Many2many("mrp.area", "myfab_file_interface_export_mf_areas_rel",
+                                "myfab_file_interface_export_id_mf", "area_id_mf", string="Areas", copy=False,
+                                readonly=False)
+    resources_mf = fields.Many2many("mrp.resource", "myfab_file_interface_export_mf_resources_rel",
+                                    "myfab_file_interface_export_id_mf", "resource_id_mf", string="Resources",
+                                    copy=False, readonly=False)
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
 
@@ -31,7 +33,7 @@ class WipSimExportMF(models.Model):
     @api.one
     def _compute_cron_already_exists(self):
         existing_crons = self.env["ir.cron"].search([
-            ("model", "=", "wipsim.export.mf"),
+            ("model", "=", "myfab_file_interface.export.mf"),
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
         ], None, 1)
@@ -42,12 +44,12 @@ class WipSimExportMF(models.Model):
 
     @api.one
     def export_work_orders(self):
-        work_orders = self.get_work_orders_to_send_to_wipsim()
+        work_orders = self.get_work_orders_to_send_to_myfab_file_interface()
         json_content = self.format_work_orders_to_json(work_orders)
-        self.write_wipsim_json_file(json_content)
+        self.write_myfab_file_interface_json_file(json_content)
         self.last_json_generated_mf = json_content
 
-    def get_work_orders_to_send_to_wipsim(self):
+    def get_work_orders_to_send_to_myfab_file_interface(self):
         planned_start_date_min = self.planned_start_date_delta_min_mf.get_datetime_from_now()
         planned_start_date_max = self.planned_start_date_delta_max_mf.get_datetime_from_now()
         return self.env["mrp.workorder"].search([
@@ -120,11 +122,11 @@ class WipSimExportMF(models.Model):
             })
         return json_content
 
-    def write_wipsim_json_file(self, json_content):
+    def write_myfab_file_interface_json_file(self, json_content):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         if not os.path.exists(self.files_path_mf):
             os.makedirs(self.files_path_mf)
-        file = open(os.path.join(self.files_path_mf, "WipSim-WorkOrders-" + now + ".json"), "a")
+        file = open(os.path.join(self.files_path_mf, "MFFI-WorkOrders-" + now + ".json"), "a")
         file.write(json.dumps(json_content))
         file.close()
 
@@ -133,16 +135,16 @@ class WipSimExportMF(models.Model):
         return {
             'name': _("Generate cron for export"),
             'view_mode': 'form',
-            'res_model': 'wizard.wipsim.export.cron.mf',
+            'res_model': 'wizard.myfab.file.interface.export.cron.mf',
             'type': 'ir.actions.act_window',
             'target': 'new',
-            'context': {'wipsim_export_id': self.id}
+            'context': {'myfab_file_interface_export_id': self.id}
         }
 
     @api.multi
     def delete_cron_for_export(self):
         self.env["ir.cron"].search([
-            ("model", "=", "wipsim.export.mf"),
+            ("model", "=", "myfab_file_interface.export.mf"),
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
