@@ -13,8 +13,8 @@ class MrpWorkorder(models.Model):
         resources_names_array = []
         for resource in self.wo_resource_ids:
             resources_names_array.append({
-                resource.resource_id.name: {
-                    "area": resource.resource_id.area_id.name
-                }
+                "name": resource.resource_id.name,
+                "type": resource.resource_id.type,
+                "area": resource.resource_id.area_id.name
             })
         return resources_names_array

@@ -10,7 +10,7 @@ class DatetimeDeltaMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=False, help='')
-    delta_number_mf = fields.Integer(string="Delta Number", help="Repeat every x.", required=True)
+    delta_number_mf = fields.Integer(string="Delta Number", required=True)
     delta_type_mf = fields.Selection([
         ("minutes", "Minutes"), ("hours", "Hours"), ("days", "Days"), ("weeks", "Weeks")
     ], "Delta Unit", required=True)
@@ -31,12 +31,8 @@ class DatetimeDeltaMF(models.Model):
     def get_datetime_from_now(self):
         now = datetime.datetime.now() + datetime.timedelta(hours=2)
         time_delta = str("datetime.timedelta(" + self.delta_type_mf + "=" + str(self.delta_number_mf) + ")")
-        print("EVALUATED *************")
-        print(time_delta)
         if self.delta_orientation_mf == "+":
-            print(now + eval(time_delta))
             return now + eval(time_delta)
         elif self.delta_orientation_mf == "-":
-            print(now - eval(time_delta))
             return now - eval(time_delta)
         raise ValidationError('The operator must be + or -')

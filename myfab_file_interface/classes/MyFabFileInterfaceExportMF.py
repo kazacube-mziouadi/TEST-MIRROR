@@ -25,6 +25,7 @@ class MyFabFileInterfaceExportMF(models.Model):
                                     copy=False, readonly=False)
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
+    number_of_work_orders_in_last_export = fields.Integer(string="Number of work orders in last export", readonly=True)
 
     # ===========================================================================
     # METHODS
@@ -45,7 +46,8 @@ class MyFabFileInterfaceExportMF(models.Model):
     @api.one
     def export_work_orders(self):
         work_orders = self.get_work_orders_to_send_to_myfab_file_interface()
-        json_content = self.format_work_orders_to_json(work_orders)
+        self.number_of_work_orders_in_last_export = len(work_orders)
+        json_content = self.format_work_orders_to_json_string(work_orders)
         self.write_myfab_file_interface_json_file(json_content)
         self.last_json_generated_mf = json_content
 
@@ -93,7 +95,7 @@ class MyFabFileInterfaceExportMF(models.Model):
         return False
 
     @staticmethod
-    def format_work_orders_to_json(work_orders):
+    def format_work_orders_to_json_string(work_orders):
         json_content = []
         for work_order in work_orders:
             json_content.append({
@@ -120,14 +122,14 @@ class MyFabFileInterfaceExportMF(models.Model):
                 "customer": work_order.customer_id.name,
                 "resources": work_order.get_resources_names_and_areas_array()
             })
-        return json_content
+        return json.dumps(json_content, sort_keys=True, indent=4)
 
-    def write_myfab_file_interface_json_file(self, json_content):
+    def write_myfab_file_interface_json_file(self, json_content_string):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         if not os.path.exists(self.files_path_mf):
             os.makedirs(self.files_path_mf)
         file = open(os.path.join(self.files_path_mf, "MFFI-WorkOrders-" + now + ".json"), "a")
-        file.write(json.dumps(json_content))
+        file.write(json_content_string)
         file.close()
 
     @api.multi

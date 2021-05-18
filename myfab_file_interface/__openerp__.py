@@ -18,7 +18,8 @@
         'security/myfab_file_interface_security.xml',
         'security/ir.model.access.csv',
         'views/myfab_file_interface.xml',
-        'views/baseMenus.xml'
+        'views/baseMenus.xml',
+        'views/myfab_file_interface_web.xml'
     ],
     'qweb': [],
     'demo': [],

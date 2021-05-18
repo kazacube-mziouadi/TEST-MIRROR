@@ -28,25 +28,28 @@
 				<form string="MyFab File Interface Export Configuration">
 					<group col="9">
 						<group colspan="8" col="1">
-							<group col="4">
-								<field name="name"/>
-								<field name="planned_start_date_delta_min_mf"/>
-								<field name="files_path_mf"/>
-								<field name="planned_start_date_delta_max_mf"/>
+							<group col="1" string="Configuration">
+								<group col="4">
+									<field name="name"/>
+									<field name="planned_start_date_delta_min_mf"/>
+									<field name="files_path_mf"/>
+									<field name="planned_start_date_delta_max_mf"/>
+									<field name="cron_already_exists_mf" invisible="1"/>
+								</group>
+								<group col="1">
+									<field name="resources_mf"/>
+									<field name="areas_mf"/>
+								</group>
+								<button
+									name="export_work_orders"
+									string="Export Work Orders"
+									type="object"
+									class="oe_highlight" />
 							</group>
-							<group col="1">
-								<field name="resources_mf"/>
-								<field name="areas_mf"/>
+							<group col="1" string="Last Export">
+								<field name="number_of_work_orders_in_last_export"/>
+								<field name="last_json_generated_mf" class="myfab_file_interface_export_json_content_mf"/>
 							</group>
-							<button
-								name="export_work_orders"
-								string="Export Work Orders"
-								type="object"
-								class="oe_highlight" />
-							<group col="1">
-								<field name="last_json_generated_mf"/>
-							</group>
-							<field name="cron_already_exists_mf" invisible="1"/>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">
 							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />

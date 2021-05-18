@@ -51,6 +51,11 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_create_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_create_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_create_uid
@@ -240,6 +245,12 @@ msgid "months"
 msgstr "mois"
 
 #. module: myfab_file_interface
+#: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
+#: model:ir.actions.act_window,name:myfab_file_interface.myfab_file_interface_export_mf
+msgid "MyFab File Interface Export"
+msgstr "Exports Interface Fichiers MyFab"
+
+#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_datetime_delta_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_name
@@ -284,6 +295,11 @@ msgstr "Date de prochaine exécution de ce travail"
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_export_cron_mf_write_uid
 msgid "Not defined"
 msgstr "Non défini"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_file_interface_export_mf_number_of_work_orders_in_last_export
+msgid "Number of work orders in last export"
+msgstr "Nombre d'OTs dans le dernier export"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_export_cron_mf
