@@ -33,7 +33,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     @api.one
     def _compute_cron_already_exists(self):
         existing_crons = self.env["ir.cron"].search([
-            ("model", "=", "myfab_file_interface.export.mf"),
+            ("model", "=", "myfab.file.interface.export.mf"),
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
         ], None, 1)
@@ -144,7 +144,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     @api.multi
     def delete_cron_for_export(self):
         self.env["ir.cron"].search([
-            ("model", "=", "myfab_file_interface.export.mf"),
+            ("model", "=", "myfab.file.interface.export.mf"),
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
