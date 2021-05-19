@@ -12,7 +12,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/WorkOrders")
+    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
     planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", required=True,
                                                       string="Planned start date delta min")
     planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", required=True,
@@ -99,33 +99,45 @@ class MyFabFileInterfaceExportMF(models.Model):
         json_content = []
         for work_order in work_orders:
             json_content.append({
-                "work_order": work_order.display_name,
-                "final_product": {
-                    "name": work_order.final_product_id.name,
-                    "code": work_order.final_product_id.code
-                },
-                "raw_material": work_order.get_raw_materials_array(),
-                "state": work_order.state,
-                "requested_date": work_order.requested_date,
-                "min_date": work_order.min_date,
-                "max_date": work_order.max_date,
-                "planned_start_date": work_order.planned_start_date,
-                "planned_end_date": work_order.planned_end_date,
-                "real_start_date": work_order.real_start_date,
-                "real_end_date": work_order.real_end_date,
-                "manufacturing_order": work_order.mo_id.name,
-                "sale_line": work_order.sale_line_id.display_name,
-                "affair": work_order.affair_id.name,
-                "sequence": work_order.sequence,
-                "quantity_produced": work_order.produce_total_qty,
-                "quantity_needed": work_order.quantity,
-                "unit_of_measure": work_order.uom_id.name,
-                "availability": work_order.availability,
-                "advancement": work_order.advancement,
-                "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
-                "customer": work_order.customer_id.name,
-                "resources": work_order.get_resources_array(),
-                "note_manufacturing": work_order.note_manufacturing
+                "mrp.workorder": {
+                    "display_name": work_order.display_name,
+                    "final_product": {
+                        "name": work_order.final_product_id.name,
+                        "code": work_order.final_product_id.code
+                    },
+                    "rm_draft_ids": work_order.get_raw_materials_array(),
+                    "state": work_order.state,
+                    "requested_date": work_order.requested_date,
+                    "min_date": work_order.min_date,
+                    "max_date": work_order.max_date,
+                    "planned_start_date": work_order.planned_start_date,
+                    "planned_end_date": work_order.planned_end_date,
+                    "real_start_date": work_order.real_start_date,
+                    "real_end_date": work_order.real_end_date,
+                    "mo_id": {
+                        "name": work_order.mo_id.name
+                    },
+                    "sale_line_id": {
+                        "display_name": work_order.sale_line_id.display_name
+                    },
+                    "affair_id": {
+                        "name": work_order.affair_id.name
+                    },
+                    "sequence": work_order.sequence,
+                    "produce_total_qty": work_order.produce_total_qty,
+                    "quantity": work_order.quantity,
+                    "uom_id": {
+                        "name": work_order.uom_id.name
+                    },
+                    "availability": work_order.availability,
+                    "advancement": work_order.advancement,
+                    "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
+                    "customer_id": {
+                        "name": work_order.customer_id.name
+                    },
+                    "wo_resource_ids": work_order.get_resources_array(),
+                    "note_manufacturing": work_order.note_manufacturing
+                }
             })
         return json.dumps(json_content, sort_keys=True, indent=4)
 

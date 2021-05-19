@@ -13,9 +13,13 @@ class MrpWorkorder(models.Model):
         resources_names_array = []
         for resource in self.wo_resource_ids:
             resources_names_array.append({
-                "name": resource.resource_id.name,
-                "type": resource.resource_id.type,
-                "area": resource.resource_id.area_id.name
+                "resource_id": {
+                    "name": resource.resource_id.name,
+                    "type": resource.resource_id.type,
+                    "area_id": {
+                        "name": resource.resource_id.area_id.name
+                    }
+                }
             })
         return resources_names_array
 
@@ -23,9 +27,14 @@ class MrpWorkorder(models.Model):
         raw_materials_array = []
         for raw_material in self.rm_draft_ids:
             raw_materials_array.append({
-                "name": raw_material.product_id.name,
-                "code": raw_material.product_id.code,
-                "quantity_needed": raw_material.uom_qty,
-                "unit_of_measure": raw_material.uom_id.name
+                "product_id": {
+                    "name": raw_material.product_id.name,
+                    "code": raw_material.product_id.code
+                },
+                "uom_qty": raw_material.uom_qty,
+                "uom_id": {
+                    "name": raw_material.uom_id.name
+                },
+                "consumption_state": raw_material.state
             })
         return raw_materials_array
