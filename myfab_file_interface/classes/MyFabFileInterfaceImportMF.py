@@ -47,8 +47,38 @@ class MyFabFileInterfaceImportMF(models.Model):
 
     def create_model(self, object_to_create_dictionary):
         for model_name in object_to_create_dictionary:
-            self.env[model_name].create(object_to_create_dictionary[model_name])
+            for field_name in object_to_create_dictionary[model_name]:
+                if type(object_to_create_dictionary[model_name][field_name]) is dict:
+                    object_to_create_dictionary[model_name][field_name] = self.get_field_object(
+                        model_name,
+                        field_name,
+                        object_to_create_dictionary[model_name][field_name]
+                    )
+                    print(object_to_create_dictionary[model_name][field_name])
+            # self.env[model_name].create(object_to_create_dictionary[model_name])
             print(object_to_create_dictionary[model_name])
+            print("****************************")
+
+    def get_field_object(self, parent_model_name, field_name, field_object_dictionary):
+        for sub_field_name in field_object_dictionary:
+            if type(field_object_dictionary[sub_field_name]) is dict:
+                field_object_dictionary[sub_field_name] = self.get_field_object(
+                    field_name,
+                    sub_field_name,
+                    field_object_dictionary[sub_field_name]
+                )
+        parent_model = self.env["ir.model"].search([
+            ("model", '=', parent_model_name)
+        ], None, 1)
+        field_model = self.env["ir.model.fields"].search([
+            ("name", '=', field_name),
+            ("model_id", '=', parent_model.id)
+        ], None, 1)
+        field_object_dictionary_tuples = [(key, '=', value) for key, value in field_object_dictionary.items()]
+        print(field_object_dictionary)
+        print(field_object_dictionary_tuples)
+        print(field_model.relation)
+        return self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
 
     @api.multi
     def generate_cron_for_import(self):
