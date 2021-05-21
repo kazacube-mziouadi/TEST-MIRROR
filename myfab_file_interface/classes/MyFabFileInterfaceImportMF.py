@@ -43,30 +43,29 @@ class MyFabFileInterfaceImportMF(models.Model):
         file_content = file.read()
         objects_to_create_array = json.loads(file_content)
         for object_to_create_dictionary in objects_to_create_array:
-            self.create_model(object_to_create_dictionary)
+            model_created = self.create_model(object_to_create_dictionary)
+            if callable(getattr(model_created, "action_validate", None)):
+                print("VALIDATING")
+                model_created.action_validate()
+            elif callable(getattr(model_created, "create_timetracking", None)):
+                print("TIMETRACKING")
+                model_created.create_timetracking()
 
     def create_model(self, object_to_create_dictionary):
         for model_name in object_to_create_dictionary:
             for field_name in object_to_create_dictionary[model_name]:
                 if type(object_to_create_dictionary[model_name][field_name]) is dict:
-                    object_to_create_dictionary[model_name][field_name] = self.get_field_object(
+                    object_to_create_dictionary[model_name][field_name] = self.get_field_object_id(
                         model_name,
                         field_name,
                         object_to_create_dictionary[model_name][field_name]
                     )
-                    print(object_to_create_dictionary[model_name][field_name])
-            # self.env[model_name].create(object_to_create_dictionary[model_name])
+            object_to_create_dictionary[model_name]["user_id"] = self.env.user.id
             print(object_to_create_dictionary[model_name])
             print("****************************")
+            return self.env[model_name].create(object_to_create_dictionary[model_name])
 
-    def get_field_object(self, parent_model_name, field_name, field_object_dictionary):
-        for sub_field_name in field_object_dictionary:
-            if type(field_object_dictionary[sub_field_name]) is dict:
-                field_object_dictionary[sub_field_name] = self.get_field_object(
-                    field_name,
-                    sub_field_name,
-                    field_object_dictionary[sub_field_name]
-                )
+    def get_field_object_id(self, parent_model_name, field_name, field_object_dictionary):
         parent_model = self.env["ir.model"].search([
             ("model", '=', parent_model_name)
         ], None, 1)
@@ -74,11 +73,16 @@ class MyFabFileInterfaceImportMF(models.Model):
             ("name", '=', field_name),
             ("model_id", '=', parent_model.id)
         ], None, 1)
+        for sub_field_name in field_object_dictionary:
+            if type(field_object_dictionary[sub_field_name]) is dict:
+                field_object_dictionary[sub_field_name] = self.get_field_object_id(
+                    field_model.relation,
+                    sub_field_name,
+                    field_object_dictionary[sub_field_name]
+                )
         field_object_dictionary_tuples = [(key, '=', value) for key, value in field_object_dictionary.items()]
-        print(field_object_dictionary)
-        print(field_object_dictionary_tuples)
-        print(field_model.relation)
-        return self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
+        field_object = self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
+        return field_object.id
 
     @api.multi
     def generate_cron_for_import(self):
