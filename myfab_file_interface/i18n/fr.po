@@ -181,7 +181,7 @@ msgstr "Unité d'intervalle"
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
 msgid "Last Export"
-msgstr "Derniersou Export"
+msgstr "Dernier Export"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_ir_cron_myfab_file_interface_export_mf

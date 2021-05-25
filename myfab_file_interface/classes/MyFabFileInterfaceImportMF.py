@@ -1,6 +1,5 @@
 from openerp import models, fields, api, _
 import json
-import datetime
 import os
 
 
@@ -39,31 +38,52 @@ class MyFabFileInterfaceImportMF(models.Model):
             self.import_file(file_name)
 
     def import_file(self, file_name):
+        # TODO : mise en place nouveau format JSON + update des lignes de conso + validation conso globale
         file = open(os.path.join(self.files_path_mf, file_name), "r")
         file_content = file.read()
+        self.last_json_imported_mf = file_content
         objects_to_create_array = json.loads(file_content)
         for object_to_create_dictionary in objects_to_create_array:
-            model_created = self.create_model(object_to_create_dictionary)
-            if callable(getattr(model_created, "action_validate", None)):
-                print("VALIDATING")
-                model_created.action_validate()
-            elif callable(getattr(model_created, "create_timetracking", None)):
-                print("TIMETRACKING")
-                model_created.create_timetracking()
-
-    def create_model(self, object_to_create_dictionary):
-        for model_name in object_to_create_dictionary:
-            for field_name in object_to_create_dictionary[model_name]:
-                if type(object_to_create_dictionary[model_name][field_name]) is dict:
-                    object_to_create_dictionary[model_name][field_name] = self.get_field_object_id(
-                        model_name,
-                        field_name,
-                        object_to_create_dictionary[model_name][field_name]
-                    )
-            object_to_create_dictionary[model_name]["user_id"] = self.env.user.id
-            print(object_to_create_dictionary[model_name])
+            print("#####" + object_to_create_dictionary["model"] + "#####")
+            model_returned = self.apply_orm_method_to_model(
+                object_to_create_dictionary["model"],
+                object_to_create_dictionary["fields"],
+                object_to_create_dictionary["write"] if "write" in object_to_create_dictionary else False,
+                object_to_create_dictionary["method"]
+            )
+            print(model_returned)
+            callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
+            if callable(callback_method_on_model):
+                print("CALLBACK")
+                callback_method_on_model()
             print("****************************")
-            return self.env[model_name].create(object_to_create_dictionary[model_name])
+
+    def apply_orm_method_to_model(self, model_name, model_fields, model_fields_to_write, orm_method_name):
+        # Retrieving the ID of each field which is an object recursively
+        for field_name in model_fields:
+            if type(model_fields[field_name]) is dict:
+                model_fields[field_name] = self.get_field_object_id(
+                    model_name,
+                    field_name,
+                    model_fields[field_name]
+                )
+        print(model_fields)
+        if orm_method_name == "create":
+            model_fields["user_id"] = self.env.user.id
+            return self.env[model_name].create(model_fields)
+        elif orm_method_name in ["search", "write"]:
+            # "Search" ORM method takes an array of tuples
+            model_fields = [(key, '=', value) for key, value in model_fields.items()]
+            model_found = self.env[model_name].search(model_fields, None, 1)
+            if orm_method_name == "search":
+                return model_found
+            else:
+                # TODO : adapter JSON pour tester write de prod/conso + tester remontée temps passés
+                orm_method_on_model = getattr(model_found, orm_method_name)
+                if model_fields_to_write:
+                    return orm_method_on_model(model_fields_to_write)
+                else:
+                    return orm_method_on_model()
 
     def get_field_object_id(self, parent_model_name, field_name, field_object_dictionary):
         parent_model = self.env["ir.model"].search([

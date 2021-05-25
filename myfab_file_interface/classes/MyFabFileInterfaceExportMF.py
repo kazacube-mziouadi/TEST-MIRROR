@@ -100,8 +100,9 @@ class MyFabFileInterfaceExportMF(models.Model):
         for work_order in work_orders:
             json_content.append({
                 "mrp.workorder": {
+                    "name": work_order.name,
                     "display_name": work_order.display_name,
-                    "final_product": {
+                    "final_product_id": {
                         "name": work_order.final_product_id.name,
                         "code": work_order.final_product_id.code
                     },

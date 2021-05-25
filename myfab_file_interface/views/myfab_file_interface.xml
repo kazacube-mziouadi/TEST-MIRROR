@@ -48,7 +48,7 @@
 							</group>
 							<group col="1" string="Last Export">
 								<field name="number_of_work_orders_in_last_export"/>
-								<field name="last_json_generated_mf" class="myfab_file_interface_export_json_content_mf"/>
+								<field name="last_json_generated_mf" class="myfab_file_interface_json_content_mf"/>
 							</group>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">
