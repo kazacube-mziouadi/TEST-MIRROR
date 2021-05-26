@@ -38,7 +38,6 @@ class MyFabFileInterfaceImportMF(models.Model):
             self.import_file(file_name)
 
     def import_file(self, file_name):
-        # TODO : mise en place nouveau format JSON + update des lignes de conso + validation conso globale
         file = open(os.path.join(self.files_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
@@ -78,7 +77,7 @@ class MyFabFileInterfaceImportMF(models.Model):
             if orm_method_name == "search":
                 return model_found
             else:
-                # TODO : adapter JSON pour tester write de prod/conso + tester remontée temps passés
+                # TODO : adapter JSON pour tester write de prod/conso + tester remontee temps passes
                 orm_method_on_model = getattr(model_found, orm_method_name)
                 if model_fields_to_write:
                     return orm_method_on_model(model_fields_to_write)
