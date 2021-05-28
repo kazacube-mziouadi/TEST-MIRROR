@@ -51,11 +51,11 @@ class MyFabFileInterfaceImportMF(models.Model):
                 object_to_create_dictionary["method"]
             )
             print(model_returned)
-            callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
-            if callable(callback_method_on_model):
+            if "callback" in object_to_create_dictionary:
+                callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
                 print("CALLBACK")
                 callback_method_on_model()
-            print("****************************")
+                print("****************************")
 
     def apply_orm_method_to_model(self, model_name, model_fields, model_fields_to_write, orm_method_name):
         # Retrieving the ID of each field which is an object recursively
@@ -76,13 +76,12 @@ class MyFabFileInterfaceImportMF(models.Model):
             model_found = self.env[model_name].search(model_fields, None, 1)
             if orm_method_name == "search":
                 return model_found
+            # TODO : adapter JSON pour tester write de prod/conso + tester remontee temps passes
+            orm_method_on_model = getattr(model_found, orm_method_name)
+            if model_fields_to_write:
+                return orm_method_on_model(model_fields_to_write)
             else:
-                # TODO : adapter JSON pour tester write de prod/conso + tester remontee temps passes
-                orm_method_on_model = getattr(model_found, orm_method_name)
-                if model_fields_to_write:
-                    return orm_method_on_model(model_fields_to_write)
-                else:
-                    return orm_method_on_model()
+                return orm_method_on_model()
 
     def get_field_object_id(self, parent_model_name, field_name, field_object_dictionary):
         parent_model = self.env["ir.model"].search([
