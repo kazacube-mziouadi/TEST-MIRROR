@@ -36,6 +36,7 @@ class MyFabFileInterfaceImportMF(models.Model):
         files = [f for f in os.listdir(self.files_path_mf) if os.path.isfile(os.path.join(self.files_path_mf, f))]
         for file_name in files:
             self.import_file(file_name)
+            self.archive_file(file_name)
 
     def import_file(self, file_name):
         file = open(os.path.join(self.files_path_mf, file_name), "r")
@@ -43,30 +44,21 @@ class MyFabFileInterfaceImportMF(models.Model):
         self.last_json_imported_mf = file_content
         objects_to_create_array = json.loads(file_content)
         for object_to_create_dictionary in objects_to_create_array:
-            print("#####" + object_to_create_dictionary["model"] + "#####")
             model_returned = self.apply_orm_method_to_model(
                 object_to_create_dictionary["model"],
                 object_to_create_dictionary["fields"],
                 object_to_create_dictionary["write"] if "write" in object_to_create_dictionary else False,
                 object_to_create_dictionary["method"]
             )
-            print(model_returned)
             if "callback" in object_to_create_dictionary:
                 callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
-                print("CALLBACK")
                 callback_method_on_model()
-                print("****************************")
 
     def apply_orm_method_to_model(self, model_name, model_fields, model_fields_to_write, orm_method_name):
         # Retrieving the ID of each field which is an object recursively
-        for field_name in model_fields:
-            if type(model_fields[field_name]) is dict:
-                model_fields[field_name] = self.get_field_object_id(
-                    model_name,
-                    field_name,
-                    model_fields[field_name]
-                )
-        print(model_fields)
+        self.set_fields_object_to_ids_in_dict(model_fields, model_name)
+        if model_fields_to_write:
+            self.set_fields_object_to_ids_in_dict(model_fields_to_write, model_name)
         if orm_method_name == "create":
             model_fields["user_id"] = self.env.user.id
             return self.env[model_name].create(model_fields)
@@ -76,12 +68,23 @@ class MyFabFileInterfaceImportMF(models.Model):
             model_found = self.env[model_name].search(model_fields, None, 1)
             if orm_method_name == "search":
                 return model_found
-            # TODO : adapter JSON pour tester write de prod/conso + tester remontee temps passes
             orm_method_on_model = getattr(model_found, orm_method_name)
             if model_fields_to_write:
-                return orm_method_on_model(model_fields_to_write)
+                orm_method_on_model(model_fields_to_write)
             else:
-                return orm_method_on_model()
+                orm_method_on_model()
+            # TODO : faiblesse ici => si dans la section "write" on modifie un champ dans "fields",
+            #  on risque ci-dessous de ne pas pouvoir retrouver le model modifie apres execution du write
+            return self.env[model_name].search(model_fields, None, 1)
+
+    def set_fields_object_to_ids_in_dict(self, fields_dict, model_name):
+        for field_name in fields_dict:
+            if type(fields_dict[field_name]) is dict:
+                fields_dict[field_name] = self.get_field_object_id(
+                    model_name,
+                    field_name,
+                    fields_dict[field_name]
+                )
 
     def get_field_object_id(self, parent_model_name, field_name, field_object_dictionary):
         parent_model = self.env["ir.model"].search([
@@ -102,15 +105,26 @@ class MyFabFileInterfaceImportMF(models.Model):
         field_object = self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
         return field_object.id
 
+    def archive_file(self, file_name):
+        archive_path = os.path.join(self.files_path_mf, "Archives")
+        if not os.path.exists(archive_path):
+            os.makedirs(archive_path)
+        os.rename(os.path.join(self.files_path_mf, file_name), os.path.join(archive_path, file_name))
+
     @api.multi
     def generate_cron_for_import(self):
         return {
             'name': _("Generate cron for import"),
             'view_mode': 'form',
-            'res_model': 'wizard.myfab.file.interface.import.cron.mf',
+            'res_model': 'wizard.myfab.file.interface.cron.mf',
             'type': 'ir.actions.act_window',
             'target': 'new',
-            'context': {'myfab_file_interface_import_id': self.id}
+            'context': {
+                'object_model_name_mf': "myfab.file.interface.import.mf",
+                'object_name_mf': self.name,
+                'object_id_mf': self.id,
+                'object_method_mf': "import_files"
+            }
         }
 
     @api.multi

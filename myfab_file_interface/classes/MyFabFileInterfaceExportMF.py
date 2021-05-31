@@ -155,10 +155,15 @@ class MyFabFileInterfaceExportMF(models.Model):
         return {
             'name': _("Generate cron for export"),
             'view_mode': 'form',
-            'res_model': 'wizard.myfab.file.interface.export.cron.mf',
+            'res_model': 'wizard.myfab.file.interface.cron.mf',
             'type': 'ir.actions.act_window',
             'target': 'new',
-            'context': {'myfab_file_interface_export_id': self.id}
+            'context': {
+                'object_model_name_mf': "myfab.file.interface.export.mf",
+                'object_name_mf': self.name,
+                'object_id_mf': self.id,
+                'object_method_mf': "export_work_orders"
+            }
         }
 
     @api.multi
