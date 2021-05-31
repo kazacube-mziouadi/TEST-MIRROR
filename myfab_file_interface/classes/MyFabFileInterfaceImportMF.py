@@ -50,7 +50,10 @@ class MyFabFileInterfaceImportMF(models.Model):
                 object_to_create_dictionary["write"] if "write" in object_to_create_dictionary else False,
                 object_to_create_dictionary["method"]
             )
+            print("************************")
+            print(model_returned)
             if "callback" in object_to_create_dictionary:
+                print("CALLBACK")
                 callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
                 callback_method_on_model()
 
@@ -73,9 +76,7 @@ class MyFabFileInterfaceImportMF(models.Model):
                 orm_method_on_model(model_fields_to_write)
             else:
                 orm_method_on_model()
-            # TODO : faiblesse ici => si dans la section "write" on modifie un champ dans "fields",
-            #  on risque ci-dessous de ne pas pouvoir retrouver le model modifie apres execution du write
-            return self.env[model_name].search(model_fields, None, 1)
+            return model_found
 
     def set_fields_object_to_ids_in_dict(self, fields_dict, model_name):
         for field_name in fields_dict:
