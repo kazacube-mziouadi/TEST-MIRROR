@@ -104,7 +104,8 @@ class MyFabFileInterfaceExportMF(models.Model):
                     "display_name": work_order.display_name,
                     "final_product_id": {
                         "name": work_order.final_product_id.name,
-                        "code": work_order.final_product_id.code
+                        "code": work_order.final_product_id.code,
+                        "track_label": work_order.final_product_id.track_label
                     },
                     "rm_draft_ids": work_order.get_raw_materials_array(),
                     "state": work_order.state,
