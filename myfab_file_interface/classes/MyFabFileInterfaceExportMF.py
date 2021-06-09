@@ -96,55 +96,68 @@ class MyFabFileInterfaceExportMF(models.Model):
                 return True
         return False
 
-    def format_work_orders_to_json_string(self, work_orders):
+    @staticmethod
+    def format_work_orders_to_json_string(work_orders):
         json_content = []
         for work_order in work_orders:
-            json_content.append({
-                "mrp.workorder": {
-                    "name": work_order.name,
-                    "display_name": work_order.display_name,
-                    "final_product_id": {
-                        "name": work_order.final_product_id.name,
-                        "code": work_order.final_product_id.code,
-                        "track_label": work_order.final_product_id.track_label
+            manufacturing_order = work_order.mo_id
+            manufacturing_order_dict = {
+                "mrp.manufacturingorder": {
+                    "affair_id": {
+                        "name": manufacturing_order.affair_id.name
                     },
-                    "rm_draft_ids": work_order.get_raw_materials_array(),
-                    "state": work_order.state,
-                    "requested_date": work_order.requested_date,
-                    "min_date": work_order.min_date,
-                    "max_date": work_order.max_date,
-                    "planned_start_date": work_order.planned_start_date,
-                    "planned_end_date": work_order.planned_end_date,
-                    "real_start_date": work_order.real_start_date,
-                    "real_end_date": work_order.real_end_date,
-                    "mo_id": {
-                        "display_name": work_order.mo_id.display_name,
-                        "routing_id": {
-                            "name": work_order.mo_id.routing_id.name
-                        }
+                    "customer_id": {
+                        "name": manufacturing_order.customer_id.name
+                    },
+                    "display_name": manufacturing_order.display_name,
+                    "min_start_date": manufacturing_order.min_start_date,
+                    "max_end_date": manufacturing_order.max_end_date,
+                    "planned_start_date": manufacturing_order.planned_start_date,
+                    "planned_end_date": manufacturing_order.planned_end_date,
+                    "product_id": {
+                        "name": manufacturing_order.product_id.name,
+                        "code": manufacturing_order.product_id.code,
+                        "track_label": manufacturing_order.product_id.track_label
+                    },
+                    "requested_date": manufacturing_order.requested_date,
+                    "routing_id": {
+                        "name": manufacturing_order.routing_id.name
                     },
                     "sale_line_id": {
-                        "display_name": work_order.sale_line_id.display_name
+                        "display_name": manufacturing_order.sale_line_id.display_name
                     },
-                    "affair_id": {
-                        "name": work_order.affair_id.name
-                    },
-                    "sequence": work_order.sequence,
-                    "produce_total_qty": work_order.produce_total_qty,
-                    "quantity": work_order.quantity,
-                    "uom_id": {
-                        "name": work_order.uom_id.name
-                    },
-                    "availability": work_order.availability,
-                    "advancement": work_order.advancement,
-                    "percentage_overlap_next_ope": work_order.percentage_overlap_next_ope,
-                    "customer_id": {
-                        "name": work_order.customer_id.name
-                    },
-                    "wo_resource_ids": work_order.get_resources_array(),
-                    "note_manufacturing": work_order.note_manufacturing
                 }
-            })
+            }
+            work_orders_for_manufacturing_order = []
+            for work_order_not_sorted_yet in work_orders:
+                if work_order_not_sorted_yet.mo_id.id == manufacturing_order.id:
+                    work_orders_for_manufacturing_order.append({
+                        "advancement": work_order_not_sorted_yet.advancement,
+                        "availability": work_order_not_sorted_yet.availability,
+                        "display_name": work_order_not_sorted_yet.display_name,
+                        "fp_draft_ids": work_order_not_sorted_yet.get_final_products_array(),
+                        "min_date": work_order_not_sorted_yet.min_date,
+                        "max_date": work_order_not_sorted_yet.max_date,
+                        "name": work_order_not_sorted_yet.name,
+                        "note_manufacturing": work_order_not_sorted_yet.note_manufacturing,
+                        "percentage_overlap_next_ope": work_order_not_sorted_yet.percentage_overlap_next_ope,
+                        "planned_start_date": work_order_not_sorted_yet.planned_start_date,
+                        "planned_end_date": work_order_not_sorted_yet.planned_end_date,
+                        "produce_total_qty": work_order_not_sorted_yet.produce_total_qty,
+                        "real_start_date": work_order_not_sorted_yet.real_start_date,
+                        "real_end_date": work_order_not_sorted_yet.real_end_date,
+                        "requested_date": work_order_not_sorted_yet.requested_date,
+                        "rm_draft_ids": work_order_not_sorted_yet.get_raw_materials_array(),
+                        "quantity": work_order_not_sorted_yet.quantity,
+                        "sequence": work_order_not_sorted_yet.sequence,
+                        "state": work_order_not_sorted_yet.state,
+                        "uom_id": {
+                            "name": work_order_not_sorted_yet.uom_id.name
+                        },
+                        "wo_resource_ids": work_order_not_sorted_yet.get_resources_array(),
+                    })
+            manufacturing_order_dict["mrp.manufacturingorder"]["workorder_ids"] = work_orders_for_manufacturing_order
+            json_content.append(manufacturing_order_dict)
         return json.dumps(json_content, sort_keys=True, indent=4)
 
     def write_myfab_file_interface_json_file(self, json_content_string):

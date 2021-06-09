@@ -1,6 +1,7 @@
 from openerp import models, fields, api, _
 import datetime
 
+
 class MrpWorkorder(models.Model):
     # Inherits MRP WorkOrder
     _inherit = "mrp.workorder"
@@ -38,6 +39,22 @@ class MrpWorkorder(models.Model):
                 "consumption_state": raw_material.state
             })
         return raw_materials_array
+
+    def get_final_products_array(self):
+        final_products_array = []
+        for final_product in self.fp_draft_ids:
+            final_products_array.append({
+                "product_id": {
+                    "name": final_product.product_id.name,
+                    "code": final_product.product_id.code,
+                    "track_label": final_product.product_id.track_label
+                },
+                "uom_id": {
+                    "name": final_product.uom_id.name
+                },
+                "uom_qty": final_product.uom_qty
+            })
+        return final_products_array
 
     def get_resources_default_import_array(self):
         now = datetime.datetime.now() + datetime.timedelta(hours=2)
