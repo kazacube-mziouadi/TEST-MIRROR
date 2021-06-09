@@ -98,40 +98,46 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     @staticmethod
     def format_work_orders_to_json_string(work_orders):
-        json_content = []
+        json_content = {
+            "mrp.manufacturingorders": {}
+        }
         for work_order in work_orders:
             manufacturing_order = work_order.mo_id
             manufacturing_order_dict = {
-                "mrp.manufacturingorder": {
-                    "affair_id": {
-                        "name": manufacturing_order.affair_id.name
-                    },
-                    "customer_id": {
-                        "name": manufacturing_order.customer_id.name
-                    },
-                    "display_name": manufacturing_order.display_name,
-                    "min_start_date": manufacturing_order.min_start_date,
-                    "max_end_date": manufacturing_order.max_end_date,
-                    "planned_start_date": manufacturing_order.planned_start_date,
-                    "planned_end_date": manufacturing_order.planned_end_date,
-                    "product_id": {
-                        "name": manufacturing_order.product_id.name,
-                        "code": manufacturing_order.product_id.code,
-                        "track_label": manufacturing_order.product_id.track_label
-                    },
-                    "requested_date": manufacturing_order.requested_date,
-                    "routing_id": {
-                        "name": manufacturing_order.routing_id.name
-                    },
-                    "sale_line_id": {
-                        "display_name": manufacturing_order.sale_line_id.display_name
-                    },
+                "affair_id": {
+                    "name": manufacturing_order.affair_id.name
+                },
+                "customer_id": {
+                    "name": manufacturing_order.customer_id.name
+                },
+                "display_name": manufacturing_order.display_name,
+                "min_start_date": manufacturing_order.min_start_date,
+                "max_end_date": manufacturing_order.max_end_date,
+                "name": manufacturing_order.name,
+                "needed_quantity": manufacturing_order.needed_quantity,
+                "planned_start_date": manufacturing_order.planned_start_date,
+                "planned_end_date": manufacturing_order.planned_end_date,
+                "product_id": {
+                    "name": manufacturing_order.product_id.name,
+                    "code": manufacturing_order.product_id.code,
+                    "track_label": manufacturing_order.product_id.track_label
+                },
+                "quantity": manufacturing_order.quantity,
+                "requested_date": manufacturing_order.requested_date,
+                "routing_id": {
+                    "name": manufacturing_order.routing_id.name
+                },
+                "sale_line_id": {
+                    "display_name": manufacturing_order.sale_line_id.display_name
+                },
+                "uom_id": {
+                    "name": manufacturing_order.uom_id.name
                 }
             }
-            work_orders_for_manufacturing_order = []
+            work_orders_for_manufacturing_order = {}
             for work_order_not_sorted_yet in work_orders:
                 if work_order_not_sorted_yet.mo_id.id == manufacturing_order.id:
-                    work_orders_for_manufacturing_order.append({
+                    work_orders_for_manufacturing_order[work_order_not_sorted_yet.display_name] = {
                         "advancement": work_order_not_sorted_yet.advancement,
                         "availability": work_order_not_sorted_yet.availability,
                         "display_name": work_order_not_sorted_yet.display_name,
@@ -154,10 +160,10 @@ class MyFabFileInterfaceExportMF(models.Model):
                         "uom_id": {
                             "name": work_order_not_sorted_yet.uom_id.name
                         },
-                        "wo_resource_ids": work_order_not_sorted_yet.get_resources_array(),
-                    })
-            manufacturing_order_dict["mrp.manufacturingorder"]["workorder_ids"] = work_orders_for_manufacturing_order
-            json_content.append(manufacturing_order_dict)
+                        "wo_resource_ids": work_order_not_sorted_yet.get_resources_array()
+                    }
+            manufacturing_order_dict["workorder_ids"] = work_orders_for_manufacturing_order
+            json_content["mrp.manufacturingorders"][manufacturing_order.display_name] = manufacturing_order_dict
         return json.dumps(json_content, sort_keys=True, indent=4)
 
     def write_myfab_file_interface_json_file(self, json_content_string):
