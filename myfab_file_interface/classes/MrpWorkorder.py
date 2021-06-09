@@ -120,7 +120,7 @@ class MrpWorkorder(models.Model):
                             "sequence": self.sequence
                         }
                     }
-                },])
+                }])
                 if self.final_product_id.track_label:
                     resources_default_import_array.append({
                         "model": "wo.declaration.produce",

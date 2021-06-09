@@ -11,7 +11,7 @@ class MyFabFileInterfaceImportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports/WorkOrders")
+    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports/WorkOrders")
     last_json_imported_mf = fields.Text(string="Last JSON imported", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
 
@@ -33,13 +33,13 @@ class MyFabFileInterfaceImportMF(models.Model):
 
     @api.one
     def import_files(self):
-        files = [f for f in os.listdir(self.files_path_mf) if os.path.isfile(os.path.join(self.files_path_mf, f))]
+        files = [f for f in os.listdir(self.import_directory_path_mf) if os.path.isfile(os.path.join(self.import_directory_path_mf, f))]
         for file_name in files:
             self.import_file(file_name)
             self.archive_file(file_name)
 
     def import_file(self, file_name):
-        file = open(os.path.join(self.files_path_mf, file_name), "r")
+        file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
         objects_to_create_array = json.loads(file_content)
@@ -50,10 +50,7 @@ class MyFabFileInterfaceImportMF(models.Model):
                 object_to_create_dictionary["write"] if "write" in object_to_create_dictionary else False,
                 object_to_create_dictionary["method"]
             )
-            print("************************")
-            print(model_returned)
             if "callback" in object_to_create_dictionary:
-                print("CALLBACK")
                 callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
                 callback_method_on_model()
 
@@ -107,10 +104,10 @@ class MyFabFileInterfaceImportMF(models.Model):
         return field_object.id
 
     def archive_file(self, file_name):
-        archive_path = os.path.join(self.files_path_mf, "Archives")
+        archive_path = os.path.join(self.import_directory_path_mf, "Archives")
         if not os.path.exists(archive_path):
             os.makedirs(archive_path)
-        os.rename(os.path.join(self.files_path_mf, file_name), os.path.join(archive_path, file_name))
+        os.rename(os.path.join(self.import_directory_path_mf, file_name), os.path.join(archive_path, file_name))
 
     @api.multi
     def generate_cron_for_import(self):
@@ -135,3 +132,14 @@ class MyFabFileInterfaceImportMF(models.Model):
             ("function", "=", "import_files"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
+
+    @api.multi
+    def open_upload_import_file_wizard(self):
+        return {
+            'name': _("Upload import file into import directory"),
+            'view_mode': 'form',
+            'res_model': 'wizard.upload.import.file.mf',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'context': {'upload_directory_mf': self.import_directory_path_mf}
+        }

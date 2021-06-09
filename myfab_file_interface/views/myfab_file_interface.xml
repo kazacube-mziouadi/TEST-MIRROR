@@ -32,7 +32,7 @@
 								<group col="4">
 									<field name="name"/>
 									<field name="planned_start_date_delta_min_mf"/>
-									<field name="files_path_mf"/>
+									<field name="import_directory_path_mf"/>
 									<field name="planned_start_date_delta_max_mf"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
@@ -115,7 +115,7 @@
 							<group col="1" string="Configuration">
 								<group col="4">
 									<field name="name"/>
-									<field name="files_path_mf"/>
+									<field name="import_directory_path_mf"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
 								<button
@@ -142,6 +142,11 @@
 									name="delete_cron_for_import"
 									icon="fa-trash"
 									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Upload an import file into the import directory"
+									name="open_upload_import_file_wizard"
+									icon="fa-upload"/>
 						</group>
 					</group>
 				</form>
@@ -194,5 +199,27 @@
 				</form>
 			</field>
 		</record>
+
+		<!-- =========================== -->
+		<!-- WIZARD UPLOAD IMPORT FILE   -->
+		<!-- =========================== -->
+		<record id="view_wizard_upload_import_file_mf" model="ir.ui.view">
+            <field name="name">wizard.upload.import.file.mf.form</field>
+            <field name="model">wizard.upload.import.file.mf</field>
+            <field name="arch" type="xml">
+                <form string="Upload import file into import directory">
+					<group col="2">
+						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field"
+						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop" accept=".csv, .xls, .xlsx, .ods"/>
+					</group>
+					<div class="drag_and_drop_area">
+                        <p>Drop a .json file here</p>
+                    </div>
+					<footer>
+                        <button name="action_validate_upload" type="object" string="Upload import file" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
     </data>
 </openerp>

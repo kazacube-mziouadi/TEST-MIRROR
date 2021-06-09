@@ -2,7 +2,6 @@
 from openerp import models, fields, api, _
 import base64
 import csv
-from io import StringIO
 
 
 class WizardInstallerMF(models.TransientModel):

@@ -13,7 +13,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    files_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
+    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
     planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", required=True,
                                                       string="Planned start date delta min")
     planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", required=True,
@@ -162,10 +162,10 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     def write_myfab_file_interface_json_file(self, json_content_string):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        if not os.path.exists(self.files_path_mf):
-            os.makedirs(self.files_path_mf)
+        if not os.path.exists(self.import_directory_path_mf):
+            os.makedirs(self.import_directory_path_mf)
         file_name = "MFFI-WorkOrders-" + now + ".json"
-        file_path = os.path.join(self.files_path_mf, file_name)
+        file_path = os.path.join(self.import_directory_path_mf, file_name)
         file = open(file_path, "a")
         file.write(json_content_string)
         file.close()
