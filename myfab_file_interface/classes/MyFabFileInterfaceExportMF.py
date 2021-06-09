@@ -2,6 +2,7 @@ from openerp import models, fields, api, _
 import json
 import datetime
 import os
+import base64
 
 
 class MyFabFileInterfaceExportMF(models.Model):
@@ -24,6 +25,7 @@ class MyFabFileInterfaceExportMF(models.Model):
                                     "myfab_file_interface_export_id_mf", "resource_id_mf", string="Resources",
                                     copy=False, readonly=False)
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
+    last_json_generated_name_mf = fields.Char(string="Last JSON generated name", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     number_of_work_orders_in_last_export = fields.Integer(string="Number of work orders in last export", readonly=True)
 
@@ -94,8 +96,7 @@ class MyFabFileInterfaceExportMF(models.Model):
                 return True
         return False
 
-    @staticmethod
-    def format_work_orders_to_json_string(work_orders):
+    def format_work_orders_to_json_string(self, work_orders):
         json_content = []
         for work_order in work_orders:
             json_content.append({
@@ -117,7 +118,10 @@ class MyFabFileInterfaceExportMF(models.Model):
                     "real_start_date": work_order.real_start_date,
                     "real_end_date": work_order.real_end_date,
                     "mo_id": {
-                        "name": work_order.mo_id.name
+                        "display_name": work_order.mo_id.display_name,
+                        "routing_id": {
+                            "name": work_order.mo_id.routing_id.name
+                        }
                     },
                     "sale_line_id": {
                         "display_name": work_order.sale_line_id.display_name
@@ -147,9 +151,12 @@ class MyFabFileInterfaceExportMF(models.Model):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         if not os.path.exists(self.files_path_mf):
             os.makedirs(self.files_path_mf)
-        file = open(os.path.join(self.files_path_mf, "MFFI-WorkOrders-" + now + ".json"), "a")
+        file_name = "MFFI-WorkOrders-" + now + ".json"
+        file_path = os.path.join(self.files_path_mf, file_name)
+        file = open(file_path, "a")
         file.write(json_content_string)
         file.close()
+        self.last_json_generated_name_mf = file_name
 
     @api.multi
     def generate_cron_for_export(self):
@@ -174,3 +181,23 @@ class MyFabFileInterfaceExportMF(models.Model):
             ("function", "=", "export_work_orders"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
+
+    @api.multi
+    def download_last_export(self):
+        return self.env['binary.download'].execute(
+            base64.b64encode(self.last_json_generated_mf),
+            self.last_json_generated_name_mf
+        )
+
+    @api.multi
+    def download_current_export_default_import(self):
+        work_orders = self.get_work_orders_to_send_to_myfab_file_interface()
+        json_content = []
+        for work_order in work_orders:
+            if work_order.state == "plan" or work_order.state == "ready" or work_order.state == "progress":
+                json_content.extend(work_order.get_resources_default_import_array())
+        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+        return self.env['binary.download'].execute(
+            base64.b64encode(json.dumps(json_content, indent=4)),
+            "Import-WorkOrders-" + now + ".json"
+        )

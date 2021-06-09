@@ -47,7 +47,16 @@
 									class="oe_highlight" />
 							</group>
 							<group col="1" string="Last Export">
-								<field name="number_of_work_orders_in_last_export"/>
+								<group col="3" class="last_export_section_mf">
+									<field name="number_of_work_orders_in_last_export"/>
+									<button
+											name="download_last_export"
+											string="Download Last Export JSON File"
+											type="object"
+											class="oe_highlight"
+											attrs="{'invisible': [('last_json_generated_mf', '=', False)]}"
+									/>
+								</group>
 								<field name="last_json_generated_mf" class="myfab_file_interface_json_content_mf"/>
 							</group>
 						</group>
@@ -65,6 +74,11 @@
 									name="delete_cron_for_export"
 									icon="fa-trash"
 									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+							<button class="oe_inline oe_stat_button"
+									name="download_current_export_default_import"
+									string="Download current export's default import"
+									type="object"
+									icon="fa-download" />
 						</group>
 					</group>
 				</form>

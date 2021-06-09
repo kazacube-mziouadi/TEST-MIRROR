@@ -4,3 +4,7 @@ div.myfab_file_interface_json_content_mf {
     background-color: white;
     padding-left: 10px !important;
 }
+
+.last_export_section_mf td:nth-child(3) {
+    text-align: right;
+}
