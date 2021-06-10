@@ -14,7 +14,7 @@
         'partner_openprod',
         'sale_purchase'
     ],
-    'data': [],
+    'data': ['views/my_fab_web.xml'],
     'qweb' : [],
     'demo': [],
     'test': [],
