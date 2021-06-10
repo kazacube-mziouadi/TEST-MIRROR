@@ -1,0 +1,28 @@
+.is-dragover {
+    background-color: #fff !important;
+    border-color: #4272AD;
+}
+
+.is-dragover > p {
+    color: #4272AD !important;
+}
+
+.drag_and_drop_area {
+    width: 378px;
+    height: 100px;
+    background-color: #4272AD;
+    border: dashed 1px #fff;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 5px #4272AD;
+}
+
+.drag_and_drop_area > p {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+}

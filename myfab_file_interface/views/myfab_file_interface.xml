@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- ============================ -->
+		<!-- MYFAB FILE INTERFACE EXPORT  -->
+		<!-- ============================ -->
+        <record id='myfab_file_interface_export_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface Export</field>
+			<field name="res_model">myfab.file.interface.export.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='myfab_file_interface_export_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface Export</field>
+			<field name="model">myfab.file.interface.export.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab File Interface Export Configurations">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='myfab_file_interface_export_mf_form' model="ir.ui.view">
+        	<field name="name">myfab.file.interface.export.mf.form</field>
+			<field name="model">myfab.file.interface.export.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab File Interface Export Configuration">
+					<group col="9">
+						<group colspan="8" col="1">
+							<group col="1" string="Configuration">
+								<group col="4">
+									<field name="name"/>
+									<field name="planned_start_date_delta_min_mf"/>
+									<field name="import_directory_path_mf"/>
+									<field name="planned_start_date_delta_max_mf"/>
+									<field name="cron_already_exists_mf" invisible="1"/>
+								</group>
+								<group col="1">
+									<field name="resources_mf"/>
+									<field name="areas_mf"/>
+								</group>
+								<button
+									name="export_work_orders"
+									string="Export Work Orders"
+									type="object"
+									class="oe_highlight" />
+							</group>
+							<group col="1" string="Last Export">
+								<group col="3" class="last_export_section_mf">
+									<field name="number_of_work_orders_in_last_export"/>
+									<button
+											name="download_last_export"
+											string="Download Last Export JSON File"
+											type="object"
+											class="oe_highlight"
+											attrs="{'invisible': [('last_json_generated_mf', '=', False)]}"
+									/>
+								</group>
+								<field name="last_json_generated_mf" class="myfab_file_interface_json_content_mf"/>
+							</group>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Generate cron for this export"
+									name="generate_cron_for_export"
+									icon="fa-repeat"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Delete the cron for this export"
+									name="delete_cron_for_export"
+									icon="fa-trash"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+							<button class="oe_inline oe_stat_button"
+									name="download_current_export_default_import"
+									string="Download current export's default import"
+									type="object"
+									icon="fa-download" />
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- ============================ -->
+		<!-- MYFAB FILE INTERFACE IMPORT  -->
+		<!-- ============================ -->
+        <record id='myfab_file_interface_import_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface Import</field>
+			<field name="res_model">myfab.file.interface.import.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='myfab_file_interface_import_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface Import</field>
+			<field name="model">myfab.file.interface.import.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab File Interface Import Configurations">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='myfab_file_interface_import_mf_form' model="ir.ui.view">
+        	<field name="name">myfab.file.interface.import.mf.form</field>
+			<field name="model">myfab.file.interface.import.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab File Interface Import Configuration">
+					<group col="9">
+						<group colspan="8" col="1">
+							<group col="1" string="Configuration">
+								<group col="4">
+									<field name="name"/>
+									<field name="import_directory_path_mf"/>
+									<field name="cron_already_exists_mf" invisible="1"/>
+								</group>
+								<button
+									name="import_files"
+									string="Import Files"
+									type="object"
+									class="oe_highlight" />
+							</group>
+							<group col="1" string="Last Import">
+								<field name="last_json_imported_mf" class="myfab_file_interface_json_content_mf"/>
+							</group>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_import_action_menu_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Generate cron for this import"
+									name="generate_cron_for_import"
+									icon="fa-repeat"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Delete the cron for this import"
+									name="delete_cron_for_import"
+									icon="fa-trash"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Upload an import file into the import directory"
+									name="open_upload_import_file_wizard"
+									icon="fa-upload"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- ========================================= -->
+		<!-- WIZARD MYFAB FILE INTERFACE EXPORT CRON   -->
+		<!-- ========================================= -->
+
+		<!-- Modale affichée lors du clic sur "Generate cron for this ..." -->
+		<record id='view_form_wizard_myfab_file_interface_cron_mf' model='ir.ui.view'>
+            <field name="name">MyFab File Interface cron creation</field>
+            <field name="model">wizard.myfab.file.interface.cron.mf</field>
+            <field name="arch" type="xml">
+                <form string="MyFab File Interface cron creation" version="8.0">
+					<group col="2">
+						<field name="interval_number_mf"/>
+						<field name="interval_type_mf"/>
+						<field name="nextcall_mf"/>
+					</group>
+                    <footer>
+                        <button name="action_validate" string="OK" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<!-- =============== -->
+		<!-- DATETIME DELTA  -->
+		<!-- =============== -->
+        <record id='datetime_delta_mf' model="ir.actions.act_window">
+        	<field name="name">Datetime Delta</field>
+			<field name="res_model">datetime.delta.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+        </record>
+
+		<record id='datetime_delta_mf_form' model="ir.ui.view">
+        	<field name="name">datetime.delta.mf.form</field>
+			<field name="model">datetime.delta.mf</field>
+            <field name="arch" type="xml">
+				<form string="Datetime Delta Configuration">
+					<group col="6">
+						<field name="delta_number_mf"/>
+						<field name="delta_type_mf"/>
+						<field name="delta_orientation_mf"/>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<!-- =========================== -->
+		<!-- WIZARD UPLOAD IMPORT FILE   -->
+		<!-- =========================== -->
+		<record id="view_wizard_upload_import_file_mf" model="ir.ui.view">
+            <field name="name">wizard.upload.import.file.mf.form</field>
+            <field name="model">wizard.upload.import.file.mf</field>
+            <field name="arch" type="xml">
+                <form string="Upload import file into import directory">
+					<group col="2">
+						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field"
+						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop" accept=".csv, .xls, .xlsx, .ods"/>
+					</group>
+					<div class="drag_and_drop_area">
+                        <p>Drop a .json file here</p>
+                    </div>
+					<footer>
+                        <button name="action_validate_upload" type="object" string="Upload import file" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
