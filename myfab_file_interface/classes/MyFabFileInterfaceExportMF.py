@@ -13,7 +13,8 @@ class MyFabFileInterfaceExportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
+    import_directory_path_mf = fields.Char(string="Files path",
+                                           default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
     planned_start_date_delta_min_mf = fields.Many2one("datetime.delta.mf", required=True,
                                                       string="Planned start date delta min")
     planned_start_date_delta_max_mf = fields.Many2one("datetime.delta.mf", required=True,
@@ -24,6 +25,9 @@ class MyFabFileInterfaceExportMF(models.Model):
     resources_mf = fields.Many2many("mrp.resource", "myfab_file_interface_export_mf_resources_rel",
                                     "myfab_file_interface_export_id_mf", "resource_id_mf", string="Resources",
                                     copy=False, readonly=False)
+    models_to_export_mf = fields.Many2many("model.export.mf", "myfab_file_interface_export_mf_model_export_mf_rel",
+                                           "myfab_file_interface_export_mf_id", "model_export_mf_id",
+                                           string="Models to export", copy=False, readonly=False)
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
     last_json_generated_name_mf = fields.Char(string="Last JSON generated name", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)

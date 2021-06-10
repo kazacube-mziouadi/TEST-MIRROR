@@ -35,6 +35,7 @@
 									<field name="import_directory_path_mf"/>
 									<field name="planned_start_date_delta_max_mf"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
+									<field name="models_to_export_mf"/>
 								</group>
 								<group col="1">
 									<field name="resources_mf"/>
@@ -221,5 +222,40 @@
                 </form>
             </field>
         </record>
+
+		<!-- ============================ -->
+		<!-- MYFAB FILE INTERFACE EXPORT  -->
+		<!-- ============================ -->
+        <record id='model_export_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Model Export</field>
+			<field name="res_model">model.export.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='model_export_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Model Export</field>
+			<field name="model">model.export.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Model Exports">
+					<field name="name"/>
+					<field name="model_to_export_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='model_export_mf_form' model="ir.ui.view">
+        	<field name="name">model.export.mf.form</field>
+			<field name="model">model.export.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Model Export Configuration">
+					<group>
+						<field name="model_to_export_mf"/>
+						<field name="fields_to_export_mf"
+							   domain="[('model_id', '=', parent.model_to_export_mf)]"/>
+					</group>
+				</form>
+			</field>
+		</record>
     </data>
 </openerp>
