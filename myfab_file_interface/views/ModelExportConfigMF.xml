@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='model_export_config_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Model Export</field>
+			<field name="res_model">model.export.config.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='model_export_config_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Model Export</field>
+			<field name="model">model.export.config.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Model Export Configs">
+					<field name="model_to_export_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='model_export_config_mf_form' model="ir.ui.view">
+        	<field name="name">model.export.config.mf.form</field>
+			<field name="model">model.export.config.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Model Export Config">
+					<group col="1">
+						<field name="model_to_export_mf"/>
+						<field name="hide_fields_view" invisible="1"/>
+						<group col="1" colspan="1" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
+							<field name="fields_to_export_mf"
+							   domain="[('model_id', '=', model_to_export_mf)]"/>
+							<field name="children_model_export_configs"/>
+						</group>
+					</group>
+					<p attrs="{'invisible': [('hide_fields_view', '=', False)]}">
+						Make sure to save the entire document to be able to finish the Model Export Configuration.
+					</p>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>
