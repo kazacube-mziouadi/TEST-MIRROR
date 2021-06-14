@@ -47,37 +47,10 @@ class MyFabFileInterfaceExportMF(models.Model):
     def format_models_to_export_to_dict(self):
         content_dict = {}
         for model_to_export_config in self.model_to_export_configs_mf:
-            content_dict[model_to_export_config.model_to_export_mf.model] = self.get_dict_of_objects_to_export(
+            content_dict[model_to_export_config.model_to_export_mf.model] = model_to_export_config.get_dict_of_objects_to_export(
                 model_to_export_config
             )
         return content_dict
-
-    def get_dict_of_objects_to_export(self, model_to_export_config):
-        list_of_objects_to_export = {}
-        objects_to_export = self.env[model_to_export_config.model_to_export_mf.model].search([])
-        for object_to_export in objects_to_export:
-            list_of_objects_to_export[object_to_export.display_name] = self.get_dict_of_object_to_export(
-                object_to_export, model_to_export_config.fields_to_export_mf
-            )
-        return list_of_objects_to_export
-
-    def get_dict_of_object_to_export(self, object_to_export, fields_to_export):
-        object_dict = {}
-        for field_to_export in fields_to_export:
-            # TODO : function get_field_to_export
-            object_field_value = getattr(object_to_export, field_to_export.name)
-            if field_to_export.ttype in ["many2many", "one2many"]:
-                # List of objects
-                for sub_object in object_field_value:
-                    # TODO : recursive call
-                    pass
-            elif field_to_export.ttype == "many2one":
-                # object
-                pass
-            else:
-                # string with double quotes
-                object_dict[field_to_export.name] = object_field_value
-        return object_dict
 
 
     def write_myfab_file_interface_json_file(self, json_content_string):

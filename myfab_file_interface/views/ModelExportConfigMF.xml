@@ -29,7 +29,7 @@
 						<group col="1" colspan="1" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
 							<field name="fields_to_export_mf"
 							   domain="[('model_id', '=', model_to_export_mf)]"/>
-							<field name="children_model_export_configs"/>
+							<field name="children_model_export_configs_mf"/>
 						</group>
 					</group>
 					<p attrs="{'invisible': [('hide_fields_view', '=', False)]}">
