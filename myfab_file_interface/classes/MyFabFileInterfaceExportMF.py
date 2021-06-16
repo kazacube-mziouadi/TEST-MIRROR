@@ -6,6 +6,7 @@ import base64
 
 
 class MyFabFileInterfaceExportMF(models.Model):
+    _inherit = "myfab.interface.mf"
     _name = "myfab.file.interface.export.mf"
     _description = "MyFab file interface export configuration"
 
@@ -15,7 +16,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path",
                                            default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
-    model_to_export_dictionaries_mf = fields.One2many("myfab.file.interface.export.model.dictionary.mf",
+    model_dictionaries_to_export_mf = fields.One2many("myfab.file.interface.export.model.dictionary.mf",
                                                       "myfab_file_interface_export_mf",
                                                       string='Models to Export', ondelete="cascade")
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
@@ -44,15 +45,6 @@ class MyFabFileInterfaceExportMF(models.Model):
         json_content = json.dumps(json_content_dict, sort_keys=True, indent=4)
         self.write_myfab_file_interface_json_file(json_content)
         self.last_json_generated_mf = json_content
-
-    def format_models_to_export_to_dict(self):
-        content_dict = {}
-        for model_to_export_dictionary in self.model_to_export_dictionaries_mf:
-            model_list_name = model_to_export_dictionary.model_to_export_mf.model + 's'
-            content_dict[model_list_name] = model_to_export_dictionary.get_dict_of_objects_to_export(
-                model_to_export_dictionary
-            )
-        return content_dict
 
     def write_myfab_file_interface_json_file(self, json_content_string):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
@@ -98,6 +90,7 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     @api.multi
     def download_current_export_default_import(self):
+        # TODO : mise en conformite specif DIWII avec export generique
         work_orders = self.get_work_orders_to_send_to_myfab_file_interface()
         json_content = []
         for work_order in work_orders:

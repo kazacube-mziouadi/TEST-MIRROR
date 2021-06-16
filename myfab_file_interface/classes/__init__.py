@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import ModelDictionaryMF
+import MyFabInterfaceMF
 import MyFabFileInterfaceExportModelDictionaryMF
 import MyFabFileInterfaceExportMF
 import MrpWorkorder
