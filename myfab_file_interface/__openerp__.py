@@ -22,8 +22,8 @@
         'views/MyFabFileInterfaceWeb.xml',
         'views/WizardMyFabFileInterfaceCronMF.xml',
         'views/WizardUploadImportFileMF.xml',
-        'views/ModelExportConfigMF.xml',
-        'views/MyFabFileInterfaceExportModelExportConfigMF.xml',
+        'views/ModelDictionaryMF.xml',
+        'views/MyFabFileInterfaceExportModelDictionaryMF.xml',
         'views/MyFabFileInterfaceExportMF.xml',
         'views/MyFabFileInterfaceImportMF.xml'
     ],

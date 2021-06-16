@@ -30,7 +30,7 @@
 									<field name="name"/>
 									<field name="import_directory_path_mf"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
-									<field name="model_to_export_configs_mf"/>
+									<field name="model_to_export_dictionaries_mf"/>
 								</group>
 								<button
 									name="export_models"

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import ModelExportConfigMF
-import MyFabFileInterfaceExportModelExportConfigMF
+import ModelDictionaryMF
+import MyFabFileInterfaceExportModelDictionaryMF
 import MyFabFileInterfaceExportMF
 import MrpWorkorder
 import WizardMyFabFileInterfaceCronMF

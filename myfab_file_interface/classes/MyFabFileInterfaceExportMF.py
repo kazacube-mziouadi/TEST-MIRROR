@@ -15,8 +15,9 @@ class MyFabFileInterfaceExportMF(models.Model):
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path",
                                            default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
-    model_to_export_configs_mf = fields.One2many("myfab.file.interface.export.model.export.config.mf",
-                                                 "myfab_file_interface_export_mf", string='MyFab Model Export Configs')
+    model_to_export_dictionaries_mf = fields.One2many("myfab.file.interface.export.model.dictionary.mf",
+                                                      "myfab_file_interface_export_mf",
+                                                      string='Models to Export', ondelete="cascade")
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
     last_json_generated_name_mf = fields.Char(string="Last JSON generated name", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
@@ -46,12 +47,12 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     def format_models_to_export_to_dict(self):
         content_dict = {}
-        for model_to_export_config in self.model_to_export_configs_mf:
-            content_dict[model_to_export_config.model_to_export_mf.model] = model_to_export_config.get_dict_of_objects_to_export(
-                model_to_export_config
+        for model_to_export_dictionary in self.model_to_export_dictionaries_mf:
+            model_list_name = model_to_export_dictionary.model_to_export_mf.model + 's'
+            content_dict[model_list_name] = model_to_export_dictionary.get_dict_of_objects_to_export(
+                model_to_export_dictionary
             )
         return content_dict
-
 
     def write_myfab_file_interface_json_file(self, json_content_string):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
