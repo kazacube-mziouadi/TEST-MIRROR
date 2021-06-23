@@ -27,8 +27,15 @@
 						<field name="model_to_export_mf"/>
 						<field name="hide_fields_view" invisible="1"/>
 						<group col="1" colspan="1" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
+							<field name="hide_filters_view" invisible="1"/>
 							<field name="fields_to_export_mf"
-							   domain="[('model_id', '=', model_to_export_mf)]"/>
+								   domain="[('model_id', '=', model_to_export_mf)]"/>
+							<field name="fields_filters_mf"
+								   attrs="{'invisible': [('hide_filters_view', '=', True)]}"
+								   context="{'model_dictionary_mf': active_id, 'model_dictionary_model_name': active_model}" />
+							<p attrs="{'invisible': [('hide_filters_view', '=', False)]}">
+								Make sure to have saved at least one field to be able to apply filters.
+							</p>
 							<field name="children_model_dictionaries_mf"/>
 						</group>
 					</group>

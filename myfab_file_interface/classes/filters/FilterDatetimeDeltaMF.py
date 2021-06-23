@@ -3,8 +3,8 @@ from openerp.exceptions import ValidationError
 import datetime
 
 
-class DatetimeDeltaMF(models.Model):
-    _name = "datetime.delta.mf"
+class FilterDatetimeDeltaMF(models.Model):
+    _name = "filter.datetime.delta.mf"
 
     # ===========================================================================
     # COLUMNS
@@ -17,6 +17,8 @@ class DatetimeDeltaMF(models.Model):
     delta_orientation_mf = fields.Selection([
         ("-", "Before now"), ("+", "After now")
     ], "Delta Orientation", required=True)
+    model_dictionary_field_mf = fields.Many2one("model.dictionary.field.mf", string="Model dictionary field",
+                                                required=False)
 
     # ===========================================================================
     # METHODS
@@ -26,7 +28,7 @@ class DatetimeDeltaMF(models.Model):
     def create(self, fields_list):
         fields_list["name"] = fields_list["delta_orientation_mf"] + " " + str(fields_list["delta_number_mf"]) \
                               + " " + _(fields_list["delta_type_mf"])
-        return super(DatetimeDeltaMF, self).create(fields_list)
+        return super(FilterDatetimeDeltaMF, self).create(fields_list)
 
     def get_datetime_from_now(self):
         now = datetime.datetime.now() + datetime.timedelta(hours=2)

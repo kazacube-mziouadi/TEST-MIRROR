@@ -26,7 +26,7 @@ msgid "Actions"
 msgstr "Actions"
 
 #. module: myfab_file_interface
-#: selection:datetime.delta.mf,delta_orientation_mf:0
+#: selection:filter.datetime.delta.mf,delta_orientation_mf:0
 msgid "After now"
 msgstr "Après maintenant"
 
@@ -41,7 +41,7 @@ msgid "Areas"
 msgstr "Ateliers"
 
 #. module: myfab_file_interface
-#: selection:datetime.delta.mf,delta_orientation_mf:0
+#: selection:filter.datetime.delta.mf,delta_orientation_mf:0
 msgid "Before now"
 msgstr "Avant maintenant"
 
@@ -149,7 +149,7 @@ msgid "Generate cron for this export"
 msgstr "Générer le cron pour cet export"
 
 #. module: myfab_file_interface
-#: selection:datetime.delta.mf,delta_type_mf:0
+#: selection:filter.datetime.delta.mf,delta_type_mf:0
 #: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
 msgid "Hours"
 msgstr "Heures"
@@ -225,7 +225,7 @@ msgid "Planned start date delta min"
 msgstr "Delta minimum de la date de début planifiée"
 
 #. module: myfab_file_interface
-#: selection:datetime.delta.mf,delta_type_mf:0
+#: selection:filter.datetime.delta.mf,delta_type_mf:0
 #: selection:wizard.myfab_file_interface.export.cron.mf,interval_type:0
 msgid "Minutes"
 msgstr "Minutes"

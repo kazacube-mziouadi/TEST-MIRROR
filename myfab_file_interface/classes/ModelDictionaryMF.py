@@ -15,14 +15,16 @@ class ModelDictionaryMF(models.AbstractModel):
     fields_to_export_mf = fields.Many2many("ir.model.fields", "model_export_config_mf_ir_model_fields_rel",
                                            "model_export_config_mf_id", "model_field_id", string="Fields to export",
                                            copy=False, readonly=False)
-    parent_model_dictionary_mf = fields.Many2one("model.dictionary.mf", string="Parent MyFab Model Export Config")
+    fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf",
+                                        string="Filters to apply on fields", ondelete="cascade")
+    parent_model_dictionary_mf = fields.Many2one(string="Parent MyFab Model Export Config")
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf",
                                                      string="Children MyFab Model Export Config", ondelete="cascade")
     hide_fields_view = fields.Boolean(compute='compute_hide_fields_view')
+    hide_filters_view = fields.Boolean(compute='compute_hide_filters_view')
 
     @api.onchange("fields_to_export_mf")
     def onchange_sub_fields_to_export_mf(self):
-        print("ON CHANGE NOW")
         # To enrich the children model exports list automatically
         for field_to_export in self.fields_to_export_mf:
             if field_to_export.ttype in ["many2many", "one2many", "many2one"]:
@@ -49,6 +51,11 @@ class ModelDictionaryMF(models.AbstractModel):
     @api.depends('model_to_export_mf')
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
+
+    @api.one
+    @api.depends('fields_filters_mf')
+    def compute_hide_filters_view(self):
+        self.hide_filters_view = (not self.fields_to_export_mf)
 
     def get_dict_of_objects_to_export(self, model_to_export_dict):
         list_of_objects_to_export = {}

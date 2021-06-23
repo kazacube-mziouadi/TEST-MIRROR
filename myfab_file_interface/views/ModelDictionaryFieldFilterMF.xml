@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='model_dictionary_field_filter_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Field Filter</field>
+			<field name="res_model">model.dictionary.field.filter.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='model_dictionary_field_filter_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Field Filter</field>
+			<field name="model">model.dictionary.field.filter.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Field Filters">
+					<field name="field_to_export_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='model_dictionary_field_filter_mf_form' model="ir.ui.view">
+        	<field name="name">model.dictionary.field.filter.mf.form</field>
+			<field name="model">model.dictionary.field.filter.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Field Filter">
+					<group col="1">
+						<field name="hide_filters_view" invisible="1"/>
+						<field name="field_to_export_mf"/>
+						<group col="1" attrs="{'invisible': [('hide_filters_view', '=', True)]}">
+							<field name="hide_filters_datetime_view" invisible="1"/>
+							<field name="value_comparisons_mf"/>
+							<group col="2" attrs="{'invisible': [('hide_filters_datetime_view', '=', True)]}">
+								<group col="1">
+									<field name="datetime_delta_min_mf"/>
+								</group>
+								<group col="1">
+									<field name="datetime_delta_max_mf"/>
+								</group>
+							</group>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>
