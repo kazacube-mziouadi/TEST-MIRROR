@@ -38,3 +38,6 @@ class FilterDatetimeDeltaMF(models.Model):
         elif self.delta_orientation_mf == "-":
             return now - eval(time_delta)
         raise ValidationError('The operator must be + or -')
+
+    def get_filter_tuple(self, field_name, operator):
+        return field_name, operator, self.get_datetime_from_now()

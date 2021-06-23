@@ -17,9 +17,7 @@ class MyFabInterfaceMF(models.AbstractModel):
 
     def format_models_to_export_to_dict(self):
         content_dict = {}
-        for model_to_export_dictionary in self.model_dictionaries_to_export_mf:
-            model_list_name = model_to_export_dictionary.model_to_export_mf.model + 's'
-            content_dict[model_list_name] = model_to_export_dictionary.get_dict_of_objects_to_export(
-                model_to_export_dictionary
-            )
+        for model_dictionary in self.model_dictionaries_to_export_mf:
+            model_list_name = model_dictionary.model_to_export_mf.model + 's'
+            content_dict[model_list_name] = model_dictionary.get_dict_of_objects_to_export()
         return content_dict

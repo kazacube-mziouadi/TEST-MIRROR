@@ -12,8 +12,8 @@ class ModelDictionaryMF(models.AbstractModel):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=False, help='')
     model_to_export_mf = fields.Many2one("ir.model", string="Model to Export")
-    fields_to_export_mf = fields.Many2many("ir.model.fields", "model_export_config_mf_ir_model_fields_rel",
-                                           "model_export_config_mf_id", "model_field_id", string="Fields to export",
+    fields_to_export_mf = fields.Many2many("ir.model.fields", "model_dictionary_mf_ir_model_fields_rel",
+                                           "model_dictionary_mf_id", "model_field_id", string="Fields to export",
                                            copy=False, readonly=False)
     fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf",
                                         string="Filters to apply on fields", ondelete="cascade")
@@ -29,21 +29,21 @@ class ModelDictionaryMF(models.AbstractModel):
         for field_to_export in self.fields_to_export_mf:
             if field_to_export.ttype in ["many2many", "one2many", "many2one"]:
                 sub_model_to_export = self.env["ir.model"].search([("model", '=', field_to_export.relation)], None, 1)
-                if not self.is_sub_model_in_children_model_export_config(sub_model_to_export):
+                if not self.is_sub_model_in_children_model_dictionary(sub_model_to_export):
                     # We retrieve the currently selected elements
-                    children_model_export_configs_array = [child.id for child in self.children_model_dictionaries_mf]
+                    children_model_dictionaries_array = [child.id for child in self.children_model_dictionaries_mf]
                     # We add the new element
-                    children_model_export_configs_array.append({
+                    children_model_dictionaries_array.append({
                         "model_to_export_mf": sub_model_to_export.id
                     })
                     # To modify the temporary many2many list shown on screen, we have to use "update" (not "write")
                     self.update({
-                        "children_model_dictionaries_mf": children_model_export_configs_array
+                        "children_model_dictionaries_mf": children_model_dictionaries_array
                     })
 
-    def is_sub_model_in_children_model_export_config(self, sub_model):
-        for child_model_export_config in self.children_model_dictionaries_mf:
-            if child_model_export_config.model_to_export_mf.id == sub_model.id:
+    def is_sub_model_in_children_model_dictionary(self, sub_model):
+        for child_model_dictionary in self.children_model_dictionaries_mf:
+            if child_model_dictionary.model_to_export_mf.id == sub_model.id:
                 return True
         return False
 
@@ -57,16 +57,33 @@ class ModelDictionaryMF(models.AbstractModel):
     def compute_hide_filters_view(self):
         self.hide_filters_view = (not self.fields_to_export_mf)
 
-    def get_dict_of_objects_to_export(self, model_to_export_dict):
+    def get_dict_of_objects_to_export(self, ids_to_search_list=None):
         list_of_objects_to_export = {}
-        objects_to_export = self.env[model_to_export_dict.model_to_export_mf.model].search([])
+        filters_list = self.get_filters_list_to_apply()
+        if ids_to_search_list is not None:
+            filters_list.append(("id", "in", ids_to_search_list))
+        print(filters_list)
+        objects_to_export = self.env[self.model_to_export_mf.model].search(filters_list)
+        print(objects_to_export)
         for object_to_export in objects_to_export:
             list_of_objects_to_export[object_to_export.display_name] = self.get_dict_of_object_to_export(
                 object_to_export
             )
         return list_of_objects_to_export
 
-    def get_dict_of_object_to_export(self, object_to_export):
+    def get_filters_list_to_apply(self):
+        filters_list = []
+        for field_filter in self.fields_filters_mf:
+            filters_list + field_filter.get_field_filters_list_to_apply()
+        return filters_list
+
+    def get_dict_of_object_to_export(self, object_to_export, apply_filters=False):
+        if apply_filters:
+            orm_filtered_search_result = self.env[self.model_to_export_mf.model].search(
+                self.get_filters_list_to_apply() + [("id", "=", object_to_export.id)]
+            )
+            if not orm_filtered_search_result:
+                return {}
         object_dict = {}
         for field_to_export in self.fields_to_export_mf:
             object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, object_to_export)
@@ -76,24 +93,19 @@ class ModelDictionaryMF(models.AbstractModel):
         object_field_value = getattr(object_to_export, field_to_export.name)
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of objects
-            sub_objects_dict = {}
-            child_model_export_config = self.get_child_model_export_config_for_field(field_to_export)
-            for sub_object in object_field_value:
-                sub_objects_dict[sub_object.display_name] = child_model_export_config.get_dict_of_object_to_export(
-                    sub_object
-                )
-            return sub_objects_dict
+            child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
+            return child_model_dictionary.get_dict_of_objects_to_export(
+                [sub_object.id for sub_object in object_field_value] if object_field_value else []
+            )
         elif field_to_export.ttype == "many2one":
             # Object
-            child_model_export_config = self.get_child_model_export_config_for_field(field_to_export)
-            return child_model_export_config.get_dict_of_object_to_export(
-                object_field_value
-            )
+            child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
+            return child_model_dictionary.get_dict_of_object_to_export(object_field_value, True)
         else:
             # String
             return object_field_value
 
-    def get_child_model_export_config_for_field(self, field_to_export):
+    def get_child_model_dictionary_for_field(self, field_to_export):
         for child_model_dictionary in self.children_model_dictionaries_mf:
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary

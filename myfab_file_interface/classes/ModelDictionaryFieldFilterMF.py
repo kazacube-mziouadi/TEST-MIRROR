@@ -41,4 +41,16 @@ class ModelDictionaryFieldFilterMF(models.Model):
     def compute_hide_filters_datetime_view(self):
         self.hide_filters_datetime_view = (not self.field_to_export_mf.ttype == "datetime")
 
+    def get_field_filters_list_to_apply(self):
+        field_name = self.field_to_export_mf.name
+        filters_list = []
+        if self.field_to_export_mf.ttype in ["datetime", "date"]:
+            filters_list = filters_list + [
+                self.datetime_delta_min_mf.get_filter_tuple(field_name, '>='),
+                self.datetime_delta_max_mf.get_filter_tuple(field_name, '<=')
+            ]
+        for value_comparison in self.value_comparisons_mf:
+            filters_list.append(value_comparison.get_filter_tuple(field_name))
+        return filters_list
+
 
