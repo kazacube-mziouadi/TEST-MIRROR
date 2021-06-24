@@ -1,9 +1,10 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError
 import datetime
+from FilterInterfaceMF import FilterInterfaceMF
 
 
-class FilterDatetimeDeltaMF(models.Model):
+class FilterDatetimeDeltaMF(models.Model, FilterInterfaceMF):
     _name = "filter.datetime.delta.mf"
 
     # ===========================================================================
@@ -40,4 +41,4 @@ class FilterDatetimeDeltaMF(models.Model):
         raise ValidationError('The operator must be + or -')
 
     def get_filter_tuple(self, field_name, operator):
-        return field_name, operator, self.get_datetime_from_now()
+        return field_name, operator, str(self.get_datetime_from_now())

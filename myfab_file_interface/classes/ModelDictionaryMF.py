@@ -62,9 +62,7 @@ class ModelDictionaryMF(models.AbstractModel):
         filters_list = self.get_filters_list_to_apply()
         if ids_to_search_list is not None:
             filters_list.append(("id", "in", ids_to_search_list))
-        print(filters_list)
         objects_to_export = self.env[self.model_to_export_mf.model].search(filters_list)
-        print(objects_to_export)
         for object_to_export in objects_to_export:
             list_of_objects_to_export[object_to_export.display_name] = self.get_dict_of_object_to_export(
                 object_to_export
@@ -74,7 +72,7 @@ class ModelDictionaryMF(models.AbstractModel):
     def get_filters_list_to_apply(self):
         filters_list = []
         for field_filter in self.fields_filters_mf:
-            filters_list + field_filter.get_field_filters_list_to_apply()
+            filters_list = filters_list + field_filter.get_field_filters_list_to_apply()
         return filters_list
 
     def get_dict_of_object_to_export(self, object_to_export, apply_filters=False):
