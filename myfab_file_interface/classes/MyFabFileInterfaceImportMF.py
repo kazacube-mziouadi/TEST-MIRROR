@@ -22,7 +22,7 @@ class MyFabFileInterfaceImportMF(models.Model):
     @api.one
     def _compute_cron_already_exists(self):
         existing_crons = self.env["ir.cron"].search([
-            ("model", "=", "myfab.file.interface.export.mf"),
+            ("model", "=", "myfab.file.interface.import.mf"),
             ("function", "=", "import_files"),
             ("args", "=", repr([self.id]))
         ], None, 1)
