@@ -17,9 +17,17 @@
     'data': [
         'security/myfab_file_interface_security.xml',
         'security/ir.model.access.csv',
-        'views/myfab_file_interface.xml',
-        'views/baseMenus.xml',
-        'views/myfab_file_interface_web.xml'
+        'views/BaseMenus.xml',
+        'views/filters/FilterDatetimeDeltaMF.xml',
+        'views/filters/FilterValueComparisonMF.xml',
+        'views/MyFabFileInterfaceWeb.xml',
+        'views/WizardMyFabFileInterfaceCronMF.xml',
+        'views/WizardUploadImportFileMF.xml',
+        'views/ModelDictionaryMF.xml',
+        'views/ModelDictionaryFieldFilterMF.xml',
+        'views/MyFabFileInterfaceExportModelDictionaryMF.xml',
+        'views/MyFabFileInterfaceExportMF.xml',
+        'views/MyFabFileInterfaceImportMF.xml'
     ],
     'qweb': [],
     'demo': [],

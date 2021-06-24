@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='filter_datetime_delta_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Field Filter Datetime Delta</field>
+			<field name="res_model">filter.datetime.delta.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+        </record>
+
+		<record id='filter_datetime_delta_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Field Filters Datetime Delta</field>
+			<field name="model">filter.datetime.delta.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Field Filters Datetime Delta">
+					<field name="delta_number_mf"/>
+					<field name="delta_type_mf"/>
+					<field name="delta_orientation_mf"/>
+				</tree>
+			</field>
+        </record>
+
+		<record id='filter_datetime_delta_mf_form' model="ir.ui.view">
+        	<field name="name">filter.datetime.delta.mf.form</field>
+			<field name="model">filter.datetime.delta.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Field Filter Datetime Delta">
+					<group col="6">
+						<field name="delta_number_mf"/>
+						<field name="delta_type_mf"/>
+						<field name="delta_orientation_mf"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

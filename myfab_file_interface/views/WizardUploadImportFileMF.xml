@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_wizard_upload_import_file_mf" model="ir.ui.view">
+            <field name="name">wizard.upload.import.file.mf.form</field>
+            <field name="model">wizard.upload.import.file.mf</field>
+            <field name="arch" type="xml">
+                <form string="Upload import file into import directory">
+					<group col="2">
+						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field"
+						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop" accept=".csv, .xls, .xlsx, .ods"/>
+					</group>
+					<div class="drag_and_drop_area">
+                        <p>Drop a .json file here</p>
+                    </div>
+					<footer>
+                        <button name="action_validate_upload" type="object" string="Upload import file" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

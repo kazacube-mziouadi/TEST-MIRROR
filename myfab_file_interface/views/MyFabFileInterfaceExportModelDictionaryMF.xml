@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Herite de la vue de ModelExportMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
+		<record id='myfab_file_interface_export_model_dictionary_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface Export Model Export</field>
+			<field name="res_model">myfab.file.interface.export.model.dictionary.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='myfab_file_interface_export_model_dictionary_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface Export Model Export</field>
+			<field name="inherit_id" ref="myfab_file_interface.model_dictionary_mf_treeview" />
+			<field name="mode">primary</field>
+			<field name="model">myfab.file.interface.export.model.dictionary.mf</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='model_to_export_mf']" position="attributes">
+					<attribute name="class">myfab_file_interface_export_model_dictionary_mf_treeview</attribute>
+				</xpath>
+			</field>
+        </record>
+
+        <record id='myfab_file_interface_export_model_dictionary_mf_form' model="ir.ui.view">
+        	<field name="name">myfab.file.interface.export.model.dictionary.mf.form</field>
+			<field name="inherit_id" ref="myfab_file_interface.model_dictionary_mf_form" />
+			<field name="mode">primary</field>
+			<field name="model">myfab.file.interface.export.model.dictionary.mf</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='model_to_export_mf']" position="attributes">
+					<attribute name="class">myfab_file_interface_export_model_dictionary_mf_form</attribute>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>
