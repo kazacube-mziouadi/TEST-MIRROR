@@ -121,32 +121,11 @@ class MrpWorkorder(models.Model):
                         }
                     }
                 }])
-                for product_of_work_order in self.fp_draft_ids:
-                    if product_of_work_order.product_id.track_label:
-                        resources_default_import_array.append({
-                            "model": "wo.declaration.produce",
-                            "method": "write",
-                            "callback": "generate_label",
-                            "fields": {
-                                "consumption_id": {
-                                    "date": now.strftime("%Y-%m-%d %H:%M:%S"),
-                                    "wo_id": {
-                                        "mo_id": {
-                                            "name": self.mo_id.name
-                                        },
-                                        "sequence": self.sequence
-                                    }
-                                }
-                            },
-                            "write": {
-                                "nb_label": 1,
-                                "qty_label": self.uom_qty
-                            }
-                        })
+                if self.final_product_id.track_label:
                     resources_default_import_array.append({
                         "model": "wo.declaration.produce",
-                        "method": "search",
-                        "callback": "action_validate",
+                        "method": "write",
+                        "callback": "generate_label",
                         "fields": {
                             "consumption_id": {
                                 "date": now.strftime("%Y-%m-%d %H:%M:%S"),
@@ -157,6 +136,26 @@ class MrpWorkorder(models.Model):
                                     "sequence": self.sequence
                                 }
                             }
+                        },
+                        "write": {
+                            "nb_label": 1,
+                            "qty_label": self.quantity
                         }
                     })
+                resources_default_import_array.append({
+                    "model": "wo.declaration.produce",
+                    "method": "search",
+                    "callback": "action_validate",
+                    "fields": {
+                        "consumption_id": {
+                            "date": now.strftime("%Y-%m-%d %H:%M:%S"),
+                            "wo_id": {
+                                "mo_id": {
+                                    "name": self.mo_id.name
+                                },
+                                "sequence": self.sequence
+                            }
+                        }
+                    }
+                })
         return resources_default_import_array

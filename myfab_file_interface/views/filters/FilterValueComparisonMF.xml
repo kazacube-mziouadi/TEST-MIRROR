@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='filter_value_comparison_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Field Filter Value Comparison</field>
+			<field name="res_model">filter.value.comparison.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='filter_value_comparison_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Field Filter Value Comparison</field>
+			<field name="model">filter.value.comparison.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Field Filters Value Comparison">
+					<field name="operator_mf"/>
+					<field name="value_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='filter_value_comparison_mf_form' model="ir.ui.view">
+        	<field name="name">filter.value.comparison.mf.form</field>
+			<field name="model">filter.value.comparison.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Field Filter Value Comparison">
+					<group col="2">
+						<field name="operator_mf"/>
+						<field name="value_mf"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>
