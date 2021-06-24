@@ -14,6 +14,7 @@
             <field name="arch" type="xml">
 				<tree string="MyFab Field Filters">
 					<field name="field_to_export_mf"/>
+					<field name="number_of_filters_on_field"/>
 				</tree>
 			</field>
         </record>

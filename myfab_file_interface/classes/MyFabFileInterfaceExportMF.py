@@ -87,17 +87,3 @@ class MyFabFileInterfaceExportMF(models.Model):
             base64.b64encode(self.last_json_generated_mf),
             self.last_json_generated_name_mf
         )
-
-    @api.multi
-    def download_current_export_default_import(self):
-        # TODO : mise en conformite specif DIWII avec export generique
-        work_orders = self.get_work_orders_to_send_to_myfab_file_interface()
-        json_content = []
-        for work_order in work_orders:
-            if work_order.state == "plan" or work_order.state == "ready" or work_order.state == "progress":
-                json_content.extend(work_order.get_resources_default_import_array())
-        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        return self.env['binary.download'].execute(
-            base64.b64encode(json.dumps(json_content, indent=4)),
-            "Import-WorkOrders-" + now + ".json"
-        )

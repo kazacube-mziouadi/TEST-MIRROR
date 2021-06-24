@@ -13,7 +13,10 @@
 			<field name="model">model.dictionary.mf</field>
             <field name="arch" type="xml">
 				<tree string="MyFab Model Export Configs">
+					<field name="hide_number_of_records_exported_column" invisible="1"/>
 					<field name="model_to_export_mf"/>
+					<field name="number_of_records_exported"
+						   attrs="{'invisible': [('hide_number_of_records_exported_column', '=', True)]}"/>
 				</tree>
 			</field>
         </record>
