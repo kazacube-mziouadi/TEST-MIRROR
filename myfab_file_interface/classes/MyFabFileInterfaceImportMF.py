@@ -1,6 +1,7 @@
 from openerp import models, fields, api, _
 import json
 import os
+import sys
 
 
 class MyFabFileInterfaceImportMF(models.Model):
@@ -35,8 +36,16 @@ class MyFabFileInterfaceImportMF(models.Model):
     def import_files(self):
         files = [f for f in os.listdir(self.import_directory_path_mf) if os.path.isfile(os.path.join(self.import_directory_path_mf, f))]
         for file_name in files:
-            self.import_file(file_name)
-            self.archive_file(file_name)
+            try:
+                self.import_file(file_name)
+            except Exception as e:
+                exception = e
+                self.env["ir.rule"].clear_caches()
+                self.last_json_imported_mf = "###### ERREUR ######\n" + str(exception)
+                self.env.cr.commit()
+                self.archive_file(file_name, "Erreurs")
+                sys.exit(exception)
+            self.archive_file(file_name, "Archives")
 
     def import_file(self, file_name):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
@@ -103,8 +112,8 @@ class MyFabFileInterfaceImportMF(models.Model):
         field_object = self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
         return field_object.id
 
-    def archive_file(self, file_name):
-        archive_path = os.path.join(self.import_directory_path_mf, "Archives")
+    def archive_file(self, file_name, directory_name):
+        archive_path = os.path.join(self.import_directory_path_mf, directory_name)
         if not os.path.exists(archive_path):
             os.makedirs(archive_path)
         os.rename(os.path.join(self.import_directory_path_mf, file_name), os.path.join(archive_path, file_name))
