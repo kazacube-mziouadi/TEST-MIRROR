@@ -19,7 +19,7 @@ class ModelDictionaryMF(models.AbstractModel):
                                         string="Filters to apply on fields", ondelete="cascade")
     parent_model_dictionary_mf = fields.Many2one(string="Parent MyFab Model Export Config")
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf",
-                                                     string="Children MyFab Model Export Config", ondelete="cascade")
+                                                     string="Children MyFab Model Export Configs", ondelete="cascade")
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
     hide_filters_view = fields.Boolean(compute="compute_hide_filters_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
