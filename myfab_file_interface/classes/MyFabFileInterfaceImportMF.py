@@ -1,4 +1,4 @@
-from openerp import models, fields, api, _
+from openerp import models, fields, api, registry, _
 import json
 import os
 import sys
@@ -13,8 +13,10 @@ class MyFabFileInterfaceImportMF(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports/WorkOrders")
-    last_json_imported_mf = fields.Text(string="Last JSON imported", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
+    last_json_imported_mf = fields.Text(string="Last JSON imported", readonly=True)
+    last_import_error_mf = fields.Char(string="Erreur lors du dernier import", readonly=True)
+    last_import_success_mf = fields.Boolean(default=True)
 
     # ===========================================================================
     # METHODS
@@ -40,12 +42,20 @@ class MyFabFileInterfaceImportMF(models.Model):
                 self.import_file(file_name)
             except Exception as e:
                 exception = e
-                self.env["ir.rule"].clear_caches()
-                self.last_json_imported_mf = "###### ERREUR ######\n" + str(exception)
-                self.env.cr.commit()
+                # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
                 self.archive_file(file_name, "Erreurs")
+                self.write_error_log_files(file_name, str(exception))
+                # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
+                self.env.cr.rollback()
+                # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
+                self.last_import_error_mf = str(exception)
+                self.last_import_success_mf = False
+                # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
+                self.env.cr.commit()
+                # Declenchement de l'erreur
                 sys.exit(exception)
             self.archive_file(file_name, "Archives")
+        self.last_import_success_mf = True
 
     def import_file(self, file_name):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
@@ -152,3 +162,17 @@ class MyFabFileInterfaceImportMF(models.Model):
             'target': 'new',
             'context': {'upload_directory_mf': self.import_directory_path_mf}
         }
+
+    def write_error_log_files(self, failed_file_name, error_content_string):
+        error_directory_path = os.path.join(self.import_directory_path_mf, "Erreurs")
+        if not os.path.exists(error_directory_path):
+            os.makedirs(error_directory_path)
+        log_file_name = failed_file_name + ".log"
+        self.write_file(error_directory_path, log_file_name, error_content_string)
+
+    @staticmethod
+    def write_file(directory_path, file_name, content):
+        file_path = os.path.join(directory_path, file_name)
+        file = open(file_path, "a")
+        file.write(content)
+        file.close()
