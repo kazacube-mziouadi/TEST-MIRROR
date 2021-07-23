@@ -38,7 +38,12 @@
 									class="oe_highlight" />
 							</group>
 							<group col="1" string="Last Import">
-								<field name="last_json_imported_mf" class="myfab_file_interface_json_content_mf"/>
+								<field name="last_import_success_mf" invisible="1"/>
+								<field name="last_json_imported_mf"
+									   class="myfab_file_interface_json_content_mf"
+									   attrs="{'invisible': [('last_import_success_mf', '=', False)]}"/>
+								<field name="last_import_error_mf"
+									   attrs="{'invisible': [('last_import_success_mf', '=', True)]}"/>
 							</group>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_import_action_menu_mf">
