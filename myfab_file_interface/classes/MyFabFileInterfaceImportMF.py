@@ -44,7 +44,7 @@ class MyFabFileInterfaceImportMF(models.Model):
                 exception = e
                 # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
                 self.archive_file(file_name, "Erreurs")
-                self.write_error_log_files(file_name, str(exception))
+                self.write_error_log_file(file_name, str(exception))
                 # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
                 self.env.cr.rollback()
                 # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
@@ -163,7 +163,7 @@ class MyFabFileInterfaceImportMF(models.Model):
             'context': {'upload_directory_mf': self.import_directory_path_mf}
         }
 
-    def write_error_log_files(self, failed_file_name, error_content_string):
+    def write_error_log_file(self, failed_file_name, error_content_string):
         error_directory_path = os.path.join(self.import_directory_path_mf, "Erreurs")
         if not os.path.exists(error_directory_path):
             os.makedirs(error_directory_path)
