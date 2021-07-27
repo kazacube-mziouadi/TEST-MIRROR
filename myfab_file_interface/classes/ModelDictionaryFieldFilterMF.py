@@ -1,5 +1,4 @@
 from openerp import models, fields, api, _
-import json
 
 
 class ModelDictionaryFieldFilterMF(models.Model):
