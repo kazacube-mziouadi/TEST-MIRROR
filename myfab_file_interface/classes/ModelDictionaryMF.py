@@ -21,9 +21,7 @@ class ModelDictionaryMF(models.AbstractModel):
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf",
                                                      string="Children MyFab Model Export Configs", ondelete="cascade")
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
-    hide_filters_view = fields.Boolean(compute="compute_hide_filters_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
-    hide_number_of_records_exported_column = fields.Boolean(compute="compute_number_of_records_exported_column")
 
     @api.onchange("fields_to_export_mf")
     def onchange_sub_fields_to_export_mf(self):
@@ -53,16 +51,6 @@ class ModelDictionaryMF(models.AbstractModel):
     @api.depends('model_to_export_mf')
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
-
-    @api.one
-    @api.depends('fields_filters_mf')
-    def compute_hide_filters_view(self):
-        self.hide_filters_view = (not self.fields_to_export_mf)
-
-    @api.one
-    @api.depends('model_to_export_mf')
-    def compute_number_of_records_exported_column(self):
-        self.hide_number_of_records_exported_column = self.parent_model_dictionary_mf
 
     def get_dict_of_objects_to_export(self, ids_to_search_list=None):
         list_of_objects_to_export = {}
