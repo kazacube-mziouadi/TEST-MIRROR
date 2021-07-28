@@ -15,7 +15,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path",
-                                           default="/etc/openprod_home/MyFabFileInterface/Exports/WorkOrders")
+                                           default="/etc/openprod_home/MyFabFileInterface/Exports")
     model_dictionaries_to_export_mf = fields.One2many("myfab.file.interface.export.model.dictionary.mf",
                                                       "myfab_file_interface_export_mf",
                                                       string='Models to Export', ondelete="cascade")
@@ -50,7 +50,7 @@ class MyFabFileInterfaceExportMF(models.Model):
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         if not os.path.exists(self.import_directory_path_mf):
             os.makedirs(self.import_directory_path_mf)
-        file_name = "MFFI-WorkOrders-" + now + ".json"
+        file_name = "MFFI-Export-" + now + ".json"
         file_path = os.path.join(self.import_directory_path_mf, file_name)
         file = open(file_path, "a")
         file.write(json_content_string)

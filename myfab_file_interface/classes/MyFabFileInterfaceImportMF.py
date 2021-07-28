@@ -1,5 +1,5 @@
 from openerp import models, fields, api, registry, _
-import json
+import simplejson
 import os
 import sys
 
@@ -12,7 +12,7 @@ class MyFabFileInterfaceImportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports/WorkOrders")
+    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports")
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     last_json_imported_mf = fields.Text(string="Last JSON imported", readonly=True)
     last_import_error_mf = fields.Char(string="Erreur lors du dernier import", readonly=True)
@@ -61,7 +61,7 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
-        objects_to_create_array = json.loads(file_content)
+        objects_to_create_array = simplejson.loads(file_content)
         for object_to_create_dictionary in objects_to_create_array:
             model_returned = self.apply_orm_method_to_model(
                 object_to_create_dictionary["model"],
