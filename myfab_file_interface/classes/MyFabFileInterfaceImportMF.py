@@ -1,5 +1,5 @@
 from openerp import models, fields, api, registry, _
-import json
+import simplejson
 import os
 import sys
 
@@ -61,7 +61,7 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
-        objects_to_create_array = json.loads(file_content)
+        objects_to_create_array = simplejson.loads(file_content)
         for object_to_create_dictionary in objects_to_create_array:
             model_returned = self.apply_orm_method_to_model(
                 object_to_create_dictionary["model"],

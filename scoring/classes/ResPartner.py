@@ -29,5 +29,5 @@ class ResPartner(models.Model, CreatableFromObjectTempInterfaceMF):
             "siret_number": res_partner_temp.siret_mf
         }
         if generate_reference:
-            object_partner["reference"] = self.env['ir.sequence'].get('res.partner')
+            object_partner["reference"] = self.env["ir.sequence"].get("res.partner")
         return object_partner
