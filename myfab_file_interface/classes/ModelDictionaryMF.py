@@ -1,11 +1,10 @@
 from openerp import models, fields, api, _
 
 
-class ModelDictionaryMF(models.AbstractModel):
+class ModelDictionaryMF(models.Model):
     _name = "model.dictionary.mf"
-    _auto = False
-    _description = "MyFab model dictionary abstract generator - to use it, you have to inherit from this model, " \
-                   "override it's Many2many and One2many fields, add a Many2one to target the model where it is used."
+    _description = "MyFab model dictionary generator - to link it to an api model, you have to inherit from this model," \
+                   " override it's Many2many and One2many fields, add a Many2one to target the model where it is used."
 
     # ===========================================================================
     # COLUMNS
@@ -21,9 +20,7 @@ class ModelDictionaryMF(models.AbstractModel):
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf",
                                                      string="Children MyFab Model Export Configs", ondelete="cascade")
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
-    hide_filters_view = fields.Boolean(compute="compute_hide_filters_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
-    hide_number_of_records_exported_column = fields.Boolean(compute="compute_number_of_records_exported_column")
 
     @api.onchange("fields_to_export_mf")
     def onchange_sub_fields_to_export_mf(self):
@@ -54,16 +51,6 @@ class ModelDictionaryMF(models.AbstractModel):
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
 
-    @api.one
-    @api.depends('fields_filters_mf')
-    def compute_hide_filters_view(self):
-        self.hide_filters_view = (not self.fields_to_export_mf)
-
-    @api.one
-    @api.depends('model_to_export_mf')
-    def compute_number_of_records_exported_column(self):
-        self.hide_number_of_records_exported_column = self.parent_model_dictionary_mf
-
     def get_dict_of_objects_to_export(self, ids_to_search_list=None):
         list_of_objects_to_export = {}
         filters_list = self.get_filters_list_to_apply()
@@ -92,7 +79,8 @@ class ModelDictionaryMF(models.AbstractModel):
                 return {}
         object_dict = {}
         for field_to_export in self.fields_to_export_mf:
-            object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, object_to_export)
+            if hasattr(object_to_export, field_to_export.name):
+                object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, object_to_export)
         return object_dict
 
     def get_value_of_field_to_export(self, field_to_export, object_to_export):
@@ -100,13 +88,15 @@ class ModelDictionaryMF(models.AbstractModel):
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of objects
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_objects_to_export(
+            return {} if child_model_dictionary is None else child_model_dictionary.get_dict_of_objects_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
             )
         elif field_to_export.ttype == "many2one":
             # Object
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_object_to_export(object_field_value, True)
+            return {} if child_model_dictionary is None else child_model_dictionary.get_dict_of_object_to_export(
+                object_field_value, True
+            )
         else:
             # String
             return object_field_value
@@ -116,3 +106,19 @@ class ModelDictionaryMF(models.AbstractModel):
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary
         return None
+
+    def set_self_to_export_all_first_level_fields(self, parent_model=None):
+        self.fields_to_export_mf = self.model_to_export_mf.field_id
+        for field_to_export in self.fields_to_export_mf:
+            if field_to_export.ttype in ["many2many", "one2many", "many2one"] \
+                    and (parent_model is None or field_to_export.relation != parent_model.model):
+                sub_model = self.env["ir.model"].search([("model", "=", field_to_export.relation)])
+                sub_model_id_field = None
+                for sub_model_field in sub_model.field_id:
+                    if not sub_model_id_field and sub_model_field.name == "id":
+                        sub_model_id_field = sub_model_field
+                self.env["model.dictionary.mf"].create({
+                    "model_to_export_mf": sub_model.id,
+                    "parent_model_dictionary_mf": self.id,
+                    "fields_to_export_mf": [(4, sub_model_id_field.id, False)]
+                })

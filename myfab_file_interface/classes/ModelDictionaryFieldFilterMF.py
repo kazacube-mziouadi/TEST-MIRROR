@@ -1,5 +1,4 @@
 from openerp import models, fields, api, _
-import json
 
 
 class ModelDictionaryFieldFilterMF(models.Model):
@@ -26,11 +25,10 @@ class ModelDictionaryFieldFilterMF(models.Model):
 
     @api.model
     def _get_field_to_export_domain(self):
-        if "model_dictionary_model_name" in self.env.context:
-            model_dictionary_model_name = self.env.context["model_dictionary_model_name"]
-            model_dictionary_id = self.env.context["model_dictionary_mf"]
-            model_dictionary = self.env[model_dictionary_model_name].search([("id", "=", model_dictionary_id)], None, 1)
-            return [("id", "in", [field.id for field in model_dictionary.fields_to_export_mf])]
+        if "model_to_filter_id" in self.env.context:
+            model_to_filter_id = self.env.context["model_to_filter_id"]
+            model = self.env["ir.model"].search([("id", "=", model_to_filter_id)], None, 1)
+            return [("id", "in", [field.id for field in model.field_id])]
         return []
 
     @api.one

@@ -23,9 +23,11 @@ class WizardUploadImportFileMF(models.TransientModel):
 
     @api.multi
     def action_validate_upload(self):
+        if not os.path.exists(self.upload_directory_mf):
+            os.makedirs(self.upload_directory_mf)
         json_file_decoded = str(base64.b64decode(self.file_to_import_mf))
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        file_name = self.env.user.name + "-Import-WorkOrders-" + now + ".json"
+        file_name = self.env.user.name + "-Import-" + now + ".json"
         file_path = os.path.join(self.upload_directory_mf, file_name)
         file = open(file_path, "a")
         file.write(json_file_decoded)

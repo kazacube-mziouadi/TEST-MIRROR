@@ -1,8 +1,4 @@
 from openerp import models, fields, api, _
-import json
-import datetime
-import os
-import base64
 
 
 class MyFabInterfaceMF(models.AbstractModel):
