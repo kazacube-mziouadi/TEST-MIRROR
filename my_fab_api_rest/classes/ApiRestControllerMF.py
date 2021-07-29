@@ -117,6 +117,19 @@ class ApiRestControllerMF(http.Controller):
         result = self.__record_to_long_dictionary(record_object)
         return result
 
+    @http.route("/myfab/rest/<model>/<id>", auth="public", type="json", methods=["delete"])
+    def delete_record(self, model, id, **kwargs):
+        self.__reset_debug()
+
+        my_model = http.request.env["ir.model"].search([("model", "=", model)])
+        if getattr(my_model, "id", False) is False:
+            return {"error": "The '" + model + "' model does not exist."}
+
+        record_object = http.request.env[model].search([("id", "=", id)])
+
+        record_object.unlink()
+        return "The '"+model+"' with id '"+str(id)+"' has been deleted with success."
+
     # transorme un/des filtre(s) en une liste de record
     # recursive 1/2
     def __filter_to_records(self, model_name, filter):
