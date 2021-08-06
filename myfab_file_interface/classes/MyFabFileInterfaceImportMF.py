@@ -80,7 +80,15 @@ class MyFabFileInterfaceImportMF(models.Model):
             self.set_fields_object_to_ids_in_dict(model_fields_to_write, model_name)
         if orm_method_name == "create":
             model_fields["user_id"] = self.env.user.id
-            return self.env[model_name].create(model_fields)
+            field_names_str = ""
+            field_values_str = ""
+            for key, value in model_fields.items():
+                field_names_str += key + ", "
+                value_to_insert = value
+                if type(value) is str:
+                    value_to_insert = "\'" + value_to_insert + "\'"
+                field_values_str += value_to_insert + ", "
+            return self.env.cr.execute("INSERT INTO %s (%s) VALUES (%s)", model_name, field_names_str, field_values_str)
         elif orm_method_name in ["search", "write"]:
             # "Search" ORM method takes an array of tuples
             model_fields = [(key, '=', value) for key, value in model_fields.items()]

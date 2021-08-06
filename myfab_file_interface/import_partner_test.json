@@ -1,0 +1,50 @@
+[
+  {
+    "model": "res.partner",
+    "method": "create",
+    "fields": {
+      "ape_number": "524Z",
+      "company_id": {
+        "name": "1LIFE"
+      },
+      "country_id": {
+        "code": "FR"
+      },
+      "create_date": "2012-12-21 00:00:00",
+      "credit_limit": 0,
+      "currency_id": {
+        "name" : "EUR"
+      },
+      "display_state": "Prospect",
+      "email": "",
+      "fax": "",
+      "group_invoices": true,
+      "is_customer": true,
+      "is_supplier": false,
+      "is_transporter": false,
+      "lang": "fr-FR",
+      "name": "Test reference",
+      "num_with_customer": "",
+      "phone": "",
+      "reference": "100\"",
+      "sale_delivery": false,
+      "sale_discount": false,
+      "state": "Prospect",
+      "siret_number": "448310862",
+      "website": "",
+      "write_date": "2016-07-05 00:00:00"
+    }
+  },
+  {
+    "model": "address",
+    "method": "create",
+    "fields": {
+      "partner_address_id.name": "Test reference",
+      "street": "7 Rue Maurice",
+      "city": "Lyon",
+      "zip": "69000",
+      "is_customer": true,
+      "reference": ""
+    }
+  }
+]
