@@ -42,18 +42,19 @@ class MyFabFileInterfaceImportMF(models.Model):
                 self.import_file(file_name)
             except Exception as e:
                 exception = e
-                # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
-                self.archive_file(file_name, "Erreurs")
-                self.write_error_log_file(file_name, str(exception))
-                # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
-                self.env.cr.rollback()
-                # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
-                self.last_import_error_mf = str(exception)
-                self.last_import_success_mf = False
-                # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
-                self.env.cr.commit()
-                # Declenchement de l'erreur
-                sys.exit(exception)
+                if exception != "False":
+                    # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
+                    self.archive_file(file_name, "Erreurs")
+                    self.write_error_log_file(file_name, str(exception))
+                    # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
+                    self.env.cr.rollback()
+                    # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
+                    self.last_import_error_mf = str(exception)
+                    self.last_import_success_mf = False
+                    # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
+                    self.env.cr.commit()
+                    # Declenchement de l'erreur
+                    sys.exit(exception)
             self.archive_file(file_name, "Archives")
         self.last_import_success_mf = True
 
@@ -79,16 +80,21 @@ class MyFabFileInterfaceImportMF(models.Model):
         if model_fields_to_write:
             self.set_fields_object_to_ids_in_dict(model_fields_to_write, model_name)
         if orm_method_name == "create":
-            model_fields["user_id"] = self.env.user.id
+            # model_fields["user_id"] = self.env.user.id
             field_names_str = ""
             field_values_str = ""
             for key, value in model_fields.items():
                 field_names_str += key + ", "
                 value_to_insert = value
-                if type(value) is str:
+                print(value_to_insert)
+                print(type(value_to_insert))
+                if type(value) is str or len(str(value)) < 1:
+                    print("OK")
                     value_to_insert = "\'" + value_to_insert + "\'"
-                field_values_str += value_to_insert + ", "
-            return self.env.cr.execute("INSERT INTO %s (%s) VALUES (%s)", model_name, field_names_str, field_values_str)
+                field_values_str += str(value_to_insert) + ", "
+            return self.env.cr.execute(
+                "INSERT INTO " + model_name.replace('.', '_') + " (" + field_names_str[:-2] + ") VALUES (" + field_values_str[:-2] + ")"
+            )
         elif orm_method_name in ["search", "write"]:
             # "Search" ORM method takes an array of tuples
             model_fields = [(key, '=', value) for key, value in model_fields.items()]
