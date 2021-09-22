@@ -29,6 +29,7 @@ function roundTo(n, digits) {
     }
 }
 
+// Drag'n'drop file area
 document.addEventListener("DOMContentLoaded", function(event) {
   $(document).on('drag dragstart dragend dragover dragenter dragleave drop', '.drag_and_drop_area', function(e) {
      e.preventDefault();
@@ -46,4 +47,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $(inputFile).change();
   });
 });
-
