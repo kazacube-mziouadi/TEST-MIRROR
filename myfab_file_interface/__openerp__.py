@@ -11,8 +11,7 @@
     'module_type': 'base',
     'images': [],
     'depends': [
-        'my_fab',
-        'affair'
+        'my_fab'
     ],
     'data': [
         'security/myfab_file_interface_security.xml',
