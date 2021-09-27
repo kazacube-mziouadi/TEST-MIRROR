@@ -31,9 +31,6 @@ function roundTo(n, digits) {
 
 // Drag'n'drop file area
 document.addEventListener("DOMContentLoaded", function(event) {
-  $(document).on("ready", ".o_kanban_record", function(e) {
-     $(e).trigger("hover");
-  });
   $(document).on('drag dragstart dragend dragover dragenter dragleave drop', '.drag_and_drop_area', function(e) {
      e.preventDefault();
      e.stopPropagation();
