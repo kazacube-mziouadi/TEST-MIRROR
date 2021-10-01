@@ -18,10 +18,11 @@ class MyFabFileInterfaceExportMF(models.Model):
                                            default="/etc/openprod_home/MyFabFileInterface/Exports")
     model_dictionaries_to_export_mf = fields.One2many("myfab.file.interface.export.model.dictionary.mf",
                                                       "myfab_file_interface_export_mf",
-                                                      string='Models to Export', ondelete="cascade")
+                                                      string="Models to Export", ondelete="cascade")
     last_json_generated_mf = fields.Text(string="Last JSON generated", readonly=True)
     last_json_generated_name_mf = fields.Char(string="Last JSON generated name", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
+    activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
 
     # ===========================================================================
     # METHODS
@@ -43,7 +44,8 @@ class MyFabFileInterfaceExportMF(models.Model):
     def export_models(self):
         json_content_dict = self.format_models_to_export_to_dict()
         json_content = json.dumps(json_content_dict, sort_keys=True, indent=4)
-        self.write_myfab_file_interface_json_file(json_content)
+        if self.activate_file_generation_mf:
+            self.write_myfab_file_interface_json_file(json_content)
         self.last_json_generated_mf = json_content
 
     def write_myfab_file_interface_json_file(self, json_content_string):
@@ -86,4 +88,14 @@ class MyFabFileInterfaceExportMF(models.Model):
         return self.env['binary.download'].execute(
             base64.b64encode(self.last_json_generated_mf),
             self.last_json_generated_name_mf
+        )
+
+    @api.one
+    def generate_selected_models_import_file(self):
+        json_content_array = self.format_models_to_import_to_dict()
+        json_content = json.dumps(json_content_array, sort_keys=True, indent=4)
+        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+        return self.env['binary.download'].execute(
+            base64.b64encode(json_content),
+            "MyFabFileInterface-Import-" + now + ".json"
         )

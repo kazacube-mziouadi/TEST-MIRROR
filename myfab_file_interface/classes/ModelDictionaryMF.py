@@ -52,18 +52,18 @@ class ModelDictionaryMF(models.AbstractModel):
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
 
-    def get_dict_of_objects_to_export(self, ids_to_search_list=None):
-        list_of_objects_to_export = {}
+    def get_list_of_records_to_export(self, ids_to_search_list=None):
+        list_of_records_to_export = []
         filters_list = self.get_filters_list_to_apply()
         if ids_to_search_list is not None:
             filters_list.append(("id", "in", ids_to_search_list))
         objects_to_export = self.env[self.model_to_export_mf.model].search(filters_list)
         self.number_of_records_exported = len(objects_to_export)
         for object_to_export in objects_to_export:
-            list_of_objects_to_export[object_to_export.display_name] = self.get_dict_of_object_to_export(
+            list_of_records_to_export.append(self.get_dict_of_record_to_export(
                 object_to_export
-            )
-        return list_of_objects_to_export
+            ))
+        return list_of_records_to_export
 
     def get_filters_list_to_apply(self):
         filters_list = []
@@ -71,7 +71,7 @@ class ModelDictionaryMF(models.AbstractModel):
             filters_list = filters_list + field_filter.get_field_filters_list_to_apply()
         return filters_list
 
-    def get_dict_of_object_to_export(self, object_to_export, apply_filters=False):
+    def get_dict_of_record_to_export(self, object_to_export, apply_filters=False):
         if apply_filters:
             orm_filtered_search_result = self.env[self.model_to_export_mf.model].search(
                 self.get_filters_list_to_apply() + [("id", "=", object_to_export.id)]
@@ -88,13 +88,13 @@ class ModelDictionaryMF(models.AbstractModel):
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of objects
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_objects_to_export(
+            return child_model_dictionary.get_list_of_records_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
             )
         elif field_to_export.ttype == "many2one":
             # Object
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_object_to_export(object_field_value, True)
+            return child_model_dictionary.get_dict_of_record_to_export(object_field_value, True)
         else:
             # String
             return object_field_value

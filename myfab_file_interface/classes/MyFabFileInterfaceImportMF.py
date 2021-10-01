@@ -5,6 +5,7 @@ import sys
 
 
 class MyFabFileInterfaceImportMF(models.Model):
+    _inherit = "myfab.interface.mf"
     _name = "myfab.file.interface.import.mf"
     _description = "MyFab file interface import configuration"
 
@@ -61,8 +62,8 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
-        objects_to_create_array = simplejson.loads(file_content)
-        for object_to_create_dictionary in objects_to_create_array:
+        objects_to_create_list = simplejson.loads(file_content)
+        for object_to_create_dictionary in objects_to_create_list:
             model_returned = self.apply_orm_method_to_model(
                 object_to_create_dictionary["model"],
                 object_to_create_dictionary["fields"],
@@ -72,55 +73,6 @@ class MyFabFileInterfaceImportMF(models.Model):
             if "callback" in object_to_create_dictionary:
                 callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
                 callback_method_on_model()
-
-    def apply_orm_method_to_model(self, model_name, model_fields, model_fields_to_write, orm_method_name):
-        # Retrieving the ID of each field which is an object recursively
-        self.set_fields_object_to_ids_in_dict(model_fields, model_name)
-        if model_fields_to_write:
-            self.set_fields_object_to_ids_in_dict(model_fields_to_write, model_name)
-        if orm_method_name == "create":
-            model_fields["user_id"] = self.env.user.id
-            return self.env[model_name].create(model_fields)
-        elif orm_method_name in ["search", "write"]:
-            # "Search" ORM method takes an array of tuples
-            model_fields = [(key, '=', value) for key, value in model_fields.items()]
-            model_found = self.env[model_name].search(model_fields, None, 1)
-            if orm_method_name == "search":
-                return model_found
-            orm_method_on_model = getattr(model_found, orm_method_name)
-            if model_fields_to_write:
-                orm_method_on_model(model_fields_to_write)
-            else:
-                orm_method_on_model()
-            return model_found
-
-    def set_fields_object_to_ids_in_dict(self, fields_dict, model_name):
-        for field_name in fields_dict:
-            if type(fields_dict[field_name]) is dict:
-                fields_dict[field_name] = self.get_field_object_id(
-                    model_name,
-                    field_name,
-                    fields_dict[field_name]
-                )
-
-    def get_field_object_id(self, parent_model_name, field_name, field_object_dictionary):
-        parent_model = self.env["ir.model"].search([
-            ("model", '=', parent_model_name)
-        ], None, 1)
-        field_model = self.env["ir.model.fields"].search([
-            ("name", '=', field_name),
-            ("model_id", '=', parent_model.id)
-        ], None, 1)
-        for sub_field_name in field_object_dictionary:
-            if type(field_object_dictionary[sub_field_name]) is dict:
-                field_object_dictionary[sub_field_name] = self.get_field_object_id(
-                    field_model.relation,
-                    sub_field_name,
-                    field_object_dictionary[sub_field_name]
-                )
-        field_object_dictionary_tuples = [(key, '=', value) for key, value in field_object_dictionary.items()]
-        field_object = self.env[field_model.relation].search(field_object_dictionary_tuples, None, 1)
-        return field_object.id
 
     def archive_file(self, file_name, directory_name):
         archive_path = os.path.join(self.import_directory_path_mf, directory_name)
