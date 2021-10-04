@@ -210,10 +210,10 @@ class ApiRestControllerMF(http.Controller):
         fields = fields = http.request.env["ir.model.fields"].search([("model", "=", type(record).__name__)])
         fields = map(lambda item: item.name, fields)
         return {
-            "id" : record.id,
-            "fields" : fields,
-            "model" : type(record).__name__,
-            "url_api" : self.__api_url() + type(record).__name__ + "/" + str(record.id),
+            "id": record.id,
+            "fields": fields,
+            "model": type(record).__name__,
+            "url_api": self.__api_url() + type(record).__name__ + "/" + str(record.id),
         }
 
     # Convertit un record en un dictionnaire long

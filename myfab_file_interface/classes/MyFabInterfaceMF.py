@@ -5,7 +5,7 @@ import copy
 class MyFabInterfaceMF(models.AbstractModel):
     _name = "myfab.interface.mf"
     _auto = False
-    _description = "MyFab interface abstract - To use it add to the inheriter model a model_dictionaries_to_export_mf " \
+    _description = "MyFab interface abstract - To use it add to the inheriter model a model_dictionaries_to_export_mf "\
                    "One2many field targeting a model inheriting from model.dictionary.mf"
 
     # ===========================================================================
@@ -38,6 +38,18 @@ class MyFabInterfaceMF(models.AbstractModel):
     # ===========================================================================
     # METHODS - IMPORT INTERFACE
     # ===========================================================================
+
+    def process_records_list(self, records_to_process_list):
+        for record_to_process_dict in records_to_process_list:
+            model_returned = self.apply_orm_method_to_model(
+                record_to_process_dict["model"],
+                record_to_process_dict["fields"],
+                record_to_process_dict["write"] if "write" in record_to_process_dict else False,
+                record_to_process_dict["method"]
+            )
+            if "callback" in record_to_process_dict:
+                callback_method_on_model = getattr(model_returned, record_to_process_dict["callback"])
+                callback_method_on_model()
 
     # Apply an ORM method (create/create_recursive/write/search/unlink) on the given model_name, with the given dicts :
     #     - record_fields for the fields of the record we are looking for

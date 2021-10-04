@@ -62,17 +62,8 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
         file_content = file.read()
         self.last_json_imported_mf = file_content
-        objects_to_create_list = simplejson.loads(file_content)
-        for object_to_create_dictionary in objects_to_create_list:
-            model_returned = self.apply_orm_method_to_model(
-                object_to_create_dictionary["model"],
-                object_to_create_dictionary["fields"],
-                object_to_create_dictionary["write"] if "write" in object_to_create_dictionary else False,
-                object_to_create_dictionary["method"]
-            )
-            if "callback" in object_to_create_dictionary:
-                callback_method_on_model = getattr(model_returned, object_to_create_dictionary["callback"])
-                callback_method_on_model()
+        records_to_process_list = simplejson.loads(file_content)
+        self.process_records_list(records_to_process_list)
 
     def archive_file(self, file_name, directory_name):
         archive_path = os.path.join(self.import_directory_path_mf, directory_name)
