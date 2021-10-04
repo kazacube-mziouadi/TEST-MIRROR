@@ -17,8 +17,8 @@ class MyFabInterfaceMF(models.AbstractModel):
         for model_dictionary in self.model_dictionaries_to_export_mf:
             model_name = model_dictionary.model_to_export_mf.model
             content_dict.append({
-                "model_name": model_name,
-                "records_list": model_dictionary.get_list_of_records_to_export()
+                "model": model_name,
+                "records": model_dictionary.get_list_of_records_to_export()
             })
         return content_dict
 
@@ -26,8 +26,8 @@ class MyFabInterfaceMF(models.AbstractModel):
         selected_models_dict = self.format_models_to_export_to_dict()
         json_content_array = []
         for model_object in selected_models_dict:
-            model_name = model_object["model_name"]
-            for record_dict in model_object["records_list"]:
+            model_name = model_object["model"]
+            for record_dict in model_object["records"]:
                 json_content_array.append({
                     "method": "create_recursive",
                     "model": model_name,
