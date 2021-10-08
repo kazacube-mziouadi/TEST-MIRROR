@@ -66,9 +66,14 @@
         'base_vat',
         'web_charts',
         'web',
-        'web_mail_autocomplete'
+        'web_mail_autocomplete',
+        'myfab_file_interface'
     ],
-    'data': ['views/my_fab_web.xml'],
+    'data': [
+        'views/my_fab_web.xml',
+        'views/WizardMyFabInstaller.xml',
+        'classes/InstallerTriggerMF.yml'
+    ],
     'qweb' : [],
     'demo': [],
     'test': [],

@@ -1,18 +1,25 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, _
+from openerp import models, fields, api, _, modules
 import os
 import simplejson
 
 
-class WizardInstallerMF(models.TransientModel):
-    _name = 'myfab.installer.mf'
+class WizardMyFabInstallerMF(models.TransientModel):
+    _inherit = "myfab.interface.mf"
+    _name = "wizard.myfab.installer.mf"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=32, required=False)
+    launch_import = fields.Boolean(string='Launch import', default=False)
 
-    def import_data(self, cr, uid, context=None):
+    @api.multi
+    def trigger_wizard(self):
+        pass
+
+    @api.multi
+    def import_data(self):
         data_dir_path = "/etc/openprod_home/myfab/my_fab/static/data"
         files = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
         for file_name in files:

@@ -1,0 +1,5 @@
+-
+  MyFab pre-install config
+-
+  !python {model: wizard.myfab.installer.mf}: |
+    self.trigger_wizard(cr, uid, context)
