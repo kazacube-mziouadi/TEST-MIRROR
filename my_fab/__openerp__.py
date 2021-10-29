@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'MyFab base',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name' : 'MyFab Base',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules de base pour MyFab',
-    'category' : 'Base',
-    'description' : """Regroupe tous les modules de base pour MyFab.""",
+    'summary': 'Initialisation modules et données pour MyFab',
+    'category': 'Base',
+    'description': """Initialise les modules et données statiques nécessaires à une installation standard.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'purchase',
         'delivery_address',
         'web_data_base_name',
@@ -66,15 +66,13 @@
         'base_vat',
         'web_charts',
         'web',
-        'web_mail_autocomplete',
-        'myfab_file_interface'
+        'web_mail_autocomplete'
     ],
     'data': [
-        'views/my_fab_web.xml',
-        'views/WizardMyFabInstaller.xml',
-        'classes/InstallerTriggerMF.yml'
+        'classes/InstallerTriggerMF.yml',
+        'views/my_fab_web.xml'
     ],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,

@@ -10,7 +10,9 @@
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
-    'depends': [],
+    'depends': [
+        'my_fab'
+    ],
     'data': [
         'security/myfab_file_interface_security.xml',
         'security/ir.model.access.csv',

@@ -1,2 +1,3 @@
 # -*- coding: utf-8 -*-
-import WizardMyFabInstallerMF
+import DataInitializerMF
+import DataInitializerMyFabMF

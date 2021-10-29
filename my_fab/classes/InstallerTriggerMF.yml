@@ -1,5 +1,5 @@
 -
-  MyFab pre-install config
+  MyFab Data Initialization trigger
 -
-  !python {model: wizard.myfab.installer.mf}: |
-    self.trigger_wizard(cr, uid, context)
+  !python {model: data.initializer.myfab.mf}: |
+    self.import_files(cr, uid, context)
