@@ -67,7 +67,11 @@ class DataInitializerMF(models.AbstractModel):
             options={"headers": True, "separator": ',', "quoting": '"'},
             count=1
         )
-        base_import.with_context(lang="fr_FR").do(
+        import_result = base_import.with_context(lang="fr_FR").do(
             fields=parse_result[0]["headers"],
             options={"headers": True, "separator": ',', "quoting": '"'}
         )
+        for message in import_result[0]:
+            if message["type"] == "error":
+                logger.error("The import failed and returned the following messages : " + str(import_result))
+                return
