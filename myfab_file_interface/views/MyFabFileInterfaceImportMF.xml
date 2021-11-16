@@ -29,6 +29,9 @@
 								<group col="4">
 									<field name="name"/>
 									<field name="import_directory_path_mf"/>
+									<field name="file_extension_mf"/>
+									<field name="file_separator_mf"/>
+									<field name="file_quoting_mf"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
 								<button
@@ -39,8 +42,8 @@
 							</group>
 							<group col="1" string="Last Import">
 								<field name="last_import_success_mf" invisible="1"/>
-								<field name="last_json_imported_mf"
-									   class="myfab_file_interface_json_content_mf"
+								<field name="last_data_imported_mf"
+									   class="myfab_file_interface_data_content_mf"
 									   attrs="{'invisible': [('last_import_success_mf', '=', False)]}"/>
 								<field name="last_import_error_mf"
 									   attrs="{'invisible': [('last_import_success_mf', '=', True)]}"/>

@@ -1,0 +1,3 @@
+"model_id/id","model","name","ttype","field_description"
+"mrp.model_product_supplierinfo","product.supplierinfo","x_cleimport","char","Clé import"
+"sale.model_product_customerinfo","product.customerinfo","x_cleimport","char","Clé import"

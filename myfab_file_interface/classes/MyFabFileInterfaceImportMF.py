@@ -1,5 +1,4 @@
 from openerp import models, fields, api, registry, _
-import simplejson
 import os
 import sys
 
@@ -15,8 +14,8 @@ class MyFabFileInterfaceImportMF(models.Model):
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports")
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
-    last_json_imported_mf = fields.Text(string="Last JSON imported", readonly=True)
-    last_import_error_mf = fields.Char(string="Erreur lors du dernier import", readonly=True)
+    last_data_imported_mf = fields.Text(string="Last data imported", readonly=True)
+    last_import_error_mf = fields.Char(string="Last import error", readonly=True)
     last_import_success_mf = fields.Boolean(default=True)
 
     # ===========================================================================
@@ -39,30 +38,30 @@ class MyFabFileInterfaceImportMF(models.Model):
     def import_files(self):
         files = [f for f in os.listdir(self.import_directory_path_mf) if os.path.isfile(os.path.join(self.import_directory_path_mf, f))]
         for file_name in files:
-            try:
+            # try:
                 self.import_file(file_name)
-            except Exception as e:
-                exception = e
-                # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
-                self.archive_file(file_name, "Erreurs")
-                self.write_error_log_file(file_name, str(exception))
+            # except Exception as e:
+            #     exception = e
+            #     Archivage du fichier dans le dossier Erreurs et creation du fichier de log
+                # self.archive_file(file_name, "Erreurs")
+                # self.write_error_log_file(file_name, str(exception))
                 # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
-                self.env.cr.rollback()
+                # self.env.cr.rollback()
                 # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
-                self.last_import_error_mf = str(exception)
-                self.last_import_success_mf = False
+                # self.last_import_error_mf = str(exception)
+                # self.last_import_success_mf = False
                 # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
-                self.env.cr.commit()
+                # self.env.cr.commit()
                 # Declenchement de l'erreur
-                sys.exit(exception)
-            self.archive_file(file_name, "Archives")
+                # sys.exit(exception)
+            # self.archive_file(file_name, "Archives")
         self.last_import_success_mf = True
 
     def import_file(self, file_name):
-        file = open(os.path.join(self.import_directory_path_mf, file_name), "r")
+        file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
         file_content = file.read()
-        self.last_json_imported_mf = file_content
-        records_to_process_list = simplejson.loads(file_content)
+        self.last_data_imported_mf = file_content
+        records_to_process_list = getattr(self, "_get_records_from_" + self.file_extension_mf.lower())(file_content, file_name)
         self.process_records_list(records_to_process_list)
 
     def archive_file(self, file_name, directory_name):

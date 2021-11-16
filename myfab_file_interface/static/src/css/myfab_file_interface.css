@@ -1,8 +1,10 @@
-div.myfab_file_interface_json_content_mf {
+div.myfab_file_interface_data_content_mf > span {
     max-height: 152px;
-    overflow-y: scroll;
+    max-width: 1400px;
+    text-overflow: initial !important;
+    overflow: scroll !important;
     background-color: white;
-    padding-left: 10px !important;
+    padding: 10px !important;
 }
 
 .last_export_section_mf td:nth-child(2) {

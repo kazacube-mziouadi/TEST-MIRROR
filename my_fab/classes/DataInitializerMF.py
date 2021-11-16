@@ -3,8 +3,10 @@ from abc import abstractmethod
 from openerp import models, fields, api, _, modules
 import os
 import logging
+import psycopg2
 
 logger = logging.getLogger(__name__)
+FIRST_FILE_TO_PROCESS_NAME = "ir.model.fields.csv"
 MODELS_TO_OVERWRITE_NAMES = ["excel.import"]
 
 
@@ -28,16 +30,20 @@ class DataInitializerMF(models.AbstractModel):
     @api.multi
     def import_files(self):
         data_dir_path = self.get_data_dir_path()
-        files = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
-        for file_name in files:
-            self.process_file(file_name)
+        file_names = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
+        # Sorting the list of files to process so we process the FIRST_FILE_TO_PROCESS_NAME in priority
+        first_file_to_process_index = file_names.index(FIRST_FILE_TO_PROCESS_NAME)
+        file_names.insert(0, file_names.pop(first_file_to_process_index))
+        for file_name in file_names:
+            model_name = self.get_model_name_from_file_name(file_name)
+            # self.import_file_data(model_name, file_name)
 
     # Process the file, depending on the imported model
     def process_file(self, file_name):
         model_name = self.get_model_name_from_file_name(file_name)
         if model_name in MODELS_TO_OVERWRITE_NAMES:
             # Delete all the MyFab current records for the model before importing
-            myfab_default_records = self.env[model_name].search([("name", "like", "MyFab - ")])
+            myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - ")])
             myfab_default_records.unlink()
         else:
             # Import only when no record for model
@@ -63,15 +69,33 @@ class DataInitializerMF(models.AbstractModel):
             "file_name": file_name,
             "file": file_content
         })
+        # Getting the headers for the import thanks to the parse_preview Odoo method
         parse_result = base_import.parse_preview(
             options={"headers": True, "separator": ',', "quoting": '"'},
             count=1
         )
-        import_result = base_import.with_context(lang="fr_FR").do(
-            fields=parse_result[0]["headers"],
-            options={"headers": True, "separator": ',', "quoting": '"'}
-        )
-        for message in import_result[0]:
-            if message["type"] == "error":
-                logger.error("The import failed and returned the following messages : " + str(import_result))
-                return
+        self.launch_odoo_import(base_import, parse_result[0]["headers"])
+
+    def launch_odoo_import(self, base_import, headers):
+        try:
+            import_result = base_import.with_context(lang="fr_FR").do(
+                fields=headers,
+                options={"headers": True, "separator": ',', "quoting": '"'}
+            )
+            for message in import_result[0]:
+                if message["type"] == "error":
+                    logger.error("The import failed and returned the following messages : " + str(import_result))
+                    return
+        except psycopg2.Error:
+            # This error is triggered in the ir.model.field specific import case
+            logger.info("Catching regular ir.model.field import error, continuing imports.")
+            # Rollback here only permits to create a new DB cursor (so we can continue), but doesn't "rollback" anything
+            self.env.cr.rollback()
+            # Removing the CSV line we just imported, so we can start the import again on the next lines
+            csv_lines_list = base_import.file.splitlines()
+            csv_lines_list.pop(1)
+            if len(csv_lines_list) > 0:
+                base_import.write({
+                    "file": "\n".join(csv_lines_list)
+                })
+                self.launch_odoo_import(base_import, headers)
