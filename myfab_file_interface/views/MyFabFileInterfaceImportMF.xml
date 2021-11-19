@@ -30,8 +30,10 @@
 									<field name="name"/>
 									<field name="import_directory_path_mf"/>
 									<field name="file_extension_mf"/>
-									<field name="file_separator_mf"/>
-									<field name="file_quoting_mf"/>
+									<field name="file_separator_mf"
+										   attrs="{'invisible': [('file_extension_mf', '!=', 'csv')]}"/>
+									<field name="file_quoting_mf"
+										   attrs="{'invisible': [('file_extension_mf', '!=', 'csv')]}"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
 								<button
