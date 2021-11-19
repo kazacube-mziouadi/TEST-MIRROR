@@ -19,6 +19,9 @@ class MyFabInterfaceMF(models.AbstractModel):
     )
     file_separator_mf = fields.Char(string="File data separator", default=",")
     file_quoting_mf = fields.Char(string="File data quoting", default='"')
+    file_encoding_mf = fields.Selection(
+        [("utf-8", "UTF-8"), ("cp1252", "CP1252")], "File encoding", default=("utf-8", "UTF-8"), required=True
+    )
 
     # ===========================================================================
     # METHODS - EXPORT INTERFACE
@@ -55,10 +58,15 @@ class MyFabInterfaceMF(models.AbstractModel):
     def _get_records_from_json(file_content, file_name):
         return simplejson.loads(file_content)
 
+    def _get_records_from_txt(self, file_content, file_name):
+        self.file_separator_mf = "\t"
+        return self._get_records_from_csv(file_content, file_name)
+
     def _get_records_from_csv(self, file_content, file_name):
         model_name = self.get_model_name_from_file_name(file_name)
         csv_rows = csv.reader(
-            StringIO(file_content), delimiter=str(self.file_separator_mf), quotechar=str(self.file_quoting_mf)
+            StringIO(file_content), delimiter=str(self.file_separator_mf),
+            quotechar=str(self.file_quoting_mf) if self.file_quoting_mf else None
         )
         # list containing corresponding ir.model.field of each field, and a dict tree for relation fields
         # ex: [ir.model.fields(13606,), {'template_document_id': ir.model.fields(2050,)}]
@@ -68,7 +76,7 @@ class MyFabInterfaceMF(models.AbstractModel):
         # {depth: index, depth: index, ...}
         index_to_process_for_depth_dict = {}
         for csv_row_index, csv_row in enumerate(csv_rows):
-            csv_row = [item.decode("utf-8") for item in csv_row]
+            csv_row = [item.decode(self.file_encoding_mf) for item in csv_row]
             if csv_row_index == 0:
                 field_names = csv_row
                 fields_list = self.get_fields_by_names_list(field_names, model_name)

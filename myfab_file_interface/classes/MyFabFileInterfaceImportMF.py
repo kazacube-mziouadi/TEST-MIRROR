@@ -38,23 +38,23 @@ class MyFabFileInterfaceImportMF(models.Model):
     def import_files(self):
         files = [f for f in os.listdir(self.import_directory_path_mf) if os.path.isfile(os.path.join(self.import_directory_path_mf, f))]
         for file_name in files:
-            # try:
+            try:
                 self.import_file(file_name)
-            # except Exception as e:
-            #     exception = e
-            #     Archivage du fichier dans le dossier Erreurs et creation du fichier de log
-                # self.archive_file(file_name, "Erreurs")
-                # self.write_error_log_file(file_name, str(exception))
+            except Exception as e:
+                exception = e
+                # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
+                self.archive_file(file_name, "Erreurs")
+                self.write_error_log_file(file_name, str(exception))
                 # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
-                # self.env.cr.rollback()
+                self.env.cr.rollback()
                 # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
-                # self.last_import_error_mf = str(exception)
-                # self.last_import_success_mf = False
+                self.last_import_error_mf = str(exception)
+                self.last_import_success_mf = False
                 # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
-                # self.env.cr.commit()
+                self.env.cr.commit()
                 # Declenchement de l'erreur
-                # sys.exit(exception)
-            # self.archive_file(file_name, "Archives")
+                sys.exit(exception)
+            self.archive_file(file_name, "Archives")
         self.last_import_success_mf = True
 
     def import_file(self, file_name):
