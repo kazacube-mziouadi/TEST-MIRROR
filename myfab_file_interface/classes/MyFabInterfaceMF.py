@@ -3,6 +3,7 @@ import copy
 import simplejson
 import csv
 from StringIO import StringIO
+from openerp.exceptions import MissingError
 
 
 class MyFabInterfaceMF(models.AbstractModel):
@@ -24,7 +25,7 @@ class MyFabInterfaceMF(models.AbstractModel):
     )
 
     # ===========================================================================
-    # METHODS - EXPORT INTERFACE
+    # FORMAT METHODS - EXPORT INTERFACE
     # ===========================================================================
 
     def format_models_to_export_to_dict(self):
@@ -51,7 +52,7 @@ class MyFabInterfaceMF(models.AbstractModel):
         return json_content_array
 
     # ===========================================================================
-    # METHODS - IMPORT INTERFACE
+    # PARSING METHODS - IMPORT INTERFACE
     # ===========================================================================
 
     @staticmethod
@@ -81,17 +82,22 @@ class MyFabInterfaceMF(models.AbstractModel):
                 field_names = csv_row
                 fields_list = self.get_fields_by_names_list(field_names, model_name)
             else:
-                csv_row_record_values_dict, is_root_record = self.get_record_dict_from_values_list(csv_row, fields_list)
+                record_values_dict, is_root_record, record_to_write_id = self.get_record_dict_from_values_list(
+                    csv_row, fields_list
+                )
                 if is_root_record:
                     index_to_process_for_depth_dict = {}
-                    records_list.append({
-                        "method": "create_recursive",
+                    record_to_append = {
+                        "method": "write" if record_to_write_id else "create_recursive",
                         "model": model_name,
-                        "fields": csv_row_record_values_dict
-                    })
+                        "fields": {"id": record_to_write_id} if record_to_write_id else record_values_dict
+                    }
+                    if record_to_write_id:
+                        record_to_append["write"] = record_values_dict
+                    records_list.append(record_to_append)
                 else:
                     last_relation_field_processed_depth = self.add_relation_field_dict_to_relation_field_list(
-                        csv_row_record_values_dict,
+                        record_values_dict,
                         [records_list[-1]["fields"]],
                         index_to_process_for_depth_dict
                     )
@@ -100,37 +106,21 @@ class MyFabInterfaceMF(models.AbstractModel):
 
     def get_fields_by_names_list(self, field_names_list, model_name):
         fields_list = []
-        model = self.env["ir.model"].search([
-            ("model", '=', model_name)
-        ], None, 1)
         for field_name in field_names_list:
-            if '/' in field_name:
-                field_name_tree_list = field_name.split('/')
-                sub_field_name_tree = self.get_sub_field_name_tree_str(field_name_tree_list)
-                root_field = self.get_field_name_tree_root_field(field_name_tree_list, model.id)
-                fields_list.append({
-                    "field": root_field,
-                    "sub_field": self.get_sub_field_by_name_tree(sub_field_name_tree, root_field.relation)
-                })
-            else:
-                field = self.env["ir.model.fields"].search([
-                    ("name", '=', field_name),
-                    ("model_id", '=', model.id)
-                ], None, 1)
-                fields_list.append({"field": field})
+            fields_list.append(self.get_field_by_name_tree(field_name, model_name))
         return fields_list
 
-    def get_sub_field_by_name_tree(self, field_name_tree, model_name):
+    def get_field_by_name_tree(self, field_name_tree, model_name):
         model = self.env["ir.model"].search([
             ("model", '=', model_name)
         ], None, 1)
         if '/' in field_name_tree:
             field_name_tree_list = field_name_tree.split('/')
             sub_field_name_tree = self.get_sub_field_name_tree_str(field_name_tree_list)
-            root_field = self.get_field_name_tree_root_field(field_name_tree_list, model.id)
+            root_field = self.get_field_name_tree_list_root_field(field_name_tree_list, model.id)
             return {
                 "field": root_field,
-                "sub_field": self.get_sub_field_by_name_tree(sub_field_name_tree, root_field.relation)
+                "sub_field": self.get_field_by_name_tree(sub_field_name_tree, root_field.relation)
             }
         else:
             field = self.env["ir.model.fields"].search([
@@ -143,7 +133,7 @@ class MyFabInterfaceMF(models.AbstractModel):
     def get_sub_field_name_tree_str(field_name_tree_list):
         return '/'.join(field_name_tree_list[1:])
 
-    def get_field_name_tree_root_field(self, field_name_tree_list, model_id):
+    def get_field_name_tree_list_root_field(self, field_name_tree_list, model_id):
         root_field_name = field_name_tree_list[0]
         root_field = self.env["ir.model.fields"].search([
             ("name", '=', root_field_name),
@@ -154,30 +144,19 @@ class MyFabInterfaceMF(models.AbstractModel):
     def get_record_dict_from_values_list(self, values_list, fields_list):
         record_dict = {}
         is_root_record = False
+        record_to_write_id = None
         for field_index, field_dict in enumerate(fields_list):
             if values_list[field_index] != '':
-                if "sub_field" in field_dict:
-                    relation_field = field_dict["field"]
-                    if relation_field.ttype == "many2one":
-                        if relation_field.name not in record_dict:
-                            record_dict[relation_field.name] = {}
-                        self.set_field_tree_leaf_value(
-                            record_dict[relation_field.name], field_dict["sub_field"], values_list[field_index]
-                        )
-                    else:
-                        if relation_field.name not in record_dict:
-                            record_dict[relation_field.name] = [{}]
-                        self.set_field_tree_leaf_value(
-                            record_dict[relation_field.name][0], field_dict["sub_field"], values_list[field_index]
-                        )
-                else:
+                if "sub_field" not in field_dict:
                     is_root_record = True
-                    field_to_fill = field_dict["field"]
-                    if field_to_fill.ttype == "many2one":
-                        record_dict[field_to_fill.name] = {"name": values_list[field_index]}
-                    else:
-                        record_dict[field_to_fill.name] = values_list[field_index]
-        return record_dict, is_root_record
+                    field = field_dict["field"]
+                    if field.name == "id":
+                        record_to_write_id = values_list[field_index]
+                        continue
+                self.set_field_tree_leaf_value(
+                    record_dict, field_dict, values_list[field_index]
+                )
+        return record_dict, is_root_record, record_to_write_id
 
     def set_field_tree_leaf_value(self, record_tree_part, sub_field_dict, value):
         if "sub_field" in sub_field_dict:
@@ -224,6 +203,10 @@ class MyFabInterfaceMF(models.AbstractModel):
         file_name_split.pop()
         return '.'.join(file_name_split)
 
+    # ===========================================================================
+    # IMPORTING METHODS - IMPORT INTERFACE
+    # ===========================================================================
+
     def process_records_list(self, records_to_process_list):
         for record_to_process_dict in records_to_process_list:
             model_returned = self.apply_orm_method_to_model(
@@ -250,20 +233,22 @@ class MyFabInterfaceMF(models.AbstractModel):
             return self.env[model_name].create(record_fields)
         elif orm_method_name == "create_recursive":
             record_created = self.env[model_name].create(record_fields)
-            # If o2ms/m2ms need creation : we have to create them after the record's creation (required)
-            self.create_nonexistent_members_in_one2manys(record_created.id, model_name, record_fields_pristine)
+            # If o2ms/m2ms members need creation : we have to create them after the record's creation (required)
+            self.create_nonexistent_members_in_2manys(record_created.id, model_name, record_fields_pristine)
             return record_created
         elif orm_method_name in ["search", "write"]:
             # "Search" ORM method takes an list of tuples
-            record_fields = [(key, '=', value) for key, value in record_fields.items()]
+            record_fields = [
+                (key, 'in', value) if type(value) is list else (key, '=', value)
+                for key, value in record_fields.items()
+            ]
             record_found = self.env[model_name].search(record_fields, None, 1)
             if orm_method_name == "search":
                 return record_found
+            if not record_found:
+                raise MissingError("No record found for model " + model_name + " with attributes " + str(record_fields))
             orm_method_on_model = getattr(record_found, orm_method_name)
-            if record_fields_to_write:
-                orm_method_on_model(record_fields_to_write)
-            else:
-                orm_method_on_model()
+            orm_method_on_model(record_fields_to_write)
             return record_found
 
     # Set all the relation fields in the dict to the id of the matching record.
@@ -339,13 +324,13 @@ class MyFabInterfaceMF(models.AbstractModel):
             )
         return relation_field_record.id if relation_field_record else False, field_model.ttype
 
-    def create_nonexistent_members_in_one2manys(self, record_id, record_model_name, fields_dict):
+    def create_nonexistent_members_in_2manys(self, record_id, record_model_name, fields_dict):
         for field_name in fields_dict:
             if type(fields_dict[field_name]) is list:
-                self.create_nonexistent_members_in_a_one2many(record_id, record_model_name, field_name,
-                                                              fields_dict[field_name])
+                self.create_nonexistent_members_in_a_2many(record_id, record_model_name, field_name,
+                                                           fields_dict[field_name])
 
-    def create_nonexistent_members_in_a_one2many(self, record_id, record_model_name, field_name, one2many_list):
+    def create_nonexistent_members_in_a_2many(self, record_id, record_model_name, field_name, one2many_list):
         parent_model = self.env["ir.model"].search([
             ("model", '=', record_model_name)
         ], None, 1)
@@ -356,13 +341,13 @@ class MyFabInterfaceMF(models.AbstractModel):
         for one2many_member_dict in one2many_list:
             record_fields_linked_to_ids = copy.deepcopy(one2many_member_dict)
             self.set_relation_fields_to_ids(one2many_field.relation, record_fields_linked_to_ids, True)
-            relation_field_dict_tuples = [(key, '=', value) for key, value in record_fields_linked_to_ids.items()]
+            relation_field_dict_tuples = [
+                (key, 'in', value) if type(value) is list else (key, '=', value)
+                for key, value in record_fields_linked_to_ids.items()
+            ]
             relation_field_record = self.env[one2many_field.relation].search(relation_field_dict_tuples, None, 1)
             if not relation_field_record:
                 record_fields_linked_to_ids[one2many_field.relation_field] = record_id
-                # print("JEREMY")
-                # print(record_fields_linked_to_ids)
-                # TODO : security added with CSV import... but why is there a list here ?
                 keys_to_remove = []
                 for field_name in record_fields_linked_to_ids:
                     if type(record_fields_linked_to_ids[field_name]) is list:
@@ -370,5 +355,5 @@ class MyFabInterfaceMF(models.AbstractModel):
                 for key_to_remove in keys_to_remove:
                     record_fields_linked_to_ids.pop(key_to_remove)
                 record_created = self.env[one2many_field.relation].create(record_fields_linked_to_ids)
-                self.create_nonexistent_members_in_one2manys(record_created.id, one2many_field.relation,
-                                                             one2many_member_dict)
+                self.create_nonexistent_members_in_2manys(record_created.id, one2many_field.relation,
+                                                          one2many_member_dict)

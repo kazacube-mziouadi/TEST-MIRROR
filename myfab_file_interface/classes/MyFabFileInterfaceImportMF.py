@@ -61,7 +61,7 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
         file_content = file.read()
         self.last_data_imported_mf = file_content
-        records_to_process_list = getattr(self, "_get_records_from_" + self.file_extension_mf.lower())(file_content, file_name)
+        records_to_process_list = getattr(self, "_get_records_from_" + self.file_extension_mf)(file_content, file_name)
         self.process_records_list(records_to_process_list)
 
     def archive_file(self, file_name, directory_name):
