@@ -6,7 +6,6 @@ import base64
 
 
 class MyFabFileInterfaceExportMF(models.Model):
-    _inherit = "myfab.interface.mf"
     _name = "myfab.file.interface.export.mf"
     _description = "MyFab file interface export configuration"
 
@@ -42,7 +41,8 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     @api.one
     def export_models(self):
-        json_content_dict = self.format_models_to_export_to_dict()
+        exporter_service = self.env["exporter.service.mf"].create({})
+        json_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
         json_content = json.dumps(json_content_dict, sort_keys=True, indent=4)
         if self.activate_file_generation_mf:
             self.write_myfab_file_interface_json_file(json_content)
@@ -92,7 +92,8 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     @api.one
     def generate_selected_models_import_file(self):
-        json_content_array = self.format_models_to_import_to_dict()
+        exporter_service = self.env["exporter.service.mf"].create({})
+        json_content_array = exporter_service.format_models_to_import_to_dict(self.model_dictionaries_to_export_mf)
         json_content = json.dumps(json_content_array, sort_keys=True, indent=4)
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         return self.env['binary.download'].execute(

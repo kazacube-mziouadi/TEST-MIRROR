@@ -1,5 +1,0 @@
-"active","name","invoice_date_due","invoice_date","note","line_ids/value","line_ids/days2","line_ids/value_amount","line_ids/days","line_ids/months","line_ids/term_type","payment_type"
-"True","15 jours nets","","","15 jours nets","Solde","0","","15","0","days_then_month","after_invoicing"
-"True","30 jours nets","","","30 jours nets","Solde","0","","30","0","days_then_month","after_invoicing"
-"True","60 jours","","","Paiement immédiat","Solde","0","","0","0","days_then_month","before_validation"
-"True","Avant livraison","","","Avant livraison","Solde","0","","0","0","days_then_month","before_delivery"

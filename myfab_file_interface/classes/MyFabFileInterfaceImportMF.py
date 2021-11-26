@@ -1,10 +1,10 @@
 from openerp import models, fields, api, registry, _
 import os
 import sys
+import traceback
 
 
 class MyFabFileInterfaceImportMF(models.Model):
-    _inherit = "myfab.interface.mf"
     _name = "myfab.file.interface.import.mf"
     _description = "MyFab file interface import configuration"
 
@@ -17,6 +17,14 @@ class MyFabFileInterfaceImportMF(models.Model):
     last_data_imported_mf = fields.Text(string="Last data imported", readonly=True)
     last_import_error_mf = fields.Char(string="Last import error", readonly=True)
     last_import_success_mf = fields.Boolean(default=True)
+    file_extension_mf = fields.Selection(
+        [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default=("json", "JSON"), required=True
+    )
+    file_separator_mf = fields.Char(string="File data separator", default=",")
+    file_quoting_mf = fields.Char(string="File data quoting", default='"')
+    file_encoding_mf = fields.Selection(
+        [("utf-8", "UTF-8"), ("cp1252", "CP1252")], "File encoding", default=("utf-8", "UTF-8"), required=True
+    )
 
     # ===========================================================================
     # METHODS
@@ -36,19 +44,23 @@ class MyFabFileInterfaceImportMF(models.Model):
 
     @api.one
     def import_files(self):
-        files = [f for f in os.listdir(self.import_directory_path_mf) if os.path.isfile(os.path.join(self.import_directory_path_mf, f))]
+        files = [
+            f for f in os.listdir(self.import_directory_path_mf)
+            if os.path.isfile(os.path.join(self.import_directory_path_mf, f))
+        ]
         for file_name in files:
             try:
                 self.import_file(file_name)
             except Exception as e:
                 exception = e
+                exception_traceback = traceback.format_exc()
                 # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
                 self.archive_file(file_name, "Erreurs")
-                self.write_error_log_file(file_name, str(exception))
+                self.write_error_log_file(file_name, exception_traceback)
                 # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
                 self.env.cr.rollback()
                 # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
-                self.last_import_error_mf = str(exception)
+                self.last_import_error_mf = exception_traceback
                 self.last_import_success_mf = False
                 # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
                 self.env.cr.commit()
@@ -61,8 +73,21 @@ class MyFabFileInterfaceImportMF(models.Model):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
         file_content = file.read()
         self.last_data_imported_mf = file_content
-        records_to_process_list = getattr(self, "_get_records_from_" + self.file_extension_mf)(file_content, file_name)
-        self.process_records_list(records_to_process_list)
+        records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content, file_name)
+        importer_service = self.env["importer.service.mf"].create({})
+        importer_service.import_records_list(records_to_process_list)
+
+    def get_records_by_file_extension(self, file_extension, file_content, file_name):
+        parser_service = self.env["parser.service.mf"].create({})
+        if file_extension == "json":
+            return parser_service.get_records_from_json(file_content)
+        elif file_extension == "csv":
+            return parser_service.get_records_from_csv(
+                file_content, file_name, self.file_separator_mf, self.file_quoting_mf, self.file_encoding_mf
+            )
+        elif file_extension == "txt":
+            return parser_service.get_records_from_txt(file_content, file_name, self.file_quoting_mf, self.file_encoding_mf)
+        raise ValueError("The given file extension isn't processable.")
 
     def archive_file(self, file_name, directory_name):
         archive_path = os.path.join(self.import_directory_path_mf, directory_name)
