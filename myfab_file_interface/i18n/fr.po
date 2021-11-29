@@ -159,8 +159,8 @@ msgstr "Déposer un fichier .json ici"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.myfab_file_interface_export_mf_form
-msgid "Export Models"
-msgstr "Exporter les modèles"
+msgid "Export records"
+msgstr "Exporter les enregistrements"
 
 #. module: myfab_file_interface
 #: model:ir.ui.menu,name:myfab_file_interface.menu_myfab_file_interface_exports

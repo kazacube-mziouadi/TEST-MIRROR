@@ -34,8 +34,8 @@
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
 								<button
-									name="export_models"
-									string="Export Models"
+									name="export_records"
+									string="Export records"
 									type="object"
 									class="oe_highlight" />
 							</group>

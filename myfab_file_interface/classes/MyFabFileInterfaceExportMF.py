@@ -31,7 +31,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     def _compute_cron_already_exists(self):
         existing_crons = self.env["ir.cron"].search([
             ("model", "=", "myfab.file.interface.export.mf"),
-            ("function", "=", "export_models"),
+            ("function", "=", "export_records"),
             ("args", "=", repr([self.id]))
         ], None, 1)
         if len(existing_crons) > 0:
@@ -40,7 +40,7 @@ class MyFabFileInterfaceExportMF(models.Model):
             self.cron_already_exists_mf = False
 
     @api.one
-    def export_models(self):
+    def export_records(self):
         exporter_service = self.env["exporter.service.mf"].create({})
         json_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
         json_content = json.dumps(json_content_dict, sort_keys=True, indent=4)
@@ -71,7 +71,7 @@ class MyFabFileInterfaceExportMF(models.Model):
                 "record_model_name_mf": "myfab.file.interface.export.mf",
                 "record_name_mf": self.name,
                 "record_id_mf": self.id,
-                "record_method_mf": "export_models"
+                "record_method_mf": "export_records"
             }
         }
 
@@ -79,7 +79,7 @@ class MyFabFileInterfaceExportMF(models.Model):
     def delete_cron_for_export(self):
         self.env["ir.cron"].search([
             ("model", "=", "myfab.file.interface.export.mf"),
-            ("function", "=", "export_models"),
+            ("function", "=", "export_records"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
 
