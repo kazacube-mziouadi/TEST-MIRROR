@@ -262,7 +262,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_id_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_id_mf
 msgid "ID of object on which apply cron"
 msgstr "ID de l'objet sur lequel appliquer le cron"
 
@@ -360,7 +360,7 @@ msgid "Make sure to save the entire document to be able to finish the Model Expo
 msgstr "Assurez-vous de sauvegarder le document tout entier pour pouvoir finir la configuration du modèle à exporter."
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_method_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_method_mf
 msgid "Method to execute on model"
 msgstr "Méthode à excéuter sur le modèle"
 
@@ -382,7 +382,7 @@ msgid "Model dictionary parent"
 msgstr "Dictionnaire de modèle parent"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_model_name_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_model_name_mf
 msgid "Model of object on which apply cron"
 msgstr "Modèle de l'objet sur lequel appliquer le cron"
 
@@ -550,7 +550,7 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_name_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_name_mf
 msgid "Name of object on which apply cron"
 msgstr "Nom de l'objet sur lequel appliquer le cron"
 
@@ -669,10 +669,10 @@ msgstr "Date de prochaine exécution de ce travail"
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_id
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_interval_type_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_id_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_method_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_model_name_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_object_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_id_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_model_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_name_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_date
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf___last_update

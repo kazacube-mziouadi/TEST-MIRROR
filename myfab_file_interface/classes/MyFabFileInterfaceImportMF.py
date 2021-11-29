@@ -48,9 +48,10 @@ class MyFabFileInterfaceImportMF(models.Model):
             f for f in os.listdir(self.import_directory_path_mf)
             if os.path.isfile(os.path.join(self.import_directory_path_mf, f))
         ]
+        importer_service = self.env["importer.service.mf"].create({})
         for file_name in files:
             try:
-                self.import_file(file_name)
+                self.import_file(importer_service, file_name)
             except Exception as e:
                 exception = e
                 exception_traceback = traceback.format_exc()
@@ -69,12 +70,11 @@ class MyFabFileInterfaceImportMF(models.Model):
             self.archive_file(file_name, "Archives")
         self.last_import_success_mf = True
 
-    def import_file(self, file_name):
+    def import_file(self, importer_service, file_name):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
         file_content = file.read()
         self.last_data_imported_mf = file_content
         records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content, file_name)
-        importer_service = self.env["importer.service.mf"].create({})
         importer_service.import_records_list(records_to_process_list)
 
     def get_records_by_file_extension(self, file_extension, file_content, file_name):
@@ -87,7 +87,7 @@ class MyFabFileInterfaceImportMF(models.Model):
             )
         elif file_extension == "txt":
             return parser_service.get_records_from_txt(file_content, file_name, self.file_quoting_mf, self.file_encoding_mf)
-        raise ValueError("The given file extension isn't processable.")
+        raise ValueError("The given file extension is not handled.")
 
     def archive_file(self, file_name, directory_name):
         archive_path = os.path.join(self.import_directory_path_mf, directory_name)
@@ -98,16 +98,16 @@ class MyFabFileInterfaceImportMF(models.Model):
     @api.multi
     def generate_cron_for_import(self):
         return {
-            'name': _("Generate cron for import"),
-            'view_mode': 'form',
-            'res_model': 'wizard.myfab.file.interface.cron.mf',
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-            'context': {
-                'object_model_name_mf': "myfab.file.interface.import.mf",
-                'object_name_mf': self.name,
-                'object_id_mf': self.id,
-                'object_method_mf': "import_files"
+            "name": _("Generate cron for import"),
+            "view_mode": "form",
+            "res_model": "wizard.myfab.file.interface.cron.mf",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {
+                "record_model_name_mf": "myfab.file.interface.import.mf",
+                "record_name_mf": self.name,
+                "record_id_mf": self.id,
+                "record_method_mf": "import_files"
             }
         }
 
@@ -122,12 +122,12 @@ class MyFabFileInterfaceImportMF(models.Model):
     @api.multi
     def open_upload_import_file_wizard(self):
         return {
-            'name': _("Upload import file into import directory"),
-            'view_mode': 'form',
-            'res_model': 'wizard.upload.import.file.mf',
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-            'context': {'upload_directory_mf': self.import_directory_path_mf}
+            "name": _("Upload import file into import directory"),
+            "view_mode": "form",
+            "res_model": "wizard.upload.import.file.mf",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {"upload_directory_mf": self.import_directory_path_mf}
         }
 
     def write_error_log_file(self, failed_file_name, error_content_string):

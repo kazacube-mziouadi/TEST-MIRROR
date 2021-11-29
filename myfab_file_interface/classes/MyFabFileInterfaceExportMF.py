@@ -62,16 +62,16 @@ class MyFabFileInterfaceExportMF(models.Model):
     @api.multi
     def generate_cron_for_export(self):
         return {
-            'name': _("Generate cron for export"),
-            'view_mode': 'form',
-            'res_model': 'wizard.myfab.file.interface.cron.mf',
-            'type': 'ir.actions.act_window',
-            'target': 'new',
-            'context': {
-                'object_model_name_mf': "myfab.file.interface.export.mf",
-                'object_name_mf': self.name,
-                'object_id_mf': self.id,
-                'object_method_mf': "export_models"
+            "name": _("Generate cron for export"),
+            "view_mode": "form",
+            "res_model": "wizard.myfab.file.interface.cron.mf",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {
+                "record_model_name_mf": "myfab.file.interface.export.mf",
+                "record_name_mf": self.name,
+                "record_id_mf": self.id,
+                "record_method_mf": "export_models"
             }
         }
 
@@ -85,7 +85,7 @@ class MyFabFileInterfaceExportMF(models.Model):
 
     @api.multi
     def download_last_export(self):
-        return self.env['binary.download'].execute(
+        return self.env["binary.download"].execute(
             base64.b64encode(self.last_json_generated_mf),
             self.last_json_generated_name_mf
         )
@@ -96,7 +96,7 @@ class MyFabFileInterfaceExportMF(models.Model):
         json_content_array = exporter_service.format_models_to_import_to_dict(self.model_dictionaries_to_export_mf)
         json_content = json.dumps(json_content_array, sort_keys=True, indent=4)
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        return self.env['binary.download'].execute(
+        return self.env["binary.download"].execute(
             base64.b64encode(json_content),
             "MyFabFileInterface-Import-" + now + ".json"
         )
