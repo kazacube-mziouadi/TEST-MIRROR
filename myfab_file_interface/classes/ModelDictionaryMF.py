@@ -23,9 +23,9 @@ class ModelDictionaryMF(models.AbstractModel):
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
 
+    # To enrich the children model exports list automatically
     @api.onchange("fields_to_export_mf")
     def onchange_sub_fields_to_export_mf(self):
-        # To enrich the children model exports list automatically
         for field_to_export in self.fields_to_export_mf:
             if field_to_export.ttype in ["many2many", "one2many", "many2one"]:
                 sub_model_to_export = self.env["ir.model"].search([("model", '=', field_to_export.relation)], None, 1)
@@ -86,17 +86,17 @@ class ModelDictionaryMF(models.AbstractModel):
     def get_value_of_field_to_export(self, field_to_export, object_to_export):
         object_field_value = getattr(object_to_export, field_to_export.name)
         if field_to_export.ttype in ["many2many", "one2many"]:
-            # List of objects
+            # List of records
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
             return child_model_dictionary.get_list_of_records_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
             )
         elif field_to_export.ttype == "many2one":
-            # Object
+            # Record
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
             return child_model_dictionary.get_dict_of_record_to_export(object_field_value, True)
         else:
-            # String
+            # String, boolean, integer...
             return object_field_value
 
     def get_child_model_dictionary_for_field(self, field_to_export):

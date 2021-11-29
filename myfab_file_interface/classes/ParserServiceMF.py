@@ -152,8 +152,8 @@ class ParserServiceMF(models.TransientModel):
             relation_field_list.append(relation_field_dict)
             return depth
 
-    @staticmethod
     # Returns the model name from a given import file name (the file name without the extension)
+    @staticmethod
     def get_model_name_from_file_name(file_name):
         file_name_split = file_name.split('.')
         file_name_split.pop()

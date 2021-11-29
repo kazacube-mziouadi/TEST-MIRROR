@@ -6,6 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 FIRST_FILE_TO_PROCESS_NAME = "ir.model.fields.csv"
 MODELS_TO_OVERWRITE_NAMES = ["excel.import"]
+DEV_MODE = True
 
 
 class DataInitializerMF(models.AbstractModel):
@@ -27,6 +28,8 @@ class DataInitializerMF(models.AbstractModel):
 
     @api.multi
     def import_files(self):
+        if DEV_MODE:
+            return
         data_dir_path = self.get_data_dir_path()
         file_names = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
         # Sorting the list of files to process so we process the FIRST_FILE_TO_PROCESS_NAME in priority

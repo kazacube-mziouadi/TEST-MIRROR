@@ -1,8 +1,4 @@
 from openerp import models, fields, api, _
-import simplejson
-import csv
-from StringIO import StringIO
-from openerp.exceptions import MissingError
 
 
 class ExporterServiceMF(models.TransientModel):

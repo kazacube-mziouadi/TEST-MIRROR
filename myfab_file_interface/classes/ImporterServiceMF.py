@@ -1,7 +1,4 @@
 from openerp import models, fields, api, _
-import simplejson
-import csv
-from StringIO import StringIO
 from openerp.exceptions import MissingError
 
 
@@ -69,7 +66,11 @@ class ImporterServiceMF(models.TransientModel):
                         one2many_member
                     )
                     if relation_field_id and (field_type in ["one2many", "many2many"]):
-                        list_of_one2many_ids.append(relation_field_id)
+                        if type(relation_field_id) is list:
+                            # Odoo many2many ids string
+                            list_of_one2many_ids = list_of_one2many_ids + relation_field_id
+                        else:
+                            list_of_one2many_ids.append(relation_field_id)
                     else:
                         # TODO : dirty but most efficient way to get around the many2one as list in CSV Odoo export file
                         record_fields_dict[field_name] = relation_field_id
@@ -87,12 +88,15 @@ class ImporterServiceMF(models.TransientModel):
     # Else returns False.
     def set_relation_field_to_id(self, parent_model_name, field_name, relation_field_dict):
         if "id" in relation_field_dict and type(relation_field_dict["id"]) is not int:
-            # TODO : in Odoo CSV exports, an 'id' string refers to an ir.model through the ir.model.data table
-            ir_model_data_values = relation_field_dict["id"].split('.')
-            model_name_underscored = ir_model_data_values[1].replace("model_", '')
-            model_name = model_name_underscored.replace('_', '.')
-            ir_model = self.env["ir.model"].search([("model", '=', model_name)])
-            return ir_model.id, "many2one"
+            # Odoo id string processing
+            if ',' in relation_field_dict["id"]:
+                many2many_id_strings = relation_field_dict["id"].split(',')
+                records_ids = []
+                for many2many_id_string in many2many_id_strings:
+                    records_ids.append(self.get_record_id_by_id_string(many2many_id_string))
+                return records_ids, "many2many"
+            else:
+                return self.get_record_id_by_id_string(relation_field_dict["id"]), "many2one"
         if not parent_model_name:
             return False
         parent_model = self.env["ir.model"].search([
@@ -112,8 +116,26 @@ class ImporterServiceMF(models.TransientModel):
     def search_records_by_fields_dict(self, model_name, record_fields_dict, limit=None):
         record_fields_tuples_list = []
         for field_name, field_value in record_fields_dict.items():
+            if type(field_value) is tuple or (
+                    type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is tuple
+            ):
+                # Record(s) not created yet
+                continue
             if type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is not tuple:
                 record_fields_tuples_list.append((field_name, "in", field_value))
             elif type(field_value) not in [list, tuple]:
                 record_fields_tuples_list.append((field_name, '=', field_value))
         return self.env[model_name].search(record_fields_tuples_list, None, limit)
+
+    # In Odoo CSV exports, an 'id' string may refer to a record through the ir.model.data table
+    def get_record_id_by_id_string(self, id_string, create_if_not_existing=True):
+        ir_model_data_values = id_string.split('.')
+        ir_model_data = self.env["ir.model.data"].search([
+            ("module", '=', ir_model_data_values[0]), ("name", '=', ir_model_data_values[1])
+        ])
+        if ir_model_data:
+            return ir_model_data.res_id
+        elif create_if_not_existing:
+            return (0, 0, {"name": ir_model_data_values[1]})
+        else:
+            return None
