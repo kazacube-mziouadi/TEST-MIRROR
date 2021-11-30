@@ -87,7 +87,7 @@ class MyFabFileInterfaceImportMF(models.Model):
             )
         elif file_extension == "txt":
             return parser_service.get_records_from_txt(file_content, file_name, self.file_quoting_mf, self.file_encoding_mf)
-        raise ValueError("The given file extension is not handled.")
+        raise ValueError("The " + file_extension + " file extension is not supported.")
 
     def archive_file(self, file_name, directory_name):
         archive_path = os.path.join(self.import_directory_path_mf, directory_name)

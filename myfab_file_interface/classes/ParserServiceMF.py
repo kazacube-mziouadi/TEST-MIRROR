@@ -26,7 +26,7 @@ class ParserServiceMF(models.TransientModel):
             quotechar=str(file_quoting) if file_quoting else None
         )
         records_list = []
-        # list containing corresponding ir.model.field of each field, and a dict tree for relation fields
+        # list containing the corresponding ir.model.field of each field, and a dict tree for relation fields
         # [{'field': ir.model.fields(13606,)}, {'field': ir.model.fields(2050,), 'sub_field': {'field': ...}}]
         fields_list = []
         # dict containing the index of the relation field to process for each depth of a root record
@@ -35,8 +35,8 @@ class ParserServiceMF(models.TransientModel):
         for csv_row_index, csv_row in enumerate(csv_rows):
             csv_row = [item.decode(file_encoding) for item in csv_row]
             if csv_row_index == 0:
-                field_names = csv_row
-                fields_list = self.get_fields_by_names_list(field_names, model_name)
+                field_names_list = csv_row
+                fields_list = self.get_fields_by_names_list(field_names_list, model_name)
             else:
                 record_values_dict, is_root_record, record_to_write_id = self.get_record_dict_from_values_list(
                     csv_row, fields_list
@@ -106,7 +106,7 @@ class ParserServiceMF(models.TransientModel):
                 if "sub_field" not in field_dict:
                     is_root_record = True
                     field = field_dict["field"]
-                    if field.name == "id":
+                    if field.name == "id" and type(values_list[field_index]) is int:
                         record_to_write_id = values_list[field_index]
                         continue
                 self.set_field_tree_leaf_value(
