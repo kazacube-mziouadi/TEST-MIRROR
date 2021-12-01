@@ -1,8 +1,8 @@
 from openerp import models, fields, api, _
 
 
-class WizardMyFabFileInterfaceCronMF(models.TransientModel):
-    _name = "wizard.myfab.file.interface.cron.mf"
+class WizardFileInterfaceCronMF(models.TransientModel):
+    _name = "wizard.file.interface.cron.mf"
 
     # ===========================================================================
     # COLUMNS
@@ -22,7 +22,7 @@ class WizardMyFabFileInterfaceCronMF(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        res = super(WizardMyFabFileInterfaceCronMF, self).default_get(fields_list=fields_list)
+        res = super(WizardFileInterfaceCronMF, self).default_get(fields_list=fields_list)
         res["record_model_name_mf"] = self.env.context.get("record_model_name_mf")
         res["record_name_mf"] = self.env.context.get("record_name_mf")
         res["record_id_mf"] = self.env.context.get("record_id_mf")

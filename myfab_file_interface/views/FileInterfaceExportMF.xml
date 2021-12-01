@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-		<record id='myfab_file_interface_export_mf' model="ir.actions.act_window">
+		<record id='file_interface_export_mf' model="ir.actions.act_window">
         	<field name="name">MyFab File Interface Export</field>
-			<field name="res_model">myfab.file.interface.export.mf</field>
+			<field name="res_model">file.interface.export.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
-		<record id='myfab_file_interface_export_mf_treeview' model="ir.ui.view">
+		<record id='file_interface_export_mf_treeview' model="ir.ui.view">
         	<field name="name">MyFab File Interface Export</field>
-			<field name="model">myfab.file.interface.export.mf</field>
+			<field name="model">file.interface.export.mf</field>
             <field name="arch" type="xml">
 				<tree string="MyFab File Interface Export Configurations">
 					<field name="name"/>
@@ -18,9 +18,9 @@
 			</field>
         </record>
 
-        <record id='myfab_file_interface_export_mf_form' model="ir.ui.view">
-        	<field name="name">myfab.file.interface.export.mf.form</field>
-			<field name="model">myfab.file.interface.export.mf</field>
+        <record id='file_interface_export_mf_form' model="ir.ui.view">
+        	<field name="name">file.interface.export.mf.form</field>
+			<field name="model">file.interface.export.mf</field>
             <field name="arch" type="xml">
 				<form string="MyFab File Interface Export Configuration">
 					<group col="9">
@@ -43,13 +43,16 @@
 								<group col="3" class="last_export_section_mf">
 									<button
 											name="download_last_export"
-											string="Download Last Export JSON File"
+											string="Download Last Export File"
 											type="object"
 											class="oe_highlight"
-											attrs="{'invisible': [('last_json_generated_mf', '=', False)]}"
+											attrs="{'invisible': [('last_file_generated_mf', '=', False)]}"
 									/>
 								</group>
-								<field name="last_json_generated_mf" class="myfab_file_interface_json_content_mf"/>
+								<field name="last_file_generated_mf" class="myfab_file_interface_data_content_mf"/>
+							</group>
+							<group col="1" string="Export history">
+								<field name="export_attempts_mf"/>
 							</group>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">

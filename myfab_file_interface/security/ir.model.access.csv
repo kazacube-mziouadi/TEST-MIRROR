@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_myfab_file_interface_export_mf,myfab.file.interface.export.mf,model_myfab_file_interface_export_mf,group_myfab_file_interface_export,1,1,1,1
-access_myfab_file_interface_import_mf,myfab.file.interface.import.mf,model_myfab_file_interface_import_mf,group_myfab_file_interface_import,1,1,1,1
+access_file_interface_export_mf,file.interface.export.mf,model_file_interface_export_mf,group_myfab_file_interface_export,1,1,1,1
+access_file_interface_import_mf,file.interface.import.mf,model_file_interface_import_mf,group_myfab_file_interface_import,1,1,1,1
 

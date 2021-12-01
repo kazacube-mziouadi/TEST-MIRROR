@@ -2,10 +2,11 @@ from openerp import models, fields, api, registry, _
 import os
 import sys
 import traceback
+import datetime
 
 
-class MyFabFileInterfaceImportMF(models.Model):
-    _name = "myfab.file.interface.import.mf"
+class FileInterfaceImportMF(models.Model):
+    _name = "file.interface.import.mf"
     _description = "MyFab file interface import configuration"
 
     # ===========================================================================
@@ -14,9 +15,6 @@ class MyFabFileInterfaceImportMF(models.Model):
     name = fields.Char(string="Name", size=64, required=True, help='')
     import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports")
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
-    last_data_imported_mf = fields.Text(string="Last data imported", readonly=True)
-    last_import_error_mf = fields.Char(string="Last import error", readonly=True)
-    last_import_success_mf = fields.Boolean(default=True)
     file_extension_mf = fields.Selection(
         [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default=("json", "JSON"), required=True
     )
@@ -25,6 +23,8 @@ class MyFabFileInterfaceImportMF(models.Model):
     file_encoding_mf = fields.Selection(
         [("utf-8", "UTF-8"), ("cp1252", "CP1252")], "File encoding", default=("utf-8", "UTF-8"), required=True
     )
+    import_attempts_mf = fields.One2many("file.interface.import.attempt.mf", "file_interface_import_mf",
+                                         string="Import attempts", ondelete="cascade", readonly=True)
 
     # ===========================================================================
     # METHODS
@@ -33,7 +33,7 @@ class MyFabFileInterfaceImportMF(models.Model):
     @api.one
     def _compute_cron_already_exists(self):
         existing_crons = self.env["ir.cron"].search([
-            ("model", "=", "myfab.file.interface.import.mf"),
+            ("model", "=", "file.interface.import.mf"),
             ("function", "=", "import_files"),
             ("args", "=", repr([self.id]))
         ], None, 1)
@@ -50,30 +50,40 @@ class MyFabFileInterfaceImportMF(models.Model):
         ]
         importer_service = self.env["importer.service.mf"].create({})
         for file_name in files:
+            import_start_datetime = datetime.datetime.now()
+            import_attempt_fields_dict = {
+                "start_datetime_mf": import_start_datetime,
+                "file_name_mf": file_name
+            }
             try:
-                self.import_file(importer_service, file_name)
+                file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
+                file_content = file.read()
+                import_attempt_fields_dict["file_content_mf"] = file_content
+                self.import_file(importer_service, file_content, file_name)
             except Exception as e:
                 exception = e
                 exception_traceback = traceback.format_exc()
-                # Archivage du fichier dans le dossier Erreurs et creation du fichier de log
-                self.archive_file(file_name, "Erreurs")
-                self.write_error_log_file(file_name, exception_traceback)
                 # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
                 self.env.cr.rollback()
-                # Injection de l'erreur dans le champ last_import_error_mf du file pour affichage
-                self.last_import_error_mf = exception_traceback
-                self.last_import_success_mf = False
+                import_attempt_fields_dict.update({
+                    "is_successful_mf": False,
+                    "end_datetime_mf": datetime.datetime.now(),
+                    "message_mf": exception_traceback
+                })
+                self.write({"import_attempts_mf": [(0, 0, import_attempt_fields_dict)]})
                 # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
                 self.env.cr.commit()
                 # Declenchement de l'erreur
                 sys.exit(exception)
-            self.archive_file(file_name, "Archives")
-        self.last_import_success_mf = True
+            import_attempt_fields_dict.update({
+                "end_datetime_mf": datetime.datetime.now(),
+                "message_mf": "Import successful.",
+                "is_successful_mf": True
+            })
+            self.write({"import_attempts_mf": [(0, 0, import_attempt_fields_dict)]})
+            self.env.cr.commit()
 
-    def import_file(self, importer_service, file_name):
-        file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
-        file_content = file.read()
-        self.last_data_imported_mf = file_content
+    def import_file(self, importer_service, file_content, file_name):
         records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content, file_name)
         importer_service.import_records_list(records_to_process_list)
 
@@ -100,11 +110,11 @@ class MyFabFileInterfaceImportMF(models.Model):
         return {
             "name": _("Generate cron for import"),
             "view_mode": "form",
-            "res_model": "wizard.myfab.file.interface.cron.mf",
+            "res_model": "wizard.file.interface.cron.mf",
             "type": "ir.actions.act_window",
             "target": "new",
             "context": {
-                "record_model_name_mf": "myfab.file.interface.import.mf",
+                "record_model_name_mf": "file.interface.import.mf",
                 "record_name_mf": self.name,
                 "record_id_mf": self.id,
                 "record_method_mf": "import_files"
@@ -114,7 +124,7 @@ class MyFabFileInterfaceImportMF(models.Model):
     @api.multi
     def delete_cron_for_import(self):
         self.env["ir.cron"].search([
-            ("model", "=", "myfab.file.interface.import.mf"),
+            ("model", "=", "file.interface.import.mf"),
             ("function", "=", "import_files"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='file_interface_attempt_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Model Export</field>
+			<field name="res_model">file.interface.attempt.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='file_interface_attempt_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Model Export</field>
+			<field name="model">file.interface.attempt.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab Model Export Configs" colors="gray:not is_successful_mf;">
+					<field name="start_datetime_mf"/>
+					<field name="end_datetime_mf"/>
+					<field name="file_name_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='file_interface_attempt_mf_form' model="ir.ui.view">
+        	<field name="name">file.interface.attempt.mf.form</field>
+			<field name="model">file.interface.attempt.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab Model Export Config">
+					<group col="1">
+						<field name="start_datetime_mf" readonly="1"/>
+						<field name="end_datetime_mf" readonly="1"/>
+						<field name="is_successful_mf" readonly="1"/>
+						<field name="message_mf" readonly="1"/>
+						<field name="file_name_mf" readonly="1"/>
+						<button
+								name="download_processed_file"
+								string="Download processed file"
+								type="object"
+								class="oe_highlight"
+						/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>
