@@ -1,12 +1,17 @@
-div.myfab_file_interface_data_content_mf > span {
+div.myfab_file_interface_file_content_mf > span {
     max-height: 152px;
-    max-width: 1400px;
+    max-width: 1224px;
     text-overflow: initial !important;
     overflow: scroll !important;
     background-color: white;
     padding: 10px !important;
 }
 
-.last_export_section_mf td:nth-child(2) {
-    text-align: right;
+.myfab_file_interface_attempt_buttons tr {
+    display: flex;
+    align-items: center;
+}
+
+.myfab_file_interface_attempt_buttons tr > td {
+    width: inherit;
 }

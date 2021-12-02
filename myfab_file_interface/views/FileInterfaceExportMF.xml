@@ -51,7 +51,7 @@
 								</group>
 								<field name="last_file_generated_mf" class="myfab_file_interface_data_content_mf"/>
 							</group>
-							<group col="1" string="Export history">
+							<group col="1" string="History">
 								<field name="export_attempts_mf"/>
 							</group>
 						</group>

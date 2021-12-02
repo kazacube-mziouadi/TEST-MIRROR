@@ -15,8 +15,8 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.export.attempt.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='start_datetime_mf']" position="before">
-					<field name="file_interface_export_mf"/>
+				<xpath expr="//field[@name='start_datetime_mf']" position="attributes">
+					<attribute name="class">myfab_file_interface_export_attempt_mf_treeview</attribute>
 				</xpath>
 			</field>
         </record>
@@ -27,8 +27,8 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.export.attempt.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='start_datetime_mf']" position="before">
-					<field name="file_interface_export_mf"/>
+				<xpath expr="//field[@name='start_datetime_mf']" position="attributes">
+					<attribute name="class">myfab_file_interface_export_attempt_mf_treeview</attribute>
 				</xpath>
 			</field>
 		</record>

@@ -3,6 +3,7 @@ import os
 import sys
 import traceback
 import datetime
+import base64
 
 
 class FileInterfaceImportMF(models.Model):
@@ -50,42 +51,50 @@ class FileInterfaceImportMF(models.Model):
         ]
         importer_service = self.env["importer.service.mf"].create({})
         for file_name in files:
-            import_start_datetime = datetime.datetime.now()
-            import_attempt_fields_dict = {
-                "start_datetime_mf": import_start_datetime,
-                "file_name_mf": file_name
-            }
-            try:
-                file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
-                file_content = file.read()
-                import_attempt_fields_dict["file_content_mf"] = file_content
-                self.import_file(importer_service, file_content, file_name)
-            except Exception as e:
-                exception = e
-                exception_traceback = traceback.format_exc()
-                # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
-                self.env.cr.rollback()
-                import_attempt_fields_dict.update({
-                    "is_successful_mf": False,
-                    "end_datetime_mf": datetime.datetime.now(),
-                    "message_mf": exception_traceback
-                })
-                self.write({"import_attempts_mf": [(0, 0, import_attempt_fields_dict)]})
-                # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
-                self.env.cr.commit()
-                # Declenchement de l'erreur
-                sys.exit(exception)
-            import_attempt_fields_dict.update({
-                "end_datetime_mf": datetime.datetime.now(),
-                "message_mf": "Import successful.",
-                "is_successful_mf": True
-            })
-            self.write({"import_attempts_mf": [(0, 0, import_attempt_fields_dict)]})
-            self.env.cr.commit()
+            file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
+            file_content = file.read()
+            self.import_file(importer_service, file_content, file_name)
 
     def import_file(self, importer_service, file_content, file_name):
-        records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content, file_name)
-        importer_service.import_records_list(records_to_process_list)
+        import_start_datetime = self.get_current_time()
+        import_attempt_values_dict = {
+            "start_datetime_mf": import_start_datetime,
+            "file_name_mf": file_name
+        }
+        try:
+            import_attempt_values_dict["file_content_mf"] = base64.b64encode(file_content)
+            records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content,
+                                                                         file_name)
+            importer_service.import_records_list(records_to_process_list)
+        except Exception as e:
+            exception = e
+            exception_traceback = traceback.format_exc()
+            # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
+            self.env.cr.rollback()
+            # Creation de la tentative
+            import_attempt_values_dict.update({
+                "is_successful_mf": False,
+                "end_datetime_mf": self.get_current_time(),
+                "message_mf": exception_traceback
+            })
+            self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
+            # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
+            self.env.cr.commit()
+            self.delete_import_file(file_name)
+            # Declenchement de l'erreur
+            sys.exit(exception)
+        import_attempt_values_dict.update({
+            "end_datetime_mf": self.get_current_time(),
+            "message_mf": "Import successful.",
+            "is_successful_mf": True
+        })
+        self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
+        self.delete_import_file(file_name)
+        self.env.cr.commit()
+
+    @staticmethod
+    def get_current_time():
+        return datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')
 
     def get_records_by_file_extension(self, file_extension, file_content, file_name):
         parser_service = self.env["parser.service.mf"].create({})
@@ -99,11 +108,10 @@ class FileInterfaceImportMF(models.Model):
             return parser_service.get_records_from_txt(file_content, file_name, self.file_quoting_mf, self.file_encoding_mf)
         raise ValueError("The " + file_extension + " file extension is not supported.")
 
-    def archive_file(self, file_name, directory_name):
-        archive_path = os.path.join(self.import_directory_path_mf, directory_name)
-        if not os.path.exists(archive_path):
-            os.makedirs(archive_path)
-        os.rename(os.path.join(self.import_directory_path_mf, file_name), os.path.join(archive_path, file_name))
+    def delete_import_file(self, file_name):
+        file_path = os.path.join(self.import_directory_path_mf, file_name)
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     @api.multi
     def generate_cron_for_import(self):
@@ -139,17 +147,3 @@ class FileInterfaceImportMF(models.Model):
             "target": "new",
             "context": {"upload_directory_mf": self.import_directory_path_mf}
         }
-
-    def write_error_log_file(self, failed_file_name, error_content_string):
-        error_directory_path = os.path.join(self.import_directory_path_mf, "Erreurs")
-        if not os.path.exists(error_directory_path):
-            os.makedirs(error_directory_path)
-        log_file_name = failed_file_name + ".log"
-        self.write_file(error_directory_path, log_file_name, error_content_string)
-
-    @staticmethod
-    def write_file(directory_path, file_name, content):
-        file_path = os.path.join(directory_path, file_name)
-        file = open(file_path, "a")
-        file.write(content)
-        file.close()

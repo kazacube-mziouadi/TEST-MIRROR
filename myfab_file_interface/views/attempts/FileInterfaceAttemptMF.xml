@@ -12,10 +12,14 @@
         	<field name="name">MyFab Model Export</field>
 			<field name="model">file.interface.attempt.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab Model Export Configs" colors="gray:not is_successful_mf;">
+				<tree string="MyFab file interface attempts"
+					  default_order="start_datetime_mf desc"
+					  colors="red:not is_successful_mf;">
+					<field name="file_name_mf"/>
 					<field name="start_datetime_mf"/>
 					<field name="end_datetime_mf"/>
-					<field name="file_name_mf"/>
+					<field name="status_mf" colors="red:not is_successful_mf;"/>
+					<field name="is_successful_mf" invisible="1"/>
 				</tree>
 			</field>
         </record>
@@ -24,19 +28,26 @@
         	<field name="name">file.interface.attempt.mf.form</field>
 			<field name="model">file.interface.attempt.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab Model Export Config">
-					<group col="1">
+				<form string="MyFab file interface attempt">
+					<group col="2" string="Status">
+						<field name="status_mf"/>
+						<field name="message_mf" readonly="1"/>
+						<field name="is_successful_mf" invisible="1"/>
+					</group>
+					<group col="4" string="Timing">
 						<field name="start_datetime_mf" readonly="1"/>
 						<field name="end_datetime_mf" readonly="1"/>
-						<field name="is_successful_mf" readonly="1"/>
-						<field name="message_mf" readonly="1"/>
+					</group>
+					<group col="1" string="File">
 						<field name="file_name_mf" readonly="1"/>
-						<button
-								name="download_processed_file"
-								string="Download processed file"
-								type="object"
-								class="oe_highlight"
-						/>
+						<group col="3" class="myfab_file_interface_attempt_buttons">
+							<button
+									name="download_processed_file"
+									string="Download processed file"
+									type="object"
+									class="oe_highlight"
+							/>
+						</group>
 					</group>
 				</form>
 			</field>

@@ -36,10 +36,7 @@ class FileInterfaceExportMF(models.Model):
             ("function", "=", "export_records"),
             ("args", "=", repr([self.id]))
         ], None, 1)
-        if len(existing_crons) > 0:
-            self.cron_already_exists_mf = True
-        else:
-            self.cron_already_exists_mf = False
+        self.cron_already_exists_mf = len(existing_crons) > 0
 
     @api.one
     def export_records(self):

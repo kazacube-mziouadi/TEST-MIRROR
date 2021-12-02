@@ -7,8 +7,9 @@
             <field name="arch" type="xml">
                 <form string="Upload import file into import directory">
 					<group col="2">
-						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field"
-						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop" accept=".csv, .xls, .xlsx, .ods"/>
+						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field" filename="file_name"
+						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop"/>
+                        <field name="file_name" invisible="1"/>
 					</group>
 					<div class="drag_and_drop_area">
                         <p>Drop a .json file here</p>

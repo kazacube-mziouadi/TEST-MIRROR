@@ -43,7 +43,7 @@
 									type="object"
 									class="oe_highlight" />
 							</group>
-							<group col="1" string="Export history">
+							<group col="1" string="History">
 								<field name="import_attempts_mf"/>
 							</group>
 						</group>

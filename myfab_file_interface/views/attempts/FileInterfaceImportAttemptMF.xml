@@ -15,8 +15,8 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.attempt.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='start_datetime_mf']" position="before">
-					<field name="file_interface_import_mf"/>
+				<xpath expr="//field[@name='start_datetime_mf']" position="attributes">
+					<attribute name="class">myfab_file_interface_import_attempt_mf_treeview</attribute>
 				</xpath>
 			</field>
         </record>
@@ -27,8 +27,13 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.attempt.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='start_datetime_mf']" position="before">
-					<field name="file_interface_import_mf"/>
+				<xpath expr="//button[@name='download_processed_file']" position="after">
+					<button
+						name="import_file_again"
+						string="Import file again"
+						type="object"
+						class="oe_highlight"
+					/>
 				</xpath>
 			</field>
 		</record>

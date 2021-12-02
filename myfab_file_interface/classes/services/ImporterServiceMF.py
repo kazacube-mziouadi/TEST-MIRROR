@@ -33,6 +33,7 @@ class ImporterServiceMF(models.TransientModel):
         record_found = self.search_records_by_fields_dict(model_name, record_fields_dict, 1)
         if orm_method_name == "create" and not record_found:
             record_fields_dict["user_id"] = self.env.user.id
+            print(record_fields_dict)
             record_created = self.env[model_name].create(record_fields_dict)
             if "id" in record_fields_dict:
                 # Odoo CSV id string link creation
@@ -136,6 +137,9 @@ class ImporterServiceMF(models.TransientModel):
                 record_fields_tuples_list.append((field_name, "in", field_value))
             elif type(field_value) not in [list, tuple]:
                 record_fields_tuples_list.append((field_name, '=', field_value))
+        print("****")
+        print(record_fields_tuples_list)
+        print(self.env[model_name].search(record_fields_tuples_list, None, limit))
         return self.env[model_name].search(record_fields_tuples_list, None, limit)
 
     # In Odoo CSV exports, an 'id' string may refer to a record through the ir_model_data table

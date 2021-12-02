@@ -156,6 +156,6 @@ class ParserServiceMF(models.TransientModel):
     @staticmethod
     def get_model_name_from_file_name(file_name):
         file_name_split_hyphen = file_name.split('-')
-        file_name_split_dot = file_name_split_hyphen[1].split('.')
+        file_name_split_dot = file_name_split_hyphen[-1].split('.')
         file_name_split_dot.pop()
         return '.'.join(file_name_split_dot)
