@@ -56,9 +56,8 @@ class FileInterfaceImportMF(models.Model):
             self.import_file(importer_service, file_content, file_name)
 
     def import_file(self, importer_service, file_content, file_name):
-        import_start_datetime = self.get_current_time()
         import_attempt_values_dict = {
-            "start_datetime_mf": import_start_datetime,
+            "start_datetime_mf": self.get_current_time(),
             "file_name_mf": file_name
         }
         try:

@@ -19,6 +19,8 @@ class ImporterServiceMF(models.TransientModel):
                 record_to_process_dict["method"]
             )
             if "callback" in record_to_process_dict:
+                if record_to_process_dict["method"] == "delete":
+                    raise ValueError("A callback method can not be called on a deleted record.")
                 callback_method_on_model = getattr(model_returned, record_to_process_dict["callback"])
                 callback_method_on_model()
 
@@ -31,9 +33,10 @@ class ImporterServiceMF(models.TransientModel):
         if record_to_write_fields_dict:
             self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict)
         record_found = self.search_records_by_fields_dict(model_name, record_fields_dict, 1)
-        if orm_method_name == "create" and not record_found:
+        if orm_method_name == "create":
+            if record_found:
+                return record_found
             record_fields_dict["user_id"] = self.env.user.id
-            print(record_fields_dict)
             record_created = self.env[model_name].create(record_fields_dict)
             if "id" in record_fields_dict:
                 # Odoo CSV id string link creation
@@ -45,12 +48,13 @@ class ImporterServiceMF(models.TransientModel):
                     "res_id": record_created.id
                 })
             return record_created
-        elif orm_method_name == "search":
-            return record_found
-        elif orm_method_name == "write":
+        elif orm_method_name in ["search", "write", "delete"]:
             if not record_found:
-                raise MissingError("No record found for model " + model_name + " with attributes " + str(record_fields_dict))
-            record_found.write(record_to_write_fields_dict)
+                raise MissingError("No record found for model " + model_name + " with fields " + str(record_fields_dict))
+            if orm_method_name == "write":
+                record_found.write(record_to_write_fields_dict)
+            elif orm_method_name == "delete":
+                record_found.unlink()
             return record_found
         raise ValueError("The " + orm_method_name + " method is not supported.")
 
@@ -137,9 +141,6 @@ class ImporterServiceMF(models.TransientModel):
                 record_fields_tuples_list.append((field_name, "in", field_value))
             elif type(field_value) not in [list, tuple]:
                 record_fields_tuples_list.append((field_name, '=', field_value))
-        print("****")
-        print(record_fields_tuples_list)
-        print(self.env[model_name].search(record_fields_tuples_list, None, limit))
         return self.env[model_name].search(record_fields_tuples_list, None, limit)
 
     # In Odoo CSV exports, an 'id' string may refer to a record through the ir_model_data table

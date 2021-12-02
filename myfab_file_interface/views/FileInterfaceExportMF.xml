@@ -39,18 +39,6 @@
 									type="object"
 									class="oe_highlight" />
 							</group>
-							<group col="1" string="Last Export">
-								<group col="3" class="last_export_section_mf">
-									<button
-											name="download_last_export"
-											string="Download Last Export File"
-											type="object"
-											class="oe_highlight"
-											attrs="{'invisible': [('last_file_generated_mf', '=', False)]}"
-									/>
-								</group>
-								<field name="last_file_generated_mf" class="myfab_file_interface_data_content_mf"/>
-							</group>
 							<group col="1" string="History">
 								<field name="export_attempts_mf"/>
 							</group>

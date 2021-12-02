@@ -40,6 +40,7 @@
 					</group>
 					<group col="1" string="File">
 						<field name="file_name_mf" readonly="1"/>
+						<field name="file_content_preview_mf" class="myfab_file_interface_file_content_mf" readonly="1"/>
 						<group col="3" class="myfab_file_interface_attempt_buttons">
 							<button
 									name="download_processed_file"

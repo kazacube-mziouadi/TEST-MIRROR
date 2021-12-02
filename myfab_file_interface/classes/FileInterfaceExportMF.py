@@ -18,8 +18,6 @@ class FileInterfaceExportMF(models.Model):
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                       "file_interface_export_mf",
                                                       string="Models to Export", ondelete="cascade")
-    last_file_generated_mf = fields.Text(string="Last file generated", readonly=True)
-    last_file_generated_name_mf = fields.Char(string="Last file generated name", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
@@ -40,23 +38,30 @@ class FileInterfaceExportMF(models.Model):
 
     @api.one
     def export_records(self):
+        start_datetime = datetime.datetime.now()
+        now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+        file_name = "MFFI-Export-" + now_formatted + ".json"
         exporter_service = self.env["exporter.service.mf"].create({})
-        json_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
-        json_content = json.dumps(json_content_dict, sort_keys=True, indent=4)
+        file_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
+        json_content = json.dumps(file_content_dict, sort_keys=True, indent=4)
         if self.activate_file_generation_mf:
-            self.write_myfab_file_interface_file_file(json_content)
-        self.last_file_generated_mf = json_content
+            self.write_myfab_file_interface_file_file(file_name, json_content)
+        self.write({"export_attempts_mf": [(0, 0, {
+            "start_datetime_mf": start_datetime,
+            "file_name_mf": file_name,
+            "end_datetime_mf": datetime.datetime.now(),
+            "message_mf": "Import successful.",
+            "is_successful_mf": True,
+            "file_content_mf": base64.b64encode(json_content)
+        })]})
 
-    def write_myfab_file_interface_file_file(self, json_content_string):
-        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+    def write_myfab_file_interface_file_file(self, file_name, json_content_string):
         if not os.path.exists(self.import_directory_path_mf):
             os.makedirs(self.import_directory_path_mf)
-        file_name = "MFFI-Export-" + now + ".json"
         file_path = os.path.join(self.import_directory_path_mf, file_name)
         file = open(file_path, "a")
         file.write(json_content_string)
         file.close()
-        self.last_file_generated_name_mf = file_name
 
     @api.multi
     def generate_cron_for_export(self):
