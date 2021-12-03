@@ -50,6 +50,7 @@ class FileInterfaceImportMF(models.Model):
             if os.path.isfile(os.path.join(self.import_directory_path_mf, f))
         ]
         importer_service = self.env["importer.service.mf"].create({})
+        files.sort()
         for file_name in files:
             file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
             file_content = file.read()

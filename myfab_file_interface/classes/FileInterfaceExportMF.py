@@ -50,7 +50,7 @@ class FileInterfaceExportMF(models.Model):
             "start_datetime_mf": start_datetime,
             "file_name_mf": file_name,
             "end_datetime_mf": datetime.datetime.now(),
-            "message_mf": "Import successful.",
+            "message_mf": "Export successful.",
             "is_successful_mf": True,
             "file_content_mf": base64.b64encode(json_content)
         })]})

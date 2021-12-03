@@ -106,7 +106,7 @@ class ParserServiceMF(models.TransientModel):
                 if "sub_field" not in field_dict:
                     is_root_record = True
                     field = field_dict["field"]
-                    if field.name == "id" and type(values_list[field_index]) is int:
+                    if field.name == "id" and values_list[field_index].isdecimal():
                         record_to_write_id = values_list[field_index]
                         continue
                 self.set_field_tree_leaf_value(

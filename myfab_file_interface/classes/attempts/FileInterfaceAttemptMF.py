@@ -1,5 +1,6 @@
 from openerp import models, fields, api, registry, _
 import base64
+from openerp.addons.web.controllers.main import binary_content
 
 
 class FileInterfaceAttemptMF(models.AbstractModel):
@@ -26,7 +27,9 @@ class FileInterfaceAttemptMF(models.AbstractModel):
 
     @api.one
     def _compute_file_content_preview(self):
-        self.file_content_preview_mf = str(base64.b64decode(self.file_content_mf))
+        # Only way to get the file content string from a binary field : call a specific Odoo route...
+        status_code, headers, file_content_base64 = binary_content(model=self._name, id=self.id, field="file_content_mf")
+        self.file_content_preview_mf = base64.b64decode(file_content_base64)
 
     @api.one
     def _compute_status(self):

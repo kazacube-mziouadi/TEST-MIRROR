@@ -29,9 +29,9 @@
 			<field name="model">file.interface.attempt.mf</field>
             <field name="arch" type="xml">
 				<form string="MyFab file interface attempt">
-					<group col="2" string="Status">
+					<group col="1" string="Status">
 						<field name="status_mf"/>
-						<field name="message_mf" readonly="1"/>
+						<field name="message_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
 						<field name="is_successful_mf" invisible="1"/>
 					</group>
 					<group col="4" string="Timing">
@@ -40,7 +40,7 @@
 					</group>
 					<group col="1" string="File">
 						<field name="file_name_mf" readonly="1"/>
-						<field name="file_content_preview_mf" class="myfab_file_interface_file_content_mf" readonly="1"/>
+						<field name="file_content_preview_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
 						<group col="3" class="myfab_file_interface_attempt_buttons">
 							<button
 									name="download_processed_file"
