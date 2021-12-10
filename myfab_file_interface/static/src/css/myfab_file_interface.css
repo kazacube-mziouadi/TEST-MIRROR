@@ -1,4 +1,5 @@
-div.myfab_file_interface_large_text_mf > span {
+div.myfab_file_interface_large_text_mf > span,
+span.myfab_file_interface_large_text_mf {
     max-height: 170px;
     max-width: 1224px;
     text-overflow: initial !important;

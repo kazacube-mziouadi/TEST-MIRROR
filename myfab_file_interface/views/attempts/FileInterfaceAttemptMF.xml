@@ -18,7 +18,7 @@
 					<field name="file_name_mf"/>
 					<field name="start_datetime_mf"/>
 					<field name="end_datetime_mf"/>
-					<field name="status_mf" colors="red:not is_successful_mf;"/>
+					<field name="status_mf"/>
 					<field name="is_successful_mf" invisible="1"/>
 				</tree>
 			</field>

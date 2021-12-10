@@ -27,6 +27,9 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.attempt.mf</field>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='message_mf']" position="after">
+					<field name="record_imports_mf" />
+				</xpath>
 				<xpath expr="//button[@name='download_processed_file']" position="after">
 					<button
 						name="import_file_again"

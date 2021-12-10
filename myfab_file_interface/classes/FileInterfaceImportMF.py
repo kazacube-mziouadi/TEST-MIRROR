@@ -61,21 +61,26 @@ class FileInterfaceImportMF(models.Model):
             "start_datetime_mf": self.get_current_time(),
             "file_name_mf": file_name
         }
+        records_to_process_list = []
         try:
             import_attempt_values_dict["file_content_mf"] = base64.b64encode(file_content)
             records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content,
                                                                          file_name)
             importer_service.import_records_list(records_to_process_list)
         except Exception as e:
-            exception = e
+            exception, record_import_failed_dict = e
             exception_traceback = traceback.format_exc()
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
+            import_attempt_record_imports = self.get_one2many_record_imports_creation_list_from_dicts_list(
+                records_to_process_list, record_import_failed_dict
+            )
             # Creation de la tentative
             import_attempt_values_dict.update({
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_time(),
-                "message_mf": exception_traceback
+                "message_mf": exception_traceback,
+                "record_imports_mf": import_attempt_record_imports
             })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
             # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
@@ -86,7 +91,8 @@ class FileInterfaceImportMF(models.Model):
         import_attempt_values_dict.update({
             "end_datetime_mf": self.get_current_time(),
             "message_mf": "Import successful.",
-            "is_successful_mf": True
+            "is_successful_mf": True,
+            "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
         self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
         self.delete_import_file(file_name)
@@ -107,6 +113,30 @@ class FileInterfaceImportMF(models.Model):
         elif file_extension == "txt":
             return parser_service.get_records_from_txt(file_content, file_name, self.file_quoting_mf, self.file_encoding_mf)
         raise ValueError("The " + file_extension + " file extension is not supported.")
+
+    def get_one2many_record_imports_creation_list_from_dicts_list(self, records_list, record_import_failed_dict=None):
+        import_attempt_record_imports = []
+        record_import_failed_processed = False
+        for record_dict in records_list:
+            record_import_model = self.env["ir.model"].search(
+                [("name", '=', record_dict["model"])], None, 1
+            )
+            record_import_dict = {
+                "method_mf": record_dict["method"],
+                "model_mf": record_import_model.id,
+                "fields_mf": record_dict["fields"],
+                "fields_to_write_mf": record_dict["write"] if "write" in record_dict else ""
+            }
+            if record_import_failed_dict:
+                if record_dict == record_import_failed_dict:
+                    record_import_dict["status_mf"] = "failed"
+                    record_import_failed_processed = True
+                elif not record_import_failed_processed:
+                    record_import_dict["status_mf"] = "success"
+            else:
+                record_import_dict["status_mf"] = "success"
+            import_attempt_record_imports.append((0, 0, record_import_dict))
+        return import_attempt_record_imports
 
     def delete_import_file(self, file_name):
         file_path = os.path.join(self.import_directory_path_mf, file_name)

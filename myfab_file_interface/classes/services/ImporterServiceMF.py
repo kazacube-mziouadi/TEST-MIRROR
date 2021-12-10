@@ -12,17 +12,20 @@ class ImporterServiceMF(models.TransientModel):
 
     def import_records_list(self, records_to_process_list):
         for record_to_process_dict in records_to_process_list:
-            model_returned = self.apply_orm_method_to_model(
-                record_to_process_dict["model"],
-                record_to_process_dict["fields"],
-                record_to_process_dict["write"] if "write" in record_to_process_dict else False,
-                record_to_process_dict["method"]
-            )
-            if "callback" in record_to_process_dict:
-                if record_to_process_dict["method"] == "delete":
-                    raise ValueError("A callback method can not be called on a deleted record.")
-                callback_method_on_model = getattr(model_returned, record_to_process_dict["callback"])
-                callback_method_on_model()
+            try:
+                model_returned = self.apply_orm_method_to_model(
+                    record_to_process_dict["model"],
+                    record_to_process_dict["fields"],
+                    record_to_process_dict["write"] if "write" in record_to_process_dict else False,
+                    record_to_process_dict["method"]
+                )
+                if "callback" in record_to_process_dict:
+                    if record_to_process_dict["method"] == "delete":
+                        raise ValueError("A callback method can not be called on a deleted record.")
+                    callback_method_on_model = getattr(model_returned, record_to_process_dict["callback"])
+                    callback_method_on_model()
+            except Exception as e:
+                raise Exception(e, record_to_process_dict)
 
     # Apply an ORM method (create/write/search/unlink) on the given model_name, with the given dicts :
     #     - record_fields for the fields of the record we are looking for
