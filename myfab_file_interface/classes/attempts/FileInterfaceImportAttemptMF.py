@@ -26,3 +26,6 @@ class FileInterfaceImportAttemptMF(models.Model):
         self.file_interface_import_mf.import_file(
             importer_service, base64.b64decode(self.file_content_mf), self.file_name_mf
         )
+        return {
+            'type': 'ir.actions.act_window_view_reload'
+        }

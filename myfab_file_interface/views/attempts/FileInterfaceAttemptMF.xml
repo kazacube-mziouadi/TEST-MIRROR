@@ -30,25 +30,39 @@
             <field name="arch" type="xml">
 				<form string="MyFab file interface attempt">
 					<group col="1" string="Status">
-						<field name="status_mf"/>
+						<group col="3">
+							<group col="1">
+								<field name="status_mf"/>
+							</group>
+							<group col="1">
+								<field name="start_datetime_mf" readonly="1"/>
+							</group>
+							<group col="1">
+								<field name="end_datetime_mf" readonly="1"/>
+							</group>
+						</group>
 						<field name="message_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
 						<field name="is_successful_mf" invisible="1"/>
 					</group>
-					<group col="4" string="Timing">
-						<field name="start_datetime_mf" readonly="1"/>
-						<field name="end_datetime_mf" readonly="1"/>
-					</group>
 					<group col="1" string="File">
-						<field name="file_name_mf" readonly="1"/>
-						<field name="file_content_preview_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
-						<group col="3" class="myfab_file_interface_attempt_buttons">
-							<button
-									name="download_processed_file"
-									string="Download processed file"
-									type="object"
-									class="oe_highlight"
-							/>
-						</group>
+						<notebook>
+							<page string="General">
+								<group col="1">
+									<field name="file_name_mf" readonly="1"/>
+								</group>
+								<group col="3" class="myfab_file_interface_attempt_buttons">
+									<button
+										name="download_processed_file"
+										string="Download processed file"
+										type="object"
+										class="oe_highlight"
+									/>
+								</group>
+							</page>
+							<page string="Content">
+								<field name="file_content_preview_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
+							</page>
+						</notebook>
 					</group>
 				</form>
 			</field>

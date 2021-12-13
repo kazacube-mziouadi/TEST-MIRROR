@@ -68,7 +68,11 @@ class FileInterfaceImportMF(models.Model):
                                                                          file_name)
             importer_service.import_records_list(records_to_process_list)
         except Exception as e:
-            exception, record_import_failed_dict = e
+            record_import_failed_dict = None
+            if type(e) is tuple:
+                exception, record_import_failed_dict = e
+            else:
+                exception = e
             exception_traceback = traceback.format_exc()
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()

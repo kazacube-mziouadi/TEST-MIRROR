@@ -97,12 +97,16 @@ class ImporterServiceMF(models.TransientModel):
             elif record_fields_dict[field_name] == "False":
                 record_fields_dict[field_name] = False
 
-    # Returns the id of the record corresponding to the given relation field dictionary.
-    # If no id is found and create_recursive is True and the relation field is not a one2many, the record is created.
-    # Else returns False.
+    """
+        Returns the id(s) of the record corresponding to the given relation field(s) dictionary.
+        If no id is found the record is created (and it's id returned). 
+        If the relation field is a many2one, the id only is returned. 
+        Else it returns the tuple permitting it's linking or it's creation during the root record creation.
+        https://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model.write
+    """
     def set_relation_field_to_id_in_dict(self, parent_model_name, field_name, relation_field_dict):
+        # Odoo many2many multi id string processing
         if "id" in relation_field_dict and type(relation_field_dict["id"]) is not int and ',' in relation_field_dict["id"]:
-            # Odoo many2many multi id string processing
             many2many_id_strings = relation_field_dict["id"].split(',')
             records_ids = []
             for many2many_id_string in many2many_id_strings:
@@ -118,19 +122,23 @@ class ImporterServiceMF(models.TransientModel):
             ("name", '=', field_name),
             ("model_id", '=', parent_model.id)
         ], None, 1)
+        # Odoo many2one or many2many alone id string processing
         if "id" in relation_field_dict and type(relation_field_dict["id"]) is not int:
-            # Odoo many2one or many2many alone id string processing
             relation_field_id = self.get_record_id_by_id_string(relation_field_dict["id"])
             # Link to the existing relation record
             return (4, relation_field_id) if field_model.ttype == "many2many" else relation_field_id
         self.set_relation_fields_to_ids_in_dict(field_model.relation, relation_field_dict)
-        if field_model.ttype in ["many2one", "many2many"]:
-            relation_field_record = self.search_records_by_fields_dict(field_model.relation, relation_field_dict, 1)
-            if relation_field_record:
-                # Link to the existing relation record
-                return (4, relation_field_record.id) if field_model.ttype == "many2many" else relation_field_record.id
-        # Creation of the relation record
-        return (0, 0, relation_field_dict)
+        relation_field_record = self.search_records_by_fields_dict(field_model.relation, relation_field_dict, 1)
+        if relation_field_record:
+            # Link to the existing relation record
+            return relation_field_record.id if field_model.ttype == "many2one" else (4, relation_field_record.id)
+        else:
+            # Creation of the relation record
+            if field_model.ttype == "many2one":
+                many2one_created = self.env[field_model.relation].create(relation_field_dict)
+                return many2one_created.id
+            else:
+                return (0, 0, relation_field_dict)
 
     def search_records_by_fields_dict(self, model_name, record_fields_dict, limit=None):
         record_fields_tuples_list = []
