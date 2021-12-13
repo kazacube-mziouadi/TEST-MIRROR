@@ -54,11 +54,7 @@ class FileInterfaceImportMF(models.Model):
         for file_name in files:
             file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
             file_content = file.read()
-            try:
-                self.import_file(importer_service, file_content, file_name)
-            except Exception as e:
-                return {'type': 'ir.actions.act_window_view_reload'}
-        return {'type': 'ir.actions.act_window_view_reload'}
+            self.import_file(importer_service, file_content, file_name)
 
     def import_file(self, importer_service, file_content, file_name):
         import_attempt_values_dict = {
