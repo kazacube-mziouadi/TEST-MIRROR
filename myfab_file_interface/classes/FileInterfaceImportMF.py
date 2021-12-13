@@ -54,7 +54,11 @@ class FileInterfaceImportMF(models.Model):
         for file_name in files:
             file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
             file_content = file.read()
-            self.import_file(importer_service, file_content, file_name)
+            try:
+                self.import_file(importer_service, file_content, file_name)
+            except Exception as e:
+                return {'type': 'ir.actions.act_window_view_reload'}
+        return {'type': 'ir.actions.act_window_view_reload'}
 
     def import_file(self, importer_service, file_content, file_name):
         import_attempt_values_dict = {
@@ -69,7 +73,7 @@ class FileInterfaceImportMF(models.Model):
             importer_service.import_records_list(records_to_process_list)
         except Exception as e:
             record_import_failed_dict = None
-            if type(e) is tuple:
+            if len(e.args) > 1:
                 exception, record_import_failed_dict = e
             else:
                 exception = e
@@ -120,7 +124,6 @@ class FileInterfaceImportMF(models.Model):
 
     def get_one2many_record_imports_creation_list_from_dicts_list(self, records_list, record_import_failed_dict=None):
         import_attempt_record_imports = []
-        record_import_failed_processed = False
         for record_dict in records_list:
             record_import_model = self.env["ir.model"].search(
                 [("name", '=', record_dict["model"])], None, 1
@@ -131,14 +134,10 @@ class FileInterfaceImportMF(models.Model):
                 "fields_mf": record_dict["fields"],
                 "fields_to_write_mf": record_dict["write"] if "write" in record_dict else ""
             }
-            if record_import_failed_dict:
-                if record_dict == record_import_failed_dict:
-                    record_import_dict["status_mf"] = "failed"
-                    record_import_failed_processed = True
-                elif not record_import_failed_processed:
-                    record_import_dict["status_mf"] = "success"
+            if record_import_failed_dict and record_dict == record_import_failed_dict:
+                record_import_dict["status_mf"] = "failed"
             else:
-                record_import_dict["status_mf"] = "success"
+                record_import_dict["status_mf"] = record_dict["status"] if "status" in record_dict else "not processed"
             import_attempt_record_imports.append((0, 0, record_import_dict))
         return import_attempt_record_imports
 
