@@ -13,8 +13,9 @@ class RecordImportMF(models.AbstractModel):
     method_mf = fields.Char(string="Method applied")
     model_mf = fields.Many2one("ir.model", string="Model")
     fields_mf = fields.Char(string="Record's fields")
-    fields_to_write_mf = fields.Char(string="Record's fields to write", help="")
+    fields_to_write_mf = fields.Char(string="Record's fields to write")
     status_mf = fields.Selection(
         [("not processed", "Not processed"), ("success", "Success"), ("failed", "Failed"), ("ignored", "Ignored")],
         "Status", default="not processed", readonly=True
     )
+    callback_method_mf = fields.Char(string="Method called on record", help="")

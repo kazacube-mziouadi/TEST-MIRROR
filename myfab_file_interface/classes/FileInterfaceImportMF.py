@@ -71,8 +71,6 @@ class FileInterfaceImportMF(models.Model):
             record_import_failed_dict = None
             if len(e.args) > 1:
                 exception, record_import_failed_dict = e
-            else:
-                exception = e
             exception_traceback = traceback.format_exc()
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
@@ -90,8 +88,8 @@ class FileInterfaceImportMF(models.Model):
             # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
             self.env.cr.commit()
             self.delete_import_file(file_name)
-            # Declenchement de l'erreur
-            sys.exit(exception)
+            # On arrete l'import ici
+            return
         import_attempt_values_dict.update({
             "end_datetime_mf": self.get_current_time(),
             "message_mf": "Import successful.",
@@ -122,13 +120,14 @@ class FileInterfaceImportMF(models.Model):
         import_attempt_record_imports = []
         for record_dict in records_list:
             record_import_model = self.env["ir.model"].search(
-                [("name", '=', record_dict["model"])], None, 1
+                [("model", '=', record_dict["model"])], None, 1
             )
             record_import_dict = {
                 "method_mf": record_dict["method"],
                 "model_mf": record_import_model.id,
                 "fields_mf": record_dict["fields"],
-                "fields_to_write_mf": record_dict["write"] if "write" in record_dict else ""
+                "fields_to_write_mf": record_dict["write"] if "write" in record_dict else "",
+                "callback_method_mf": record_dict["callback"] if "callback" in record_dict else ""
             }
             if record_import_failed_dict and record_dict == record_import_failed_dict:
                 record_import_dict["status_mf"] = "failed"

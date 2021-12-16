@@ -23,12 +23,8 @@ class FileInterfaceImportAttemptMF(models.Model):
     @api.multi
     def import_file_again(self):
         importer_service = self.env["importer.service.mf"].create({})
-        try:
-            self.file_interface_import_mf.import_file(
-                importer_service, base64.b64decode(self.file_content_mf), self.file_name_mf
-            )
-        except Exception as e:
-            # Reload view to update one2many
-            return {'type': 'ir.actions.act_window_view_reload'}
-        # Reload view to update one2many
+        self.file_interface_import_mf.import_file(
+            importer_service, base64.b64decode(self.file_content_mf), self.file_name_mf
+        )
+        # Reload view to update attempts list
         return {'type': 'ir.actions.act_window_view_reload'}

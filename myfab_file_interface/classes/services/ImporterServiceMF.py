@@ -13,7 +13,7 @@ class ImporterServiceMF(models.TransientModel):
     def import_records_list(self, records_to_process_list):
         for record_to_process_dict in records_to_process_list:
             try:
-                model_returned, status = self.apply_orm_method_to_model(
+                records_returned, status = self.apply_orm_method_to_model(
                     record_to_process_dict["model"],
                     record_to_process_dict["fields"],
                     record_to_process_dict["write"] if "write" in record_to_process_dict else False,
@@ -22,8 +22,9 @@ class ImporterServiceMF(models.TransientModel):
                 if "callback" in record_to_process_dict:
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
-                    callback_method_on_model = getattr(model_returned, record_to_process_dict["callback"])
-                    callback_method_on_model()
+                    for record_returned in records_returned:
+                        callback_method_on_model = getattr(record_returned, record_to_process_dict["callback"])
+                        callback_method_on_model()
                 record_to_process_dict["status"] = status
             except Exception as e:
                 raise Exception(e, record_to_process_dict)
@@ -36,10 +37,10 @@ class ImporterServiceMF(models.TransientModel):
         self.set_relation_fields_to_ids_in_dict(model_name, record_fields_dict)
         if record_to_write_fields_dict:
             self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict)
-        record_found = self.search_records_by_fields_dict(model_name, record_fields_dict, 1)
+        records_found = self.search_records_by_fields_dict(model_name, record_fields_dict)
         if orm_method_name == "create":
-            if record_found:
-                return record_found, "ignored"
+            if records_found:
+                return records_found, "ignored"
             record_fields_dict["user_id"] = self.env.user.id
             record_created = self.env[model_name].create(record_fields_dict)
             # Odoo CSV id string link creation
@@ -53,13 +54,14 @@ class ImporterServiceMF(models.TransientModel):
                 })
             return record_created, "success"
         elif orm_method_name in ["search", "write", "delete"]:
-            if not record_found:
+            if not records_found:
                 raise MissingError("No record found for model " + model_name + " with fields " + str(record_fields_dict))
-            if orm_method_name == "write":
-                record_found.write(record_to_write_fields_dict)
-            elif orm_method_name == "delete":
-                record_found.unlink()
-            return record_found, "success"
+            for record_found in records_found:
+                if orm_method_name == "write":
+                    record_found.write(record_to_write_fields_dict)
+                elif orm_method_name == "delete":
+                    record_found.unlink()
+            return records_found, "success"
         raise ValueError("The " + orm_method_name + " method is not supported.")
 
     # Set all the relation fields in the dict to the id of the matching record.
@@ -144,9 +146,9 @@ class ImporterServiceMF(models.TransientModel):
     def search_records_by_fields_dict(self, model_name, record_fields_dict, limit=None):
         record_fields_tuples_list = []
         for field_name, field_value in record_fields_dict.items():
-            # Record(s) not created yet like (0, 0, {'name': 'example'}), ignored in search
-            if (field_name == "id" and type(field_value) is not int) or type(field_value) is tuple or (
-                    type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is tuple
+            # Odoo's string id and record(s) not created yet like (0, 0, {'name': 'example'}) are ignored in search
+            if (field_name == "id" and not field_value.isdecimal()) or type(field_value) is tuple or (
+                type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is tuple
             ):
                 continue
             if type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is not tuple:
