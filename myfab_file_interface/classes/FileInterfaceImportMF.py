@@ -1,6 +1,5 @@
 from openerp import models, fields, api, registry, _
 import os
-import sys
 import traceback
 import datetime
 import base64
@@ -14,7 +13,8 @@ class FileInterfaceImportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=True, help='')
-    import_directory_path_mf = fields.Char(string="Files path", default="/etc/openprod_home/MyFabFileInterface/Imports")
+    import_directory_path_mf = fields.Char(string="Import directory path",
+                                           default="/etc/openprod_home/MyFabFileInterface/Imports")
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     file_extension_mf = fields.Selection(
         [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default=("json", "JSON"), required=True
@@ -26,6 +26,8 @@ class FileInterfaceImportMF(models.Model):
     )
     import_attempts_mf = fields.One2many("file.interface.import.attempt.mf", "file_interface_import_mf",
                                          string="Import attempts", ondelete="cascade", readonly=True)
+    files_to_import_mf = fields.One2many("file.interface.import.file.to.import.mf", "file_interface_import_mf",
+                                         string="Files to import", ondelete="cascade", readonly=True)
 
     # ===========================================================================
     # METHODS
@@ -57,13 +59,16 @@ class FileInterfaceImportMF(models.Model):
             self.import_file(importer_service, file_content, file_name)
 
     def import_file(self, importer_service, file_content, file_name):
-        import_attempt_values_dict = {
+        import_attempt_dict = {
             "start_datetime_mf": self.get_current_time(),
             "file_name_mf": file_name
         }
+        import_attempt_file_dict = {
+            "name": file_name
+        }
         records_to_process_list = []
         try:
-            import_attempt_values_dict["file_content_mf"] = base64.b64encode(file_content)
+            import_attempt_file_dict["content_mf"] = base64.b64encode(file_content)
             records_to_process_list = self.get_records_by_file_extension(self.file_extension_mf, file_content,
                                                                          file_name)
             importer_service.import_records_list(records_to_process_list)
@@ -78,25 +83,29 @@ class FileInterfaceImportMF(models.Model):
                 records_to_process_list, record_import_failed_dict
             )
             # Creation de la tentative
-            import_attempt_values_dict.update({
+            import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
+            import_attempt_dict.update({
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_time(),
                 "message_mf": exception_traceback,
-                "record_imports_mf": import_attempt_record_imports
+                "record_imports_mf": import_attempt_record_imports,
+                "file_mf": import_attempt_file.id
             })
-            self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
+            self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
             self.env.cr.commit()
             self.delete_import_file(file_name)
             # On arrete l'import ici
             return
-        import_attempt_values_dict.update({
+        import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
+        import_attempt_dict.update({
             "end_datetime_mf": self.get_current_time(),
             "message_mf": "Import successful.",
             "is_successful_mf": True,
+            "file_mf": import_attempt_file.id,
             "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
-        self.write({"import_attempts_mf": [(0, 0, import_attempt_values_dict)]})
+        self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
         self.delete_import_file(file_name)
         self.env.cr.commit()
 

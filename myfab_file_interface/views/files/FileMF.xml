@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='file_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Model Export</field>
+			<field name="res_model">file.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='file_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Model Export</field>
+			<field name="model">file.mf</field>
+            <field name="arch" type="xml">
+				<tree string="Files">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='file_mf_form' model="ir.ui.view">
+        	<field name="name">file.mf.form</field>
+			<field name="model">file.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab file interface attempt">
+					<group col="9">
+						<group colspan="8" col="1" string="File data">
+							<field name="name" readonly="1"/>
+							<field name="content_preview_mf" class="large_text_mf" readonly="1"/>
+						</group>
+						<group col="1" class="op_shortcuts" name="myfab_file_interface_file_download_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="download_file"
+									string="Download file"
+									icon="fa-download"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

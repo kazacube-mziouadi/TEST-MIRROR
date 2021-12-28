@@ -1,18 +1,9 @@
-div.myfab_file_interface_large_text_mf > span,
-span.myfab_file_interface_large_text_mf {
+div.large_text_mf > span,
+span.large_text_mf {
     max-height: 170px;
     max-width: 1224px;
     text-overflow: initial !important;
     overflow: scroll !important;
     background-color: white;
     padding: 10px !important;
-}
-
-.myfab_file_interface_attempt_buttons tr {
-    display: flex;
-    align-items: center;
-}
-
-.myfab_file_interface_attempt_buttons tr > td {
-    width: inherit;
 }

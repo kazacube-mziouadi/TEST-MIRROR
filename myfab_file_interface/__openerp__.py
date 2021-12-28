@@ -81,6 +81,7 @@
         'views/model_dictionaries/FileInterfaceExportModelDictionaryMF.xml',
         'views/FileInterfaceExportMF.xml',
         'views/FileInterfaceImportMF.xml',
+        'views/files/FileMF.xml',
         'views/attempts/FileInterfaceAttemptMF.xml',
         'views/attempts/FileInterfaceExportAttemptMF.xml',
         'views/attempts/FileInterfaceImportAttemptMF.xml',

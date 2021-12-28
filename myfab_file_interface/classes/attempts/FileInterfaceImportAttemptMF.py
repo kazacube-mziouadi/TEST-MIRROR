@@ -10,8 +10,7 @@ class FileInterfaceImportAttemptMF(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    file_interface_import_mf = fields.Many2one("file.interface.import.mf", required=False,
-                                               string="MyFab file interface import")
+    file_interface_import_mf = fields.Many2one("file.interface.import.mf", string="MyFab file interface import")
     record_imports_mf = fields.One2many("file.interface.import.attempt.record.import.mf",
                                         "file_interface_import_attempt_mf", string="Record imports",
                                         ondelete="cascade")
@@ -24,7 +23,7 @@ class FileInterfaceImportAttemptMF(models.Model):
     def import_file_again(self):
         importer_service = self.env["importer.service.mf"].create({})
         self.file_interface_import_mf.import_file(
-            importer_service, base64.b64decode(self.file_content_mf), self.file_name_mf
+            importer_service, base64.b64decode(self.file_mf.content_mf), self.file_name_mf
         )
         # Reload view to update attempts list
         return {'type': 'ir.actions.act_window_view_reload'}

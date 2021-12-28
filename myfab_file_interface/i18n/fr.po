@@ -186,8 +186,8 @@ msgstr "Fichier à importer"
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_import_directory_path_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_import_directory_path_mf
-msgid "Files path"
-msgstr "Chemin des fichiers"
+msgid "Import directory"
+msgstr "Chemin du répertoire d'import"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_filters_mf

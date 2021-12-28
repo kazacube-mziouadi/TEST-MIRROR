@@ -46,13 +46,17 @@ class FileInterfaceExportMF(models.Model):
         json_content = json.dumps(file_content_dict, sort_keys=True, indent=4)
         if self.activate_file_generation_mf:
             self.write_myfab_file_interface_file_file(file_name, json_content)
+        import_attempt_file = self.env["file.mf"].create({
+            "name": file_name,
+            "content_mf": base64.b64encode(json_content)
+        })
         self.write({"export_attempts_mf": [(0, 0, {
             "start_datetime_mf": start_datetime,
             "file_name_mf": file_name,
             "end_datetime_mf": datetime.datetime.now(),
             "message_mf": "Export successful.",
             "is_successful_mf": True,
-            "file_content_mf": base64.b64encode(json_content)
+            "file_mf": import_attempt_file.id
         })]})
 
     def write_myfab_file_interface_file_file(self, file_name, json_content_string):

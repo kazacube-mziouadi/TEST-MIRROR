@@ -30,12 +30,12 @@
 						<field name="status_mf" readonly="1"/>
 						<field name="method_mf" readonly="1"/>
 						<field name="model_mf" readonly="1"/>
-						<field name="fields_mf" class="myfab_file_interface_large_text_mf" readonly="1"/>
+						<field name="fields_mf" class="large_text_mf" readonly="1"/>
 						<field name="callback_method_mf"
 							   readonly="1"
 							   attrs="{'invisible': [('callback_method_mf', '=', False)]}"/>
 						<field name="fields_to_write_mf"
-							   class="myfab_file_interface_large_text_mf"
+							   class="large_text_mf"
 							   readonly="1"
 							   attrs="{'invisible': [('fields_to_write_mf', '=', False)]}"/>
 					</group>
