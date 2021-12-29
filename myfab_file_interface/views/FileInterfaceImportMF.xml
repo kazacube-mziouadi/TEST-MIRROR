@@ -36,10 +36,21 @@
 									<field name="file_quoting_mf"
 										   attrs="{'invisible': [('file_extension_mf', '=', 'json')]}"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
+									<field name="files_to_import_scan_is_needed_mf" invisible="1"/>
 								</group>
 							</group>
 							<group col="1" string="Import directory scan">
-								<field name="files_to_import_mf"/>
+								<field name="files_to_import_mf"
+									   attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', True)]}"/>
+								<p attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', False)]}">
+									The files to import are out of sync. Use the button below to scan them from the import directory.
+								</p>
+								<button
+									name="scan_files_to_import"
+									string="Scan files to import"
+									type="object"
+									class="oe_highlight"
+								/>
 							</group>
 							<group col="1" string="History">
 								<field name="import_attempts_mf"/>
@@ -49,7 +60,7 @@
 							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
-									name="import_files"
+									name="import_files_button"
 									string="Import Files"
 									icon="fa-play"/>
 							<button class="oe_inline oe_stat_button"

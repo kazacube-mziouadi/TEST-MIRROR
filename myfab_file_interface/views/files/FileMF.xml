@@ -2,14 +2,14 @@
 <openerp>
 	<data>
 		<record id='file_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">MyFab File</field>
 			<field name="res_model">file.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='file_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">MyFab File</field>
 			<field name="model">file.mf</field>
             <field name="arch" type="xml">
 				<tree string="Files">

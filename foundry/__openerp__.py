@@ -4,7 +4,7 @@
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules nécéssaire à la fonderie et à la forge',
+    'summary': 'Modules nécessaires à la fonderie et à la forge',
     'category' : 'Industrial sectors',
     'description' : """Regroupe tous les modules nécessaire a la Fonderie et la Forge.""",
     'website': 'https://www.myfab.fr/',

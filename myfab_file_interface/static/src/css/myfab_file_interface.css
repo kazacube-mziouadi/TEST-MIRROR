@@ -1,7 +1,7 @@
 div.large_text_mf > span,
 span.large_text_mf {
     max-height: 170px;
-    max-width: 1224px;
+    max-width: 1085px;
     text-overflow: initial !important;
     overflow: scroll !important;
     background-color: white;

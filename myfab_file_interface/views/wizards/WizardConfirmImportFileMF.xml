@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_wizard_confirm_import_file_mf" model="ir.ui.view">
+            <field name="name">wizard.confirm.import.file.mf.form</field>
+            <field name="model">wizard.confirm.import.file.mf</field>
+            <field name="arch" type="xml">
+                <form string="The files to import are out of sync">
+					<p>
+                        The files to import are out of sync.
+                        If you want to check the files about to be imported first, you should cancel this import and scan the files to import.
+                    </p>
+					<footer>
+                        <button name="action_confirm_import" type="object" string="Import anyway" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

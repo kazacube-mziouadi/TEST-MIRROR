@@ -4,7 +4,7 @@
     'version' : '0.1.0',
     'author' : 'MyFab',
     'license': 'Open-prod license',
-    'summary': 'Modules nécéssaire à la plasturgie',
+    'summary': 'Modules nécessaires à la plasturgie',
     'category' : 'Industrial sectors',
     'description' : """Regroupe tous les modules nécessaire a la plasturgie.""",
     'website': 'https://www.myfab.fr/',

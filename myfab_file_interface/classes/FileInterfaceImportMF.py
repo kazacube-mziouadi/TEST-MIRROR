@@ -1,7 +1,7 @@
 from openerp import models, fields, api, registry, _
 import os
 import traceback
-import datetime
+from datetime import datetime
 import base64
 
 
@@ -28,6 +28,7 @@ class FileInterfaceImportMF(models.Model):
                                          string="Import attempts", ondelete="cascade", readonly=True)
     files_to_import_mf = fields.One2many("file.interface.import.file.to.import.mf", "file_interface_import_mf",
                                          string="Files to import", ondelete="cascade", readonly=True)
+    files_to_import_scan_is_needed_mf = fields.Boolean(compute="_compute_files_to_import_scan_is_needed", readonly=True)
 
     # ===========================================================================
     # METHODS
@@ -46,16 +47,81 @@ class FileInterfaceImportMF(models.Model):
             self.cron_already_exists_mf = False
 
     @api.one
-    def import_files(self):
-        files = [
-            f for f in os.listdir(self.import_directory_path_mf)
-            if os.path.isfile(os.path.join(self.import_directory_path_mf, f))
+    def _compute_files_to_import_scan_is_needed(self):
+        files_names_list = self.get_files_to_import_names_list()
+        if len(files_names_list) != len(self.files_to_import_mf):
+            self.files_to_import_scan_is_needed_mf = True
+            return
+        for file_to_import in self.files_to_import_mf:
+            file_to_import_is_up_to_date = False
+            for physical_file_name in files_names_list:
+                if self.is_file_to_import_corresponding_to_physical_file(file_to_import, physical_file_name):
+                    file_to_import_is_up_to_date = True
+                    continue
+            if not file_to_import_is_up_to_date:
+                self.files_to_import_scan_is_needed_mf = True
+                return
+        self.files_to_import_scan_is_needed_mf = False
+
+    def is_file_to_import_corresponding_to_physical_file(self, file_to_import, physical_file_name):
+        physical_file_last_modification_date = self.get_file_last_modification_date_by_file_name(physical_file_name)
+        return file_to_import.name == physical_file_name and (
+            file_to_import.last_modification_date_mf == physical_file_last_modification_date
+        )
+
+    @api.one
+    def scan_files_to_import(self):
+        # Emptying current files to import list
+        for file_to_import in self.files_to_import_mf:
+            file_to_import.unlink()
+        files_names_list = self.get_files_to_import_names_list()
+        files_to_import_list = [{
+            "name": file_name,
+            "directory_path_mf": self.import_directory_path_mf,
+            "content_mf": base64.b64encode(self.get_file_content_by_file_name(file_name)),
+            "last_modification_date_mf": self.get_file_last_modification_date_by_file_name(file_name)
+        } for file_name in files_names_list]
+        self.update({
+            "files_to_import_mf": files_to_import_list
+        })
+
+    def get_files_to_import_names_list(self):
+        return [
+            file_name for file_name in os.listdir(self.import_directory_path_mf)
+            if os.path.isfile(os.path.join(self.import_directory_path_mf, file_name))
         ]
+
+    def get_file_content_by_file_name(self, file_name):
+        file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
+        return file.read()
+
+    def get_file_last_modification_date_by_file_name(self, file_name):
+        last_modification_timestamp = os.path.getmtime(os.path.join(self.import_directory_path_mf, file_name))
+        return datetime.fromtimestamp(last_modification_timestamp).strftime('%Y-%m-%d %H:%M:%S')
+
+    @api.one
+    def import_files_button(self):
+        if self.files_to_import_scan_is_needed_mf:
+            return {
+                "name": _("The files to import are out of sync"),
+                "view_mode": "form",
+                "res_model": "wizard.confirm.import.file.mf",
+                "type": "ir.actions.act_window",
+                "target": "new",
+                "context": {
+                    "file_interface_import_mf": self.id
+                }
+            }
+        else:
+            self.import_files()
+
+    @api.one
+    def import_files(self):
+        files_names_list = self.get_files_to_import_names_list()
         importer_service = self.env["importer.service.mf"].create({})
-        files.sort()
-        for file_name in files:
-            file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
-            file_content = file.read()
+        files_names_list.sort()
+        for file_name in files_names_list:
+            file_content = self.get_file_content_by_file_name(file_name)
             self.import_file(importer_service, file_content, file_name)
 
     def import_file(self, importer_service, file_content, file_name):
@@ -111,7 +177,7 @@ class FileInterfaceImportMF(models.Model):
 
     @staticmethod
     def get_current_time():
-        return datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')
+        return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')
 
     def get_records_by_file_extension(self, file_extension, file_content, file_name):
         parser_service = self.env["parser.service.mf"].create({})

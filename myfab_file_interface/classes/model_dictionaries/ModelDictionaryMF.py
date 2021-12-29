@@ -31,14 +31,14 @@ class ModelDictionaryMF(models.AbstractModel):
                 sub_model_to_export = self.env["ir.model"].search([("model", '=', field_to_export.relation)], None, 1)
                 if not self.is_sub_model_in_children_model_dictionary(sub_model_to_export):
                     # We retrieve the currently selected elements
-                    children_model_dictionaries_array = [child.id for child in self.children_model_dictionaries_mf]
+                    children_model_dictionaries_list = [child.id for child in self.children_model_dictionaries_mf]
                     # We add the new element
-                    children_model_dictionaries_array.append({
+                    children_model_dictionaries_list.append({
                         "model_to_export_mf": sub_model_to_export.id
                     })
                     # To modify the temporary many2many list shown on screen, we have to use "update" (not "write")
                     self.update({
-                        "children_model_dictionaries_mf": children_model_dictionaries_array
+                        "children_model_dictionaries_mf": children_model_dictionaries_list
                     })
 
     def is_sub_model_in_children_model_dictionary(self, sub_model):

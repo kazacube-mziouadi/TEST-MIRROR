@@ -32,8 +32,8 @@ class WizardFileInterfaceCronMF(models.TransientModel):
     @api.multi
     def action_validate(self):
         self.env["ir.cron"].create({
-            "name": "MyFab File Interface Cron - " + self.object_name_mf
-                    + " [" + str(self.object_id_mf) + "]",
+            "name": "MyFab File Interface Cron - " + self.record_name_mf
+                    + " [" + str(self.record_id_mf) + "]",
             "user_id": self.env.user.id,
             "active": True,
             "interval_number": self.interval_number_mf,
@@ -41,8 +41,8 @@ class WizardFileInterfaceCronMF(models.TransientModel):
             "nextcall": self.nextcall_mf,
             "numbercall": -1,
             "model": self.record_model_name_mf,
-            "function": self.object_method_mf,
-            "args": repr([self.object_id_mf])
+            "function": self.record_method_mf,
+            "args": repr([self.record_id_mf])
         })
 
 

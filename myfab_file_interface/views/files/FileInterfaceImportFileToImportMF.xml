@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Herite de la vue de PhysicalFileMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
+		<record id='file_interface_import_file_to_import_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface Export Attempt</field>
+			<field name="res_model">file.interface.import.file.to.import.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='file_interface_import_file_to_import_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface Export Attempt</field>
+			<field name="inherit_id" ref="myfab_file_interface.physical_file_mf_treeview" />
+			<field name="mode">primary</field>
+			<field name="model">file.interface.import.file.to.import.mf</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="class">file_interface_import_file_to_import_mf_treeview</attribute>
+				</xpath>
+			</field>
+        </record>
+
+        <record id='file_interface_import_file_to_import_mf_form' model="ir.ui.view">
+        	<field name="name">file.interface.import.file.to.import.mf.form</field>
+			<field name="inherit_id" ref="myfab_file_interface.physical_file_mf_form" />
+			<field name="mode">primary</field>
+			<field name="model">file.interface.import.file.to.import.mf</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="class">file_interface_import_file_to_import_mf_treeview</attribute>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>

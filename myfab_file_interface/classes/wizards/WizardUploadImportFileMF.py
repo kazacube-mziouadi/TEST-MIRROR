@@ -11,7 +11,7 @@ class WizardUploadImportFileMF(models.TransientModel):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=32, required=False)
-    file_name = fields.Char("File to import name")
+    file_name_mf = fields.Char("File to import name")
     file_to_import_mf = fields.Binary(string="File to import content", required=True, ondelete="restrict")
     upload_directory_mf = fields.Char(string="Upload directory")
 
@@ -26,7 +26,7 @@ class WizardUploadImportFileMF(models.TransientModel):
         if not os.path.exists(self.upload_directory_mf):
             os.makedirs(self.upload_directory_mf)
         imported_file_decoded = str(base64.b64decode(self.file_to_import_mf))
-        file_path = os.path.join(self.upload_directory_mf, self.file_name)
+        file_path = os.path.join(self.upload_directory_mf, self.file_name_mf)
         file = open(file_path, "a")
         file.write(imported_file_decoded)
         file.close()
