@@ -5,10 +5,10 @@
             <field name="name">wizard.confirm.import.file.mf.form</field>
             <field name="model">wizard.confirm.import.file.mf</field>
             <field name="arch" type="xml">
-                <form string="The files to import are out of sync">
+                <form string="The files to import list has been updated">
 					<p>
-                        The files to import are out of sync.
-                        If you want to check the files about to be imported first, you should cancel this import and scan the files to import.
+                        The files to import list has been updated.
+                        If you want to check the files before they are being imported, you should cancel this import.
                     </p>
 					<footer>
                         <button name="action_confirm_import" type="object" string="Import anyway" class="oe_highlight"/>

@@ -75,21 +75,23 @@ class FileInterfaceImportMF(models.Model):
         for file_to_import in self.files_to_import_mf:
             file_to_import.unlink()
         files_names_list = self.get_files_to_import_names_list()
-        files_to_import_list = [{
+        files_to_import_list = [(0, 0, {
             "name": file_name,
             "directory_path_mf": self.import_directory_path_mf,
             "content_mf": base64.b64encode(self.get_file_content_by_file_name(file_name)),
             "last_modification_date_mf": self.get_file_last_modification_date_by_file_name(file_name)
-        } for file_name in files_names_list]
-        self.update({
+        }) for file_name in files_names_list]
+        self.write({
             "files_to_import_mf": files_to_import_list
         })
 
     def get_files_to_import_names_list(self):
-        return [
+        files_to_import_names_list = [
             file_name for file_name in os.listdir(self.import_directory_path_mf)
             if os.path.isfile(os.path.join(self.import_directory_path_mf, file_name))
         ]
+        files_to_import_names_list.sort()
+        return files_to_import_names_list
 
     def get_file_content_by_file_name(self, file_name):
         file = open(os.path.join(self.import_directory_path_mf, file_name), "rb")
@@ -102,27 +104,36 @@ class FileInterfaceImportMF(models.Model):
     @api.one
     def import_files_button(self):
         if self.files_to_import_scan_is_needed_mf:
+            self.scan_files_to_import()
             return {
-                "name": _("The files to import are out of sync"),
+                "name": _("The files to import list has been updated"),
                 "view_mode": "form",
                 "res_model": "wizard.confirm.import.file.mf",
                 "type": "ir.actions.act_window",
                 "target": "new",
                 "context": {
-                    "file_interface_import_mf": self.id
+                    "file_interface_import_id": self.id
                 }
             }
         else:
+            if not self.files_to_import_mf:
+                return {
+                    "name": _("No file to import in the import directory"),
+                    "view_mode": "form",
+                    "res_model": "wizard.no.import.file.mf",
+                    "type": "ir.actions.act_window",
+                    "target": "new",
+                    "context": {}
+                }
             self.import_files()
 
     @api.one
     def import_files(self):
-        files_names_list = self.get_files_to_import_names_list()
+        if self.files_to_import_scan_is_needed_mf:
+            self.scan_files_to_import()
         importer_service = self.env["importer.service.mf"].create({})
-        files_names_list.sort()
-        for file_name in files_names_list:
-            file_content = self.get_file_content_by_file_name(file_name)
-            self.import_file(importer_service, file_content, file_name)
+        for file_to_import in self.files_to_import_mf:
+            self.import_file(importer_service, base64.b64decode(file_to_import.content_mf), file_to_import.name)
 
     def import_file(self, importer_service, file_content, file_name):
         import_attempt_dict = {
@@ -212,9 +223,10 @@ class FileInterfaceImportMF(models.Model):
         return import_attempt_record_imports
 
     def delete_import_file(self, file_name):
-        file_path = os.path.join(self.import_directory_path_mf, file_name)
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        for file_to_import in self.files_to_import_mf:
+            if file_to_import.name == file_name:
+                file_to_import.delete()
+                return
 
     @api.multi
     def generate_cron_for_import(self):
