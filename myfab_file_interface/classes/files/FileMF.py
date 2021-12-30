@@ -11,7 +11,7 @@ class FileMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", help='')
-    content_mf = fields.Char(string="Content")
+    content_mf = fields.Binary(string="Content")
     content_preview_mf = fields.Text(string="Content preview", compute="_compute_content_preview")
 
     # ===========================================================================

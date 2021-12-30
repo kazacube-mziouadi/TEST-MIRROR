@@ -17,6 +17,7 @@
 					<field name="method_mf"/>
 					<field name="model_mf"/>
 					<field name="status_mf"/>
+					<field name="committed_mf"/>
 				</tree>
 			</field>
         </record>
@@ -28,6 +29,7 @@
 				<form string="MyFab file interface attempt">
 					<group col="1" string="Record import">
 						<field name="status_mf" readonly="1"/>
+						<field name="committed_mf" readonly="1"/>
 						<field name="method_mf" readonly="1"/>
 						<field name="model_mf" readonly="1"/>
 						<field name="fields_mf" class="large_text_mf" readonly="1"/>

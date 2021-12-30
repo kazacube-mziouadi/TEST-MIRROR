@@ -1,5 +1,9 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import MissingError
+import logging
+
+logger = logging.getLogger(__name__)
+COMMIT_BATCH_QUANTITY = 1000
 
 
 class ImporterServiceMF(models.TransientModel):
@@ -11,6 +15,7 @@ class ImporterServiceMF(models.TransientModel):
     # ===========================================================================
 
     def import_records_list(self, records_to_process_list):
+        records_processed_counter = 0
         for record_to_process_dict in records_to_process_list:
             try:
                 records_returned, status = self.apply_orm_method_to_model(
@@ -26,8 +31,23 @@ class ImporterServiceMF(models.TransientModel):
                         callback_method_on_model = getattr(record_returned, record_to_process_dict["callback"])
                         callback_method_on_model()
                 record_to_process_dict["status"] = status
+                records_processed_counter += 1
+                # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
+                if records_processed_counter % COMMIT_BATCH_QUANTITY == 0:
+                    logger.info("Committing " + str(COMMIT_BATCH_QUANTITY) + " records")
+                    self.env.cr.commit()
+                    # Getting the list of the last records processed since last commit
+                    records_processed_since_last_commit_list = records_to_process_list[
+                        records_processed_counter-COMMIT_BATCH_QUANTITY:records_processed_counter
+                    ]
+                    for record_processed_dict in records_processed_since_last_commit_list:
+                        record_processed_dict["committed"] = True
+                    records_processed_counter = 0
             except Exception as e:
                 raise Exception(e, record_to_process_dict)
+        if records_processed_counter < COMMIT_BATCH_QUANTITY:
+            for record_processed_dict in records_to_process_list:
+                record_processed_dict["committed"] = True
 
     # Apply an ORM method (create/write/search/unlink) on the given model_name, with the given dicts :
     #     - record_fields for the fields of the record we are looking for
@@ -41,7 +61,6 @@ class ImporterServiceMF(models.TransientModel):
         if orm_method_name == "create":
             if records_found:
                 return records_found, "ignored"
-            record_fields_dict["user_id"] = self.env.user.id
             record_created = self.env[model_name].create(record_fields_dict)
             # Odoo CSV id string link creation
             if "id" in record_fields_dict:

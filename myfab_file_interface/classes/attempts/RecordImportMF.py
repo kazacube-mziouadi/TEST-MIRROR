@@ -18,4 +18,5 @@ class RecordImportMF(models.AbstractModel):
         [("not processed", "Not processed"), ("success", "Success"), ("failed", "Failed"), ("ignored", "Ignored")],
         "Status", default="not processed", readonly=True
     )
+    committed_mf = fields.Boolean(string="Committed", default=False)
     callback_method_mf = fields.Char(string="Method called on record", help="")

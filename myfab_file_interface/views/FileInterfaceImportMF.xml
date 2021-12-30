@@ -40,17 +40,22 @@
 								</group>
 							</group>
 							<group col="1" string="Import directory scan">
-								<field name="files_to_import_mf"
-									   attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', True)]}"/>
-								<p attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', False)]}">
-									The files to import are out of sync. Use the button below to scan them from the import directory.
+								<group col="1" attrs="{'invisible': [('name', '=', False)]}">
+									<field name="files_to_import_mf"
+										   attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', True)]}"/>
+									<p attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', False)]}">
+										The files to import are out of sync. Use the button below to scan them from the import directory.
+									</p>
+									<button
+											name="scan_files_to_import"
+											string="Scan files to import"
+											type="object"
+											class="oe_highlight"
+									/>
+								</group>
+								<p attrs="{'invisible': [('name', '!=', False)]}">
+									You must save the configuration before scanning the files to import.
 								</p>
-								<button
-									name="scan_files_to_import"
-									string="Scan files to import"
-									type="object"
-									class="oe_highlight"
-								/>
 							</group>
 							<group col="1" string="History">
 								<field name="import_attempts_mf"/>
