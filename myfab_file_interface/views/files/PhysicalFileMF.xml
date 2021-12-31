@@ -32,7 +32,6 @@
 			<field name="model">physical.file.mf</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="after">
-					<field name="directory_path_mf"/>
 					<field name="last_modification_date_mf"
 						   readonly="1"
 						   attrs="{'invisible': [('last_modification_date_mf', '=', False)]}"/>

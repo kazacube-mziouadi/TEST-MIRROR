@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-		<record id="view_wizard_upload_import_file_mf" model="ir.ui.view">
-            <field name="name">wizard.upload.import.file.mf.form</field>
-            <field name="model">wizard.upload.import.file.mf</field>
+		<record id="view_wizard_upload_file_mf" model="ir.ui.view">
+            <field name="name">wizard.upload.file.mf.form</field>
+            <field name="model">wizard.upload.file.mf</field>
             <field name="arch" type="xml">
-                <form string="Upload import file into import directory">
+                <form string="Upload file into directory">
 					<group col="2">
 						<field type="file" id-attf-id="file_#{_id}" widget="drag-and-drop-field" filename="file_name_mf"
 						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop"/>

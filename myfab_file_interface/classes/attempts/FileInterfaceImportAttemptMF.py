@@ -21,9 +21,10 @@ class FileInterfaceImportAttemptMF(models.Model):
 
     @api.multi
     def import_file_again(self):
+        parser_service = self.env["parser.service.mf"].create({})
         importer_service = self.env["importer.service.mf"].create({})
         self.file_interface_import_mf.import_file(
-            importer_service, base64.b64decode(self.file_mf.content_mf), self.file_name_mf
+            parser_service, importer_service, base64.b64decode(self.file_mf.content_mf), self.file_name_mf
         )
         # Reload view to update attempts list
         return {'type': 'ir.actions.act_window_view_reload'}

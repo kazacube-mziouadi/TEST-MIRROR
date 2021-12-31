@@ -6,19 +6,16 @@ import base64
 
 
 class FileInterfaceExportMF(models.Model):
+    _inherit = "file.interface.mf"
     _name = "file.interface.export.mf"
     _description = "MyFab file interface export configuration"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", size=64, required=True, help='')
-    import_directory_path_mf = fields.Char(string="Files path",
-                                           default="/etc/openprod_home/MyFabFileInterface/Exports")
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                       "file_interface_export_mf",
                                                       string="Models to Export", ondelete="cascade")
-    cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
                                          string="Export attempts", ondelete="cascade", readonly=True)
@@ -37,7 +34,7 @@ class FileInterfaceExportMF(models.Model):
         self.cron_already_exists_mf = len(existing_crons) > 0
 
     @api.one
-    def export_records(self):
+    def launch(self):
         start_datetime = datetime.datetime.now()
         now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         file_name = "MFFI-Export-" + now_formatted + ".json"
@@ -45,7 +42,7 @@ class FileInterfaceExportMF(models.Model):
         file_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
         json_content = json.dumps(file_content_dict, sort_keys=True, indent=4)
         if self.activate_file_generation_mf:
-            self.write_myfab_file_interface_file_file(file_name, json_content)
+            self.create_export_file(file_name, json_content)
         import_attempt_file = self.env["file.mf"].create({
             "name": file_name,
             "content_mf": base64.b64encode(json_content)
@@ -59,10 +56,8 @@ class FileInterfaceExportMF(models.Model):
             "file_mf": import_attempt_file.id
         })]})
 
-    def write_myfab_file_interface_file_file(self, file_name, json_content_string):
-        if not os.path.exists(self.import_directory_path_mf):
-            os.makedirs(self.import_directory_path_mf)
-        file_path = os.path.join(self.import_directory_path_mf, file_name)
+    def create_export_file(self, file_name, json_content_string):
+        file_path = os.path.join(self.directory_mf.path_mf, file_name)
         file = open(file_path, "a")
         file.write(json_content_string)
         file.close()

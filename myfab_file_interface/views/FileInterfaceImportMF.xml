@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+		<!-- Herite de la vue de FileInterfaceMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
 		<record id='file_interface_import_mf' model="ir.actions.act_window">
         	<field name="name">MyFab File Interface Import</field>
 			<field name="res_model">file.interface.import.mf</field>
@@ -10,84 +11,37 @@
 
 		<record id='file_interface_import_mf_treeview' model="ir.ui.view">
         	<field name="name">MyFab File Interface Import</field>
+			<field name="inherit_id" ref="myfab_file_interface.file_interface_mf_treeview" />
+			<field name="mode">primary</field>
 			<field name="model">file.interface.import.mf</field>
-            <field name="arch" type="xml">
-				<tree string="MyFab File Interface Import Configurations">
-					<field name="name"/>
-				</tree>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="class">myfab_file_interface_import_mf_treeview</attribute>
+				</xpath>
 			</field>
         </record>
 
         <record id='file_interface_import_mf_form' model="ir.ui.view">
         	<field name="name">file.interface.import.mf.form</field>
+			<field name="inherit_id" ref="myfab_file_interface.file_interface_mf_form" />
+			<field name="mode">primary</field>
 			<field name="model">file.interface.import.mf</field>
-            <field name="arch" type="xml">
-				<form string="MyFab File Interface Import Configuration">
-					<group col="9">
-						<group colspan="8" col="1">
-							<group col="1" string="Configuration">
-								<group col="4">
-									<field name="name"/>
-									<field name="import_directory_path_mf"/>
-									<field name="file_extension_mf"/>
-									<field name="file_encoding_mf"/>
-									<field name="file_separator_mf"
-										   attrs="{'invisible': [('file_extension_mf', '!=', 'csv')]}"/>
-									<field name="file_quoting_mf"
-										   attrs="{'invisible': [('file_extension_mf', '=', 'json')]}"/>
-									<field name="cron_already_exists_mf" invisible="1"/>
-									<field name="files_to_import_scan_is_needed_mf" invisible="1"/>
-								</group>
-							</group>
-							<group col="1" string="Import directory scan">
-								<group col="1" attrs="{'invisible': [('name', '=', False)]}">
-									<field name="files_to_import_mf"
-										   attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', True)]}"/>
-									<p attrs="{'invisible': [('files_to_import_scan_is_needed_mf', '=', False)]}">
-										The files to import are out of sync. Use the button below to scan them from the import directory.
-									</p>
-									<button
-											name="scan_files_to_import"
-											string="Scan files to import"
-											type="object"
-											class="oe_highlight"
-									/>
-								</group>
-								<p attrs="{'invisible': [('name', '!=', False)]}">
-									You must save the configuration before scanning the files to import.
-								</p>
-							</group>
-							<group col="1" string="History">
-								<field name="import_attempts_mf"/>
-							</group>
-						</group>
-						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_import_action_menu_mf">
-							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									name="import_files_button"
-									string="Import Files"
-									icon="fa-play"/>
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Generate cron for this import"
-									name="generate_cron_for_import"
-									icon="fa-repeat"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Delete the cron for this import"
-									name="delete_cron_for_import"
-									icon="fa-trash"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Upload an import file into the import directory"
-									name="open_upload_import_file_wizard"
-									icon="fa-upload"/>
-						</group>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='file_extension_mf']" position="after">
+					<field name="file_encoding_mf"/>
+				</xpath>
+				<xpath expr="//group[@name='directory']" position="after">
+					<group col="1" string="History">
+						<field name="import_attempts_mf"/>
 					</group>
-				</form>
+				</xpath>
+				<xpath expr="//button[@name='generate_cron']" position="after">
+					<button class="oe_inline oe_stat_button"
+							type="object"
+							string="Upload an import file into the import directory"
+							name="open_upload_import_file_wizard"
+							icon="fa-upload"/>
+				</xpath>
 			</field>
 		</record>
     </data>

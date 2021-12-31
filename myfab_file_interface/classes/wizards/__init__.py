@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
 import WizardFileInterfaceCronMF
-import WizardUploadImportFileMF
+import WizardUploadFileMF
 import WizardConfirmImportFileMF
 import WizardNoImportFileMF

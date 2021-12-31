@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+		<!-- Herite de la vue de FileInterfaceMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
 		<record id='file_interface_export_mf' model="ir.actions.act_window">
         	<field name="name">MyFab File Interface Export</field>
 			<field name="res_model">file.interface.export.mf</field>
@@ -10,62 +11,26 @@
 
 		<record id='file_interface_export_mf_treeview' model="ir.ui.view">
         	<field name="name">MyFab File Interface Export</field>
+			<field name="inherit_id" ref="myfab_file_interface.file_interface_mf_treeview" />
+			<field name="mode">primary</field>
 			<field name="model">file.interface.export.mf</field>
-            <field name="arch" type="xml">
-				<tree string="MyFab File Interface Export Configurations">
-					<field name="name"/>
-				</tree>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="attributes">
+					<attribute name="class">myfab_file_interface_export_mf_treeview</attribute>
+				</xpath>
 			</field>
         </record>
 
         <record id='file_interface_export_mf_form' model="ir.ui.view">
         	<field name="name">file.interface.export.mf.form</field>
+			<field name="inherit_id" ref="myfab_file_interface.file_interface_mf_form" />
+			<field name="mode">primary</field>
 			<field name="model">file.interface.export.mf</field>
-            <field name="arch" type="xml">
-				<form string="MyFab File Interface Export Configuration">
-					<group col="9">
-						<group colspan="8" col="1">
-							<group col="1" string="Configuration">
-								<group col="4">
-									<field name="name"/>
-									<field name="import_directory_path_mf"/>
-									<field name="model_dictionaries_to_export_mf"/>
-									<field name="activate_file_generation_mf"/>
-									<field name="cron_already_exists_mf" invisible="1"/>
-								</group>
-								<button
-									name="export_records"
-									string="Export records"
-									type="object"
-									class="oe_highlight" />
-							</group>
-							<group col="1" string="History">
-								<field name="export_attempts_mf"/>
-							</group>
-						</group>
-						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_export_action_menu_mf">
-							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Generate cron for this export"
-									name="generate_cron_for_export"
-									icon="fa-repeat"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Delete the cron for this export"
-									name="delete_cron_for_export"
-									icon="fa-trash"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
-							<button class="oe_inline oe_stat_button"
-									type="object"
-									string="Download selected models' import file"
-									name="generate_selected_models_import_file"
-									icon="fa-download"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
-						</group>
-					</group>
-				</form>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='file_quoting_mf']" position="after">
+					<field name="activate_file_generation_mf"/>
+					<field name="model_dictionaries_to_export_mf"/>
+				</xpath>
 			</field>
 		</record>
     </data>

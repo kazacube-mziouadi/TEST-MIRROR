@@ -12,14 +12,27 @@ class ParserServiceMF(models.TransientModel):
     # METHODS
     # ===========================================================================
 
+    def get_records_from_file(
+            self, file_extension, file_content, file_name, file_separator_mf, file_quoting_mf, file_encoding_mf
+    ):
+        if file_extension == "json":
+            return self._get_records_from_json(file_content)
+        elif file_extension == "csv":
+            return self._get_records_from_csv(
+                file_content, file_name, file_separator_mf, file_quoting_mf, file_encoding_mf
+            )
+        elif file_extension == "txt":
+            return self._get_records_from_txt(file_content, file_name, file_quoting_mf, file_encoding_mf)
+        raise ValueError("The " + file_extension + " file extension is not supported.")
+
     @staticmethod
-    def get_records_from_json(file_content):
+    def _get_records_from_json(file_content):
         return simplejson.loads(file_content)
 
-    def get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
-        return self.get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
+    def _get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
+        return self._get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
 
-    def get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
+    def _get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
         model_name = self.get_model_name_from_file_name(file_name)
         csv_rows = csv.reader(
             StringIO(file_content), delimiter=str(file_separator),

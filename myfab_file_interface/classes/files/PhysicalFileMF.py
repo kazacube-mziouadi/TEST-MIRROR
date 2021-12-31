@@ -12,8 +12,8 @@ class PhysicalFileMF(models.TransientModel):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    directory_path_mf = fields.Char(string="Directory path")
     last_modification_date_mf = fields.Datetime(string="Last modification date")
+    directory_mf = fields.Many2one("physical.directory.mf", string="Directory")
 
     # ===========================================================================
     # METHODS
@@ -21,11 +21,12 @@ class PhysicalFileMF(models.TransientModel):
 
     @api.model
     def create(self, fields_list):
+        directory_mf = self.env["physical.directory.mf"].search([("id", '=', fields_list["directory_mf"])], None, 1)
         fields_list["last_modification_date_mf"] = self.get_last_modification_date(
-            fields_list["directory_path_mf"], fields_list["name"]
+            directory_mf.path_mf, fields_list["name"]
         )
         fields_list["content_mf"] = base64.b64encode(
-            self.get_content(fields_list["directory_path_mf"], fields_list["name"])
+            self.get_content(directory_mf.path_mf, fields_list["name"])
         )
         return super(PhysicalFileMF, self).create(fields_list)
 
@@ -41,7 +42,7 @@ class PhysicalFileMF(models.TransientModel):
 
     @api.multi
     def delete(self):
-        file_path = os.path.join(self.directory_path_mf, self.name)
+        file_path = os.path.join(self.directory_mf.path_mf, self.name)
         if os.path.exists(file_path):
             os.remove(file_path)
             self.unlink()

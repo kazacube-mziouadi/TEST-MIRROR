@@ -19,4 +19,4 @@ class WizardConfirmImportFileMF(models.TransientModel):
 
     @api.multi
     def action_confirm_import(self):
-        self.file_interface_import_mf.import_files_button()
+        self.file_interface_import_mf.launch_button()
