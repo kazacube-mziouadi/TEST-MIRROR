@@ -1,5 +1,4 @@
 from openerp import models, fields, api, _
-import json
 import datetime
 import os
 import base64
@@ -39,13 +38,20 @@ class FileInterfaceExportMF(models.Model):
         now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         file_name = "MFFI-Export-" + now_formatted + ".json"
         exporter_service = self.env["exporter.service.mf"].create({})
-        file_content_dict = exporter_service.format_models_to_export_to_dict(self.model_dictionaries_to_export_mf)
-        json_content = json.dumps(file_content_dict, sort_keys=True, indent=4)
+        converter_service = self.env["converter.service.mf"].create({})
+        records_to_export_list = exporter_service.format_records_to_export_to_list(self.model_dictionaries_to_export_mf)
+        if self.file_extension_mf in ["csv", "txt"]:
+            fields_names_list = self.model_dictionaries_to_export_mf[0].get_fields_names_list()
+        else:
+            fields_names_list = None
+        file_content = converter_service.convert_models_list_to_file_content(
+            records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
+        )
         if self.activate_file_generation_mf:
-            self.create_export_file(file_name, json_content)
+            self.create_export_file(file_name, file_content)
         import_attempt_file = self.env["file.mf"].create({
             "name": file_name,
-            "content_mf": base64.b64encode(json_content)
+            "content_mf": base64.b64encode(file_content)
         })
         self.write({"export_attempts_mf": [(0, 0, {
             "start_datetime_mf": start_datetime,
@@ -56,10 +62,10 @@ class FileInterfaceExportMF(models.Model):
             "file_mf": import_attempt_file.id
         })]})
 
-    def create_export_file(self, file_name, json_content_string):
+    def create_export_file(self, file_name, file_content):
         file_path = os.path.join(self.directory_mf.path_mf, file_name)
         file = open(file_path, "a")
-        file.write(json_content_string)
+        file.write(file_content)
         file.close()
 
     @api.multi
@@ -88,9 +94,10 @@ class FileInterfaceExportMF(models.Model):
 
     @api.one
     def generate_selected_models_import_file(self):
+        # TODO : ajouter method: 'create' dans export JSON et supprimer cette fonction
         exporter_service = self.env["exporter.service.mf"].create({})
-        json_content_array = exporter_service.format_models_to_import_to_dict(self.model_dictionaries_to_export_mf)
-        json_content = json.dumps(json_content_array, sort_keys=True, indent=4)
+        json_content_array = exporter_service.format_records_to_import_to_list(self.model_dictionaries_to_export_mf)
+        json_content = ""  # json.dumps(json_content_array, sort_keys=True, indent=4)
         now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         return self.env["binary.download"].execute(
             base64.b64encode(json_content),

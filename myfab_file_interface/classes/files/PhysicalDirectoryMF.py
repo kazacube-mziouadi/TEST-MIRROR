@@ -47,7 +47,7 @@ class PhysicalDirectoryMF(models.Model):
             for physical_file_name in files_names_list:
                 if self.is_related_file_corresponding_to_physical_file(related_file, physical_file_name):
                     related_file_is_up_to_date = True
-                    continue
+                    break
             if not related_file_is_up_to_date:
                 self.directory_scan_is_needed_mf = True
                 return

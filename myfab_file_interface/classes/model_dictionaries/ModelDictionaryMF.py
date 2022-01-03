@@ -104,3 +104,14 @@ class ModelDictionaryMF(models.AbstractModel):
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary
         return None
+
+    def get_fields_names_list(self, prefix=""):
+        fields_names_list = []
+        for field_to_export in self.fields_to_export_mf:
+            if field_to_export.relation:
+                child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
+                child_prefix = prefix + '/' + field_to_export.name + '/' if prefix else field_to_export.name + '/'
+                fields_names_list = fields_names_list + child_model_dictionary.get_fields_names_list(child_prefix)
+            else:
+                fields_names_list.append(prefix + field_to_export.name)
+        return fields_names_list

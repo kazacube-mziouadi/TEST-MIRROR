@@ -10,7 +10,7 @@ class ExporterServiceMF(models.TransientModel):
     # ===========================================================================
 
     @staticmethod
-    def format_models_to_export_to_dict(model_dictionaries_to_export_mf):
+    def format_records_to_export_to_list(model_dictionaries_to_export_mf):
         content_dict = []
         for model_dictionary in model_dictionaries_to_export_mf:
             model_name = model_dictionary.model_to_export_mf.model
@@ -20,8 +20,8 @@ class ExporterServiceMF(models.TransientModel):
             })
         return content_dict
 
-    def format_models_to_import_to_dict(self, model_dictionaries_to_import_mf):
-        selected_models_dict = self.format_models_to_export_to_dict(model_dictionaries_to_import_mf)
+    def format_records_to_import_to_list(self, model_dictionaries_to_import_mf):
+        selected_models_dict = self.format_records_to_export_to_list(model_dictionaries_to_import_mf)
         json_content_array = []
         for model_object in selected_models_dict:
             model_name = model_object["model"]

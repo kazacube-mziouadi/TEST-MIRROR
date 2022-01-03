@@ -13,16 +13,14 @@ class ParserServiceMF(models.TransientModel):
     # ===========================================================================
 
     def get_records_from_file(
-            self, file_extension, file_content, file_name, file_separator_mf, file_quoting_mf, file_encoding_mf
+            self, file_extension, file_content, file_name, file_separator, file_quoting, file_encoding
     ):
         if file_extension == "json":
             return self._get_records_from_json(file_content)
         elif file_extension == "csv":
-            return self._get_records_from_csv(
-                file_content, file_name, file_separator_mf, file_quoting_mf, file_encoding_mf
-            )
+            return self._get_records_from_csv(file_content, file_name, file_separator, file_quoting, file_encoding)
         elif file_extension == "txt":
-            return self._get_records_from_txt(file_content, file_name, file_quoting_mf, file_encoding_mf)
+            return self._get_records_from_txt(file_content, file_name, file_quoting, file_encoding)
         raise ValueError("The " + file_extension + " file extension is not supported.")
 
     @staticmethod
