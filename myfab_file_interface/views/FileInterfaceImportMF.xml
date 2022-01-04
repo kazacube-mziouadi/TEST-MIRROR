@@ -27,7 +27,7 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='file_extension_mf']" position="after">
+				<xpath expr="//field[@name='file_quoting_mf']" position="after">
 					<field name="file_encoding_mf"/>
 				</xpath>
 				<xpath expr="//group[@name='directory']" position="after">

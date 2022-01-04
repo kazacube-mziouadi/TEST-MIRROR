@@ -31,6 +31,11 @@
 					<field name="activate_file_generation_mf"/>
 					<field name="model_dictionaries_to_export_mf"/>
 				</xpath>
+				<xpath expr="//group[@name='directory']" position="after">
+					<group col="1" string="History">
+						<field name="export_attempts_mf"/>
+					</group>
+				</xpath>
 			</field>
 		</record>
     </data>

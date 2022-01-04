@@ -36,7 +36,7 @@ class FileInterfaceExportMF(models.Model):
     def launch(self):
         start_datetime = datetime.datetime.now()
         now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        file_name = "MFFI-Export-" + now_formatted + ".json"
+        file_name = "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
         exporter_service = self.env["exporter.service.mf"].create({})
         converter_service = self.env["converter.service.mf"].create({})
         records_to_export_list = exporter_service.format_records_to_export_to_list(self.model_dictionaries_to_export_mf)
@@ -61,6 +61,9 @@ class FileInterfaceExportMF(models.Model):
             "is_successful_mf": True,
             "file_mf": import_attempt_file.id
         })]})
+        self.directory_mf.write({
+            "files_mf": [(0, 0, {"name": file_name})]
+        })
 
     def create_export_file(self, file_name, file_content):
         file_path = os.path.join(self.directory_mf.path_mf, file_name)
