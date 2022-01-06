@@ -28,9 +28,11 @@ class ParserServiceMF(models.TransientModel):
         return simplejson.loads(file_content)
 
     def _get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
+        # TODO : on doit pas pouvoir choisir du TXT = on le traitera soit comme du JSON
         return self._get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
 
     def _get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
+        # TODO : verifier si le tri se fait bien sur les int de sequence et le mettre dans l'interface
         model_name = self.get_model_name_from_file_name(file_name)
         csv_rows = csv.reader(
             StringIO(file_content), delimiter=str(file_separator),
@@ -44,11 +46,12 @@ class ParserServiceMF(models.TransientModel):
         # {depth: index, depth: index, ...}
         index_to_process_for_depth_dict = {}
         for csv_row_index, csv_row in enumerate(csv_rows):
-            csv_row = [item.decode(file_encoding) for item in csv_row]
+            csv_row = [cell.decode(file_encoding) for cell in csv_row]
             if csv_row_index == 0:
                 field_names_list = csv_row
                 fields_list = self.get_fields_by_names_list(field_names_list, model_name)
             else:
+                # TODO : COMMENTAIRES !
                 record_values_dict, is_root_record, record_to_write_id = self.get_record_dict_from_values_list(
                     csv_row, fields_list
                 )
@@ -63,6 +66,7 @@ class ParserServiceMF(models.TransientModel):
                         record_to_append["write"] = record_values_dict
                     records_list.append(record_to_append)
                 else:
+                    # TODO : COMMENTAIRES !
                     last_relation_field_processed_depth = self.add_relation_field_dict_to_relation_field_list(
                         record_values_dict,
                         [records_list[-1]["fields"]],

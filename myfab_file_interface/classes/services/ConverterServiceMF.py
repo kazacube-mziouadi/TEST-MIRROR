@@ -39,48 +39,73 @@ class ConverterServiceMF(models.TransientModel):
         csv_writer.writerow(fields_names_list)
         # TODO : in csv/txt we will export the first chosen model's records only
         records_list = models_list[0]["records"]
-        self.write_records_list_in_csv(csv_writer, records_list, fields_names_list, file_encoding)
+        rows_to_write_list = self.get_records_rows_to_write(records_list, fields_names_list, file_encoding)
+        for row_to_write in rows_to_write_list:
+            csv_writer.writerow(row_to_write)
         return csv_content.getvalue()
 
-    def write_records_list_in_csv(self, csv_writer, records_list, fields_names_list, file_encoding, prefix_field_name=""):
+    def get_records_rows_to_write(self, records_list, fields_names_list, file_encoding, prefix_field_name=""):
+        rows_list = []
         for record_dict in records_list:
-            self.write_record_dict_in_csv(csv_writer, record_dict, fields_names_list, file_encoding, prefix_field_name)
+            record_rows_list = self.get_record_rows_to_write(
+                record_dict, fields_names_list, file_encoding, prefix_field_name
+            )
+            rows_list = rows_list + record_rows_list
+        return rows_list
 
-    def write_record_dict_in_csv(self, csv_writer, record_dict, fields_names_list, file_encoding, prefix_field_name):
+    def get_record_rows_to_write(self, record_dict, fields_names_list, file_encoding, prefix_field_name):
+        # Dict containing the not relational fields name and corresponding value for the processed record
+        # ex : { name: "John", ... }
         fields_to_write_dict = {}
+        rows_list = []
         # TODO : the dicts values and lists' first element should be at the same level that the values
         # The first loop creates the "root" record (not any child record at this time)
         for field_name, field_value in record_dict.items():
             if type(field_value) not in [list, dict]:
                 fields_to_write_dict[prefix_field_name + field_name] = field_value
-        self.write_fields_dict_in_csv(csv_writer, fields_to_write_dict, fields_names_list, file_encoding)
+        rows_list.append(
+            self.get_record_row_to_write_from_fields_dict(fields_to_write_dict, fields_names_list, file_encoding)
+        )
         # The second loop creates the children records
         for field_name, field_value in record_dict.items():
-            if type(field_value) is list:
+            # print(field_value)
+            if field_value and type(field_value) in [dict, list]:
                 prefix_sub_field_name = self.get_prefix_for_field_name(field_name, prefix_field_name)
-                self.write_records_list_in_csv(
-                    csv_writer, field_value, fields_names_list, file_encoding, prefix_sub_field_name
-                )
-            elif type(field_value) is dict:
-                prefix_sub_field_name = self.get_prefix_for_field_name(field_name, prefix_field_name)
-                self.write_record_dict_in_csv(
-                    csv_writer, field_value, fields_names_list, file_encoding, prefix_sub_field_name
-                )
+                if type(field_value) is dict:
+                    relation_field_rows_list = self.get_record_rows_to_write(
+                        field_value, fields_names_list, file_encoding, prefix_sub_field_name
+                    )
+                else:
+                    relation_field_rows_list = self.get_records_rows_to_write(
+                        field_value, fields_names_list, file_encoding, prefix_sub_field_name
+                    )
+                # We make sure the first element of the relation field's list is on the same row than the root element
+                rows_list[0] = self.merge_rows_list(rows_list[0], relation_field_rows_list[0])
+                # Then we add the rest of the relation field's list on separate rows
+                rows_list = rows_list + relation_field_rows_list[1:]
+        return rows_list
 
     @staticmethod
-    def write_fields_dict_in_csv(csv_writer, fields_to_write_dict, fields_names_list, file_encoding):
-        csv_row_to_write = []
+    def get_record_row_to_write_from_fields_dict(fields_to_write_dict, fields_names_list, file_encoding):
+        row_to_write = []
         for field_name in fields_names_list:
             if field_name in fields_to_write_dict:
                 field_value = fields_to_write_dict[field_name]
-                cell_to_write = str(field_value) if type(field_value) is bool else field_value
+                cell_to_write = str(field_value) if type(field_value) in [bool, int] else field_value
             else:
                 cell_to_write = ''
-            csv_row_to_write.append(cell_to_write.encode(file_encoding))
-        csv_writer.writerow(csv_row_to_write)
+            row_to_write.append(cell_to_write.encode(file_encoding))
+        return row_to_write
+
+    @staticmethod
+    def merge_rows_list(row1_list, row2_list):
+        for row2_cell in row2_list:
+            # In Python, empty strings are "falsy"
+            if row2_cell:
+                cell_index = row2_list.index(row2_cell)
+                row1_list[cell_index] = row2_cell
+        return row1_list
 
     @staticmethod
     def get_prefix_for_field_name(field_name, current_prefix):
-        return current_prefix + '/' + field_name + '/' if current_prefix else field_name + '/'
-
-
+        return current_prefix + field_name + '/' if current_prefix else field_name + '/'

@@ -6,6 +6,7 @@ class FileInterfaceMF(models.AbstractModel):
     _name = "file.interface.mf"
     _description = "MyFab file interface configuration"
     _auto = False
+    # TODO : creer un dossier a la duplication avec le nom + (1) par exemple = copy ORM
     _sql_constraints = [
         (
             "directory_unique_mf",
@@ -17,7 +18,7 @@ class FileInterfaceMF(models.AbstractModel):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", size=128, required=True, help='')
+    name = fields.Char(string="Name", size=128, required=True)
     directory_mf = fields.Many2one("physical.directory.mf", string="Directory to process", ondelete="cascade",
                                    help="The directory where are stored the files processed by the file interface.",
                                    required=True)
@@ -26,7 +27,7 @@ class FileInterfaceMF(models.AbstractModel):
     directory_scan_is_needed_mf = fields.Boolean(related="directory_mf.directory_scan_is_needed_mf", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     file_extension_mf = fields.Selection(
-        [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default=("json", "JSON"), required=True
+        [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default="json", required=True
     )
     file_separator_mf = fields.Char(string="File data separator", default=",")
     file_quoting_mf = fields.Char(string="File data quoting", default='"')
@@ -37,14 +38,15 @@ class FileInterfaceMF(models.AbstractModel):
 
     @api.one
     def _compute_cron_already_exists(self):
-        existing_crons = self.env["ir.cron"].search([
+        existing_cron_for_self = self.env["ir.cron"].search([
             ("model", "=", self._name),
             ("args", "=", repr([self.id]))
         ], None, 1)
-        if len(existing_crons) > 0:
-            self.cron_already_exists_mf = True
-        else:
-            self.cron_already_exists_mf = False
+        self.cron_already_exists_mf = True if existing_cron_for_self else False
+
+    # ===========================================================================
+    # METHODS - STATIC
+    # ===========================================================================
 
     @staticmethod
     def get_current_datetime():

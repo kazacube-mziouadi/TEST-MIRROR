@@ -2,7 +2,6 @@
 from openerp import models, fields, api, _
 import os
 import base64
-from openerp.addons.myfab_file_interface.classes.files.PhysicalFileMF import PhysicalFileMF
 
 
 class WizardUploadFileMF(models.TransientModel):

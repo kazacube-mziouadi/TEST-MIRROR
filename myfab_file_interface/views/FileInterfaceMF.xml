@@ -2,27 +2,27 @@
 <openerp>
 	<data>
 		<record id='file_interface_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab File Interface Import</field>
-			<field name="res_model">file.interface.import.mf</field>
+        	<field name="name">MyFab File Interface</field>
+			<field name="res_model">file.interface.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='file_interface_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab File Interface Import</field>
-			<field name="model">file.interface.import.mf</field>
+        	<field name="name">MyFab File Interface</field>
+			<field name="model">file.interface.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab File Interface Import Configurations">
+				<tree string="MyFab File Interface Configurations">
 					<field name="name"/>
 				</tree>
 			</field>
         </record>
 
         <record id='file_interface_mf_form' model="ir.ui.view">
-        	<field name="name">file.interface.import.mf.form</field>
-			<field name="model">file.interface.import.mf</field>
+        	<field name="name">file.interface.mf.form</field>
+			<field name="model">file.interface.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab File Interface Import Configuration">
+				<form string="MyFab File Interface Configuration">
 					<group col="9">
 						<group colspan="8" col="1">
 							<group col="1" string="Configuration">
@@ -39,8 +39,10 @@
 							</group>
 							<group name="directory" col="1" string="Directory">
 								<group col="1" attrs="{'invisible': [('directory_mf', '=', False)]}">
-									<field name="directory_path_mf"/>
-									<field name="directory_scan_is_needed_mf" invisible="1"/>
+									<group col="4">
+										<field name="directory_path_mf"/>
+										<field name="directory_scan_is_needed_mf" invisible="1"/>
+									</group>
 									<field name="directory_files_mf"
 										   attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
 									<p attrs="{'invisible': [('directory_scan_is_needed_mf', '=', False)]}">

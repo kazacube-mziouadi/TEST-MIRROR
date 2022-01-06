@@ -48,7 +48,12 @@ class FileInterfaceExportMF(models.Model):
             records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
         )
         if self.activate_file_generation_mf:
-            self.create_export_file(file_name, file_content)
+            self.directory_mf.write({
+                "files_mf": [(0, 0, {
+                    "name": file_name,
+                    "content_mf": file_content
+                })]
+            })
         import_attempt_file = self.env["file.mf"].create({
             "name": file_name,
             "content_mf": base64.b64encode(file_content)
@@ -61,15 +66,6 @@ class FileInterfaceExportMF(models.Model):
             "is_successful_mf": True,
             "file_mf": import_attempt_file.id
         })]})
-        self.directory_mf.write({
-            "files_mf": [(0, 0, {"name": file_name})]
-        })
-
-    def create_export_file(self, file_name, file_content):
-        file_path = os.path.join(self.directory_mf.path_mf, file_name)
-        file = open(file_path, "a")
-        file.write(file_content)
-        file.close()
 
     @api.multi
     def generate_cron_for_export(self):

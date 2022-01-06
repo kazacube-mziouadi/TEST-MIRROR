@@ -38,11 +38,11 @@ class FileInterfaceImportMF(models.Model):
             "file_name_mf": file_name
         }
         import_attempt_file_dict = {
-            "name": file_name
+            "name": file_name,
+            "content_mf": base64.b64encode(file_content)
         }
         records_to_process_list = []
         try:
-            import_attempt_file_dict["content_mf"] = base64.b64encode(file_content)
             records_to_process_list = parser_service.get_records_from_file(
                 self.file_extension_mf, file_content, file_name, self.file_separator_mf, self.file_quoting_mf,
                 self.file_encoding_mf
@@ -55,7 +55,7 @@ class FileInterfaceImportMF(models.Model):
             exception_traceback = traceback.format_exc()
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
-            import_attempt_record_imports = self.get_one2many_record_imports_creation_list_from_dicts_list(
+            import_attempt_record_imports_list = self.get_one2many_record_imports_creation_list_from_dicts_list(
                 records_to_process_list, record_import_failed_dict
             )
             # Creation de la tentative
@@ -64,15 +64,15 @@ class FileInterfaceImportMF(models.Model):
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_datetime(),
                 "message_mf": exception_traceback,
-                "record_imports_mf": import_attempt_record_imports,
+                "record_imports_mf": import_attempt_record_imports_list,
                 "file_mf": import_attempt_file.id
             })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
-            # Commit du curseur (necessaire pour sauvegarder les modifs avant de declencher l'erreur)
-            self.env.cr.commit()
             self.directory_mf.delete_file(file_name)
             # On arrete l'import ici
             return
+        # Creation de la tentative
+        # TODO : factoriser creation tentative (= celle de l'exception)
         import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
         import_attempt_dict.update({
             "end_datetime_mf": self.get_current_datetime(),
@@ -83,10 +83,9 @@ class FileInterfaceImportMF(models.Model):
         })
         self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
         self.directory_mf.delete_file(file_name)
-        self.env.cr.commit()
 
     def get_one2many_record_imports_creation_list_from_dicts_list(self, records_list, record_import_failed_dict=None):
-        import_attempt_record_imports = []
+        import_attempt_record_imports_list = []
         for record_dict in records_list:
             record_import_model = self.env["ir.model"].search(
                 [("model", '=', record_dict["model"])], None, 1
@@ -103,8 +102,8 @@ class FileInterfaceImportMF(models.Model):
                 record_import_dict["status_mf"] = "failed"
             else:
                 record_import_dict["status_mf"] = record_dict["status"] if "status" in record_dict else "not processed"
-            import_attempt_record_imports.append((0, 0, record_import_dict))
-        return import_attempt_record_imports
+            import_attempt_record_imports_list.append((0, 0, record_import_dict))
+        return import_attempt_record_imports_list
 
     # ===========================================================================
     # METHODS - BUTTONS
