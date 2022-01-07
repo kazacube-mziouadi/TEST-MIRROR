@@ -46,14 +46,8 @@
 									<field name="directory_files_mf"
 										   attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
 									<p attrs="{'invisible': [('directory_scan_is_needed_mf', '=', False)]}">
-										The directory's files are out of sync. Use the button below to scan them from the directory.
+										The directory's files are out of sync. Use the "Scan directory" button to synchronize.
 									</p>
-									<button
-										name="scan_directory"
-										string="Scan directory"
-										type="object"
-										class="oe_highlight"
-									/>
 								</group>
 								<p attrs="{'invisible': [('name', '!=', False)]}">
 									You must save the configuration before scanning the files to import.
@@ -67,6 +61,12 @@
 									name="launch_button"
 									string="Launch"
 									icon="fa-play"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="scan_directory"
+									string="Scan directory"
+									icon="fa-search"
+									attrs="{'invisible': [('name', '=', False)]}"/>
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									string="Generate cron for this file interface"
