@@ -97,7 +97,7 @@ class ModelDictionaryMF(models.AbstractModel):
             return child_model_dictionary.get_dict_of_record_to_export(object_field_value, True)
         else:
             # String, boolean, integer...
-            return object_field_value
+            return "" if object_field_value is False and field_to_export.ttype != "boolean" else object_field_value
 
     def get_child_model_dictionary_for_field(self, field_to_export):
         for child_model_dictionary in self.children_model_dictionaries_mf:

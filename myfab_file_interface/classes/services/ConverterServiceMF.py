@@ -58,7 +58,6 @@ class ConverterServiceMF(models.TransientModel):
         # ex : { name: "John", ... }
         fields_to_write_dict = {}
         rows_list = []
-        # TODO : the dicts values and lists' first element should be at the same level that the values
         # The first loop creates the "root" record (not any child record at this time)
         for field_name, field_value in record_dict.items():
             if type(field_value) not in [list, dict]:
@@ -68,7 +67,6 @@ class ConverterServiceMF(models.TransientModel):
         )
         # The second loop creates the children records
         for field_name, field_value in record_dict.items():
-            # print(field_value)
             if field_value and type(field_value) in [dict, list]:
                 prefix_sub_field_name = self.get_prefix_for_field_name(field_name, prefix_field_name)
                 if type(field_value) is dict:
@@ -80,7 +78,7 @@ class ConverterServiceMF(models.TransientModel):
                         field_value, fields_names_list, file_encoding, prefix_sub_field_name
                     )
                 # We make sure the first element of the relation field's list is on the same row than the root element
-                rows_list[0] = self.merge_rows_list(rows_list[0], relation_field_rows_list[0])
+                rows_list[0] = self.merge_cells_list(rows_list[0], relation_field_rows_list[0])
                 # Then we add the rest of the relation field's list on separate rows
                 rows_list = rows_list + relation_field_rows_list[1:]
         return rows_list
@@ -98,13 +96,11 @@ class ConverterServiceMF(models.TransientModel):
         return row_to_write
 
     @staticmethod
-    def merge_rows_list(row1_list, row2_list):
-        for row2_cell in row2_list:
-            # In Python, empty strings are "falsy"
-            if row2_cell:
-                cell_index = row2_list.index(row2_cell)
-                row1_list[cell_index] = row2_cell
-        return row1_list
+    def merge_cells_list(cells_list1, cells_list2):
+        for cell_index, row2_cell in enumerate(cells_list2):
+            if row2_cell != "":
+                cells_list1[cell_index] = row2_cell
+        return cells_list1
 
     @staticmethod
     def get_prefix_for_field_name(field_name, current_prefix):

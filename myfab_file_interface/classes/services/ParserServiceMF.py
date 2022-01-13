@@ -16,22 +16,22 @@ class ParserServiceMF(models.TransientModel):
             self, file_extension, file_content, file_name, file_separator, file_quoting, file_encoding
     ):
         if file_extension == "json":
-            return self._get_records_from_json(file_content)
+            return self.get_records_from_json(file_content)
         elif file_extension == "csv":
-            return self._get_records_from_csv(file_content, file_name, file_separator, file_quoting, file_encoding)
+            return self.get_records_from_csv(file_content, file_name, file_separator, file_quoting, file_encoding)
         elif file_extension == "txt":
-            return self._get_records_from_txt(file_content, file_name, file_quoting, file_encoding)
+            return self.get_records_from_txt(file_content, file_name, file_quoting, file_encoding)
         raise ValueError("The " + file_extension + " file extension is not supported.")
 
     @staticmethod
-    def _get_records_from_json(file_content):
+    def get_records_from_json(file_content):
         return simplejson.loads(file_content)
 
-    def _get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
+    def get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
         # TODO : on doit pas pouvoir choisir du TXT = on le traitera soit comme du JSON
-        return self._get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
+        return self.get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
 
-    def _get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
+    def get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
         # TODO : verifier si le tri se fait bien sur les int de sequence et le mettre dans l'interface
         model_name = self.get_model_name_from_file_name(file_name)
         csv_rows = csv.reader(
@@ -167,10 +167,16 @@ class ParserServiceMF(models.TransientModel):
             relation_field_list.append(relation_field_dict)
             return depth
 
-    # Returns the model name from a given import file name (the file name without the extension)
+    # Returns the model name from a given import file name
     @staticmethod
     def get_model_name_from_file_name(file_name):
         file_name_split_hyphen = file_name.split('-')
         file_name_split_dot = file_name_split_hyphen[-1].split('.')
         file_name_split_dot.pop()
         return '.'.join(file_name_split_dot)
+
+    # Returns the sequence int from a given import file name
+    @staticmethod
+    def get_sequence_from_file_name(file_name):
+        file_name_split_hyphen = file_name.split('-')
+        return file_name_split_hyphen[0]

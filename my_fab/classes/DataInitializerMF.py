@@ -4,7 +4,6 @@ import os
 import logging
 
 logger = logging.getLogger(__name__)
-FIRST_FILE_TO_PROCESS_NAME = "ir.model.fields.csv"
 MODELS_TO_OVERWRITE_NAMES = ["excel.import"]
 DEV_MODE = True
 
@@ -32,10 +31,8 @@ class DataInitializerMF(models.AbstractModel):
             return
         data_dir_path = self.get_data_dir_path()
         file_names = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
-        # Sorting the list of files to process so we process the FIRST_FILE_TO_PROCESS_NAME in priority
-        first_file_to_process_index = file_names.index(FIRST_FILE_TO_PROCESS_NAME)
-        file_names.insert(0, file_names.pop(first_file_to_process_index))
         parser_service = self.env["parser.service.mf"].create({})
+        sorted(file_names, key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
         importer_service = self.env["importer.service.mf"].create({})
         for file_name in file_names:
             self.process_file_by_model_name_in_file_name(parser_service, importer_service, file_name)
