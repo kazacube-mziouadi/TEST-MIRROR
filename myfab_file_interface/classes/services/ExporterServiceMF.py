@@ -14,10 +14,13 @@ class ExporterServiceMF(models.TransientModel):
         content_dict = []
         for model_dictionary in model_dictionaries_to_export_mf:
             model_name = model_dictionary.model_to_export_mf.model
-            content_dict.append({
-                "model": model_name,
-                "records": model_dictionary.get_list_of_records_to_export()
-            })
+            records_to_export_list = model_dictionary.get_list_of_records_to_export()
+            for record_to_export in records_to_export_list:
+                content_dict.append({
+                    "method": "create",
+                    "model": model_name,
+                    "fields": record_to_export
+                })
         return content_dict
 
     def format_records_to_import_to_list(self, model_dictionaries_to_import_mf):

@@ -14,7 +14,7 @@ class PhysicalFileMF(models.TransientModel):
     # ===========================================================================
     last_modification_date_mf = fields.Datetime(string="Last modification date")
     directory_mf = fields.Many2one("physical.directory.mf", string="Directory")
-    path_mf = fields.Char(compute="_compute_path", readonly=True)
+    path_mf = fields.Char(compute="_compute_path", string="Absolute path", readonly=True)
 
     # ===========================================================================
     # METHODS
@@ -22,7 +22,7 @@ class PhysicalFileMF(models.TransientModel):
 
     @api.one
     def _compute_path(self):
-        return os.path.join(self.directory_mf.path_mf, self.name)
+        self.path_mf = os.path.join(self.directory_mf.path_mf, self.name)
 
     @api.model
     def create(self, fields_list):

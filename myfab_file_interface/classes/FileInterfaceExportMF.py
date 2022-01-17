@@ -51,7 +51,7 @@ class FileInterfaceExportMF(models.Model):
             self.directory_mf.write({
                 "files_mf": [(0, 0, {
                     "name": file_name,
-                    "content_mf": file_content
+                    "content_mf": base64.b64encode(file_content)
                 })]
             })
         import_attempt_file = self.env["file.mf"].create({
@@ -90,15 +90,3 @@ class FileInterfaceExportMF(models.Model):
             ("function", "=", "export_records"),
             ("args", "=", repr([self.id]))
         ], None, 1).unlink()
-
-    @api.one
-    def generate_selected_models_import_file(self):
-        # TODO : ajouter method: 'create' dans export JSON et supprimer cette fonction
-        exporter_service = self.env["exporter.service.mf"].create({})
-        json_content_array = exporter_service.format_records_to_import_to_list(self.model_dictionaries_to_export_mf)
-        json_content = ""  # json.dumps(json_content_array, sort_keys=True, indent=4)
-        now = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        return self.env["binary.download"].execute(
-            base64.b64encode(json_content),
-            "MyFabFileInterface-Import-" + now + ".json"
-        )

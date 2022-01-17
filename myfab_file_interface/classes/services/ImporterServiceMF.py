@@ -151,7 +151,13 @@ class ImporterServiceMF(models.TransientModel):
             return (4, relation_field_id) if field_model.ttype == "many2many" else relation_field_id
         self.set_relation_fields_to_ids_in_dict(field_model.relation, relation_field_dict)
         relation_field_record = self.search_records_by_fields_dict(field_model.relation, relation_field_dict, 1)
-        if relation_field_record:
+        if field_model.ttype == "one2many" and relation_field_record:
+            # If a record exists for this one2many element AND is already linked to a many2one, we create a new one.
+            # Else, the existing record is linked to our one2many.
+            return (0, 0, relation_field_dict) if getattr(
+                relation_field_record, field_model.relation_field
+            ) else (4, relation_field_record.id)
+        elif relation_field_record:
             # Link to the existing relation record
             return relation_field_record.id if field_model.ttype == "many2one" else (4, relation_field_record.id)
         else:

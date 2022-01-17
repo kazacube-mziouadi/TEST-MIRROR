@@ -47,7 +47,6 @@ class FileInterfaceImportMF(models.Model):
                 self.file_extension_mf, file_content, file_name, self.file_separator_mf, self.file_quoting_mf,
                 self.file_encoding_mf
             )
-            print(records_to_process_list)
             importer_service.import_records_list(records_to_process_list)
         except Exception as e:
             record_import_failed_dict = None
