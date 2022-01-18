@@ -37,12 +37,23 @@ class ConverterServiceMF(models.TransientModel):
             csv_content, delimiter=str(file_separator), quotechar=str(file_quoting), quoting=csv.QUOTE_ALL
         )
         csv_writer.writerow(fields_names_list)
-        # TODO : in csv/txt we will export the first chosen model's records only
-        records_list = models_list[0]["records"]
+        records_list = self.get_records_list_from_models_list(models_list)
         rows_to_write_list = self.get_records_rows_to_write(records_list, fields_names_list, file_encoding)
         for row_to_write in rows_to_write_list:
             csv_writer.writerow(row_to_write)
         return csv_content.getvalue()
+
+    @staticmethod
+    def get_records_list_from_models_list(models_list):
+        records_list = []
+        # TODO : in csv/txt we will export the first chosen model's records only
+        first_model_name = None
+        for model_dict in models_list:
+            if not first_model_name:
+                first_model_name = model_dict["model"]
+            if first_model_name == model_dict["model"]:
+                records_list.append(model_dict["fields"])
+        return records_list
 
     def get_records_rows_to_write(self, records_list, fields_names_list, file_encoding, prefix_field_name=""):
         rows_list = []
