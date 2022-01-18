@@ -88,9 +88,10 @@ class ModelDictionaryMF(models.AbstractModel):
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of records
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
+            print(field_to_export)
             return child_model_dictionary.get_list_of_records_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
-            )
+            ) if child_model_dictionary else ""
         elif field_to_export.ttype == "many2one":
             # Record
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
