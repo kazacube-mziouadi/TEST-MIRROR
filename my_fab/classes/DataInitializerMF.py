@@ -5,7 +5,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 MODELS_TO_OVERWRITE_NAMES = ["excel.import"]
-DEV_MODE = True
+DEV_MODE = False
 
 
 class DataInitializerMF(models.AbstractModel):
