@@ -34,7 +34,8 @@ class ConverterServiceMF(models.TransientModel):
     def _convert_models_list_to_csv(self, models_list, file_separator, file_quoting, fields_names_list, file_encoding):
         csv_content = StringIO("")
         csv_writer = csv.writer(
-            csv_content, delimiter=str(file_separator), quotechar=str(file_quoting), quoting=csv.QUOTE_ALL
+            csv_content, delimiter=str(file_separator), quotechar=str(file_quoting) if file_quoting else None,
+            quoting=csv.QUOTE_ALL if file_quoting else csv.QUOTE_NONE
         )
         csv_writer.writerow(fields_names_list)
         records_list = self.get_records_list_from_models_list(models_list)
@@ -100,7 +101,7 @@ class ConverterServiceMF(models.TransientModel):
         for field_name in fields_names_list:
             if field_name in fields_to_write_dict:
                 field_value = fields_to_write_dict[field_name]
-                cell_to_write = str(field_value) if type(field_value) in [bool, int] else field_value
+                cell_to_write = str(field_value) if type(field_value) in [bool, int, float] else field_value
             else:
                 cell_to_write = ''
             row_to_write.append(cell_to_write.encode(file_encoding))

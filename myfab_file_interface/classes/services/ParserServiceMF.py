@@ -28,7 +28,7 @@ class ParserServiceMF(models.TransientModel):
         return simplejson.loads(file_content)
 
     def get_records_from_txt(self, file_content, file_name, file_quoting, file_encoding):
-        # TODO : on doit pas pouvoir choisir du TXT = on le traitera soit comme du JSON
+        # TODO : on ne doit pas pouvoir choisir du TXT = on le traitera soit comme du JSON soit comme du CSV
         return self.get_records_from_csv(file_content, file_name, "\t", file_quoting, file_encoding)
 
     def get_records_from_csv(self, file_content, file_name, file_separator, file_quoting, file_encoding):
@@ -60,7 +60,8 @@ class ParserServiceMF(models.TransientModel):
                     record_to_append = {
                         "method": "write" if record_to_write_id else "create",
                         "model": model_name,
-                        "fields": {"id": record_to_write_id} if record_to_write_id else record_values_dict
+                        "fields": {"id": record_to_write_id} if record_to_write_id else record_values_dict,
+                        "rows": [csv_row]
                     }
                     if record_to_write_id:
                         record_to_append["write"] = record_values_dict
@@ -72,6 +73,7 @@ class ParserServiceMF(models.TransientModel):
                         [records_list[-1]["fields"]],
                         index_to_process_for_depth_dict
                     )
+                    records_list[-1]["rows"].append(csv_row)
                     index_to_process_for_depth_dict[last_relation_field_processed_depth] += 1
         return records_list
 
@@ -82,9 +84,7 @@ class ParserServiceMF(models.TransientModel):
         return fields_list
 
     def get_field_by_name_tree(self, field_name_tree, model_name):
-        model = self.env["ir.model"].search([
-            ("model", '=', model_name)
-        ], None, 1)
+        model = self.env["ir.model"].search([("model", '=', model_name)], None, 1)
         if '/' in field_name_tree:
             field_name_tree_list = field_name_tree.split('/')
             sub_field_name_tree = self.get_sub_field_name_tree_str(field_name_tree_list)
@@ -178,5 +178,7 @@ class ParserServiceMF(models.TransientModel):
     # Returns the sequence int from a given import file name
     @staticmethod
     def get_sequence_from_file_name(file_name):
+        if type(file_name) is not str:
+            file_name = file_name.name
         file_name_split_hyphen = file_name.split('-')
-        return file_name_split_hyphen[0]
+        return int(file_name_split_hyphen[0]) if file_name_split_hyphen[0].isdigit() else file_name_split_hyphen[0]

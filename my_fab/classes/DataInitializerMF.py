@@ -27,12 +27,15 @@ class DataInitializerMF(models.AbstractModel):
 
     @api.multi
     def import_files(self):
+        # TODO : aller lire le dev_mode dans le fichier de conf
         if DEV_MODE:
             return
         data_dir_path = self.get_data_dir_path()
-        file_names = [f for f in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, f))]
+        file_names = [file for file in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, file))]
         parser_service = self.env["parser.service.mf"].create({})
-        sorted(file_names, key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
+        # TODO : a reporter sur le FileInterfaceImport
+        # sorted(file_names, key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
+        file_names.sort()
         importer_service = self.env["importer.service.mf"].create({})
         for file_name in file_names:
             self.process_file_by_model_name_in_file_name(parser_service, importer_service, file_name)
@@ -42,7 +45,7 @@ class DataInitializerMF(models.AbstractModel):
         model_name = parser_service.get_model_name_from_file_name(file_name)
         if model_name in MODELS_TO_OVERWRITE_NAMES:
             # Delete all the MyFab current records for the model before importing
-            myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - ")])
+            myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - %")])
             myfab_default_records.unlink()
         self.import_file(parser_service, importer_service, model_name, file_name)
 

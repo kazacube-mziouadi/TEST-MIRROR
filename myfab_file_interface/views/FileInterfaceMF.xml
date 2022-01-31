@@ -33,7 +33,7 @@
 									<field name="file_separator_mf"
 										   attrs="{'invisible': [('file_extension_mf', '!=', 'csv')]}"/>
 									<field name="file_quoting_mf"
-										   attrs="{'invisible': [('file_extension_mf', '=', 'json')]}"/>
+										   attrs="{'invisible': [('file_extension_mf', 'not in', ['csv', 'txt'])]}"/>
 									<field name="cron_already_exists_mf" invisible="1"/>
 								</group>
 							</group>

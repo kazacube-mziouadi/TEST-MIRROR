@@ -1,6 +1,5 @@
 from openerp import models, fields, api, _
 import datetime
-import os
 import base64
 
 
@@ -24,16 +23,9 @@ class FileInterfaceExportMF(models.Model):
     # ===========================================================================
 
     @api.one
-    def _compute_cron_already_exists(self):
-        existing_crons = self.env["ir.cron"].search([
-            ("model", "=", "file.interface.export.mf"),
-            ("function", "=", "export_records"),
-            ("args", "=", repr([self.id]))
-        ], None, 1)
-        self.cron_already_exists_mf = len(existing_crons) > 0
-
-    @api.one
     def launch(self):
+        if not self.is_ready_to_launch():
+            return
         start_datetime = datetime.datetime.now()
         now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
         file_name = "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
@@ -44,28 +36,32 @@ class FileInterfaceExportMF(models.Model):
             fields_names_list = self.model_dictionaries_to_export_mf[0].get_fields_names_list()
         else:
             fields_names_list = None
+        # TODO : csv/txt n'exportent que le premier Model Dictionary => boucler pour generer un fichier par modele dict
         file_content = converter_service.convert_models_list_to_file_content(
             records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
         )
-        if self.activate_file_generation_mf:
-            self.directory_mf.write({
-                "files_mf": [(0, 0, {
-                    "name": file_name,
-                    "content_mf": base64.b64encode(file_content)
-                })]
-            })
-        import_attempt_file = self.env["file.mf"].create({
+        export_file_dict = {
             "name": file_name,
             "content_mf": base64.b64encode(file_content)
+        }
+        if self.activate_file_generation_mf:
+            self.directory_mf.write({
+                "files_mf": [(0, 0, export_file_dict)]
+            })
+        export_attempt_file = self.env["file.mf"].create(export_file_dict)
+        self.write({
+            "export_attempts_mf": [(0, 0, {
+                "start_datetime_mf": start_datetime,
+                "file_name_mf": file_name,
+                "end_datetime_mf": datetime.datetime.now(),
+                "message_mf": "Export successful.",
+                "is_successful_mf": True,
+                "file_mf": export_attempt_file.id
+            })]
         })
-        self.write({"export_attempts_mf": [(0, 0, {
-            "start_datetime_mf": start_datetime,
-            "file_name_mf": file_name,
-            "end_datetime_mf": datetime.datetime.now(),
-            "message_mf": "Export successful.",
-            "is_successful_mf": True,
-            "file_mf": import_attempt_file.id
-        })]})
+
+    def is_ready_to_launch(self):
+        return self.model_dictionaries_to_export_mf
 
     @api.multi
     def generate_cron_for_export(self):

@@ -27,6 +27,7 @@ class FileInterfaceImportMF(models.Model):
             self.directory_mf.scan_directory()
         parser_service = self.env["parser.service.mf"].create({})
         importer_service = self.env["importer.service.mf"].create({})
+        # sorted(iteritems(self.directory_mf.files_mf), key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
         for file_to_import in self.directory_mf.files_mf:
             self.import_file(
                 parser_service, importer_service, base64.b64decode(file_to_import.content_mf), file_to_import.name
@@ -64,8 +65,8 @@ class FileInterfaceImportMF(models.Model):
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_datetime(),
                 "message_mf": exception_traceback,
-                "record_imports_mf": import_attempt_record_imports_list,
-                "file_mf": import_attempt_file.id
+                "file_mf": import_attempt_file.id,
+                "record_imports_mf": import_attempt_record_imports_list
             })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             self.directory_mf.delete_file(file_name)
@@ -75,9 +76,9 @@ class FileInterfaceImportMF(models.Model):
         # TODO : factoriser creation tentative (= celle de l'exception)
         import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
         import_attempt_dict.update({
+            "is_successful_mf": True,
             "end_datetime_mf": self.get_current_datetime(),
             "message_mf": "Import successful.",
-            "is_successful_mf": True,
             "file_mf": import_attempt_file.id,
             "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
@@ -93,7 +94,7 @@ class FileInterfaceImportMF(models.Model):
             record_import_dict = {
                 "method_mf": record_dict["method"],
                 "model_mf": record_import_model.id,
-                "fields_mf": record_dict["fields"],
+                "fields_mf": record_dict["rows"] if "rows" in record_dict else record_dict["fields"],
                 "fields_to_write_mf": record_dict["write"] if "write" in record_dict else "",
                 "callback_method_mf": record_dict["callback"] if "callback" in record_dict else "",
                 "committed_mf": record_dict["committed"] if "committed" in record_dict else False
