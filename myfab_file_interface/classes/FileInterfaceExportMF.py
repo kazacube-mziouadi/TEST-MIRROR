@@ -27,8 +27,7 @@ class FileInterfaceExportMF(models.Model):
         if not self.is_ready_to_launch():
             return
         start_datetime = datetime.datetime.now()
-        now_formatted = (start_datetime + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
-        file_name = "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
+        file_name = self.get_file_name()
         exporter_service = self.env["exporter.service.mf"].create({})
         converter_service = self.env["converter.service.mf"].create({})
         records_to_export_list = exporter_service.format_records_to_export_to_list(self.model_dictionaries_to_export_mf)
@@ -62,6 +61,10 @@ class FileInterfaceExportMF(models.Model):
 
     def is_ready_to_launch(self):
         return self.model_dictionaries_to_export_mf
+
+    def get_file_name(self):
+        now_formatted = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+        return "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
 
     @api.multi
     def generate_cron_for_export(self):

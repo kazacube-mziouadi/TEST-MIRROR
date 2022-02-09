@@ -1,4 +1,5 @@
 from openerp import models, fields, api, _
+from openerp.exceptions import MissingError
 
 
 class ModelDictionaryMF(models.AbstractModel):
@@ -103,7 +104,7 @@ class ModelDictionaryMF(models.AbstractModel):
         for child_model_dictionary in self.children_model_dictionaries_mf:
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary
-        return None
+        raise MissingError("No model dictionary found for model " + field_to_export.relation)
 
     def get_fields_names_list(self, prefix=""):
         fields_names_list = []
