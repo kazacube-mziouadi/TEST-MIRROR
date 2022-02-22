@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Machines spéciales',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name': 'Machines spéciales',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Modules nécessaires aux Machines spéciales',
-    'category' : 'Industrial sectors',
-    'description' : """Regroupe tous les modules nécessaire aux machines spéciales.""",
+    'category': 'Industrial sectors',
+    'description': """Regroupe tous les modules nécessaire aux machines spéciales.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'my_fab'
     ],
     'data': [],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,

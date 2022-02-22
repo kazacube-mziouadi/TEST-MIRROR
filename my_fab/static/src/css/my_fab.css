@@ -48,13 +48,7 @@
 }
 
 .boolean-color-chip .oe_list_field_boolean > input[checked="checked"]:before {
-    content: "";
-    width: 17px;
-    height: 17px;
-    border-radius: 20px;
     background: green;
-    display: inline-block;
-    margin: -2px 0px 0px -2px;
 }
 
 /* Columns border */

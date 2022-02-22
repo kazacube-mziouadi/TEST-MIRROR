@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Payment',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name': 'Payment',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Réduire votre encours clients et automatiser les relances. (Sortie prochaine)',
-    'category' : 'Accounting & Finance',
-    'description' : """Réduire votre encours clients et automatiser les relances.
+    'category': 'Accounting & Finance',
+    'description': """Réduire votre encours clients et automatiser les relances.
     Ce module n'est pas encore disponible.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'my_fab'
     ],
     'data': [],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': False,
