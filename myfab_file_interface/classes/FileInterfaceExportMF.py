@@ -1,6 +1,6 @@
 from openerp import models, fields, api, _
 import datetime
-import base64
+from openerp.exceptions import MissingError
 
 
 class FileInterfaceExportMF(models.Model):
@@ -24,8 +24,8 @@ class FileInterfaceExportMF(models.Model):
 
     @api.one
     def launch(self):
-        if not self.is_ready_to_launch():
-            return
+        if not self.model_dictionaries_to_export_mf:
+            raise MissingError("You must configure the models to export before being able to launch the export.")
         start_datetime = datetime.datetime.now()
         file_name = self.get_file_name()
         exporter_service = self.env["exporter.service.mf"].create({})
@@ -58,9 +58,6 @@ class FileInterfaceExportMF(models.Model):
                 "file_mf": export_attempt_file.id
             })]
         })
-
-    def is_ready_to_launch(self):
-        return self.model_dictionaries_to_export_mf
 
     def get_file_name(self):
         now_formatted = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")

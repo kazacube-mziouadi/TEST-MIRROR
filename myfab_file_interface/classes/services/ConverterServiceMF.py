@@ -29,7 +29,7 @@ class ConverterServiceMF(models.TransientModel):
         return json.dumps(models_list, sort_keys=True, indent=4)
 
     def _convert_models_list_to_txt(self, models_list, file_quoting, fields_names_list, file_encoding):
-        return self.convert_models_list_to_csv(models_list, "\t", file_quoting, fields_names_list, file_encoding)
+        return self._convert_models_list_to_csv(models_list, "\t", file_quoting, fields_names_list, file_encoding)
 
     def _convert_models_list_to_csv(self, models_list, file_separator, file_quoting, fields_names_list, file_encoding):
         csv_content = StringIO("")
