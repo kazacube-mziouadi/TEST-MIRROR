@@ -8,6 +8,7 @@
                 <link rel="stylesheet" href="/my_fab/static/src/css/my_fab.css" />
                 <script type="text/javascript" src="/my_fab/static/src/js/jquery.ui.touch-punch.js"></script>
                 <script type="text/javascript" src="/my_fab/static/src/js/my_fab.js"></script>
+                <script type="text/javascript" src="/my_fab/static/src/js/list_view_expand_all_auto.js"></script>
             </xpath>
         </template>
         

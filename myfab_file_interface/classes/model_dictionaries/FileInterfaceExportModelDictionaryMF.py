@@ -10,7 +10,7 @@ class FileInterfaceExportModelDictionaryMF(models.Model):
     # COLUMNS
     # ===========================================================================
     file_interface_export_mf = fields.Many2one("file.interface.export.mf", required=False, readonly=True,
-                                                     string="MyFab File Interface Export")
+                                               string="MyFab File Interface Export")
     children_model_dictionaries_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                      "parent_model_dictionary_mf", ondelete="cascade",
                                                      string="Children Model Export Configs")

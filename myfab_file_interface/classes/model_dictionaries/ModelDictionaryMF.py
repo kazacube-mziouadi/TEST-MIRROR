@@ -53,17 +53,15 @@ class ModelDictionaryMF(models.AbstractModel):
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
 
-    def get_list_of_records_to_export(self, ids_to_search_list=None):
+    def get_list_of_records_to_export(self, ids_to_search_list=False):
         list_of_records_to_export = []
         filters_list = self.get_filters_list_to_apply()
-        if ids_to_search_list is not None:
+        if ids_to_search_list:
             filters_list.append(("id", "in", ids_to_search_list))
         objects_to_export = self.env[self.model_to_export_mf.model].search(filters_list)
         self.number_of_records_exported = len(objects_to_export)
         for object_to_export in objects_to_export:
-            list_of_records_to_export.append(self.get_dict_of_record_to_export(
-                object_to_export
-            ))
+            list_of_records_to_export.append(self.get_dict_of_record_to_export(object_to_export))
         return list_of_records_to_export
 
     def get_filters_list_to_apply(self):
@@ -91,11 +89,11 @@ class ModelDictionaryMF(models.AbstractModel):
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
             return child_model_dictionary.get_list_of_records_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
-            ) if child_model_dictionary else ""
+            )
         elif field_to_export.ttype == "many2one":
             # Record
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_record_to_export(object_field_value, True)
+            return child_model_dictionary.get_dict_of_record_to_export(object_field_value, apply_filters=True)
         else:
             # String, boolean, integer...
             return "" if object_field_value is False and field_to_export.ttype != "boolean" else object_field_value

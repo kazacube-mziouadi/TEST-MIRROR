@@ -41,7 +41,7 @@ class FileInterfaceExportMF(models.Model):
         )
         export_file_dict = {
             "name": file_name,
-            "content_mf": base64.b64encode(file_content)
+            "content_mf": file_content
         }
         if self.activate_file_generation_mf:
             self.directory_mf.write({

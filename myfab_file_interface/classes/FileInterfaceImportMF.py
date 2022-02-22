@@ -40,7 +40,7 @@ class FileInterfaceImportMF(models.Model):
         }
         import_attempt_file_dict = {
             "name": file_name,
-            "content_mf": base64.b64encode(file_content)
+            "content_mf": file_content
         }
         records_to_process_list = []
         try:

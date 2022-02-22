@@ -18,6 +18,11 @@ class FileMF(models.Model):
     # METHODS
     # ===========================================================================
 
+    @api.model
+    def create(self, fields_list):
+        fields_list["content_mf"] = base64.b64encode(fields_list["content_mf"])
+        return super(FileMF, self).create(fields_list)
+
     @api.one
     def _compute_content_preview(self):
         # Only way to get the file content string from a binary file field : call the above specific Odoo route...

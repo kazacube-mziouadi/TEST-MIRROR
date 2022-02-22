@@ -11,8 +11,8 @@
 						   name="file_to_import_mf" class="oe_import_file my_fab_drag_and_drop"/>
                         <field name="file_name_mf" invisible="1"/>
 					</group>
-					<div class="drag_and_drop_area">
-                        <p>Drop a .json file here</p>
+					<div class="drag-and-drop-area">
+                        <p>Drop a file here</p>
                     </div>
 					<footer>
                         <button name="action_validate_upload" type="object" string="Upload import file" class="oe_highlight"/>

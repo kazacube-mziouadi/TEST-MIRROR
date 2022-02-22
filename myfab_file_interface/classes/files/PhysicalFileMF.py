@@ -29,7 +29,7 @@ class PhysicalFileMF(models.TransientModel):
         directory_mf = self.env["physical.directory.mf"].search([("id", '=', fields_list["directory_mf"])], None, 1)
         file_path = os.path.join(directory_mf.path_mf, fields_list["name"])
         if os.path.exists(file_path):
-            fields_list["content_mf"] = base64.b64encode(self.get_content_from_physical_file(file_path))
+            fields_list["content_mf"] = self.get_content_from_physical_file(file_path)
         else:
             self.create_physical_file(file_path, fields_list["content_mf"])
         fields_list["last_modification_date_mf"] = self.get_last_modification_date(file_path)
