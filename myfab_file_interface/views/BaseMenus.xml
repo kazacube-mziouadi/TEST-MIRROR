@@ -3,8 +3,8 @@
 	<data>
 		<menuitem id="base.menu_external_apis_mf" name="External APIs MyFab" parent="base.menu_administration" sequence="200"/>
 			<menuitem id="menu_myfab_file_interface_exports" name="Exports File Interface MyFab" parent="base.menu_external_apis_mf"
-					  sequence="10" action="myfab_file_interface_export_mf" groups="myfab_file_interface.group_myfab_file_interface_export"/>
+					  sequence="10" action="file_interface_export_mf" groups="myfab_file_interface.group_myfab_file_interface_export"/>
 			<menuitem id="menu_myfab_file_interface_imports" name="Imports File Interface MyFab" parent="base.menu_external_apis_mf"
-					  sequence="11" action="myfab_file_interface_import_mf" groups="myfab_file_interface.group_myfab_file_interface_import"/>
+					  sequence="11" action="file_interface_import_mf" groups="myfab_file_interface.group_myfab_file_interface_import"/>
 	</data>
 </openerp>

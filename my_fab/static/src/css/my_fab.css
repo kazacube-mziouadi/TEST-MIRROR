@@ -1,3 +1,4 @@
+/* Drag'n'drop */
 .is-dragover {
     background-color: #fff !important;
     border-color: #4272AD;
@@ -7,7 +8,7 @@
     color: #4272AD !important;
 }
 
-.drag_and_drop_area {
+.drag-and-drop-area {
     width: 378px;
     height: 100px;
     background-color: #4272AD;
@@ -21,7 +22,7 @@
     box-shadow: 0px 0px 5px #4272AD;
 }
 
-.drag_and_drop_area > p {
+.drag-and-drop-area > p {
     color: #fff;
     font-size: 2rem;
     font-weight: bold;
@@ -33,4 +34,24 @@
 
 .dropdown-backdrop {
     display: none;
+}
+
+/* Colored chips */
+.boolean-color-chip .oe_list_field_boolean > input:before {
+    content: "";
+    width: 17px;
+    height: 17px;
+    border-radius: 20px;
+    background: red;
+    display: inline-block;
+    margin: -2px 0px 0px -2px;
+}
+
+.boolean-color-chip .oe_list_field_boolean > input[checked="checked"]:before {
+    background: green;
+}
+
+/* Columns border */
+.show-columns-border td:nth-child(n+3) {
+    border-left: solid 1px #d3d3d3;
 }

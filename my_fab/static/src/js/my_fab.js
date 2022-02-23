@@ -31,17 +31,17 @@ function roundTo(n, digits) {
 
 // Drag'n'drop file area
 document.addEventListener("DOMContentLoaded", function(event) {
-  $(document).on('drag dragstart dragend dragover dragenter dragleave drop', '.drag_and_drop_area', function(e) {
+  $(document).on('drag dragstart dragend dragover dragenter dragleave drop', '.drag-and-drop-area', function(e) {
      e.preventDefault();
      e.stopPropagation();
   })
-  $(document).on('dragover dragenter', '.drag_and_drop_area', function(e) {
-    $('.drag_and_drop_area').addClass('is-dragover');
+  $(document).on('dragover dragenter', '.drag-and-drop-area', function(e) {
+    $('.drag-and-drop-area').addClass('is-dragover');
   })
-  $(document).on('dragleave dragend drop', '.drag_and_drop_area', function(e) {
-    $('.drag_and_drop_area').removeClass('is-dragover');
+  $(document).on('dragleave dragend drop', '.drag-and-drop-area', function(e) {
+    $('.drag-and-drop-area').removeClass('is-dragover');
   })
-  $(document).on('drop', '.drag_and_drop_area', function(e) {
+  $(document).on('drop', '.drag-and-drop-area', function(e) {
     inputFile = $('.my_fab_drag_and_drop').find('input[type="file"]')[0];
     inputFile.files = e.originalEvent.dataTransfer.files;
     $(inputFile).change();

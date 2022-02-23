@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, http, _
-from openerp.exceptions import ValidationError
-import inspect, types, collections, operator, json
+import json
 from ExceptionApiMF import ExceptionApiMF
 from datetime import datetime
+
 
 class ApiRestControllerMF(http.Controller):
     _debug = {}
@@ -20,7 +20,7 @@ class ApiRestControllerMF(http.Controller):
 
         my_model = http.request.env["ir.model"].search([("model", "=", model)])
         if getattr(my_model, "id", False) is False:
-            return {"error" : "The '"+model+"' model does not exist."}
+            return {"error": "The '"+model+"' model does not exist."}
 
         # recuperation des fields
         fields = kwargs.get("fields", [])
@@ -38,7 +38,7 @@ class ApiRestControllerMF(http.Controller):
 
         debug_list = self.__list_to_string(records)
 
-        # Convertion en dictionary qui est convertible en json
+        # Conversion en dictionary qui est convertible en json
         result = self.__list_record_to_dictionary(records, fields, detail)
 
         if debug is True:
@@ -49,7 +49,7 @@ class ApiRestControllerMF(http.Controller):
             self._debug["result"] = result
             return self._debug
         else:
-            return result;
+            return result
 
     @http.route("/myfab/rest/<model>/<id>", auth="public", type="json", methods=["get"])
     def get_one_record(self, model, id, **kwargs):
@@ -73,7 +73,7 @@ class ApiRestControllerMF(http.Controller):
             self._debug["result"] = result
             return self._debug
         else:
-            return result;
+            return result
 
     @http.route("/myfab/rest/<model>", auth="public", type="json", methods=["post"])
     def create_record(self, model, **kwargs):
@@ -103,7 +103,6 @@ class ApiRestControllerMF(http.Controller):
     def edit_record(self, model, id, **kwargs):
         self.__reset_debug()
 
-
         my_model = http.request.env["ir.model"].search([("model", "=", model)])
         if getattr(my_model, "id", False) is False:
             return {"error": "The '" + model + "' model does not exist."}
@@ -130,22 +129,22 @@ class ApiRestControllerMF(http.Controller):
         record_object.unlink()
         return "The '"+model+"' with id '"+str(id)+"' has been deleted with success."
 
-    # transorme un/des filtre(s) en une liste de record
+    # Transforme un/des filtre(s) en une liste de records
     # recursive 1/2
     def __filter_to_records(self, model_name, filter):
         self.__add_debug_log("__filter_to_records(model_name:"+model_name+", filter:"+json.dumps(filter)+")")
 
         # Si aucun filtre en renvois tous les resultats
         if filter is None or len(filter) == 0:
-            results = http.request.env[model_name].search([]);
+            results = http.request.env[model_name].search([])
             return list(results)
 
-        # Si c'est un filtre direct alors on renvoi les retour de l'ORM caste en list
+        # Si c'est un filtre direct alors on renvoie les retours de l'ORM caste en list
         if "field" in filter and "comparator" in filter and "value" in filter:
-            results = http.request.env[model_name].search(self.__parse_filter(filter));
+            results = http.request.env[model_name].search(self.__parse_filter(filter))
             return list(results)
 
-        # Si c'est une combinaison de sous-filtre
+        # Si c'est une combinaison de sous-filtres
         elif "operator" in filter and "filters" in filter:
             results = self.__filters_to_list_record(model_name, filter)
 
@@ -157,7 +156,7 @@ class ApiRestControllerMF(http.Controller):
         else:
             return ExceptionApiMF("A filter must contain the fields 'field', 'comparator' and 'value' OR 'operator' and 'filters'.")
 
-    # transorme des filtres (et, ou) en une liste de record
+    # Transforme des filtres (et, ou) en une liste de record
     # recursive 2/2
     def __filters_to_list_record(self, model_name, filters):
         self.__add_debug_log("__filters_to_list_record(model_name:" + model_name + ", filters:" + json.dumps(filters) + ")")
@@ -189,8 +188,7 @@ class ApiRestControllerMF(http.Controller):
                 result = self.__union_list(result, temp)
         return result
 
-
-    # Convertie une liste de record en une liste de dictionnaire (court ou long)
+    # Convertit une liste de record en une liste de dictionnaire (court ou long)
     def __list_record_to_dictionary(self, records, fields=[], detail=False):
         self.__add_debug_log("__list_record_to_dictionary(records:" + self.__list_to_string(records) + ", detail:" + ("True" if detail else "False") + ")")
         list = []
@@ -205,20 +203,20 @@ class ApiRestControllerMF(http.Controller):
     def __api_url(self):
         return http.request.env["ir.config_parameter"].sudo().get_param('web.base.url')+"/myfab/rest/"
 
-    # Convertie un record en un dictionnaire court
+    # Convertit un record en un dictionnaire court
     def __record_to_short_dictionary(self, record):
         self.__add_debug_log("__record_to_short_dictionary(record:" + str(record.id) + "["+type(record).__name__+"])")
 
         fields = fields = http.request.env["ir.model.fields"].search([("model", "=", type(record).__name__)])
         fields = map(lambda item: item.name, fields)
         return {
-            "id" : record.id,
-            "fields" : fields,
-            "model" : type(record).__name__,
-            "url_api" : self.__api_url() + type(record).__name__ + "/" + str(record.id),
+            "id": record.id,
+            "fields": fields,
+            "model": type(record).__name__,
+            "url_api": self.__api_url() + type(record).__name__ + "/" + str(record.id),
         }
 
-    # Convertie un record en un dictionnaire long
+    # Convertit un record en un dictionnaire long
     # Les sous-record seront convertis en dictionnaire court
     def __record_to_long_dictionary(self, record, fields=[]):
         self.__add_debug_log("__record_to_long_dictionary(record:" + str(record.id) + "["+type(record).__name__+")")
@@ -226,19 +224,19 @@ class ApiRestControllerMF(http.Controller):
         model_fields = http.request.env["ir.model.fields"].search([("model", "=", type(record).__name__)])
         for model_field in model_fields:
 
-            # Son afficher que les fields voulus
+            # Ne sont affichés que les fields voulus
             if len(fields) > 0 and model_field.name not in fields:
                 continue
 
-            if (model_field.relation == False):
+            if model_field.relation == False:
                 value = record[model_field.name]
             else:
-                if (model_field.ttype == "many2one"):
-                    if (record[model_field.name].id == False):
+                if model_field.ttype == "many2one":
+                    if record[model_field.name].id == False:
                         value = None
                     else:
                         value = self.__record_to_short_dictionary(record[model_field.name])
-                elif (model_field.ttype == "many2many" or model_field.ttype == "one2many"):
+                elif model_field.ttype == "many2many" or model_field.ttype == "one2many":
                     value = self.__list_record_to_dictionary(getattr(record, model_field.name), fields, False)
                 else:
                     value = "Error: We should never reach this end !"
@@ -257,19 +255,17 @@ class ApiRestControllerMF(http.Controller):
             filters.append((filter_encoded["field"], filter_encoded["comparator"], filter_encoded["value"]))
         return filters
 
-
     # Fait une union des deux listes sans faire de doublon
     def __union_list(self, list1, list2):
         final_list = list(set(list1) | set(list2))
         return final_list
 
-    # Convertie un list de model en une string
+    # Convertit un list de model en une string
     def __list_to_string(self, list1):
         list2 = []
         for record in list1:
             list2.append(str(record.id))
-        return  "["+ ", ".join(list2) + "]"
-
+        return "[" + ", ".join(list2) + "]"
 
     def __reset_debug(self):
         self._debug = {
