@@ -1,0 +1,8 @@
+active,partner_bank_id/id,name,company_id/id,company_partner_id/id
+True,,Caisse,base.main_company,base.main_partner
+True,,Chèque,base.main_company,base.main_partner
+True,,Prélèvement,base.main_company,base.main_partner
+True,,Traite acceptée,base.main_company,base.main_partner
+True,,Traite directe,base.main_company,base.main_partner
+True,,Virement,base.main_company,base.main_partner
+True,,CB,base.main_company,base.main_partner

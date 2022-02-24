@@ -27,7 +27,8 @@ class FileInterfaceImportMF(models.Model):
             self.directory_mf.scan_directory()
         parser_service = self.env["parser.service.mf"].create({})
         importer_service = self.env["importer.service.mf"].create({})
-        # sorted(iteritems(self.directory_mf.files_mf), key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
+        # TODO : Tri incorrect (ex : un fichier avec sequence 2-xxx sera lu apres un autre qui a une sequence 11-xxx)
+        # sorted(iteritems(self.directory_mf.files_mf), key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
         for file_to_import in self.directory_mf.files_mf:
             self.import_file(
                 parser_service, importer_service, base64.b64decode(file_to_import.content_mf), file_to_import.name
