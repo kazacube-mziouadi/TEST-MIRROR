@@ -5,7 +5,6 @@ import logging
 from openerp.tools import config
 
 logger = logging.getLogger(__name__)
-MODELS_TO_OVERWRITE_NAMES = []
 IMPORT_MODE_INSTALL = "install"
 IMPORT_MODE_UPDATE = "update"
 
@@ -21,7 +20,7 @@ class DataInitializerMF(models.AbstractModel):
     is_configuration_done = fields.Boolean(string="Is configuration done", default=False)
 
     # ===========================================================================
-    # METHODS TO OVERRIDE
+    # METHODS OVERRIDABLE
     # ===========================================================================
 
     # Method to override in order to declare models' names which data must be overwritten by the imported data files
