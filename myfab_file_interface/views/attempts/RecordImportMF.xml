@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='record_import_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab Record Import</field>
+			<field name="res_model">record.import.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='record_import_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab Record Import</field>
+			<field name="model">record.import.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab record imports"
+					  colors="green:status_mf == 'success';red:status_mf == 'failed';">
+					<field name="method_mf"/>
+					<field name="model_mf"/>
+					<field name="status_mf"/>
+					<field name="committed_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='record_import_mf_form' model="ir.ui.view">
+        	<field name="name">record.import.mf.form</field>
+			<field name="model">record.import.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab file interface attempt">
+					<group col="1" string="Record import">
+						<field name="status_mf" readonly="1"/>
+						<field name="committed_mf" readonly="1"/>
+						<field name="method_mf" readonly="1"/>
+						<field name="model_mf" readonly="1"/>
+						<field name="fields_mf" class="large_text_mf" readonly="1"/>
+						<field name="callback_method_mf"
+							   readonly="1"
+							   attrs="{'invisible': [('callback_method_mf', '=', False)]}"/>
+						<field name="fields_to_write_mf"
+							   class="large_text_mf"
+							   readonly="1"
+							   attrs="{'invisible': [('fields_to_write_mf', '=', False)]}"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

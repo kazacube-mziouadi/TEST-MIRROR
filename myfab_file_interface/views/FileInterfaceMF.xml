@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='file_interface_mf' model="ir.actions.act_window">
+        	<field name="name">MyFab File Interface</field>
+			<field name="res_model">file.interface.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='file_interface_mf_treeview' model="ir.ui.view">
+        	<field name="name">MyFab File Interface</field>
+			<field name="model">file.interface.mf</field>
+            <field name="arch" type="xml">
+				<tree string="MyFab File Interface Configurations">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='file_interface_mf_form' model="ir.ui.view">
+        	<field name="name">file.interface.mf.form</field>
+			<field name="model">file.interface.mf</field>
+            <field name="arch" type="xml">
+				<form string="MyFab File Interface Configuration">
+					<group col="9">
+						<group colspan="8" col="1">
+							<group col="1" string="Configuration">
+								<group col="4">
+									<field name="name"/>
+									<field name="directory_mf"/>
+									<field name="file_extension_mf"/>
+									<field name="file_separator_mf"
+										   attrs="{'invisible': [('file_extension_mf', '!=', 'csv')]}"/>
+									<field name="file_quoting_mf"
+										   attrs="{'invisible': [('file_extension_mf', 'not in', ['csv', 'txt'])]}"/>
+									<field name="cron_already_exists_mf" invisible="1"/>
+								</group>
+							</group>
+							<group name="directory" col="1" string="Directory">
+								<group col="1" attrs="{'invisible': [('directory_mf', '=', False)]}">
+									<group col="4">
+										<field name="directory_path_mf"/>
+										<field name="directory_scan_is_needed_mf" invisible="1"/>
+									</group>
+									<field name="directory_files_mf"
+										   attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
+									<p attrs="{'invisible': [('directory_scan_is_needed_mf', '=', False)]}">
+										The directory's files are out of sync. Use the "Scan directory" button to synchronize.
+									</p>
+								</group>
+								<p attrs="{'invisible': [('name', '!=', False)]}">
+									You must save the configuration before scanning the files to import.
+								</p>
+							</group>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="myfab_file_interface_action_menu_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="launch_button"
+									string="Launch"
+									icon="fa-play"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="scan_directory"
+									string="Scan directory"
+									icon="fa-search"
+									attrs="{'invisible': [('name', '=', False)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Generate cron for this file interface"
+									name="generate_cron"
+									icon="fa-repeat"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Delete the cron for this file interface"
+									name="delete_cron"
+									icon="fa-trash"
+									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

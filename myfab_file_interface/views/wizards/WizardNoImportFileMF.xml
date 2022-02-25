@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_wizard_no_import_file_mf" model="ir.ui.view">
+            <field name="name">wizard.no.import.file.mf.form</field>
+            <field name="model">wizard.no.import.file.mf</field>
+            <field name="arch" type="xml">
+                <form string="No file to import in the import directory">
+					<p>
+                        There are no file to import in the import directory.
+                    </p>
+					<footer>
+                        <button string="Close" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

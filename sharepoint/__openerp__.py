@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Sharepoint',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name': 'Sharepoint',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Lien avec SharePoint.(Pas encore disponible)',
-    'category' : 'Logistic',
-    'description' : """Ce module fait le lien entre vos documents et la GED SharePoint d'Office365.
+    'category': 'Logistic',
+    'description': """Ce module fait le lien entre vos documents et la GED SharePoint d'Office365.
     Ce module n'est pas encore disponible.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'base_openprod'
     ],
     'data': [],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': False,

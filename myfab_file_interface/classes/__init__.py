@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import filters
-import ModelDictionaryMF
-import ModelDictionaryFieldFilterMF
-import MyFabInterfaceMF
-import MyFabFileInterfaceExportModelDictionaryMF
-import MyFabFileInterfaceExportMF
-import WizardMyFabFileInterfaceCronMF
-import MyFabFileInterfaceImportMF
-import WizardUploadFileMF
+import files
+import model_dictionaries
+import services
+import attempts
+import FileInterfaceMF
+import FileInterfaceExportMF
+import FileInterfaceImportMF
+import wizards
