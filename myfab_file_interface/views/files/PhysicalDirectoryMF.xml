@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='physical_directory' model="ir.actions.act_window">
+        	<field name="name">Physical Directory</field>
+			<field name="res_model">physical.directory.mf</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='physical_directory_treeview' model="ir.ui.view">
+        	<field name="name">Physical Directory</field>
+			<field name="model">physical.directory.mf</field>
+            <field name="arch" type="xml">
+				<tree string="Physical Directories">
+					<field name="name"/>
+					<field name="path_mf"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='physical_directory_form' model="ir.ui.view">
+        	<field name="name">physical.directory.mf.form</field>
+			<field name="model">physical.directory.mf</field>
+            <field name="arch" type="xml">
+				<form string="Physical Directory">
+					<group col="9">
+						<group colspan="8" col="1">
+							<group col="4" string="General">
+								<field name="path_mf"/>
+								<field name="name" invisible="1"/>
+								<field name="directory_scan_is_needed_mf" invisible="1"/>
+							</group>
+							<group col="1" string="Directory's scan">
+								<group col="1" attrs="{'invisible': [('name', '=', False)]}">
+									<field name="files_mf"
+										   attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
+									<p attrs="{'invisible': [('directory_scan_is_needed_mf', '=', False)]}">
+										The directory's files are out of sync. Use the button below to scan them from the directory.
+									</p>
+									<button
+											name="scan_directory"
+											string="Scan directory"
+											type="object"
+											class="oe_highlight"
+									/>
+								</group>
+								<p attrs="{'invisible': [('name', '!=', False)]}">
+									You must save the configuration before scanning the files.
+								</p>
+							</group>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="physical_directory_action_menu_mf">
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									string="Upload a file into the directory"
+									name="open_upload_file_wizard"
+									icon="fa-upload"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

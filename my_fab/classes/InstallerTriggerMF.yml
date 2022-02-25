@@ -1,0 +1,5 @@
+-
+  MyFab Data Initialization trigger
+-
+  !python {model: data.initializer.myfab.mf}: |
+    self.import_files(cr, uid, context)

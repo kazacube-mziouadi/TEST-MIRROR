@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Transporteur',
-    'version' : '0.1.0',
-    'author' : 'MyFab',
+    'name': 'Transporteur',
+    'version': '0.1.0',
+    'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Gagner du temps lors de vos expéditions.',
-    'category' : 'Logistic',
-    'description' : """Gagner du temps lors de vos expéditions.
+    'category': 'Logistic',
+    'description': """Gagner du temps lors de vos expéditions.
     Ce module n'est pas encore disponible.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
-    'images' : [],
-    'depends' : [
+    'images': [],
+    'depends': [
         'base_openprod'
     ],
     'data': [],
-    'qweb' : [],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': False,
