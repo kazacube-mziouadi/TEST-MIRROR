@@ -1,12 +1,18 @@
 odoo.define('my_fab.list_view_expand_all_auto', function(require) {
+    "use strict";
     // To expand all the groups of a tree view automatically, add the .expand_all class to the <tree>
-
-    var core = require('web.core');
     var ListView = require('web.ListView');
-    var ViewManager = require('web.ViewManager');
-    var _t = core._t;
 
     ListView.include({
+        init: function () {
+            this._super.apply(this, arguments);
+            var self = this;
+            setTimeout(function() {
+                if ($(".expand-all").length > 0) {
+                    self.expand_all();
+                }
+            }, 1500);
+        },
         expand_all: function() {
             var self = this;
             var rows = $('.oe_group_header');
@@ -22,15 +28,6 @@ odoo.define('my_fab.list_view_expand_all_auto', function(require) {
                     }
                 }
             }
-        },
-        start: function () {
-            this._super();
-            var self = this;
-            setTimeout(function() {
-                if ($(".expand-all").length > 0) {
-                    self.expand_all();
-                }
-            }, 1500);
         }
     })
 });
