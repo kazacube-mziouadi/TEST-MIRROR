@@ -55,13 +55,17 @@ class ParserServiceMF(models.TransientModel):
                 record_values_dict, is_root_record, record_to_write_id = self.get_record_dict_from_values_list(
                     csv_row, fields_list
                 )
+                row_dict = {
+                    "row_number": csv_row_index,
+                    "row_content": csv_row
+                }
                 if is_root_record:
                     index_to_process_for_depth_dict = {}
                     record_to_append = {
                         "method": "write" if record_to_write_id else "create",
                         "model": model_name,
                         "fields": {"id": record_to_write_id} if record_to_write_id else record_values_dict,
-                        "rows": [csv_row]
+                        "rows": [row_dict]
                     }
                     if record_to_write_id:
                         record_to_append["write"] = record_values_dict
@@ -73,7 +77,7 @@ class ParserServiceMF(models.TransientModel):
                         [records_list[-1]["fields"]],
                         index_to_process_for_depth_dict
                     )
-                    records_list[-1]["rows"].append(csv_row)
+                    records_list[-1]["rows"].append(row_dict)
                     index_to_process_for_depth_dict[last_relation_field_processed_depth] += 1
         return records_list
 

@@ -116,6 +116,7 @@
         'views/attempts/FileInterfaceExportAttemptMF.xml',
         'views/attempts/FileInterfaceImportAttemptMF.xml',
         'views/attempts/RecordImportMF.xml',
+        'views/attempts/RecordImportRowMF.xml',
         'views/attempts/FileInterfaceImportAttemptRecordImportMF.xml',
         'views/BaseMenus.xml'
     ],

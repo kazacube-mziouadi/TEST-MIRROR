@@ -91,10 +91,18 @@ class FileInterfaceImportMF(models.Model):
             record_import_model = self.env["ir.model"].search(
                 [("model", '=', record_dict["model"])], None, 1
             )
+            import_rows_to_create_list = []
+            if "rows" in record_dict:
+                for row_dict in record_dict["rows"]:
+                    import_rows_to_create_list.append((0, 0, {
+                        "row_number_mf": row_dict["row_number"],
+                        "row_content_mf": row_dict["row_content"]
+                    }))
             record_import_dict = {
                 "method_mf": record_dict["method"],
                 "model_mf": record_import_model.id,
-                "fields_mf": record_dict["rows"] if "rows" in record_dict else record_dict["fields"],
+                "record_import_rows_mf": import_rows_to_create_list,
+                "fields_mf": record_dict["fields"],
                 "fields_to_write_mf": record_dict["write"] if "write" in record_dict else "",
                 "callback_method_mf": record_dict["callback"] if "callback" in record_dict else "",
                 "committed_mf": record_dict["committed"] if "committed" in record_dict else False

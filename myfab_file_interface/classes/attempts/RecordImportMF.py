@@ -3,7 +3,7 @@ from openerp import models, fields, api, registry, _
 
 class RecordImportMF(models.AbstractModel):
     _name = "record.import.mf"
-    _description = "MyFab record import object"
+    _description = "MyFab import's record"
     _auto = False
 
     # ===========================================================================
