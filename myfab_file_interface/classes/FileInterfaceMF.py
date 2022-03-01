@@ -6,7 +6,6 @@ class FileInterfaceMF(models.AbstractModel):
     _name = "file.interface.mf"
     _description = "MyFab file interface configuration"
     _auto = False
-    # TODO : creer un dossier a la duplication avec le nom + (1) par exemple = copy ORM
     _sql_constraints = [
         (
             "directory_unique_mf",
@@ -31,6 +30,20 @@ class FileInterfaceMF(models.AbstractModel):
     )
     file_separator_mf = fields.Char(string="File data separator", default=",")
     file_quoting_mf = fields.Char(string="File data quoting", default='"')
+
+    # ===========================================================================
+    # METHODS - ORM
+    # ===========================================================================
+    @api.multi
+    def copy(self, default=None):
+        if not default:
+            default = {}
+        new_directory = self.env["physical.directory.mf"].create({
+            "name": self.directory_mf.name + " (1)",
+            "path_mf": self.directory_mf.path_mf + " (1)"
+        })
+        default["directory_mf"] = new_directory.id
+        return super(FileInterfaceMF, self).copy(default=default)
 
     # ===========================================================================
     # METHODS - COMPUTE

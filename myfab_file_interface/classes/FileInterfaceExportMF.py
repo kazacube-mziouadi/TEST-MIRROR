@@ -26,17 +26,20 @@ class FileInterfaceExportMF(models.Model):
     def launch(self):
         if not self.model_dictionaries_to_export_mf:
             raise MissingError("You must configure the models to export before being able to launch the export.")
+        for model_dictionary in self.model_dictionaries_to_export_mf:
+            self.export_model_dictionary(model_dictionary)
+
+    def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()
         file_name = self.get_file_name()
-        exporter_service = self.env["exporter.service.mf"].create({})
-        converter_service = self.env["converter.service.mf"].create({})
-        records_to_export_list = exporter_service.format_records_to_export_to_list(self.model_dictionaries_to_export_mf)
+        records_to_export_list = self.env["exporter.service.mf"].get_records_to_export_list_from_model_dictionary(
+            model_dictionary
+        )
         if self.file_extension_mf in ["csv", "txt"]:
-            fields_names_list = self.model_dictionaries_to_export_mf[0].get_fields_names_list()
+            fields_names_list = model_dictionary.get_fields_names_list()
         else:
             fields_names_list = None
-        # TODO : csv/txt n'exportent que le premier Model Dictionary => boucler pour generer un fichier par modele dict
-        file_content = converter_service.convert_models_list_to_file_content(
+        file_content = self.env["converter.service.mf"].convert_models_list_to_file_content(
             records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
         )
         export_file_dict = {

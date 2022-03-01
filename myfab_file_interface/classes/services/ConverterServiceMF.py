@@ -47,7 +47,6 @@ class ConverterServiceMF(models.TransientModel):
     @staticmethod
     def get_records_list_from_models_list(models_list):
         records_list = []
-        # TODO : in csv/txt we will export the first chosen model's records only
         first_model_name = None
         for model_dict in models_list:
             if not first_model_name:

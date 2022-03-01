@@ -25,30 +25,29 @@ class FileInterfaceImportMF(models.Model):
     def launch(self):
         if self.directory_mf.directory_scan_is_needed_mf:
             self.directory_mf.scan_directory()
-        parser_service = self.env["parser.service.mf"].create({})
-        importer_service = self.env["importer.service.mf"].create({})
         # sorted(iteritems(self.directory_mf.files_mf), key=lambda file_name: parser_service.get_sequence_from_file_name(file_name))
         for file_to_import in self.directory_mf.files_mf:
             self.import_file(
-                parser_service, importer_service, base64.b64decode(file_to_import.content_mf), file_to_import.name
+                base64.b64decode(file_to_import.content_mf), file_to_import.name
             )
 
-    def import_file(self, parser_service, importer_service, file_content, file_name):
-        import_attempt_dict = {
-            "start_datetime_mf": self.get_current_datetime(),
-            "file_name_mf": file_name
-        }
-        import_attempt_file_dict = {
+    def import_file(self, file_content, file_name):
+        import_attempt_file = self.env["file.mf"].create({
             "name": file_name,
             "content_mf": file_content
+        })
+        import_attempt_dict = {
+            "start_datetime_mf": self.get_current_datetime(),
+            "file_name_mf": file_name,
+            "file_mf": import_attempt_file.id
         }
         records_to_process_list = []
         try:
-            records_to_process_list = parser_service.get_records_from_file(
+            records_to_process_list = self.env["parser.service.mf"].get_records_from_file(
                 self.file_extension_mf, file_content, file_name, self.file_separator_mf, self.file_quoting_mf,
                 self.file_encoding_mf
             )
-            importer_service.import_records_list(records_to_process_list)
+            self.env["importer.service.mf"].import_records_list(records_to_process_list)
         except Exception as e:
             record_import_failed_dict = None
             if len(e.args) > 1:
@@ -60,12 +59,10 @@ class FileInterfaceImportMF(models.Model):
                 records_to_process_list, record_import_failed_dict
             )
             # Creation de la tentative
-            import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
             import_attempt_dict.update({
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_datetime(),
                 "message_mf": exception_traceback,
-                "file_mf": import_attempt_file.id,
                 "record_imports_mf": import_attempt_record_imports_list
             })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
@@ -73,13 +70,10 @@ class FileInterfaceImportMF(models.Model):
             # On arrete l'import ici
             return
         # Creation de la tentative
-        # TODO : factoriser creation tentative (= celle de l'exception)
-        import_attempt_file = self.env["file.mf"].create(import_attempt_file_dict)
         import_attempt_dict.update({
             "is_successful_mf": True,
             "end_datetime_mf": self.get_current_datetime(),
-            "message_mf": "Import successful.",
-            "file_mf": import_attempt_file.id,
+            "message_mf": _("Import successful."),
             "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
         self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
