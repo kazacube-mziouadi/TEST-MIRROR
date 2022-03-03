@@ -1,0 +1,5 @@
+-
+  MyFab Data Initializer Trigger
+-
+  !python {model: data.initializer.myfab.mf}: |
+    self.launch_initialization(cr, uid, context)

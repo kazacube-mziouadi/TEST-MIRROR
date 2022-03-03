@@ -36,3 +36,19 @@ class FileMF(models.Model):
             self.content_mf,
             self.name
         )
+
+    # Returns the model name from a given import file name
+    @staticmethod
+    def get_model_name_from_file_name(file_name):
+        file_name_split_hyphen = file_name.split('-')
+        file_name_split_dot = file_name_split_hyphen[-1].split('.')
+        file_name_split_dot.pop()
+        return '.'.join(file_name_split_dot)
+
+    # Returns the sequence int from a given import file name
+    @staticmethod
+    def get_sequence_from_file_name(file_name):
+        if type(file_name) is not str:
+            file_name = file_name.name
+        file_name_split_hyphen = file_name.split('-')
+        return int(file_name_split_hyphen[0]) if file_name_split_hyphen[0].isdigit() else file_name_split_hyphen[0]
