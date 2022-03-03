@@ -1,0 +1,5 @@
+active,is_default,payment_line_ids/is_blocking,payment_line_ids/generate_invoice,payment_line_ids/value_amount,payment_line_ids/product_id/id,payment_line_ids/payment_type,payment_line_ids/value,line_ids/account_invoiced_on,line_ids/value_amount,line_ids/invoice_trigger,line_ids/sequence,line_ids/value,name,note,invoicing_type
+True,False,True,False,0.3,,before_validation,procent,,,,,,Acompte 30% à la commande,,sale_parameter
+True,False,,,,,,,delivery,0.0,picking,0,balance,facturation à la livraison,,sale_parameter
+True,False,True,False,1.0,,before_delivery,procent,order,0.0,postpaid,0,balance,Facturation et paiement à la livraison,,sale_parameter
+True,False,True,False,1.0,,before_validation,procent,delivery,0.0,picking,0,balance,Paiement à la commande et facturation à la livraison,,sale_parameter
