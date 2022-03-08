@@ -14,8 +14,9 @@
         'myfab_file_interface'
     ],
     'data': [
-        'classes/InitializerTriggerMF.yml',
-        'views/my_fab_web.xml'
+        'classes/DataInitializerMyFabTriggerMF.yml',
+        'views/my_fab_web.xml',
+        'views/DataInitializerMyFabMF.xml'
     ],
     'qweb': [],
     'demo': [],

@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* my_fab
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-08 15:47+0000\n"
+"PO-Revision-Date: 2022-03-08 15:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: my_fab
+#: model:ir.actions.act_window,name:my_fab.action_data_initializer_myfab_mf
+msgid "Select the data to initialize"
+msgstr "Sélection des données à initialiser"
+
+#. module: my_fab
+#: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
+msgid "Continue"
+msgstr "Continuer"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_uid
+msgid "Created by"
+msgstr "Crée par"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_display_name
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_id
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_id
+msgid "ID"
+msgstr "ID"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_is_configuration_done
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_is_configuration_done
+msgid "Is configuration done"
+msgstr "Configuration terminée"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf___last_update
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_base_init
+msgid "Launch base initialization"
+msgstr "Lancer l'initialisation des données de base"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_data_recovery_templates_init
+msgid "Launch data recovery templates initialization"
+msgstr "Lancer l'initialisation des modèles de reprise de données"
+
+#. module: my_fab
+#: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
+msgid "MyFab Data Import"
+msgstr "MyFab Data Import"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_name
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: my_fab
+#: model:ir.model.fields,help:my_fab.field_data_initializer_mf___last_update
+#: model:ir.model.fields,help:my_fab.field_data_initializer_mf_display_name
+#: model:ir.model.fields,help:my_fab.field_data_initializer_mf_id
+#: model:ir.model.fields,help:my_fab.field_data_initializer_mf_is_configuration_done
+#: model:ir.model.fields,help:my_fab.field_data_initializer_mf_name
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf___last_update
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_create_date
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_create_uid
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_display_name
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_id
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_is_configuration_done
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_base_init
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_data_recovery_templates_init
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_name
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_date
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: my_fab
+#: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
+msgid "Select the data you wish to initialize :"
+msgstr "Sélectionnez les données que vous souhaitez initialiser :"
+
+#. module: my_fab
+#: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
+msgid "Warning : Launching the base initialization may overwrite your current configurations."
+msgstr "Lancer l'initialisation des données de base peut potentiellement écraser vos configurations déjà réalisées."
+
+#. module: my_fab
+#: model:ir.model,name:my_fab.model_data_initializer_mf
+msgid "data.initializer.mf"
+msgstr "data.initializer.mf"
+
+#. module: my_fab
+#: model:ir.model,name:my_fab.model_data_initializer_myfab_mf
+msgid "data.initializer.myfab.mf"
+msgstr "data.initializer.myfab.mf"
+

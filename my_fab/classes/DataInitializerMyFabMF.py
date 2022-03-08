@@ -10,15 +10,42 @@ class DataInitializerMyFabMF(models.Model):
     _inherit = "data.initializer.mf"
     _name = "data.initializer.myfab.mf"
 
+    # ===========================================================================
+    # COLUMNS
+    # ===========================================================================
+    launch_base_init = fields.Boolean(string="Launch base initialization", default=False)
+    launch_data_recovery_templates_init = fields.Boolean(string="Launch data recovery templates initialization",
+                                                         default=False)
+
+    # ===========================================================================
+    # GENERAL METHODS
+    # ===========================================================================
+    @api.multi
+    def display_wizard(self):
+        logger.info("Displaying MyFab Base Initialization wizard")
+
     @staticmethod
     def get_models_to_overwrite_names():
         return ["excel.import"]
 
+    def get_models_to_avoid_names(self):
+        models_to_avoid_names_list = []
+        if not self.launch_base_init:
+            models_to_avoid_names_list += [
+                "account.invoicing.method", "payment.method", "stock.alert.color", "stock.location"
+            ]
+        if not self.launch_data_recovery_templates_init:
+            models_to_avoid_names_list += ["excel.import"]
+        if not self.launch_base_init and not self.launch_data_recovery_templates_init:
+            models_to_avoid_names_list += ["ir.model.fields"]
+        return models_to_avoid_names_list
+
     def set_configurations(self):
-        self.configure_admin_user()
-        self.configure_companies()
-        self.configure_stock_settings()
-        self.configure_calendar()
+        if self.launch_base_init:
+            self.configure_admin_user()
+            self.configure_companies()
+            self.configure_stock_settings()
+            self.configure_calendar()
 
     def configure_admin_user(self):
         logger.info("Configuring the admin user")
@@ -68,8 +95,8 @@ class DataInitializerMyFabMF(models.Model):
         calendar_template = self.env["calendar.template"].search([], None, 1)
         calendar_template.name = "Général"
         current_year = date.today().year
-        wizard_create_template_lines = self.env["wizard.create.template.lines"].create({
-            "calendar_template_id": calendar_template.id,
+        wizard_create_template_lines = self.with_context({}).env["wizard.create.template.lines"].create({
+            "calendar_template_id": calendar_template[0].id,
             "start_date": date(current_year, 1, 1),
             "end_date": date(current_year + 3, 12, 31),
             "frequency": 1,
@@ -87,6 +114,6 @@ class DataInitializerMyFabMF(models.Model):
             "hour_number1": 8,
             "hour_number2": 8,
             "hour_number3": 8,
-            "hour_number4": 8,
+            "hour_number4": 8
         })
         wizard_create_template_lines.generate_lines()

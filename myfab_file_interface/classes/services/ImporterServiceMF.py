@@ -58,7 +58,7 @@ class ImporterServiceMF(models.TransientModel):
         if record_to_write_fields_dict:
             self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict)
         records_found = self.search_records_by_fields_dict(model_name, record_fields_dict)
-        if orm_method_name == "create":
+        if orm_method_name == "create" or (orm_method_name == "merge" and not records_found):
             if records_found:
                 return records_found, "ignored"
             record_created = self.env[model_name].create(record_fields_dict)
@@ -72,12 +72,14 @@ class ImporterServiceMF(models.TransientModel):
                     "res_id": record_created.id
                 })
             return record_created, "success"
-        elif orm_method_name in ["search", "write", "delete"]:
+        elif orm_method_name in ["search", "write", "delete", "merge"]:
             if not records_found:
                 raise MissingError("No record found for model " + model_name + " with fields " + str(record_fields_dict))
             for record_found in records_found:
                 if orm_method_name == "write":
                     record_found.write(record_to_write_fields_dict)
+                elif orm_method_name == "merge":
+                    record_found.write(record_fields_dict)
                 elif orm_method_name == "delete":
                     record_found.unlink()
             return records_found, "success"
