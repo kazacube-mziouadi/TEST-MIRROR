@@ -28,6 +28,11 @@ class DataInitializerMF(models.AbstractModel):
     def get_models_to_overwrite_names():
         return []
 
+    # Method to override in order to avoid importing models data by returning their names list
+    @staticmethod
+    def get_models_to_avoid_names():
+        return []
+
     # Method to override in order to set configurations before initializing the data
     def set_configurations(self):
         pass
@@ -37,7 +42,7 @@ class DataInitializerMF(models.AbstractModel):
     # ===========================================================================
     @api.multi
     def launch_initialization(self):
-        if config["dev_mode"]:
+        if "dev_mode_myfab" in config.options and config["dev_mode_myfab"]:
             return
         data_initializer = self.env[self._name].search([], None, 1)
         if not data_initializer or not data_initializer.is_configuration_done:
@@ -48,6 +53,7 @@ class DataInitializerMF(models.AbstractModel):
                 "is_configuration_done": True
             })
         self.import_data_files(IMPORT_MODE_UPDATE)
+        self.unlink()
 
     def import_data_files(self, import_mode):
         data_dir_path = self.get_data_dir_path(import_mode)
@@ -61,6 +67,8 @@ class DataInitializerMF(models.AbstractModel):
     # Process the file, depending on the imported model (in the file name)
     def process_file_by_model_name_in_file_name(self, import_mode, parser_service, importer_service, file_name):
         model_name = self.env["file.mf"].get_model_name_from_file_name(file_name)
+        if model_name in self.get_models_to_avoid_names():
+            return
         if model_name in self.get_models_to_overwrite_names():
             # Delete all the MyFab current records for the model before importing
             myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - %")])
