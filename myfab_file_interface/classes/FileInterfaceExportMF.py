@@ -18,6 +18,8 @@ class FileInterfaceExportMF(models.Model):
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
                                          string="Export attempts", ondelete="cascade", readonly=True)
+    use_custom_extension = fields.Boolean(string="Name files with a custom extension", default=False)
+    custom_extension = fields.Char(string="Custom extension")
 
     # ===========================================================================
     # METHODS
@@ -68,7 +70,11 @@ class FileInterfaceExportMF(models.Model):
     def get_file_name(self):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
         now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S")
-        return "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
+        if self.use_custom_extension:
+            extension = ('.' if not self.custom_extension.startswith('.') else '') + self.custom_extension
+        else:
+            extension = '.' + self.file_extension_mf
+        return "MFFI-Export-" + now_formatted + extension
 
     @api.multi
     def generate_cron_for_export(self):
