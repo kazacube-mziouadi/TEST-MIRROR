@@ -43,15 +43,17 @@ class FileInterfaceExportMF(models.Model):
         file_content = self.env["converter.service.mf"].convert_models_list_to_file_content(
             records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
         )
-        export_file_dict = {
-            "name": file_name,
-            "content_mf": file_content
-        }
         if self.activate_file_generation_mf:
             self.directory_mf.write({
-                "files_mf": [(0, 0, export_file_dict)]
+                "files_mf": [(0, 0, {
+                    "name": file_name,
+                    "content_mf": file_content
+                })]
             })
-        export_attempt_file = self.env["file.mf"].create(export_file_dict)
+        export_attempt_file = self.env["file.mf"].create({
+            "name": file_name,
+            "content_mf": file_content
+        })
         self.write({
             "export_attempts_mf": [(0, 0, {
                 "start_datetime_mf": start_datetime,
