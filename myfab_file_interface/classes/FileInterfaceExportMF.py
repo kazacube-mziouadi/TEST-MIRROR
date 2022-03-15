@@ -1,6 +1,7 @@
 from openerp import models, fields, api, _
 import datetime
 from openerp.exceptions import MissingError
+import pytz
 
 
 class FileInterfaceExportMF(models.Model):
@@ -63,7 +64,8 @@ class FileInterfaceExportMF(models.Model):
         })
 
     def get_file_name(self):
-        now_formatted = (datetime.datetime.now() + datetime.timedelta(hours=2)).strftime("%Y%m%d_%H%M%S")
+        company_timezone = pytz.timezone(self.env.user.company_id.tz)
+        now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S")
         return "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
 
     @api.multi

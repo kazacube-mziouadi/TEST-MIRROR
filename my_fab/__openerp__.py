@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'MyFab Base',
-    'version': '1.0.0',
+    'name': 'MyFab Base',
+    'version': '1.1.0',
     'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Initialisation modules et données pour MyFab',
@@ -14,8 +14,9 @@
         'myfab_file_interface'
     ],
     'data': [
-        'classes/InstallerTriggerMF.yml',
-        'views/my_fab_web.xml'
+        'classes/DataInitializerMyFabTriggerMF.yml',
+        'views/my_fab_web.xml',
+        'views/DataInitializerMyFabMF.xml'
     ],
     'qweb': [],
     'demo': [],

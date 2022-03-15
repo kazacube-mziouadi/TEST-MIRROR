@@ -1,7 +1,6 @@
 from openerp import models, fields, api, registry, _
 import os
 from datetime import datetime
-import base64
 
 
 class PhysicalFileMF(models.TransientModel):
