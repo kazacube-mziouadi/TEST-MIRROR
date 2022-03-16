@@ -12,7 +12,8 @@
         	<field name="name">MyFab File</field>
 			<field name="model">file.mf</field>
             <field name="arch" type="xml">
-				<tree string="Files" default_order="name asc">
+				<tree string="Files" default_order="sequence_mf asc, name asc">
+					<field name="sequence_mf"/>
 					<field name="name"/>
 				</tree>
 			</field>

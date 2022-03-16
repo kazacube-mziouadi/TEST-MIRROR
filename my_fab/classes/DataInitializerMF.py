@@ -58,7 +58,7 @@ class DataInitializerMF(models.AbstractModel):
     def import_data_files(self, import_mode):
         data_dir_path = self.get_data_dir_path(import_mode)
         file_names = [file for file in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, file))]
-        sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
+        file_names = sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
         importer_service = self.env["importer.service.mf"].create({})
         for file_name in file_names:
             self.process_file_by_model_name_in_file_name(import_mode, importer_service, file_name)
