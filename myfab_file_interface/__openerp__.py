@@ -102,7 +102,6 @@
         'views/wizards/WizardFileInterfaceCronMF.xml',
         'views/wizards/WizardUploadImportFileMF.xml',
         'views/wizards/WizardConfirmImportFileMF.xml',
-        'views/wizards/WizardNoImportFileMF.xml',
         'views/model_dictionaries/ModelDictionaryMF.xml',
         'views/model_dictionaries/ModelDictionaryFieldFilterMF.xml',
         'views/model_dictionaries/FileInterfaceExportModelDictionaryMF.xml',

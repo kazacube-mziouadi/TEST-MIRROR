@@ -1,6 +1,7 @@
 from openerp import models, fields, api, registry, _
 import traceback
 import base64
+from openerp.exceptions import MissingError
 
 
 class FileInterfaceImportMF(models.Model):
@@ -128,14 +129,7 @@ class FileInterfaceImportMF(models.Model):
             }
         else:
             if not self.directory_mf.files_mf:
-                return {
-                    "name": _("No file to import in the import directory"),
-                    "view_mode": "form",
-                    "res_model": "wizard.no.import.file.mf",
-                    "type": "ir.actions.act_window",
-                    "target": "new",
-                    "context": {}
-                }
+                raise MissingError(_("No files found in directory ") + self.directory_path_mf)
             self.launch()
 
     @api.one

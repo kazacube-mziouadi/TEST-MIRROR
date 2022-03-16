@@ -26,7 +26,6 @@ class FileMF(models.Model):
     @api.one
     def _compute_content_preview(self):
         # Only way to get the file content string from a binary file field : call the above specific Odoo route...
-        # TODO : regarder comment les previews sont realisees dans OpenProd
         status_code, headers, content_base64 = binary_content(model=self._name, id=self.id, field="content_mf")
         self.content_preview_mf = base64.b64decode(content_base64)
 
