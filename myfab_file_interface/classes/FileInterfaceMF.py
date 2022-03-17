@@ -20,9 +20,9 @@ class FileInterfaceMF(models.AbstractModel):
     name = fields.Char(string="Name", size=128, required=True)
     directory_mf = fields.Many2one("physical.directory.mf", string="Directory to process", ondelete="cascade",
                                    help="The directory where are stored the files processed by the file interface.",
-                                   required=True)
+                                   required=True, copy=False)
     directory_path_mf = fields.Char(related="directory_mf.path_mf", string="Directory's path", readonly=True)
-    directory_files_mf = fields.One2many(related="directory_mf.files_mf", string="Directory's files", readonly=True)
+    directory_files_mf = fields.One2many(related="directory_mf.files_mf", string="Directory's files")
     directory_scan_is_needed_mf = fields.Boolean(related="directory_mf.directory_scan_is_needed_mf", readonly=True)
     cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
     file_extension_mf = fields.Selection(

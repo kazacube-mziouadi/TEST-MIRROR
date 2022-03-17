@@ -13,7 +13,7 @@ class FileInterfaceExportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
-                                                      "file_interface_export_mf",
+                                                      "file_interface_export_mf", copy=True,
                                                       string="Models to Export", ondelete="cascade")
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",

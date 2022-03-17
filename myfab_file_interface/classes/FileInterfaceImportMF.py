@@ -26,7 +26,7 @@ class FileInterfaceImportMF(models.Model):
     def launch(self):
         if self.directory_mf.directory_scan_is_needed_mf:
             self.directory_mf.scan_directory()
-        sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
+        sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_mf: file_mf.sequence)
         for file_to_import in sorted_files_list:
             self.import_file(
                 base64.b64decode(file_to_import.content_mf), file_to_import.name
