@@ -58,14 +58,12 @@ class DataInitializerMF(models.AbstractModel):
     def import_data_files(self, import_mode):
         data_dir_path = self.get_data_dir_path(import_mode)
         file_names = [file for file in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, file))]
-        parser_service = self.env["parser.service.mf"].create({})
-        sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
-        importer_service = self.env["importer.service.mf"].create({})
+        file_names = sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
         for file_name in file_names:
-            self.process_file_by_model_name_in_file_name(import_mode, parser_service, importer_service, file_name)
+            self.process_file_by_model_name_in_file_name(import_mode, file_name)
 
     # Process the file, depending on the imported model (in the file name)
-    def process_file_by_model_name_in_file_name(self, import_mode, parser_service, importer_service, file_name):
+    def process_file_by_model_name_in_file_name(self, import_mode, file_name):
         model_name = self.env["file.mf"].get_model_name_from_file_name(file_name)
         if model_name in self.get_models_to_avoid_names():
             return
@@ -73,16 +71,16 @@ class DataInitializerMF(models.AbstractModel):
             # Delete all the MyFab current records for the model before importing
             myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - %")])
             myfab_default_records.unlink()
-        self.import_file(import_mode, parser_service, importer_service, model_name, file_name)
+        self.import_file(import_mode, model_name, file_name)
 
-    def import_file(self, import_mode, parser_service, importer_service, model_name, file_name):
+    def import_file(self, import_mode, model_name, file_name):
         logger.info("Importing " + model_name)
         file = open(os.path.join(self.get_data_dir_path(import_mode), file_name), "rb")
         file_content = file.read()
-        records_to_process_list = parser_service.get_records_from_csv(
+        records_to_process_list = self.env["parser.service.mf"].get_records_from_csv(
             file_content, file_name, file_separator=',', file_quoting='"', file_encoding="utf-8"
         )
-        importer_service.with_context(lang="fr_FR").import_records_list(records_to_process_list)
+        self.env["importer.service.mf"].with_context(lang="fr_FR").import_records_list(records_to_process_list)
 
     @staticmethod
     # Returns the module's data directory

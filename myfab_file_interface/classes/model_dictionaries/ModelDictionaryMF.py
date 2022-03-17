@@ -15,14 +15,20 @@ class ModelDictionaryMF(models.AbstractModel):
     model_to_export_mf = fields.Many2one("ir.model", string="Model to Export")
     fields_to_export_mf = fields.Many2many("ir.model.fields", "model_dictionary_mf_ir_model_fields_rel",
                                            "model_dictionary_mf_id", "model_field_id", string="Fields to export",
-                                           copy=False, readonly=False)
-    fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf",
+                                           copy=True, readonly=False)
+    fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf", copy=True,
                                         string="Filters to apply on fields", ondelete="cascade")
     parent_model_dictionary_mf = fields.Many2one(string="Parent MyFab Model Export Config")
-    children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf",
+    children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf", copy=True,
                                                      string="Children MyFab Model Export Configs", ondelete="cascade")
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
+    number_of_records_to_export_limit_mf = fields.Integer(string="Number of records to export limit",
+                                                          help="If set to 0, no limit is applied.", default=None)
+
+    # ===========================================================================
+    # FIELDS METHODS
+    # ===========================================================================
 
     # To enrich the children model exports list automatically
     @api.onchange("fields_to_export_mf")
@@ -53,12 +59,17 @@ class ModelDictionaryMF(models.AbstractModel):
     def compute_hide_fields_view(self):
         self.hide_fields_view = (not self.id or not self.model_to_export_mf)
 
+    # ===========================================================================
+    # METHODS
+    # ===========================================================================
     def get_list_of_records_to_export(self, ids_to_search_list=False):
         list_of_records_to_export = []
         filters_list = self.get_filters_list_to_apply()
         if ids_to_search_list:
             filters_list.append(("id", "in", ids_to_search_list))
-        objects_to_export = self.env[self.model_to_export_mf.model].search(filters_list)
+        objects_to_export = self.env[self.model_to_export_mf.model].search(
+            filters_list, limit=self.number_of_records_to_export_limit_mf
+        )
         self.number_of_records_exported = len(objects_to_export)
         for object_to_export in objects_to_export:
             list_of_records_to_export.append(self.get_dict_of_record_to_export(object_to_export))

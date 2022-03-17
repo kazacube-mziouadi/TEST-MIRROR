@@ -17,19 +17,19 @@ class PhysicalDirectoryMF(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", size=128)
+    name = fields.Char(string="Name", compute="_compute_name", store=True)
     path_mf = fields.Char(string="Directory path", default="/etc/openprod_home/MyFabFileInterface", required=True)
-    files_mf = fields.One2many("physical.file.mf", "directory_mf", string="Files", readonly=True)
+    files_mf = fields.One2many("physical.file.mf", "directory_mf", string="Files")
     directory_scan_is_needed_mf = fields.Boolean(compute="_compute_directory_scan_is_needed", readonly=True)
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
 
-    @api.model
-    def create(self, fields_list):
-        fields_list["name"] = os.path.basename(fields_list["path_mf"])
-        return super(PhysicalDirectoryMF, self).create(fields_list)
+    @api.one
+    @api.depends("path_mf")
+    def _compute_name(self):
+        self.name = os.path.basename(self.path_mf)
 
     @api.one
     def _compute_directory_scan_is_needed(self):
@@ -69,7 +69,7 @@ class PhysicalDirectoryMF(models.Model):
             related_file.unlink()
         files_names_list = self.get_names_list_of_files_physically_in_directory()
         related_files_list = [(0, 0, {"name": file_name}) for file_name in files_names_list]
-        # TODO : ajouter un indicateur sur les fichiers pour dire si l'extension est standard ou non avec l'extension choisie
+        # TODO : ajouter un indicateur sur les fichiers pour dire si l'extension est standard ou non avec l'extension choisie ?
         self.write({
             "files_mf": related_files_list
         })

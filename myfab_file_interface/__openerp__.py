@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'MyFab File Interface',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Interface MyFab pour échanger avec des logiciels externes via fichiers à plat.',
@@ -102,7 +102,6 @@
         'views/wizards/WizardFileInterfaceCronMF.xml',
         'views/wizards/WizardUploadImportFileMF.xml',
         'views/wizards/WizardConfirmImportFileMF.xml',
-        'views/wizards/WizardNoImportFileMF.xml',
         'views/model_dictionaries/ModelDictionaryMF.xml',
         'views/model_dictionaries/ModelDictionaryFieldFilterMF.xml',
         'views/model_dictionaries/FileInterfaceExportModelDictionaryMF.xml',
@@ -116,6 +115,7 @@
         'views/attempts/FileInterfaceExportAttemptMF.xml',
         'views/attempts/FileInterfaceImportAttemptMF.xml',
         'views/attempts/RecordImportMF.xml',
+        'views/attempts/RecordImportRowMF.xml',
         'views/attempts/FileInterfaceImportAttemptRecordImportMF.xml',
         'views/BaseMenus.xml'
     ],

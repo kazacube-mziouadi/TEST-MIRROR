@@ -6,6 +6,7 @@ from openerp.addons.web.controllers.main import binary_content
 class FileMF(models.Model):
     _name = "file.mf"
     _description = "MyFab file"
+    _order = "sequence"
 
     # ===========================================================================
     # COLUMNS
@@ -13,6 +14,7 @@ class FileMF(models.Model):
     name = fields.Char(string="Name", help='')
     content_mf = fields.Binary(string="Content")
     content_preview_mf = fields.Text(string="Content preview", compute="_compute_content_preview")
+    sequence = fields.Integer(string="Sequence", compute="_compute_sequence", store=True)
 
     # ===========================================================================
     # METHODS
@@ -26,9 +28,15 @@ class FileMF(models.Model):
     @api.one
     def _compute_content_preview(self):
         # Only way to get the file content string from a binary file field : call the above specific Odoo route...
-        # TODO : regarder comment les previews sont realisees dans OpenProd
         status_code, headers, content_base64 = binary_content(model=self._name, id=self.id, field="content_mf")
         self.content_preview_mf = base64.b64decode(content_base64)
+
+    @api.one
+    @api.depends('name')
+    def _compute_sequence(self):
+        sequence = self.get_sequence_from_file_name(self.name)
+        if sequence:
+            self.sequence = sequence
 
     @api.multi
     def download_file(self):
@@ -45,10 +53,10 @@ class FileMF(models.Model):
         file_name_split_dot.pop()
         return '.'.join(file_name_split_dot)
 
-    # Returns the sequence int from a given import file name
+    # Returns the sequence int from a given import file name if it begins with an int ; else, returns False
     @staticmethod
     def get_sequence_from_file_name(file_name):
-        if type(file_name) is not str:
+        if type(file_name) is not str and not isinstance(file_name, unicode):
             file_name = file_name.name
         file_name_split_hyphen = file_name.split('-')
-        return int(file_name_split_hyphen[0]) if file_name_split_hyphen[0].isdigit() else file_name_split_hyphen[0]
+        return int(file_name_split_hyphen[0]) if file_name_split_hyphen[0].isdigit() else False
