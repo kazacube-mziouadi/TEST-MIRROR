@@ -26,6 +26,7 @@
 				<form string="MyFab Model Export Config">
 					<group col="1">
 						<field name="model_to_export_mf"/>
+						<field name="number_of_records_to_export_limit_mf"/>
 						<field name="hide_fields_view" invisible="1"/>
 						<group col="1" colspan="1" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
 							<field name="fields_to_export_mf"

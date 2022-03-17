@@ -28,6 +28,8 @@
 			<field name="model">file.interface.export.mf</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='file_quoting_mf']" position="after">
+					<field name="use_custom_extension"/>
+					<field name="custom_extension" attrs="{'invisible': [('use_custom_extension', '=', False)],'required': [('use_custom_extension', '=', True)]}"/>
 					<field name="activate_file_generation_mf"/>
 					<field name="model_dictionaries_to_export_mf"/>
 				</xpath>

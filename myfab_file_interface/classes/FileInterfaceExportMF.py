@@ -13,11 +13,13 @@ class FileInterfaceExportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
-                                                      "file_interface_export_mf",
+                                                      "file_interface_export_mf", copy=True,
                                                       string="Models to Export", ondelete="cascade")
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
                                          string="Export attempts", ondelete="cascade", readonly=True)
+    use_custom_extension = fields.Boolean(string="Name files with a custom extension", default=False)
+    custom_extension = fields.Char(string="Custom extension")
 
     # ===========================================================================
     # METHODS
@@ -27,28 +29,33 @@ class FileInterfaceExportMF(models.Model):
     def launch(self):
         if not self.model_dictionaries_to_export_mf:
             raise MissingError("You must configure the models to export before being able to launch the export.")
+        for model_dictionary in self.model_dictionaries_to_export_mf:
+            self.export_model_dictionary(model_dictionary)
+
+    def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()
         file_name = self.get_file_name()
-        exporter_service = self.env["exporter.service.mf"].create({})
-        converter_service = self.env["converter.service.mf"].create({})
-        records_to_export_list = exporter_service.format_records_to_export_to_list(self.model_dictionaries_to_export_mf)
+        records_to_export_list = self.env["exporter.service.mf"].get_records_to_export_list_from_model_dictionary(
+            model_dictionary
+        )
         if self.file_extension_mf in ["csv", "txt"]:
-            fields_names_list = self.model_dictionaries_to_export_mf[0].get_fields_names_list()
+            fields_names_list = model_dictionary.get_fields_names_list()
         else:
             fields_names_list = None
-        # TODO : csv/txt n'exportent que le premier Model Dictionary => boucler pour generer un fichier par modele dict
-        file_content = converter_service.convert_models_list_to_file_content(
+        file_content = self.env["converter.service.mf"].convert_models_list_to_file_content(
             records_to_export_list, self.file_extension_mf, self.file_separator_mf, self.file_quoting_mf, fields_names_list
         )
-        export_file_dict = {
-            "name": file_name,
-            "content_mf": file_content
-        }
         if self.activate_file_generation_mf:
             self.directory_mf.write({
-                "files_mf": [(0, 0, export_file_dict)]
+                "files_mf": [(0, 0, {
+                    "name": file_name,
+                    "content_mf": file_content
+                })]
             })
-        export_attempt_file = self.env["file.mf"].create(export_file_dict)
+        export_attempt_file = self.env["file.mf"].create({
+            "name": file_name,
+            "content_mf": file_content
+        })
         self.write({
             "export_attempts_mf": [(0, 0, {
                 "start_datetime_mf": start_datetime,
@@ -62,8 +69,12 @@ class FileInterfaceExportMF(models.Model):
 
     def get_file_name(self):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
-        now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S")
-        return "MFFI-Export-" + now_formatted + '.' + self.file_extension_mf
+        now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")
+        if self.use_custom_extension:
+            extension = ('.' if not self.custom_extension.startswith('.') else '') + self.custom_extension
+        else:
+            extension = '.' + self.file_extension_mf
+        return "MFFI-Export-" + now_formatted + extension
 
     @api.multi
     def generate_cron_for_export(self):

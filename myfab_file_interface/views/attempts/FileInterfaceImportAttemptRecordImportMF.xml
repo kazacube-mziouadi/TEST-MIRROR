@@ -27,8 +27,13 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.attempt.record.import.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='status_mf']" position="attributes">
-					<attribute name="class">myfab_file_interface_import_attempt_record_import_mf_treeview</attribute>
+				<xpath expr="//field[@name='fields_mf']" position="attributes">
+					<attribute name="attrs">{'invisible': [('record_import_rows_mf', '!=', False)]}</attribute>
+				</xpath>
+				<xpath expr="//field[@name='fields_mf']" position="before">
+					<field name="record_import_rows_mf"
+						   readonly="1"
+						   attrs="{'invisible': [('record_import_rows_mf', '=', False)]}"/>
 				</xpath>
 			</field>
 		</record>
