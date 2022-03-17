@@ -96,7 +96,7 @@ class DataInitializerMyFabMF(models.Model):
         calendar_template.name = "Général"
         current_year = date.today().year
         wizard_create_template_lines = self.with_context({}).env["wizard.create.template.lines"].create({
-            "calendar_template_id": calendar_template[0].id,
+            "calendar_template_id": calendar_template.id,
             "start_date": date(current_year, 1, 1),
             "end_date": date(current_year + 3, 12, 31),
             "frequency": 1,
