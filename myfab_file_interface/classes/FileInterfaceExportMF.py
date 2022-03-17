@@ -69,7 +69,7 @@ class FileInterfaceExportMF(models.Model):
 
     def get_file_name(self):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
-        now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S")
+        now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")
         if self.use_custom_extension:
             extension = ('.' if not self.custom_extension.startswith('.') else '') + self.custom_extension
         else:

@@ -78,11 +78,11 @@ class ParserServiceMF(models.TransientModel):
         return records_list
 
     """
-        field_names_list: a list of fields names as they are written in the CSV, in the following format :
+        :param field_names_list: a list of fields names as they are written in the CSV, in the following format :
             ["field1", "field_root/field_child", ...]
-        model_name: name of the model which contains the fields
+        :param model_name: name of the model which contains the fields
         
-        Returns a list with the tree structure of the fields each linked to it's field record, in the following format :
+        :returns: a list with the tree structure of the fields each linked to it's field record, in the following format :
             [{'field': ir.model.fields(13606,)}, {'field': ir.model.fields(2050,), 'sub_field': {'field': ...}}]
     """
     def get_fields_by_names_list(self, field_names_list, model_name):
@@ -92,10 +92,10 @@ class ParserServiceMF(models.TransientModel):
         return fields_list
 
     """
-        field_name_tree: a field name as written in the CSV, in the format "field_root/field_child"
-        model_name: name of the model which contains the field
+        :param field_name_tree: a field name as written in the CSV, in the format "field_root/field_child"
+        :param model_name: name of the model which contains the field
         
-        Returns the tree structure of the field as a dict, in the format :
+        :returns: the tree structure of the field as a dict, in the format :
             - {'field': ir.model.fields(13606,)} for a simple field.
             - {'field': ir.model.fields(2050,), 'sub_field': {'field': ...}} for a relation field.
     """
@@ -117,20 +117,20 @@ class ParserServiceMF(models.TransientModel):
             return {"field": field}
 
     """
-        field_name_tree_list: a list with the parts of the tree structure of one relation field, in the format :
+        :param field_name_tree_list: a list with the parts of the tree structure of one relation field, in the format :
             ["field_root", "field_child", "field_grandchild"] corresponding to "field_root/field_child/field_grandchild"
         
-        Returns the children fields tree structure, so in this example : "field_child/field_grandchild"
+        :returns: the children fields tree structure, so in this example : "field_child/field_grandchild"
     """
     @staticmethod
     def get_sub_field_name_tree_str(field_name_tree_list):
         return '/'.join(field_name_tree_list[1:])
 
     """
-        field_name_tree_list: a list with the parts of the tree structure of one relation field, in the format :
+        :param field_name_tree_list: a list with the parts of the tree structure of one relation field, in the format :
             ["field_root", "field_child", "field_grandchild"] corresponding to "field_root/field_child/field_grandchild"
 
-        Returns the root field's record from ir.model.fields
+        :returns: the root field's record from ir.model.fields
     """
     def get_field_name_tree_list_root_field(self, field_name_tree_list, model_id):
         root_field_name = field_name_tree_list[0]
@@ -141,13 +141,12 @@ class ParserServiceMF(models.TransientModel):
         return root_field
 
     """
-        values_list: a list with the values from the CSV line, in the format :
+        :param values_list: a list with the values from the CSV line, in the format :
             ["value1", "value2", ...]
-        fields_list: a list with the tree structure of the fields each linked to it's field record, in the format :
+        :param fields_list: a list with the tree structure of the fields each linked to it's field record, in the format :
             [{'field': ir.model.fields(13606,)}, {'field': ir.model.fields(2050,), 'sub_field': {'field': ...}}]
 
-        Returns :
-        record_dict: a dict matching the fields' structure of the final record, with the values corresponding to each :
+        :returns record_dict: a dict matching the fields' structure of the final record, with the values corresponding to each :
             {
                 "field_string": value1,
                 "field_many2one": {
@@ -159,8 +158,8 @@ class ParserServiceMF(models.TransientModel):
                     }
                 ]
             }       
-        is_root_record: a boolean which indicates if the processed record is a root one (has no "parent" field)
-        record_to_write_id: in write case only, the ID of the record on which we write 
+        :returns is_root_record: a boolean which indicates if the processed record is a root one (has no "parent" field)
+        :returns record_to_write_id: in write case only, the ID of the record on which we write 
     """
     def get_record_dict_from_values_list(self, values_list, fields_list):
         record_dict = {}
@@ -180,11 +179,11 @@ class ParserServiceMF(models.TransientModel):
         return record_dict, is_root_record, record_to_write_id
 
     """
-        record_tree_part: a dict corresponding to a part of the final dict of the record, that we will create thanks to 
+        :param record_tree_part: a dict corresponding to a part of the final dict of the record, that we will create thanks to 
             the field's tree structure
-        sub_field_dict: a dict with the tree structure of the relation field in the format :
+        :param sub_field_dict: a dict with the tree structure of the relation field in the format :
             {'field': ir.model.fields(2050,), 'sub_field': {'field': ...}}
-        value: the value to set in record_tree_part at the leaf of the tree structure (at the "subbest" field)
+        :param value: the value to set in record_tree_part at the leaf of the tree structure (at the "subbest" field)
     """
     def set_field_tree_leaf_value(self, record_tree_part, sub_field_dict, value):
         if "sub_field" in sub_field_dict:
@@ -208,8 +207,8 @@ class ParserServiceMF(models.TransientModel):
                 record_tree_part[field_to_fill.name] = value
 
     """
-        relation_field_dict: dict representing the sub record to add to the x2many list
-        relation_field_list: list representing elements in a x2many, in which we add relation_field_dict
+        :param relation_field_dict: dict representing the sub record to add to the x2many list
+        :param relation_field_list: list representing elements in a x2many, in which we add relation_field_dict
     """
     def add_relation_field_dict_to_relation_field_list(self, relation_field_dict, relation_field_list):
         relation_field_dict_first_field_name = list(relation_field_dict.keys())[0]
