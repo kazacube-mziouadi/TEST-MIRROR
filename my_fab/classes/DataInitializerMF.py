@@ -23,6 +23,16 @@ class DataInitializerMF(models.AbstractModel):
     # METHODS OVERRIDABLE
     # ===========================================================================
 
+    # Method to copy in the herited class to get the right file path
+    @staticmethod
+    def get_file_path():
+        return __file__
+
+    # Method to override in order to set the file extension before initializing the data
+    @staticmethod
+    def get_file_extension():
+        return "csv"
+
     # Method to override in order to declare models' names which data must be overwritten by the imported data files
     @staticmethod
     def get_models_to_overwrite_names():
@@ -57,10 +67,11 @@ class DataInitializerMF(models.AbstractModel):
 
     def import_data_files(self, import_mode):
         data_dir_path = self.get_data_dir_path(import_mode)
-        file_names = [file for file in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, file))]
-        file_names = sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
-        for file_name in file_names:
-            self.process_file_by_model_name_in_file_name(import_mode, file_name)
+        if os.path.exists(data_dir_path):
+            file_names = [file for file in os.listdir(data_dir_path) if os.path.isfile(os.path.join(data_dir_path, file))]
+            file_names = sorted(file_names, key=lambda file_name: self.env["file.mf"].get_sequence_from_file_name(file_name))
+            for file_name in file_names:
+                self.process_file_by_model_name_in_file_name(import_mode, file_name)
 
     # Process the file, depending on the imported model (in the file name)
     def process_file_by_model_name_in_file_name(self, import_mode, file_name):
@@ -77,15 +88,17 @@ class DataInitializerMF(models.AbstractModel):
         logger.info("Importing " + model_name)
         file = open(os.path.join(self.get_data_dir_path(import_mode), file_name), "rb")
         file_content = file.read()
-        records_to_process_list = self.env["parser.service.mf"].get_records_from_csv(
-            file_content, file_name, file_separator=',', file_quoting='"', file_encoding="utf-8"
+        records_to_process_list = self.env["parser.service.mf"].get_records_from_file(
+            self.get_file_extension(), file_content, file_name, file_separator=',', file_quoting='"', file_encoding="utf-8"
         )
         self.env["importer.service.mf"].with_context(lang="fr_FR").import_records_list(records_to_process_list)
 
-    @staticmethod
     # Returns the module's data directory
-    def get_data_dir_path(import_mode):
-        python_file_path = os.path.realpath(__file__)
+    def get_data_dir_path(self,import_mode):
+        dir_index = 5
+        python_file_path = os.path.realpath(self.get_file_path())
         python_file_path_list = python_file_path.split(os.sep)
-        module_directory_path = '/' + os.path.join(*python_file_path_list[:5])
+        if 'myfab-specific' in python_file_path_list:
+            dir_index += 1
+        module_directory_path = '/' + os.path.join(*python_file_path_list[:dir_index])
         return os.path.join(module_directory_path, "static", "data", import_mode)
