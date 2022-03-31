@@ -51,20 +51,25 @@ class FileInterfaceImportMF(models.Model):
             self.env["importer.service.mf"].import_records_list(records_to_process_list)
         except Exception as e:
             record_import_failed_dict = None
-            if len(e.args) > 1:
+            if len(e.args) == 2:
                 exception, record_import_failed_dict = e
             exception_traceback = traceback.format_exc()
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
-            import_attempt_record_imports_list = self.get_one2many_record_imports_creation_list_from_dicts_list(
-                records_to_process_list, record_import_failed_dict
-            )
+            # Creation du fichier de tentative non factorisable a cause du rollback ci-dessus
+            import_attempt_file = self.env["file.mf"].create({
+                "name": file_name,
+                "content_mf": file_content
+            })
             # Creation de la tentative
             import_attempt_dict.update({
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_datetime(),
                 "message_mf": exception_traceback,
-                "record_imports_mf": import_attempt_record_imports_list
+                "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(
+                    records_to_process_list, record_import_failed_dict
+                ),
+                "file_mf": import_attempt_file.id
             })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             self.directory_mf.delete_file(file_name)
