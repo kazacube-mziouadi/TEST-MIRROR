@@ -61,7 +61,9 @@ class ImporterServiceMF(models.TransientModel):
         if orm_method_name == "create" or (orm_method_name == "merge" and not records_found):
             if records_found:
                 return records_found, "ignored"
-            record_created = self.env[model_name].create(record_fields_dict)
+            record_created = self.env[model_name].create(
+                record_fields_dict if orm_method_name == "create" else record_to_write_fields_dict
+            )
             # Odoo CSV id string link creation
             if "id" in record_fields_dict:
                 ir_model_data_values = record_fields_dict["id"].split('.')
@@ -73,13 +75,11 @@ class ImporterServiceMF(models.TransientModel):
                 })
             return record_created, "success"
         elif orm_method_name in ["search", "write", "delete", "merge"]:
-            if not records_found:
+            if not records_found and orm_method_name != "merge":
                 raise MissingError("No record found for model " + model_name + " with fields " + str(record_fields_dict))
             for record_found in records_found:
-                if orm_method_name == "write":
+                if orm_method_name in ["write", "merge"]:
                     record_found.write(record_to_write_fields_dict)
-                elif orm_method_name == "merge":
-                    record_found.write(record_fields_dict)
                 elif orm_method_name == "delete":
                     record_found.unlink()
             return records_found, "success"

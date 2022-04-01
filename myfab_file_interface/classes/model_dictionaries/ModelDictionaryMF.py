@@ -17,7 +17,7 @@ class ModelDictionaryMF(models.AbstractModel):
                                            "model_dictionary_mf_id", "model_field_id", string="Fields to export",
                                            copy=True, readonly=False)
     fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf", copy=True,
-                                        string="Filters to apply on fields", ondelete="cascade")
+                                        string="Filters to apply on fields at export", ondelete="cascade")
     parent_model_dictionary_mf = fields.Many2one(string="Parent MyFab Model Export Config")
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf", copy=True,
                                                      string="Children MyFab Model Export Configs", ondelete="cascade")
@@ -25,6 +25,12 @@ class ModelDictionaryMF(models.AbstractModel):
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
     number_of_records_to_export_limit_mf = fields.Integer(string="Number of records to export limit",
                                                           help="If set to 0, no limit is applied.", default=None)
+    mf_fields_to_search = fields.Many2many("ir.model.fields", "model_dictionary_mf_fields_to_search_rel",
+                                           "model_dictionary_mf_id", "model_field_id",
+                                           string="Fields to search at import", copy=True, readonly=False,
+                                           help="At import, fields on which search the records to process. \
+                                                Warning : if no field is set here, all the records will be processed.")
+    mf_hide_fields_to_search = fields.Boolean(compute="compute_mf_hide_fields_to_search")
 
     # ===========================================================================
     # FIELDS METHODS
@@ -57,7 +63,12 @@ class ModelDictionaryMF(models.AbstractModel):
     @api.one
     @api.depends('model_to_export_mf')
     def compute_hide_fields_view(self):
-        self.hide_fields_view = (not self.id or not self.model_to_export_mf)
+        self.hide_fields_view = not self.id or not self.model_to_export_mf
+
+    @api.one
+    @api.depends('model_to_export_mf')
+    def compute_mf_hide_fields_to_search(self):
+        self.mf_hide_fields_to_search = not self.id or not self.model_to_export_mf
 
     # ===========================================================================
     # METHODS

@@ -30,10 +30,10 @@
 				<xpath expr="//field[@name='file_quoting_mf']" position="after">
 					<field name="file_encoding_mf"/>
 				</xpath>
-				<xpath expr="//group[@name='directory']" position="after">
-					<group col="1" string="History">
+				<xpath expr="//page[@name='page_monitoring_directory']" position="after">
+					<page string="History" name="page_monitoring_history">
 						<field name="import_attempts_mf"/>
-					</group>
+					</page>
 				</xpath>
 				<xpath expr="//button[@name='generate_cron']" position="after">
 					<button class="oe_inline oe_stat_button"
