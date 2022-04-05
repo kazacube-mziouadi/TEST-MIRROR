@@ -41,10 +41,8 @@
 								<field name="number_of_records_to_export_limit_mf"/>
 								<field name="fields_filters_mf"
 									   context="{'model_dictionary_mf': active_id, 'model_to_filter_id': model_to_export_mf}" />
-								<field name="mf_hide_fields_to_search" invisible="1"/>
 								<field name="mf_fields_to_search"
-									   domain="[('model_id', '=', model_to_export_mf)]"
-									   attrs="{'invisible': [('mf_hide_fields_to_search', '=', True)]}"/>
+									   domain="[('model_id', '=', model_to_export_mf)]"/>
 							</group>
 						</page>
 					</notebook>

@@ -30,7 +30,6 @@ class ModelDictionaryMF(models.AbstractModel):
                                            string="Fields to search at import", copy=True, readonly=False,
                                            help="At import, fields on which search the records to process. \
                                                 Warning : if no field is set here, all the records will be processed.")
-    mf_hide_fields_to_search = fields.Boolean(compute="compute_mf_hide_fields_to_search")
 
     # ===========================================================================
     # FIELDS METHODS
@@ -64,11 +63,6 @@ class ModelDictionaryMF(models.AbstractModel):
     @api.depends('model_to_export_mf')
     def compute_hide_fields_view(self):
         self.hide_fields_view = not self.id or not self.model_to_export_mf
-
-    @api.one
-    @api.depends('model_to_export_mf')
-    def compute_mf_hide_fields_to_search(self):
-        self.mf_hide_fields_to_search = not self.id or not self.model_to_export_mf
 
     # ===========================================================================
     # METHODS
@@ -120,11 +114,14 @@ class ModelDictionaryMF(models.AbstractModel):
             # String, boolean, integer...
             return "" if object_field_value is False and field_to_export.ttype != "boolean" else object_field_value
 
-    def get_child_model_dictionary_for_field(self, field_to_export):
+    def get_child_model_dictionary_for_field(self, field_to_export, raise_error_if_not_found=True):
         for child_model_dictionary in self.children_model_dictionaries_mf:
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary
-        raise MissingError("No model dictionary found for model " + field_to_export.relation)
+        if raise_error_if_not_found:
+            raise MissingError("No model dictionary found for model " + field_to_export.relation)
+        else:
+            return False
 
     def get_fields_names_list(self, prefix=""):
         fields_names_list = []
