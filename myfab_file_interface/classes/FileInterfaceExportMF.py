@@ -20,10 +20,22 @@ class FileInterfaceExportMF(models.Model):
                                          string="Export attempts", ondelete="cascade", readonly=True)
     use_custom_extension = fields.Boolean(string="Name files with a custom extension", default=False)
     custom_extension = fields.Char(string="Custom extension")
+    mf_method_to_apply = fields.Selection("_mf_method_to_apply_get", "Method to apply at import", default="create", required=True,
+                                          help="The method to apply on the exported records if they get imported in Open-Prod again.")
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
+
+    @api.model
+    def _mf_method_to_apply_get(self):
+        return [
+            ("create", _("Create")),
+            ("merge", _("Merge")),
+            ("write", _("Write")),
+            ("delete", _("Delete")),
+            ("search", _("Search")),
+        ]
 
     @api.one
     def launch(self):
@@ -36,7 +48,7 @@ class FileInterfaceExportMF(models.Model):
         start_datetime = datetime.datetime.now()
         file_name = self.get_file_name()
         records_to_export_list = self.env["exporter.service.mf"].get_records_to_export_list_from_model_dictionary(
-            model_dictionary
+            model_dictionary, self.mf_method_to_apply
         )
         if self.file_extension_mf in ["csv", "txt"]:
             fields_names_list = model_dictionary.get_fields_names_list()
