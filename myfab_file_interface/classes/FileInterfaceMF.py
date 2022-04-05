@@ -18,7 +18,7 @@ class FileInterfaceMF(models.AbstractModel):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=128, required=True)
-    directory_mf = fields.Many2one("physical.directory.mf", string="Directory to process", ondelete="cascade",
+    directory_mf = fields.Many2one("physical.directory.mf", string="Linked directory", ondelete="cascade",
                                    help="The directory where are stored the files processed by the file interface.",
                                    required=True, copy=False)
     directory_path_mf = fields.Char(related="directory_mf.path_mf", string="Directory's path", readonly=True)

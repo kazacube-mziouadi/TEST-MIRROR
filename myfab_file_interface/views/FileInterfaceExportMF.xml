@@ -27,16 +27,30 @@
 			<field name="mode">primary</field>
 			<field name="model">file.interface.export.mf</field>
 			<field name="arch" type="xml">
-				<xpath expr="//field[@name='file_quoting_mf']" position="after">
-					<field name="use_custom_extension"/>
-					<field name="custom_extension" attrs="{'invisible': [('use_custom_extension', '=', False)],'required': [('use_custom_extension', '=', True)]}"/>
-					<field name="activate_file_generation_mf"/>
-					<field name="model_dictionaries_to_export_mf"/>
-				</xpath>
-				<xpath expr="//group[@name='directory']" position="after">
-					<group col="1" string="History">
-						<field name="export_attempts_mf"/>
+				<xpath expr="//field[@name='directory_mf']" position="after">
+					<group colspan="4" col="1">
+						<field name="model_dictionaries_to_export_mf"/>
 					</group>
+				</xpath>
+				<xpath expr="//group[@name='file_format_group']" position="after">
+					<group colspan="4" col="4">
+						<field name="use_custom_extension"/>
+						<field name="activate_file_generation_mf"/>
+						<field name="custom_extension"
+							   attrs="{'invisible': [('use_custom_extension', '=', False)],'required': [('use_custom_extension', '=', True)]}"/>
+					</group>
+				</xpath>
+				<xpath expr="//page[@name='page_configuration_file']" position="after">
+					<page string="Advanced" name="page_configuration_advanced">
+						<group col="2">
+							<field name="mf_method_to_apply" />
+						</group>
+					</page>
+				</xpath>
+				<xpath expr="//page[@name='page_monitoring_directory']" position="after">
+					<page string="History" name="page_monitoring_history">
+						<field name="export_attempts_mf"/>
+					</page>
 				</xpath>
 			</field>
 		</record>

@@ -28,8 +28,21 @@ class ImporterServiceMF(models.TransientModel):
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
                     for record_returned in records_returned:
-                        callback_method_on_model = getattr(record_returned, record_to_process_dict["callback"])
-                        callback_method_on_model()
+                        callback_method = record_to_process_dict["callback"]
+                        callback_method_params = []
+                        if '(' in callback_method:
+                            callback_method_split = callback_method.split('(')
+                            callback_method = callback_method_split[0]
+                            callback_method_params = callback_method_split[1][0:-1]
+                            callback_method_params = callback_method_params.split(',')
+                            for param_index, param_value in enumerate(callback_method_params):
+                                if type(param_value) is str and param_value.startswith('\''):
+                                    callback_method_params[param_index] = param_value[1:-1]
+                        callback_method_on_model = getattr(record_returned, callback_method)
+                        if callback_method_params:
+                            callback_method_on_model(*callback_method_params)
+                        else:
+                            callback_method_on_model()
                 record_to_process_dict["status"] = status
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
@@ -61,7 +74,9 @@ class ImporterServiceMF(models.TransientModel):
         if orm_method_name == "create" or (orm_method_name == "merge" and not records_found):
             if records_found:
                 return records_found, "ignored"
-            record_created = self.env[model_name].create(record_fields_dict)
+            record_created = self.env[model_name].create(
+                record_fields_dict if orm_method_name == "create" else record_to_write_fields_dict
+            )
             # Odoo CSV id string link creation
             if "id" in record_fields_dict:
                 ir_model_data_values = record_fields_dict["id"].split('.')
@@ -73,13 +88,11 @@ class ImporterServiceMF(models.TransientModel):
                 })
             return record_created, "success"
         elif orm_method_name in ["search", "write", "delete", "merge"]:
-            if not records_found:
+            if not records_found and orm_method_name != "merge":
                 raise MissingError("No record found for model " + model_name + " with fields " + str(record_fields_dict))
             for record_found in records_found:
-                if orm_method_name == "write":
+                if orm_method_name in ["write", "merge"]:
                     record_found.write(record_to_write_fields_dict)
-                elif orm_method_name == "merge":
-                    record_found.write(record_fields_dict)
                 elif orm_method_name == "delete":
                     record_found.unlink()
             return records_found, "success"
