@@ -91,7 +91,8 @@
         'base_vat',
         'web_charts',
         'web',
-        'web_mail_autocomplete'
+        'web_mail_autocomplete',
+        'planning'
     ],
     'data': [
         'security/myfab_file_interface_security.xml',

@@ -6,31 +6,27 @@
 		<record id="view_data_initializer_myfab_mf" model="ir.ui.view">
             <field name="name">data.initializer.myfab.mf.form</field>
             <field name="model">data.initializer.myfab.mf</field>
-            <field name="inherit_id" ref="base.res_config_installer"/>
             <field name="arch" type="xml">
-                <form position="attributes">
-                    <attribute name="string">MyFab Data Import</attribute>
-                </form>
-                <separator name="title" position="replace">
-                    <p>Select the data you wish to initialize :</p>
+                <form>
+                    <p>Select the features you wish to deploy :</p>
                     <group col="2">
                         <field name="launch_base_init"/>
                         <field name="launch_data_recovery_templates_init"/>
+                        <field name="launch_modules_init"/>
+                        <field name="launch_dev_tools_init"/>
                     </group>
                     <p style="color:red" attrs="{'invisible': [('launch_base_init', '=', False)]}">
                         Warning : Launching the base initialization may overwrite your current configurations.
                     </p>
-                </separator>
-                <footer position="replace">
                     <footer>
                         <button name="launch_initialization" type="object" string="Continue" class="oe_highlight"/>
                     </footer>
-                </footer>
+                </form>
             </field>
         </record>
 
         <record id="action_data_initializer_myfab_mf" model="ir.actions.act_window">
-            <field name="name">Select the data to initialize</field>
+            <field name="name">MyFab Base</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">data.initializer.myfab.mf</field>
             <field name="view_id" ref="view_data_initializer_myfab_mf"/>
@@ -42,7 +38,7 @@
         <record id="data_initializer_myfab_mf_todo" model="ir.actions.todo">
             <field name="action_id" ref="action_data_initializer_myfab_mf"/>
             <field name="state">open</field>
-            <field name="sequence">5</field>
+            <field name="sequence">50</field>
             <field name="type">automatic</field>
         </record>
     </data>

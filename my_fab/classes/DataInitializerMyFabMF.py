@@ -16,6 +16,9 @@ class DataInitializerMyFabMF(models.Model):
     launch_base_init = fields.Boolean(string="Launch base initialization", default=False)
     launch_data_recovery_templates_init = fields.Boolean(string="Launch data recovery templates initialization",
                                                          default=False)
+    launch_modules_init = fields.Boolean(string="Launch Open-Prod modules initialization", default=True, readonly=True)
+    launch_dev_tools_init = fields.Boolean(string="Launch advanced development tools initialization", default=True,
+                                           readonly=True)
 
     # ===========================================================================
     # GENERAL METHODS
