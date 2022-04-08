@@ -6,19 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-08 15:47+0000\n"
-"PO-Revision-Date: 2022-03-08 15:47+0000\n"
+"POT-Creation-Date: 2022-04-08 15:50+0000\n"
+"PO-Revision-Date: 2022-04-08 15:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: my_fab
-#: model:ir.actions.act_window,name:my_fab.action_data_initializer_myfab_mf
-msgid "Select the data to initialize"
-msgstr "Sélection des données à initialiser"
 
 #. module: my_fab
 #: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
@@ -40,12 +35,6 @@ msgstr "Crée le"
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: my_fab
-#: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_id
-#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_id
-msgid "ID"
-msgstr "ID"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_is_configuration_done
@@ -70,6 +59,16 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_modules_init
+msgid "Launch Open-Prod modules initialization"
+msgstr "Lancer l'initialisation des modules Open-Prod de base"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_dev_tools_init
+msgid "Launch advanced development tools initialization"
+msgstr "Lancer l'initialisation des outils de développement avancé"
+
+#. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_base_init
 msgid "Launch base initialization"
 msgstr "Lancer l'initialisation des données de base"
@@ -80,9 +79,9 @@ msgid "Launch data recovery templates initialization"
 msgstr "Lancer l'initialisation des modèles de reprise de données"
 
 #. module: my_fab
-#: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
-msgid "MyFab Data Import"
-msgstr "MyFab Data Import"
+#: model:ir.actions.act_window,name:my_fab.action_data_initializer_myfab_mf
+msgid "MyFab Base"
+msgstr "MyFab Base"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_name
@@ -93,17 +92,17 @@ msgstr "Nom"
 #. module: my_fab
 #: model:ir.model.fields,help:my_fab.field_data_initializer_mf___last_update
 #: model:ir.model.fields,help:my_fab.field_data_initializer_mf_display_name
-#: model:ir.model.fields,help:my_fab.field_data_initializer_mf_id
 #: model:ir.model.fields,help:my_fab.field_data_initializer_mf_is_configuration_done
 #: model:ir.model.fields,help:my_fab.field_data_initializer_mf_name
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf___last_update
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_create_date
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_create_uid
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_display_name
-#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_id
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_is_configuration_done
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_base_init
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_data_recovery_templates_init
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_dev_tools_init
+#: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_launch_modules_init
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_name
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_date
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_uid
@@ -112,8 +111,8 @@ msgstr "Non défini"
 
 #. module: my_fab
 #: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
-msgid "Select the data you wish to initialize :"
-msgstr "Sélectionnez les données que vous souhaitez initialiser :"
+msgid "Select the features you wish to deploy :"
+msgstr "Sélectionnez les fonctionnalités à déployer :"
 
 #. module: my_fab
 #: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
