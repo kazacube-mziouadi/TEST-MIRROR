@@ -11,10 +11,10 @@ class mrp_option(models.Model):
     #===========================================================================
     # SQL
     #===========================================================================
-    _order = 'mf_sequence asc'
+    _order = 'sequence asc'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    mf_sequence = fields.Integer(string=_('Sequence'), required=True, default=10)
+    sequence = fields.Integer(string='Sequence',required=True, default=10)
 

@@ -9,7 +9,7 @@
 			<field name="priority" eval="17" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='active']" position="before">
-					<field name="mf_sequence" />
+					<field name="sequence" />
 				</xpath>
 			</field>
 		</record>
@@ -21,8 +21,11 @@
 			<field name="inherit_id" ref="mrp.view_tree_bom_option" />
 			<field name="priority" eval="17" />
 			<field name="arch" type="xml">
+				<xpath expr="//tree" position="attributes">
+					<attribute name="default_order">sequence asc</attribute>
+				</xpath>
 				<xpath expr="//field[@name='name']" position="before">
-					<field name="mf_sequence" />
+					<field name="sequence" />
 				</xpath>
 			</field>
 		</record>
@@ -35,7 +38,7 @@
 			<field name="priority" eval="17" />
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='name']" position="before">
-					<field name="mf_sequence" />
+					<field name="sequence" />
 				</xpath>
 			</field>
 		</record>

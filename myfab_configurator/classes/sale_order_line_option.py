@@ -11,10 +11,10 @@ class sale_order_line_option(models.Model):
     #===========================================================================
     # SQL
     #===========================================================================
-    _order = 'mf_sequence asc'
+    _order = 'sequence asc'
     
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    mf_sequence = fields.Integer(string=_('Sequence'), related='option_id.mf_sequence', readonly=True, store=True)
+    sequence = fields.Integer(string='Sequence', readonly=True, store=True)
 
