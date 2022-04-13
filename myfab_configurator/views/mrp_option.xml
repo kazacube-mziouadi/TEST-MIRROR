@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- FORM VIEW BoM option -->
+		<record id="mf_view_form_bom_option" model="ir.ui.view">
+			<field name="name">mf_view_form_bom_option</field>
+			<field name="model">mrp.option</field>
+			<field name="inherit_id" ref="mrp.view_form_bom_option" />
+			<field name="priority" eval="17" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='active']" position="before">
+					<field name="sequence" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- TREE VIEW BoM option -->
+		<record id='mf_view_tree_bom_option' model='ir.ui.view'>
+			<field name="name">mf_view_tree_bom_option</field>
+			<field name="model">mrp.option</field>
+			<field name="inherit_id" ref="mrp.view_tree_bom_option" />
+			<field name="priority" eval="17" />
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="attributes">
+					<attribute name="default_order">sequence asc</attribute>
+				</xpath>
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="sequence" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- SEARCH VIEW BoM option -->
+		<record id='mf_view_search_bom_option' model='ir.ui.view'>
+			<field name="name">mf_view_search_bom_option</field>
+			<field name="model">mrp.option</field>
+			<field name="inherit_id" ref="mrp.view_search_bom_option" />
+			<field name="priority" eval="17" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="before">
+					<field name="sequence" />
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>
