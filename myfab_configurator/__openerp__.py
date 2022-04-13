@@ -5,7 +5,7 @@
     'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Configurateur MyFab pour améliorer le configurateur existant.',
-    'category': 'Base',
+    'category': 'Product',
     'description': """Configurateur MyFab qui enrichis le module existant.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
