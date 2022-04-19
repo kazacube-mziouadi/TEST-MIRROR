@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'MyFab Base',
-    'version': '1.1.2',
+    'version': '1.1.3',
     'author': 'MyFab',
     'license': 'Open-prod license',
     'summary': 'Initialisation modules et données pour MyFab',

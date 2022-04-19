@@ -15,9 +15,9 @@ class WizardFileInterfaceCronMF(models.TransientModel):
     ], "Interval Unit", required=True)
     nextcall_mf = fields.Datetime(string="Next Execution Date", required=True,
                                   help="Next planned execution date for this job.")
-    record_model_name_mf = fields.Char(string="Model of object on which apply cron", required=True)
-    record_name_mf = fields.Char(string="Name of object on which apply cron", required=True)
-    record_id_mf = fields.Integer(string="ID of object on which apply cron", required=True)
+    record_model_name_mf = fields.Char(string="Model of record on which apply cron", required=True)
+    record_name_mf = fields.Char(string="Name of record on which apply cron", required=True)
+    record_id_mf = fields.Integer(string="ID of record on which apply cron", required=True)
     record_method_mf = fields.Char(string="Method to execute on model", required=True)
 
     @api.model
