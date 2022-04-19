@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-29 09:30+0000\n"
-"PO-Revision-Date: 2021-06-29 09:30+0000\n"
+"POT-Creation-Date: 2022-04-19 14:04+0000\n"
+"PO-Revision-Date: 2022-04-19 14:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,27 @@ msgid "=like"
 msgstr "=like"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_path_mf
+msgid "Absolute path"
+msgstr "Chemin absolu"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
 msgid "Actions"
 msgstr "Actions"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_activate_file_generation_mf
+msgid "Activate file generation"
+msgstr "Activer la génération physique des fichiers"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
+msgid "Advanced"
+msgstr "Avancé"
 
 #. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_orientation_mf:0
@@ -37,12 +54,31 @@ msgid "After now"
 msgstr "Après maintenant"
 
 #. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_mf_fields_to_search
+#: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_mf_fields_to_search
+msgid "At import, fields on which search the records to process.                                                 Warning : if no field is set here, all the records will be processed."
+msgstr "A l'import, champs sur lesquels rechercher les enregistrements à traiter.                                                 Attention : si aucun champ n'est configuré ici, tous les enregistrements seront traités."
+
+#. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_orientation_mf:0
 msgid "Before now"
 msgstr "Avant maintenant"
 
 #. module: myfab_file_interface
+#: selection:file.interface.import.mf,file_encoding_mf:0
+msgid "CP1252"
+msgstr "CP1252"
+
+#. module: myfab_file_interface
+#: selection:file.interface.export.mf,file_extension_mf:0
+#: selection:file.interface.import.mf,file_extension_mf:0
+#: selection:file.interface.mf,file_extension_mf:0
+msgid "CSV"
+msgstr "CSV"
+
+#. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_cron_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_confirm_import_file_mf
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -57,40 +93,98 @@ msgid "Children MyFab Model Export Configs"
 msgstr "Configurations des modèles enfants"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_committed_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_committed_mf
+msgid "Committed"
+msgstr "Committed"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
 msgid "Configuration"
 msgstr "Configuration"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_create_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_create_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_content_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_content_mf
+msgid "Content"
+msgstr "Contenu"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_content_preview_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_content_preview_mf
+msgid "Content preview"
+msgstr "Visualisation du contenu"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_converter_service_mf
+msgid "Converter service MyFab"
+msgstr "Service de conversion MyFab"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:33
+#, python-format
+msgid "Create"
+msgstr "Création"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_create_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_create_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_create_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_create_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_create_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_create_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_create_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_create_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_create_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_create_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_create_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_create_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_create_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_create_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_create_date
 msgid "Created on"
 msgstr "Créé le"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_cron_already_exists_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_cron_already_exists_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_cron_already_exists_mf
 msgid "Cron already exists mf"
 msgstr "Le cron existe déjà"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_custom_extension
+msgid "Custom extension"
+msgstr "Extension personnalisée"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_datetime_delta_max_mf
@@ -109,14 +203,21 @@ msgid "Days"
 msgstr "Jours"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "Delete the cron for this export"
-msgstr "Supprimer le cron pour cet export"
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:36
+#, python-format
+msgid "Delete"
+msgstr "Suppression"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
-msgid "Delete the cron for this import"
-msgstr "Supprimer le cron pour cet import"
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_file_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_file_mf_treeview
+msgid "Delete file"
+msgstr "Supprimer fichier"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Delete the cron for this file interface"
+msgstr "Supprimer le cron pour cette interface fichier"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_delta_number_mf
@@ -134,38 +235,113 @@ msgid "Delta Unit"
 msgstr "Unité d'intervalle"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_directory_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Directory"
+msgstr "Répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_path_mf
+msgid "Directory path"
+msgstr "Chemin du répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_directory_scan_is_needed_mf
+msgid "Directory scan is needed mf"
+msgstr "Scan du répertoire nécessaire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_directory_mf
+msgid "Directory to upload file in"
+msgstr "Répertoire où uploader le fichier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_directory_files_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_directory_files_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_directory_files_mf
+msgid "Directory's files"
+msgstr "Fichiers du répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_directory_path_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_directory_path_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_directory_path_mf
+msgid "Directory's path"
+msgstr "Chemin du répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "Directory's scan"
+msgstr "Scan du répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_display_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_display_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_display_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_interface_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_display_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_display_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "Download Last Export fichier File"
-msgstr "Télécharger le dernier fichier fichier exporté"
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
+msgid "Download file"
+msgstr "Télécharger le fichier"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_import_file_mf
-msgid "Drop a .json file here"
-msgstr "Déposer un fichier .json ici"
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_file_mf
+msgid "Drop a file here"
+msgstr "Déposer un fichier ici"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "Export records"
-msgstr "Exporter les enregistrements"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_end_datetime_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_end_datetime_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_end_datetime_mf
+msgid "End datetime"
+msgstr "Date & heure de fin"
 
 #. module: myfab_file_interface
-#: model:ir.ui.menu,name:myfab_file_interface.menu_file_interface_exports
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_export_attempts_mf
+msgid "Export attempts"
+msgstr "Tentatives d'export"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_exporter_service_mf
+msgid "Exporter service MyFab"
+msgstr "Service d'export MyFab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.menu,name:myfab_file_interface.menu_myfab_file_interface_exports
 msgid "Exports File Interface MyFab"
 msgstr "Exports Fichiers"
+
+#. module: myfab_file_interface
+#: selection:file.interface.import.attempt.record.import.mf,status_mf:0
+#: selection:record.import.mf,status_mf:0
+msgid "Failed"
+msgstr "Echec"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_field_to_export_mf
@@ -173,53 +349,115 @@ msgid "Field to filter"
 msgstr "Champ à filtrer"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_to_export_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_to_export_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_to_export_mf
 msgid "Fields to export"
 msgstr "Champs à exporter"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_file_to_import_mf
-msgid "File to import"
-msgstr "Fichier à importer"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_mf_fields_to_search
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_mf_fields_to_search
+msgid "Fields to search at import"
+msgstr "Champs à rechercher à l'import"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_import_directory_path_mf
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_import_directory_path_mf
-msgid "Import directory"
-msgstr "Chemin du répertoire d'import"
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "File"
+msgstr "Fichier"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_filters_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_file_interface_import_mf
+msgid "File Interface Import to launch"
+msgstr "Import fichier à lancer"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
+msgid "File data"
+msgstr "Données du fichier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_file_quoting_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_file_quoting_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_file_quoting_mf
+msgid "File data quoting"
+msgstr "Caractère de quoting"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_file_separator_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_file_separator_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_file_separator_mf
+msgid "File data separator"
+msgstr "Caractère de séparation"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_file_encoding_mf
+msgid "File encoding"
+msgstr "Encodage du fichier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_file_extension_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_file_extension_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_file_extension_mf
+msgid "File extension"
+msgstr "Extension du fichier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_file_name_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_name_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_name_mf
+msgid "File name"
+msgstr "Nom du fichier"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_file_to_import_mf
+msgid "File to import content"
+msgstr "Contenu du fichier à importer"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_file_name_mf
+msgid "File to import name"
+msgstr "Nom du fichier à importer"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_files_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_treeview
+msgid "Files"
+msgstr "Fichiers"
+
+#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_filters_mf
-msgid "Filters to apply on fields"
-msgstr "Filtres à appliquer sur les champs"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_filters_mf
+msgid "Filters to apply on fields at export"
+msgstr "Filtres à appliquer aux champs à l'export"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/MyFabInterfaceExportMF.py:63
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "General"
+msgstr "Général"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:94
 #, python-format
 msgid "Generate cron for export"
-msgstr "Générer le cron pour cet export"
+msgstr "Géréner le cron pour l'export"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/MyFabInterfaceImportMF.py:124
+#: code:addons/myfab_file_interface/classes/FileInterfaceMF.py:79
 #, python-format
-msgid "Generate cron for import"
-msgstr "Générer le cron pour cet import"
+msgid "Generate cron for file interface"
+msgstr "Générer le cron pour l'interface fichier"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "Generate cron for this export"
-msgstr "Générer le cron pour cet export"
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Generate cron for this file interface"
+msgstr "Générer le cron pour cette interface fichier"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
-msgid "Generate cron for this import"
-msgstr "Générer le cron pour cet import"
-
-#. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_hide_fields_view
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_fields_view
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_hide_fields_view
 msgid "Hide fields view"
 msgstr "Cacher la vue des champs"
 
@@ -230,16 +468,14 @@ msgstr "Cacher la vue des filtres de datetimes"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_hide_filters_view
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_hide_filters_view
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_filters_view
 msgid "Hide filters view"
-msgstr "Ccaher la vue des filtres"
+msgstr "Cacher la vue des filtres"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_hide_number_of_records_exported_column
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_number_of_records_exported_column
-msgid "Hide number of records exported column"
-msgstr "Cacher la colonne d'enregistrements exportés"
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
+msgid "History"
+msgstr "Historique"
 
 #. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_type_mf:0
@@ -248,28 +484,76 @@ msgid "Hours"
 msgstr "Heures"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_id
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_id
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_id
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_interface_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_id
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_id
 msgid "ID"
 msgstr "ID"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_id_mf
-msgid "ID of object on which apply cron"
-msgstr "ID de l'objet sur lequel appliquer le cron"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_record_id_mf
+msgid "ID of record on which apply cron"
+msgstr "ID de l'enregistrement sur lequel appliquer le cron"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
-msgid "Import Files"
-msgstr "Importer les fichiers"
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_to_export_limit_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_number_of_records_to_export_limit_mf
+msgid "If set to 0, no limit is applied."
+msgstr "Si paramétré à 0, aucune limite n'est appliquée."
+
+#. module: myfab_file_interface
+#: selection:file.interface.import.attempt.record.import.mf,status_mf:0
+#: selection:record.import.mf,status_mf:0
+msgid "Ignored"
+msgstr "Ignoré"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_confirm_import_file_mf
+msgid "Import anyway"
+msgstr "Importer quand même"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_import_attempts_mf
+msgid "Import attempts"
+msgstr "Tentatives d'import"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_attempt_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_attempt_mf_treeview
+msgid "Import file again"
+msgstr "Réimporter le fichier"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:82
+#, python-format
+msgid "Import successful."
+msgstr "Import réussi."
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_importer_service_mf
+msgid "Importer service MyFab"
+msgstr "Service d'import MyFab"
 
 #. module: myfab_file_interface
 #: model:ir.ui.menu,name:myfab_file_interface.menu_myfab_file_interface_imports
@@ -277,82 +561,121 @@ msgid "Imports File Interface MyFab"
 msgstr "Imports Fichiers"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_interval_number_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_number_mf
 msgid "Interval Number"
 msgstr "Nombre d'intervalle"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_interval_type_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_type_mf
 msgid "Interval Unit"
 msgstr "Unité d'intervalle"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "Last Export"
-msgstr "Dernier Export"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_is_successful_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_is_successful_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_is_successful_mf
+msgid "Is successful"
+msgstr "Est réussi"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
-msgid "Last Import"
-msgstr "Dernier Import"
+#: selection:file.interface.export.mf,file_extension_mf:0
+#: selection:file.interface.import.mf,file_extension_mf:0
+#: selection:file.interface.mf,file_extension_mf:0
+msgid "JSON"
+msgstr "JSON"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_last_file_generated_mf
-msgid "Last file generated"
-msgstr "Dernier fichier généré"
-
-#. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_last_file_generated_name_mf
-msgid "Last file generated name"
-msgstr "Nom du dernier fichier généré"
-
-#. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_last_file_imported_mf
-msgid "Last file imported"
-msgstr "Dernier fichier importé"
-
-#. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf___last_update
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf___last_update
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf___last_update
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_myfab_interface_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf___last_update
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf___last_update
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_write_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_write_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_write_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_write_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_write_uid
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_write_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_uid
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_write_uid
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_write_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_write_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_converter_service_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_exporter_service_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_write_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_write_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_write_date
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_write_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_date
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_importer_service_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_parser_service_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_write_date
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
-msgid "Make sure to have saved at least one field to be able to apply filters."
-msgstr "Assurez-vous d'avoir sauvegardé au moins un champ pour pouvoir appliquer des filtres."
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_last_modification_date_mf
+msgid "Last modification date"
+msgstr "Date de dernière modification"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Launch"
+msgstr "Lancer"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_directory_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_directory_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_directory_mf
+msgid "Linked directory"
+msgstr "Répertoire lié"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
@@ -360,15 +683,51 @@ msgid "Make sure to save the entire document to be able to finish the Model Expo
 msgstr "Assurez-vous de sauvegarder le document tout entier pour pouvoir finir la configuration du modèle à exporter."
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_method_mf
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:34
+#, python-format
+msgid "Merge"
+msgstr "Fusionner"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_message_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_message_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_message_mf
+msgid "Message"
+msgstr "Message"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_method_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_method_mf
+msgid "Method applied"
+msgstr "Méthode appliquée"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_callback_method_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_callback_method_mf
+msgid "Method called on record"
+msgstr "Méthode appelée sur l'enregistrement"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_mf_method_to_apply
+msgid "Method to apply at import"
+msgstr "Méthode appliquée à l'import"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_record_method_mf
 msgid "Method to execute on model"
-msgstr "Méthode à excéuter sur le modèle"
+msgstr "Méthode à exécuter sur le modèle"
 
 #. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_type_mf:0
 #: selection:wizard.file.interface.cron.mf,interval_type_mf:0
 msgid "Minutes"
 msgstr "Minutes"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_model_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_model_mf
+msgid "Model"
+msgstr "Modèle"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_model_dictionary_field_mf
@@ -382,13 +741,13 @@ msgid "Model dictionary parent"
 msgstr "Dictionnaire de modèle parent"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_model_name_mf
-msgid "Model of object on which apply cron"
-msgstr "Modèle de l'objet sur lequel appliquer le cron"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_record_model_name_mf
+msgid "Model of record on which apply cron"
+msgstr "Modèle de l'enregistrement sur lequel appliquer le cron"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_model_to_export_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_model_to_export_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_model_to_export_mf
 msgid "Model to Export"
 msgstr "Modèle à exporter"
 
@@ -396,6 +755,11 @@ msgstr "Modèle à exporter"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_model_dictionaries_to_export_mf
 msgid "Models to Export"
 msgstr "Modèles à exporter"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Monitoring"
+msgstr "Monitoring"
 
 #. module: myfab_file_interface
 #: selection:wizard.file.interface.cron.mf,interval_type_mf:0
@@ -436,30 +800,45 @@ msgid "MyFab Field Filters Value Comparison"
 msgstr "Filtres de comparaison sur champs MyFab"
 
 #. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_mf
+msgid "MyFab File"
+msgstr "MyFab File"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_mf
+msgid "MyFab File Interface"
+msgstr "MyFab File Interface"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "MyFab File Interface Configuration"
+msgstr "MyFab File Interface Configuration"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_treeview
+msgid "MyFab File Interface Configurations"
+msgstr "MyFab File Interface Configurations"
+
+#. module: myfab_file_interface
 #: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
 msgid "MyFab File Interface Export"
 msgstr "Exports Fichiers"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_form
-msgid "MyFab File Interface Export Configuration"
-msgstr "Configuration d'Export Fichier MyFab"
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_attempt_mf
+msgid "MyFab File Interface Export Attempt"
+msgstr "MyFab File Interface Export Attempt"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_export_mf_treeview
-msgid "MyFab File Interface Export Configurations"
-msgstr "Configurations d'Export Fichier MyFab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_model_dictionary_mf
+#: model:ir.actions.act_window,name:myfab_file_interface.myfab_file_interface_export_model_dictionary_mf
 msgid "MyFab File Interface Export Model Export"
-msgstr "Dictionnaire de modèle pour interface fichier MyFab"
+msgstr "MyFab File Interface Export Model Export"
 
 #. module: myfab_file_interface
-#: model:res.groups,name:myfab_file_interface.group_file_interface_export
+#: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_export
 msgid "MyFab File Interface Exports"
-msgstr "Exports fichier MyFab"
+msgstr "MyFab File Interface Exports"
 
 #. module: myfab_file_interface
 #: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_mf
@@ -467,14 +846,14 @@ msgid "MyFab File Interface Import"
 msgstr "Import fichier MyFab"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
-msgid "MyFab File Interface Import Configuration"
-msgstr "Configuration d'import fichier MyFab"
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_mf
+msgid "MyFab File Interface Import Attempt"
+msgstr "MyFab File Interface Import Attempt"
 
 #. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_treeview
-msgid "MyFab File Interface Import Configurations"
-msgstr "Configurations d'imports fichier MyFab"
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_record_import_mf
+msgid "MyFab File Interface Import Attempt Record Import"
+msgstr "MyFab File Interface Import Attempt Record Import"
 
 #. module: myfab_file_interface
 #: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_import
@@ -487,6 +866,7 @@ msgid "MyFab File Interface cron creation"
 msgstr "Création de cron MyFab"
 
 #. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_attempt_mf
 #: model:ir.actions.act_window,name:myfab_file_interface.model_dictionary_mf
 msgid "MyFab Model Export"
 msgstr "Dictionnaire d'export de modèle MyFab"
@@ -502,9 +882,63 @@ msgid "MyFab Model Export Configs"
 msgstr "Configurations de dictionnaire d'export de modèle MyFab"
 
 #. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.record_import_mf
+msgid "MyFab Record Import"
+msgstr "MyFab Record Import"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_mf
+msgid "MyFab file"
+msgstr "MyFab file"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_attempt_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_form
+msgid "MyFab file interface attempt"
+msgstr "MyFab file interface attempt"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_treeview
+msgid "MyFab file interface attempts"
+msgstr "MyFab file interface attempts"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_mf
+msgid "MyFab file interface configuration"
+msgstr "MyFab file interface configuration"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_interface_export_mf
+msgid "MyFab file interface export"
+msgstr "MyFab file interface export"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_export_attempt_mf
+msgid "MyFab file interface export attempt"
+msgstr "MyFab file interface export attempt"
+
+#. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_export_mf
 msgid "MyFab file interface export configuration"
 msgstr "Configuration d'export fichier MyFab"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_interface_import_mf
+msgid "MyFab file interface import"
+msgstr "MyFab file interface import"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_file_interface_import_attempt_mf
+msgid "MyFab file interface import attempt"
+msgstr "MyFab file interface import attempt"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_record_import_mf
+msgid "MyFab file interface import attempt's record import object"
+msgstr "MyFab file interface import attempt's record import object"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_import_mf
@@ -512,9 +946,9 @@ msgid "MyFab file interface import configuration"
 msgstr "Configuration d'import fichier MyFab"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_myfab_interface_mf
-msgid "MyFab interface abstract - To use it add to the inheriter model a model_dictionaries_to_export_mf One2many field targeting a model inheriting from model.dictionary.mf"
-msgstr "MyFab interface abstract - Pour l'utiliser, ajouter au modèle 'héritant' une One2many model_dictionaries_to_export_mf qui cible un modèle héritant de model.dictionary.mf"
+#: model:ir.model,name:myfab_file_interface.model_record_import_row_mf
+msgid "MyFab import record's row"
+msgstr "MyFab import record's row"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_model_dictionary_mf
@@ -532,39 +966,242 @@ msgid "MyFab model dictionary link between a field and it's filters"
 msgstr "Lien entre un dictionnaire de modèle et ses filtres"
 
 #. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_physical_directory_mf
+msgid "MyFab physical directory"
+msgstr "MyFab physical directory"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.physical_file_mf
+#: model:ir.model,name:myfab_file_interface.model_physical_file_mf
+msgid "MyFab physical file"
+msgstr "MyFab physical file"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_record_import_mf
+msgid "MyFab record import object"
+msgstr "MyFab record import object"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.record_import_row_mf
+msgid "MyFab record import's row"
+msgstr "MyFab record import's row"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_row_mf_treeview
+msgid "MyFab record import's rows"
+msgstr "MyFab record import's rows"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_treeview
+msgid "MyFab record imports"
+msgstr "MyFab record imports"
+
+#. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_filter_value_comparison_mf
 msgid "MyFab value comparison filter"
 msgstr "Filtre de comparaison de valeur de champ MyFab"
 
 #. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_file_mf_name
 msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_name_mf
-msgid "Name of object on which apply cron"
-msgstr "Nom de l'objet sur lequel appliquer le cron"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_use_custom_extension
+msgid "Name files with a custom extension"
+msgstr "Nommer les fichiers avec une extension personnalisée"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_nextcall_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_record_name_mf
+msgid "Name of record on which apply cron"
+msgstr Nom de l'enregistrement sur lequel appliquer le cron"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_nextcall_mf
 msgid "Next Execution Date"
-msgstr "Date de prochaine exécution"
+msgstr "Prochaine date d'exécution"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_nextcall_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_nextcall_mf
 msgid "Next planned execution date for this job."
-msgstr "Date de prochaine exécution de ce travail"
+msgstr "Prochaine date d'exécution planifiée pour ce cron"
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:137
+#, python-format
+msgid "No files found in directory "
+msgstr "Aucun fichier trouvé dans le répertoire "
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_converter_service_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_exporter_service_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_end_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_file_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_file_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_is_successful_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_message_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_start_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_attempt_mf_status_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_end_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_file_interface_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_file_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_file_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_is_successful_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_message_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_start_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_status_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_attempt_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_activate_file_generation_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_cron_already_exists_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_custom_extension
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_files_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_export_attempts_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_file_extension_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_file_quoting_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_file_separator_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_model_dictionaries_to_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_use_custom_extension
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_children_model_dictionaries_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_filters_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_to_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_fields_view
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_model_to_export_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_exported
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_parent_model_dictionary_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_end_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_file_interface_import_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_file_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_file_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_is_successful_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_message_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_record_imports_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_start_datetime_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_status_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_callback_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_committed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_fields_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_fields_to_write_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_file_interface_import_attempt_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_model_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_record_import_rows_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_status_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_cron_already_exists_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_files_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_file_encoding_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_file_extension_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_file_quoting_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_file_separator_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_import_attempts_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_cron_already_exists_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_files_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_file_extension_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_file_quoting_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_file_separator_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_content_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_content_preview_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_sequence
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_file_mf_write_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_datetime_delta_mf___last_update
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_datetime_delta_mf_create_date
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_datetime_delta_mf_create_uid
@@ -588,6 +1225,13 @@ msgstr "Date de prochaine exécution de ce travail"
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_value_comparison_mf_value_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_value_comparison_mf_write_date
 #: model:ir.model.fields,help:myfab_file_interface.field_filter_value_comparison_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_importer_service_mf_write_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_field_filter_mf___last_update
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_field_filter_mf_create_date
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_field_filter_mf_create_uid
@@ -610,83 +1254,106 @@ msgstr "Date de prochaine exécution de ce travail"
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_fields_filters_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_fields_to_export_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_hide_fields_view
-#: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_hide_filters_view
-#: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_hide_number_of_records_exported_column
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_id
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_model_to_export_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_name
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_number_of_records_exported
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_parent_model_dictionary_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_cron_already_exists_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_import_directory_path_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_last_file_generated_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_last_file_generated_name_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_model_dictionaries_to_export_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_write_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_write_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_children_model_dictionaries_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_filters_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_to_export_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_fields_view
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_filters_view
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_hide_number_of_records_exported_column
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_model_to_export_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_exported
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_parent_model_dictionary_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_write_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_cron_already_exists_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_import_directory_path_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_last_file_imported_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_date
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_myfab_interface_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_myfab_interface_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_myfab_interface_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_create_date
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_interval_type_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_id_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_method_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_model_name_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_record_name_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_date
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_write_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_create_date
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_display_name
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_file_to_import_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_id
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_name
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_upload_directory_mf
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_write_date
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_import_file_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_directory_scan_is_needed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_files_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_content_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_content_preview_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_directory_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_last_modification_date_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_path_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_sequence
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_file_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_callback_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_committed_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_fields_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_fields_to_write_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_model_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_mf_status_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_record_import_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_row_content_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_row_number_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_record_import_row_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_file_interface_import_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_confirm_import_file_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_type_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_record_id_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_record_method_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_record_model_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_record_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_write_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_create_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_create_uid
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_directory_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_display_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_file_name_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_file_to_import_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_name
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_write_date
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_upload_file_mf_write_uid
 msgid "Not defined"
 msgstr "Non défini"
+
+#. module: myfab_file_interface
+#: selection:file.interface.import.attempt.record.import.mf,status_mf:0
+#: selection:record.import.mf,status_mf:0
+msgid "Not processed"
+msgstr "Non traité"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_number_of_filters_on_field
@@ -694,10 +1361,16 @@ msgid "Number of filters on field"
 msgstr "Nombre de filtres sur le champ"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_number_of_records_exported
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_exported
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_number_of_records_exported
 msgid "Number of records exported"
 msgstr "Nombre d'enregistrements exportés"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_to_export_limit_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_number_of_records_to_export_limit_mf
+msgid "Number of records to export limit"
+msgstr "Limite du nombre d'enregsitrements à exporter"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_cron_mf
@@ -710,15 +1383,187 @@ msgid "Operator"
 msgstr "Opérateur"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_parent_model_dictionary_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_parent_model_dictionary_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_parent_model_dictionary_mf
 msgid "Parent MyFab Model Export Config"
 msgstr "Configuration de dictionnaire de modèle parent"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,help:myfab_file_interface.field_wizard_myfab_file_interface_cron_mf_interval_number_mf
+#: model:ir.model,name:myfab_file_interface.model_parser_service_mf
+msgid "Parser service MyFab"
+msgstr "Service de parsing MyFab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_treeview
+msgid "Physical Directories"
+msgstr "Répertoires physiques"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.physical_directory
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "Physical Directory"
+msgstr "Répertoire physique"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_file_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_mf
+msgid "Processed file"
+msgstr "Fichier traité"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_record_import_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_form
+msgid "Record import"
+msgstr "Import d'enregistrement"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_row_mf_form
+msgid "Record import's row"
+msgstr "Ligne d'import d'enregistrement"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_record_imports_mf
+msgid "Record imports"
+msgstr "Imports d'enregistrements"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_fields_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_fields_mf
+msgid "Record's fields"
+msgstr "Champs de l'enregistrement"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_fields_to_write_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_fields_to_write_mf
+msgid "Record's fields to write"
+msgstr "Champs de l'enregistrement à écrire"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_number_mf
 msgid "Repeat every x."
-msgstr "Répéter tous les X."
+msgstr "Répéter tous les X"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_row_content_mf
+msgid "Row content"
+msgstr "Contenu de la ligne"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_row_number_mf
+msgid "Row number"
+msgstr "Numéro de ligne"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_record_import_rows_mf
+msgid "Rows imported"
+msgstr "Lognes importées"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "Scan directory"
+msgstr "Scanner le répertoire"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:37
+#, python-format
+msgid "Search"
+msgstr "Recherche"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_sequence
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_start_datetime_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_start_datetime_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_start_datetime_mf
+msgid "Start datetime"
+msgstr "Date & heure de début"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_status_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_status_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_status_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_status_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_status_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
+msgid "Status"
+msgstr "Statut"
+
+#. module: myfab_file_interface
+#: selection:file.interface.import.attempt.record.import.mf,status_mf:0
+#: selection:record.import.mf,status_mf:0
+msgid "Success"
+msgstr "Succès"
+
+#. module: myfab_file_interface
+#: selection:file.interface.export.mf,file_extension_mf:0
+#: selection:file.interface.import.mf,file_extension_mf:0
+#: selection:file.interface.mf,file_extension_mf:0
+msgid "TXT"
+msgstr "TXT"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_mf
+msgid "The directory where are stored the files processed by the file interface."
+msgstr "Le répertoire où sont stockés les fichiers traités par l'interface fichier."
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "The directory's files are out of sync. Use the \"Scan directory\" button to synchronize."
+msgstr "Les fichiers du répertoire sont désynchronisés. Utilisez le bouton \"Scanner le répertoire\" pour synchroniser."
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "The directory's files are out of sync. Use the button below to scan them from the directory."
+msgstr "Les fichiers du répertoire sont désynchronisés. Utilisez le bouton ci-dessous pour synchroniser."
+
+#. module: myfab_file_interface
+#: sql_constraint:physical.directory.mf:0
+msgid "The directory's path must be unique"
+msgstr "Le chemin du répertoire doit être unique pour chaque interface fichier"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:126
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_confirm_import_file_mf
+#, python-format
+msgid "The files to import list has been updated"
+msgstr "La liste des fichiers à importer a été mise à jour"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_confirm_import_file_mf
+msgid "The files to import list has been updated.\n"
+"                        If you want to check the files before they are being imported, you should cancel this import."
+msgstr "La liste des fichiers à importer a été mise à jour.\n"
+"                        Si vous souhaitez vérifier les fichiers avant qu'ils ne soient importés, vous pouvez annuler cet import."
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_mf_method_to_apply
+msgid "The method to apply on the exported records if they get imported in Open-Prod again."
+msgstr "La méthode à appliquer sur les enregistrements exportés s'ils sont importés dans Open-Prod à nouveau."
+
+#. module: myfab_file_interface
+#: sql_constraint:file.interface.export.mf:0
+#: sql_constraint:file.interface.import.mf:0
+#: sql_constraint:file.interface.mf:0
+msgid "There can only be one file interface attached to a directory"
+msgstr "Il ne peut n'y avoir qu'une seule interface fichier rattachée à un répertoire"
+
+#. module: myfab_file_interface
+#: selection:file.interface.import.mf,file_encoding_mf:0
+msgid "UTF-8"
+msgstr "UTF-8"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "Upload a file into the directory"
+msgstr "Uploader un fichier dans le répertoire"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_import_mf_form
@@ -726,21 +1571,22 @@ msgid "Upload an import file into the import directory"
 msgstr "Déposer un fichier dans le répertoire d'import"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_upload_import_file_mf_upload_directory_mf
-msgid "Upload directory"
-msgstr "Répertoire d'import"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_import_file_mf
-msgid "Upload import file"
-msgstr "Fichier à importer"
-
-#. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/MyFabInterfaceImportMF.py:148
-#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_import_file_mf
+#: code:addons/myfab_file_interface/classes/files/PhysicalDirectoryMF.py:94
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_file_mf
 #, python-format
-msgid "Upload import file into import directory"
-msgstr "Déposer un fichier dans le répertoire d'import"
+msgid "Upload file into directory"
+msgstr "Uploader le fichier dans le répertoire"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_file_mf
+msgid "Upload import file"
+msgstr "Uploader le fichier d'import"
+
+#. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:143
+#, python-format
+msgid "Upload import file into directory"
+msgstr "Uploader le fichier d'import dans le répertoire"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_value_mf
@@ -764,19 +1610,25 @@ msgid "Work Days"
 msgstr "Jours ouvrés"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_mrp_workorder
-msgid "Workorder"
-msgstr "Ordre de travail"
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:35
+#, python-format
+msgid "Write"
+msgstr "Ecriture"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "You must save the configuration before scanning the files to import."
+msgstr "Vous devez sauvegarder la configuration avant de scanner les fichiers à importer."
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "You must save the configuration before scanning the files."
+msgstr "Vous devez sauvegarder la configuration avant de scanner les fichiers."
 
 #. module: myfab_file_interface
 #: selection:filter.value.comparison.mf,operator_mf:0
 msgid "child_of"
 msgstr "child_of"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_datetime_delta_mf
-msgid "datetime.delta.mf"
-msgstr "datetime.delta.mf"
 
 #. module: myfab_file_interface
 #: code:addons/myfab_file_interface/classes/filters/FilterDatetimeDeltaMF.py:31
@@ -825,17 +1677,22 @@ msgid "parent_of"
 msgstr "parent_of"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_wizard_myfab_file_interface_cron_mf
+#: model:ir.model,name:myfab_file_interface.model_wizard_confirm_import_file_mf
+msgid "wizard.confirm.import.file.mf"
+msgstr "wizard.confirm.import.file.mf"
+
+#. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_wizard_file_interface_cron_mf
 msgid "wizard.file.interface.cron.mf"
 msgstr "wizard.file.interface.cron.mf"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_wizard_file_interface_export_cron_mf
-msgid "wizard.file.interface.export.cron.mf"
-msgstr "wizard.file.interface.export.cron.mf"
+#: model:ir.model,name:myfab_file_interface.model_wizard_no_import_file_mf
+msgid "wizard.no.import.file.mf"
+msgstr "wizard.no.import.file.mf"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_wizard_upload_import_file_mf
-msgid "wizard.upload.import.file.mf"
-msgstr "wizard.upload.import.file.mf"
+#: model:ir.model,name:myfab_file_interface.model_wizard_upload_file_mf
+msgid "wizard.upload.file.mf"
+msgstr "wizard.upload.file.mf"
 
