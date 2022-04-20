@@ -3,14 +3,14 @@
 	<data>
 		<!-- Herite de la vue de FileInterfaceAttemptMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
 		<record id='file_interface_import_attempt_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab File Interface Import Attempt</field>
+        	<field name="name">myfab File Interface import attempt</field>
 			<field name="res_model">file.interface.import.attempt.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='file_interface_import_attempt_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab File Interface Import Attempt</field>
+        	<field name="name">myfab File Interface import attempt</field>
 			<field name="inherit_id" ref="myfab_file_interface.file_interface_attempt_mf_treeview" />
 			<field name="mode">primary</field>
 			<field name="model">file.interface.import.attempt.mf</field>

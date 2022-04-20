@@ -3,10 +3,10 @@
 	<data>
 		<!-- Modale affichée lors du clic sur "Generate cron for this ..." -->
 		<record id='view_form_wizard_myfab_file_interface_cron_mf' model='ir.ui.view'>
-            <field name="name">MyFab File Interface cron creation</field>
+            <field name="name">myfab File Interface cron creation</field>
             <field name="model">wizard.file.interface.cron.mf</field>
             <field name="arch" type="xml">
-                <form string="MyFab File Interface cron creation" version="8.0">
+                <form string="myfab File Interface cron creation" version="8.0">
 					<group col="2">
 						<field name="interval_number_mf"/>
 						<field name="interval_type_mf"/>

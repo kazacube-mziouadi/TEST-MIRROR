@@ -4,7 +4,7 @@ from FilterInterfaceMF import FilterInterfaceMF
 
 class FilterValueComparisonMF(models.Model, FilterInterfaceMF):
     _name = "filter.value.comparison.mf"
-    _description = "MyFab value comparison filter"
+    _description = "myfab value comparison filter"
 
     # ===========================================================================
     # COLUMNS

@@ -8,7 +8,7 @@ COMMIT_BATCH_QUANTITY = 1000
 
 class ImporterServiceMF(models.TransientModel):
     _name = "importer.service.mf"
-    _description = "Importer service MyFab"
+    _description = "Importer service myfab"
 
     # ===========================================================================
     # METHODS

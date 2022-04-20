@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'MyFab Base',
+    'name': 'myfab Base',
     'version': '1.1.3',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Initialisation modules et données pour MyFab',
+    'summary': 'Initialisation modules et données pour myfab',
     'category': 'Base',
     'description': """Initialise les modules et données statiques nécessaires à une installation standard.""",
     'website': 'https://www.myfab.fr/',

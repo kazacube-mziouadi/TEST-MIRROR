@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'MyFab API REST',
+    'name': 'myfab API REST',
     'version': '1.0.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'API Rest',
     'category': 'Base',

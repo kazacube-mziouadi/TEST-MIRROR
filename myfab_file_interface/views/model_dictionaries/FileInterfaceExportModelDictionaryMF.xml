@@ -3,14 +3,14 @@
 	<data>
 		<!-- Herite de la vue de ModelExportMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
 		<record id='myfab_file_interface_export_model_dictionary_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab File Interface Export Model Export</field>
+        	<field name="name">myfab File Interface Export Model Export</field>
 			<field name="res_model">file.interface.export.model.dictionary.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='myfab_file_interface_export_model_dictionary_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab File Interface Export Model Export</field>
+        	<field name="name">myfab File Interface Export Model Export</field>
 			<field name="inherit_id" ref="myfab_file_interface.model_dictionary_mf_treeview" />
 			<field name="mode">primary</field>
 			<field name="model">file.interface.export.model.dictionary.mf</field>

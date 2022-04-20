@@ -3,7 +3,7 @@ from openerp import models, fields, api, _
 
 class ExporterServiceMF(models.TransientModel):
     _name = "exporter.service.mf"
-    _description = "Exporter service MyFab"
+    _description = "Exporter service myfab"
 
     # ===========================================================================
     # METHODS

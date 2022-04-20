@@ -2,7 +2,7 @@
 {
     'name': 'Machines spéciales',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Modules nécessaires aux Machines spéciales',
     'category': 'Industrial sectors',

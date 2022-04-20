@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'MyFab File Interface',
+    'name': 'myfab File Interface',
     'version': '1.1.3',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Interface MyFab pour échanger avec des logiciels externes via fichiers à plat.',
+    'summary': 'Interface myfab pour échanger avec des logiciels externes via fichiers à plat.',
     'category': 'Base',
-    'description': """Interface MyFab pour échanger avec des logiciels externes via fichiers à plat.""",
+    'description': """Interface myfab pour échanger avec des logiciels externes via fichiers à plat.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
@@ -125,6 +125,5 @@
     'test': [],
     'installable': True,
     'auto_install': False,
-    'application': True,
-    'not_show': True
+    'application': True
 }

@@ -3,10 +3,10 @@
 	<data noupdate="0">
 		<!-- Users Groups -->
 		<record model="res.groups" id="group_myfab_file_interface_export">
-            <field name="name">MyFab File Interface Exports</field>
+            <field name="name">myfab File Interface Exports</field>
         </record>
 		<record model="res.groups" id="group_myfab_file_interface_import">
-            <field name="name">MyFab File Interface Imports</field>
+            <field name="name">myfab File Interface Imports</field>
         </record>
 	</data>
 </openerp>

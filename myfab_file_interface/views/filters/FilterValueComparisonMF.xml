@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='filter_value_comparison_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab Field Filter Value Comparison</field>
+        	<field name="name">myfab field filter value comparison</field>
 			<field name="res_model">filter.value.comparison.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='filter_value_comparison_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab Field Filter Value Comparison</field>
+        	<field name="name">myfab field filter value comparison</field>
 			<field name="model">filter.value.comparison.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab Field Filters Value Comparison">
+				<tree string="myfab Field Filters Value Comparison">
 					<field name="operator_mf"/>
 					<field name="value_mf"/>
 				</tree>
@@ -23,7 +23,7 @@
         	<field name="name">filter.value.comparison.mf.form</field>
 			<field name="model">filter.value.comparison.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab Field Filter Value Comparison">
+				<form string="myfab field filter value comparison">
 					<group col="2">
 						<field name="operator_mf"/>
 						<field name="value_mf"/>

@@ -26,7 +26,7 @@
         </record>
 
         <record id="action_data_initializer_myfab_mf" model="ir.actions.act_window">
-            <field name="name">MyFab Base</field>
+            <field name="name">myfab Base</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">data.initializer.myfab.mf</field>
             <field name="view_id" ref="view_data_initializer_myfab_mf"/>
