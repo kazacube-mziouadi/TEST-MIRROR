@@ -3,7 +3,7 @@ from openerp import models, fields, api, registry, _
 
 class FileInterfaceAttemptMF(models.AbstractModel):
     _name = "file.interface.attempt.mf"
-    _description = "MyFab file interface attempt"
+    _description = "myfab file interface attempt"
     _auto = False
 
     # ===========================================================================

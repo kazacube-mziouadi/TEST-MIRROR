@@ -6,7 +6,7 @@ from StringIO import StringIO
 
 class ParserServiceMF(models.TransientModel):
     _name = "parser.service.mf"
-    _description = "Parser service MyFab"
+    _description = "Parser service myfab"
 
     # ===========================================================================
     # METHODS

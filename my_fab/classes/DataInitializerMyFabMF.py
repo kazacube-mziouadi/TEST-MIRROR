@@ -25,7 +25,7 @@ class DataInitializerMyFabMF(models.Model):
     # ===========================================================================
     @api.multi
     def display_wizard(self):
-        logger.info("Displaying MyFab Base Initialization wizard")
+        logger.info("Displaying myfab Base Initialization wizard")
 
     @staticmethod
     def get_models_to_overwrite_names():

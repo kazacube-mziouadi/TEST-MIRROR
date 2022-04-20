@@ -3,14 +3,14 @@
 	<data>
 		<!-- Herite de la vue de FileMF sans la modifier (juste un attribut pour que l'heritage fonctionne) -->
 		<record id='physical_file_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab physical file</field>
+        	<field name="name">myfab physical file</field>
 			<field name="res_model">physical.file.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='physical_file_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab physical files</field>
+        	<field name="name">myfab physical files</field>
 			<field name="inherit_id" ref="myfab_file_interface.file_mf_treeview" />
 			<field name="mode">primary</field>
 			<field name="model">physical.file.mf</field>

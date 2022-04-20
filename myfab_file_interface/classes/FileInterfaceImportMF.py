@@ -7,7 +7,7 @@ from openerp.exceptions import MissingError
 class FileInterfaceImportMF(models.Model):
     _inherit = "file.interface.mf"
     _name = "file.interface.import.mf"
-    _description = "MyFab file interface import configuration"
+    _description = "myfab file interface import configuration"
 
     # ===========================================================================
     # COLUMNS

@@ -79,8 +79,8 @@ class DataInitializerMF(models.AbstractModel):
         if model_name in self.get_models_to_avoid_names():
             return
         if model_name in self.get_models_to_overwrite_names():
-            # Delete all the MyFab current records for the model before importing
-            myfab_default_records = self.env[model_name].search([("name", "=like", "MyFab - %")])
+            # Delete all the myfab current records for the model before importing
+            myfab_default_records = self.env[model_name].search([("name", "=like", "myfab - %")])
             myfab_default_records.unlink()
         self.import_file(import_mode, model_name, file_name)
 

@@ -86,8 +86,8 @@ msgstr "Lancer l'initialisation des modèles de reprise de données"
 
 #. module: my_fab
 #: model:ir.actions.act_window,name:my_fab.action_data_initializer_myfab_mf
-msgid "MyFab Base"
-msgstr "MyFab Base"
+msgid "myfab Base"
+msgstr "myfab Base"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_name

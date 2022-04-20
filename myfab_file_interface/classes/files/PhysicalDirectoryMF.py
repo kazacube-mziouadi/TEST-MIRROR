@@ -5,7 +5,7 @@ from PhysicalFileMF import PhysicalFileMF
 
 class PhysicalDirectoryMF(models.Model):
     _name = "physical.directory.mf"
-    _description = "MyFab physical directory"
+    _description = "myfab physical directory"
     _sql_constraints = [
         (
             "path_unique_mf",
@@ -18,7 +18,7 @@ class PhysicalDirectoryMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", compute="_compute_name", store=True)
-    path_mf = fields.Char(string="Directory path", default="/etc/openprod_home/MyFabFileInterface", required=True)
+    path_mf = fields.Char(string="Directory path", default="/etc/openprod_home/myfabFileInterface", required=True)
     files_mf = fields.One2many("physical.file.mf", "directory_mf", string="Files")
     directory_scan_is_needed_mf = fields.Boolean(compute="_compute_directory_scan_is_needed", readonly=True)
 

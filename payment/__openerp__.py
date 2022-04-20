@@ -2,7 +2,7 @@
 {
     'name': 'Payment',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Réduire votre encours clients et automatiser les relances. (Sortie prochaine)',
     'category': 'Accounting & Finance',

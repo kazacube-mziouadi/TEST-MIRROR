@@ -5,12 +5,12 @@ import base64
 class FileInterfaceImportAttemptMF(models.Model):
     _inherit = "file.interface.attempt.mf"
     _name = "file.interface.import.attempt.mf"
-    _description = "MyFab file interface import attempt"
+    _description = "myfab file interface import attempt"
 
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    file_interface_import_mf = fields.Many2one("file.interface.import.mf", string="MyFab file interface import")
+    file_interface_import_mf = fields.Many2one("file.interface.import.mf", string="myfab file interface import")
     record_imports_mf = fields.One2many("file.interface.import.attempt.record.import.mf",
                                         "file_interface_import_attempt_mf", string="Record imports",
                                         ondelete="cascade")

@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='model_dictionary_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">myfab model export</field>
 			<field name="res_model">model.dictionary.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='model_dictionary_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">myfab model export</field>
 			<field name="model">model.dictionary.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab Model Export Configs">
+				<tree string="myfab model export configs">
 					<field name="model_to_export_mf"/>
 					<field name="number_of_records_exported"/>
 				</tree>
@@ -23,7 +23,7 @@
         	<field name="name">model.dictionary.mf.form</field>
 			<field name="model">model.dictionary.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab Model Export Config">
+				<form string="myfab model export config">
 					<notebook colspan="8">
 						<page string="General">
 							<group col="1">
@@ -47,7 +47,7 @@
 						</page>
 					</notebook>
 					<p attrs="{'invisible': [('hide_fields_view', '=', False)]}">
-						Make sure to save the entire document to be able to finish the Model Export Configuration.
+						Make sure to save the entire document to be able to finish the Model Export configuration.
 					</p>
 				</form>
 			</field>

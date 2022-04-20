@@ -5,7 +5,7 @@ from openerp.addons.web.controllers.main import binary_content
 
 class FileMF(models.Model):
     _name = "file.mf"
-    _description = "MyFab file"
+    _description = "myfab file"
     _order = "sequence"
 
     # ===========================================================================

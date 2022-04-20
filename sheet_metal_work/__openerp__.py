@@ -2,7 +2,7 @@
 {
     'name': 'Tôlerie',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Modules tôlerie',
     'category': 'Industrial sectors',

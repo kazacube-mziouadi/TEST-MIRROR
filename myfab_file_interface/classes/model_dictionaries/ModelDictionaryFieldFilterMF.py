@@ -3,7 +3,7 @@ from openerp import models, fields, api, _
 
 class ModelDictionaryFieldFilterMF(models.Model):
     _name = "model.dictionary.field.filter.mf"
-    _description = "MyFab model dictionary link between a field and it's filters"
+    _description = "myfab model dictionary link between a field and it's filters"
 
     # ===========================================================================
     # COLUMNS

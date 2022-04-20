@@ -4,7 +4,7 @@ from datetime import datetime
 
 class FileInterfaceMF(models.AbstractModel):
     _name = "file.interface.mf"
-    _description = "MyFab file interface configuration"
+    _description = "myfab file interface configuration"
     _auto = False
     _sql_constraints = [
         (

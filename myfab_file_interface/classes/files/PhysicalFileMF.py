@@ -6,7 +6,7 @@ from datetime import datetime
 class PhysicalFileMF(models.TransientModel):
     _inherit = "file.mf"
     _name = "physical.file.mf"
-    _description = "MyFab physical file"
+    _description = "myfab physical file"
 
     # ===========================================================================
     # COLUMNS
