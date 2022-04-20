@@ -6,7 +6,7 @@ from StringIO import StringIO
 
 class ConverterServiceMF(models.TransientModel):
     _name = "converter.service.mf"
-    _description = "Converter service MyFab"
+    _description = "Converter service myfab"
 
     # ===========================================================================
     # METHODS

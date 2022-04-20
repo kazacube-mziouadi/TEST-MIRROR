@@ -2,7 +2,7 @@
 {
     'name': 'Scoring',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Manager le risque client et booster la performance commerciale.(En cours de dev)',
     'category': 'Partner',

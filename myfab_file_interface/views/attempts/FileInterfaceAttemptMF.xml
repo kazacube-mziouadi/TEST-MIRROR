@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='file_interface_attempt_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">myfab model export</field>
 			<field name="res_model">file.interface.attempt.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='file_interface_attempt_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab Model Export</field>
+        	<field name="name">myfab model export</field>
 			<field name="model">file.interface.attempt.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab file interface attempts"
+				<tree string="myfab file interface attempts"
 					  default_order="start_datetime_mf desc"
 					  colors="red:not is_successful_mf;">
 					<field name="file_name_mf"/>
@@ -28,7 +28,7 @@
         	<field name="name">file.interface.attempt.mf.form</field>
 			<field name="model">file.interface.attempt.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab file interface attempt">
+				<form string="myfab file interface attempt">
 					<group col="1" string="Status">
 						<group col="3">
 							<group col="1">

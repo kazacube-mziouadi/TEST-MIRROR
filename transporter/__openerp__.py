@@ -2,7 +2,7 @@
 {
     'name': 'Transporteur',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Gagner du temps lors de vos expéditions.',
     'category': 'Logistic',

@@ -1,5 +1,5 @@
 -
-  MyFab Data Initializer Trigger
+  myfab Data Initializer Trigger
 -
   !python {model: data.initializer.myfab.mf}: |
     self.display_wizard(cr, uid, context)

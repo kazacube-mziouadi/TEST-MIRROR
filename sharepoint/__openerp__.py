@@ -2,7 +2,7 @@
 {
     'name': 'Sharepoint',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Lien avec SharePoint.(Pas encore disponible)',
     'category': 'Logistic',

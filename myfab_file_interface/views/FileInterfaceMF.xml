@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='file_interface_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab File Interface</field>
+        	<field name="name">myfab File Interface</field>
 			<field name="res_model">file.interface.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='file_interface_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab File Interface</field>
+        	<field name="name">myfab File Interface</field>
 			<field name="model">file.interface.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab File Interface Configurations">
+				<tree string="myfab File Interface configurations">
 					<field name="name"/>
 				</tree>
 			</field>
@@ -22,7 +22,7 @@
         	<field name="name">file.interface.mf.form</field>
 			<field name="model">file.interface.mf</field>
             <field name="arch" type="xml">
-				<form string="MyFab File Interface Configuration">
+				<form string="myfab File Interface configuration">
 					<group col="9">
 						<group colspan="8" col="1">
 							<group col="1" string="Configuration">

@@ -2,7 +2,7 @@
 {
     'name': 'Mécanique - Décolletage',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Modules nécessaires à la mécanique et au décolletage',
     'category': 'Industrial sectors',

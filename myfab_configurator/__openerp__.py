@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'MyFab Configurateur',
+    'name': 'myfab Configurateur',
     'version': '1.0.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Configurateur MyFab pour améliorer le configurateur existant.',
+    'summary': 'Configurateur myfab pour améliorer le configurateur existant.',
     'category': 'Product',
-    'description': """Configurateur MyFab qui enrichis le module existant.""",
+    'description': """Configurateur myfab qui enrichit le module existant.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
     'images': [],

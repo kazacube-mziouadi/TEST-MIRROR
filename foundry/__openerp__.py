@@ -2,7 +2,7 @@
 {
     'name': 'Fonderie - Forge',
     'version': '0.1.0',
-    'author': 'MyFab',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Modules nécessaires à la fonderie et à la forge',
     'category': 'Industrial sectors',

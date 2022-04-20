@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='record_import_row_mf' model="ir.actions.act_window">
-        	<field name="name">MyFab record import's row</field>
+        	<field name="name">myfab record import's row</field>
 			<field name="res_model">record.import.row.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='record_import_row_mf_treeview' model="ir.ui.view">
-        	<field name="name">MyFab record import's rows</field>
+        	<field name="name">myfab record import's rows</field>
 			<field name="model">record.import.row.mf</field>
             <field name="arch" type="xml">
-				<tree string="MyFab record import's rows">
+				<tree string="myfab record import's rows">
 					<field name="row_number_mf"/>
 					<field name="row_content_mf"/>
 				</tree>

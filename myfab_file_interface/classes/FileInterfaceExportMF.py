@@ -7,7 +7,7 @@ import pytz
 class FileInterfaceExportMF(models.Model):
     _inherit = "file.interface.mf"
     _name = "file.interface.export.mf"
-    _description = "MyFab file interface export configuration"
+    _description = "myfab file interface export configuration"
 
     # ===========================================================================
     # COLUMNS
