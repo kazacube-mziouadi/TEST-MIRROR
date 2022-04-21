@@ -13,4 +13,4 @@ class FileInterfaceExportModelDictionaryMF(models.Model):
                                                string="myfab File Interface Export")
     children_model_dictionaries_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                      "parent_model_dictionary_mf", ondelete="cascade",
-                                                     string="Children Model Export Configs")
+                                                     string="Children model export configs")
