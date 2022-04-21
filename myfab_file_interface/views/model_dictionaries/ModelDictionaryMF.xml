@@ -47,7 +47,7 @@
 						</page>
 					</notebook>
 					<p attrs="{'invisible': [('hide_fields_view', '=', False)]}">
-						Make sure to save the entire document to be able to finish the Model Export configuration.
+						Make sure to save the entire document to be able to finish the model export configuration.
 					</p>
 				</form>
 			</field>
