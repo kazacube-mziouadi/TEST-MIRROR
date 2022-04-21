@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-19 14:04+0000\n"
-"PO-Revision-Date: 2022-04-19 14:04+0000\n"
+"POT-Creation-Date: 2022-04-21 09:08+0000\n"
+"PO-Revision-Date: 2022-04-21 09:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Après maintenant"
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_model_dictionary_mf_mf_fields_to_search
 #: model:ir.model.fields,help:myfab_file_interface.field_model_dictionary_mf_mf_fields_to_search
 msgid "At import, fields on which search the records to process.                                                 Warning : if no field is set here, all the records will be processed."
-msgstr "A l'import, champs sur lesquels rechercher les enregistrements à traiter.                                Attention : si aucun champ n'est configuré ici, tous les enregistrements seront traités."
+msgstr "À l'import, champs sur lesquels rechercher les enregistrements à traiter.                                                                          Attention : si aucun champ n'est configuré ici, tous les enregistrements seront traités."
 
 #. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_orientation_mf:0
@@ -117,8 +117,8 @@ msgstr "Visualisation du contenu"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_converter_service_mf
-msgid "Converter service myfab"
-msgstr "Service de conversion myfab"
+msgid "Converter service MyFab"
+msgstr "Converter service MyFab"
 
 #. module: myfab_file_interface
 #: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:33
@@ -338,10 +338,13 @@ msgid "Exports File Interface myfab"
 msgstr "Exports Fichiers"
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:27
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:18
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#, python-format
 msgid "Failed"
-msgstr "Echec"
+msgstr "Échec"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_field_to_export_mf
@@ -426,6 +429,11 @@ msgid "Files"
 msgstr "Fichiers"
 
 #. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
+msgid "Filtering"
+msgstr "Filtrage"
+
+#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_fields_filters_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_fields_filters_mf
 msgid "Filters to apply on fields at export"
@@ -442,7 +450,7 @@ msgstr "Général"
 #: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:94
 #, python-format
 msgid "Generate cron for export"
-msgstr "Géréner le cron pour l'export"
+msgstr "Générer le cron pour l'export"
 
 #. module: myfab_file_interface
 #: code:addons/myfab_file_interface/classes/FileInterfaceMF.py:79
@@ -523,8 +531,10 @@ msgid "If set to 0, no limit is applied."
 msgstr "Si paramétré à 0, aucune limite n'est appliquée."
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:18
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#, python-format
 msgid "Ignored"
 msgstr "Ignoré"
 
@@ -767,129 +777,9 @@ msgid "Months"
 msgstr "Mois"
 
 #. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.model_dictionary_field_filter_mf
-#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_field_filter_mf_form
-msgid "myfab field filter"
-msgstr "Filtre sur champ myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.filter_datetime_delta_mf
-#: model:ir.ui.view,arch_db:myfab_file_interface.filter_datetime_delta_mf_form
-msgid "myfab field filter datetime delta"
-msgstr "Filtre d'intervalle sur champ datetime myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.filter_value_comparison_mf
-#: model:ir.ui.view,arch_db:myfab_file_interface.filter_value_comparison_mf_form
-msgid "myfab field filter value comparison"
-msgstr "Filtre de comparaison sur champ myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_field_filter_mf_treeview
-msgid "myfab field filters"
-msgstr "Filtres sur champ myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.filter_datetime_delta_mf_treeview
-msgid "myfab field filters datetime delta"
-msgstr "Filtres d'intervalle sur champs datetime myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.filter_value_comparison_mf_treeview
-msgid "myfab field filters value comparison"
-msgstr "Filtres de comparaison sur champs myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_mf
-msgid "myfab File"
-msgstr "myfab File"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_mf
-msgid "myfab File Interface"
-msgstr "myfab File Interface"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
-msgid "myfab File Interface configuration"
-msgstr "myfab File Interface configuration"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_treeview
-msgid "myfab File Interface configurations"
-msgstr "myfab File Interface configurations"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_mf
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
-msgid "myfab File Interface Export"
-msgstr "Exports Fichiers"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_attempt_mf
-msgid "myfab File Interface Export Attempt"
-msgstr "myfab File Interface Export Attempt"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.myfab_file_interface_export_model_dictionary_mf
-msgid "myfab File Interface Export model export"
-msgstr "myfab File Interface Export model export"
-
-#. module: myfab_file_interface
-#: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_export
-msgid "myfab File Interface Exports"
-msgstr "myfab File Interface Exports"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_mf
-msgid "myfab File Interface Import"
-msgstr "Import fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_mf
-msgid "myfab file interface import attempt"
-msgstr "myfab file interface import attempt"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_record_import_mf
-msgid "myfab file interface import attempt record import"
-msgstr "myfab file interface import attempt record import"
-
-#. module: myfab_file_interface
-#: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_import
-msgid "myfab File Interface Imports"
-msgstr "Imports fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_cron_mf
-msgid "myfab File Interface cron creation"
-msgstr "Création de cron myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_attempt_mf
-#: model:ir.actions.act_window,name:myfab_file_interface.model_dictionary_mf
-msgid "myfab model export"
-msgstr "Dictionnaire d'export de modèle myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
-msgid "myfab model export config"
-msgstr "configuration de dictionnaire d'export de modèle myfab"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_treeview
-msgid "myfab model export configs"
-msgstr "configurations de dictionnaire d'export de modèle myfab"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.record_import_mf
-msgid "myfab record import"
-msgstr "myfab record import"
-
-#. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_mf
 msgid "myfab file"
-msgstr "myfab file"
+msgstr "Fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_attempt_mf
@@ -897,58 +787,58 @@ msgstr "myfab file"
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
 #: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_form
 msgid "myfab file interface attempt"
-msgstr "myfab file interface attempt"
+msgstr "Tentative d'interface fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_treeview
 msgid "myfab file interface attempts"
-msgstr "myfab file interface attempts"
+msgstr "Tentatives d'interface fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_mf
 msgid "myfab file interface configuration"
-msgstr "myfab file interface configuration"
+msgstr "Configuration d'interface fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_interface_export_mf
 msgid "myfab file interface export"
-msgstr "myfab file interface export"
+msgstr "Export fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_export_attempt_mf
 msgid "myfab file interface export attempt"
-msgstr "myfab file interface export attempt"
+msgstr "Tentative d'export fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_export_mf
 msgid "myfab file interface export configuration"
-msgstr "configuration d'export fichier myfab"
+msgstr "Configuration d'export fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_interface_import_mf
 msgid "myfab file interface import"
-msgstr "myfab file interface import"
+msgstr "Import fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_file_interface_import_attempt_mf
 msgid "myfab file interface import attempt"
-msgstr "myfab file interface import attempt"
+msgstr "Tentative d'import fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_record_import_mf
 msgid "myfab file interface import attempt's record import object"
-msgstr "myfab file interface import attempt's record import object"
+msgstr "Tentative d'import fichier myfab d'enregistrement"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_file_interface_import_mf
 msgid "myfab file interface import configuration"
-msgstr "configuration d'import fichier myfab"
+msgstr "Configuration d'import fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_record_import_row_mf
 msgid "myfab import record's row"
-msgstr "myfab import record's row"
+msgstr "Ligne de fichier importée via import fichier myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_model_dictionary_mf
@@ -968,38 +858,12 @@ msgstr "Lien entre un dictionnaire de modèle et ses filtres"
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_physical_directory_mf
 msgid "myfab physical directory"
-msgstr "myfab physical directory"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.physical_file_mf
-#: model:ir.model,name:myfab_file_interface.model_physical_file_mf
-msgid "myfab physical file"
-msgstr "myfab physical file"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_record_import_mf
-msgid "myfab record import object"
-msgstr "myfab record import object"
-
-#. module: myfab_file_interface
-#: model:ir.actions.act_window,name:myfab_file_interface.record_import_row_mf
-msgid "myfab record import's row"
-msgstr "myfab record import's row"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_row_mf_treeview
-msgid "myfab record import's rows"
-msgstr "myfab record import's rows"
-
-#. module: myfab_file_interface
-#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_treeview
-msgid "myfab record imports"
-msgstr "myfab record imports"
+msgstr "Répertoire physique myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_filter_value_comparison_mf
 msgid "myfab value comparison filter"
-msgstr "Filtre de comparaison de valeur de champ myfab"
+msgstr "Filtre de comparaison de valeur myfab"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_name
@@ -1033,7 +897,7 @@ msgstr "Nommer les fichiers avec une extension personnalisée"
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_record_name_mf
 msgid "Name of record on which apply cron"
-msgstr Nom de l'enregistrement sur lequel appliquer le cron"
+msgstr "Nom de l'enregistrement sur lequel appliquer le cron"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_nextcall_mf
@@ -1350,8 +1214,10 @@ msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:18
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#, python-format
 msgid "Not processed"
 msgstr "Non traité"
 
@@ -1370,7 +1236,7 @@ msgstr "Nombre d'enregistrements exportés"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_number_of_records_to_export_limit_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_number_of_records_to_export_limit_mf
 msgid "Number of records to export limit"
-msgstr "Limite du nombre d'enregsitrements à exporter"
+msgstr "Limite du nombre d'enregistrements à exporter"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_cron_mf
@@ -1495,8 +1361,11 @@ msgid "Status"
 msgstr "Statut"
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:27
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:18
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#, python-format
 msgid "Success"
 msgstr "Succès"
 
@@ -1655,6 +1524,162 @@ msgstr "in"
 #: selection:filter.value.comparison.mf,operator_mf:0
 msgid "like"
 msgstr "like"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.filter_datetime_delta_mf_treeview
+msgid "myfab Field Filters Datetime Delta"
+msgstr "Filtre de delta de temps myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.filter_value_comparison_mf_treeview
+msgid "myfab Field Filters Value Comparison"
+msgstr "Filtre de comparaison de valeur de champs myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_mf
+msgid "myfab File Interface"
+msgstr "Interface fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
+msgid "myfab File Interface Export"
+msgstr "Exports Fichiers"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_attempt_mf
+msgid "myfab File Interface Export Attempt"
+msgstr "Tentative d'export fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.myfab_file_interface_export_model_dictionary_mf
+msgid "myfab File Interface Export Model Export"
+msgstr "Dictionnaire d'export fichier de modèle myfab"
+
+#. module: myfab_file_interface
+#: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_export
+msgid "myfab File Interface Exports"
+msgstr "Exports fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_mf
+msgid "myfab File Interface Import"
+msgstr "Import fichier myfab"
+
+#. module: myfab_file_interface
+#: model:res.groups,name:myfab_file_interface.group_myfab_file_interface_import
+msgid "myfab File Interface Imports"
+msgstr "Imports fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "myfab File Interface configuration"
+msgstr "Configuration d'interface fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_treeview
+msgid "myfab File Interface configurations"
+msgstr "Configurations d'interface fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.view_form_wizard_myfab_file_interface_cron_mf
+msgid "myfab File Interface cron creation"
+msgstr "Création de cron myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_mf
+msgid "myfab File Interface import attempt"
+msgstr "Tentative d'import fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.model_dictionary_field_filter_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_field_filter_mf_form
+msgid "myfab field filter"
+msgstr "Filtre sur champ myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.filter_datetime_delta_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.filter_datetime_delta_mf_form
+msgid "myfab field filter datetime delta"
+msgstr "Filtre d'intervalle sur champ datetime myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.filter_value_comparison_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.filter_value_comparison_mf_form
+msgid "myfab field filter value comparison"
+msgstr "Filtre de comparaison sur champ myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_field_filter_mf_treeview
+msgid "myfab field filters"
+msgstr "Filtres sur champ myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_mf
+msgid "myfab file"
+msgstr "Fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
+msgid "myfab file interface attempt"
+msgstr "Tentative d'interface fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_treeview
+msgid "myfab file interface attempts"
+msgstr "Tentatives d'interface fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_interface_export_mf
+msgid "myfab file interface export"
+msgstr "Export fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_interface_import_mf
+msgid "myfab file interface import"
+msgstr "Import fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_file_interface_import_attempt_mf
+msgid "myfab file interface import attempt"
+msgstr "Tentative d'import fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_import_attempt_record_import_mf
+msgid "myfab file interface import attempt record import"
+msgstr "Tentative d'import fichier myfab d'enregistrement"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.file_interface_attempt_mf
+#: model:ir.actions.act_window,name:myfab_file_interface.model_dictionary_mf
+msgid "myfab model export"
+msgstr "Dictionnaire d'export de modèle myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_form
+msgid "myfab model export config"
+msgstr "Configuration de dictionnaire d'export de modèle myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.model_dictionary_mf_treeview
+msgid "myfab model export configs"
+msgstr "Configurations de dictionnaire d'export de modèle myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.physical_file_mf
+msgid "myfab physical file"
+msgstr "Fichier physique myfab"
+
+#. module: myfab_file_interface
+#: model:ir.actions.act_window,name:myfab_file_interface.record_import_row_mf
+msgid "myfab record import's row"
+msgstr "Ligne de fichier importée via import fichier myfab"
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.record_import_row_mf_treeview
+msgid "myfab record import's rows"
+msgstr "Lignes de fichier importées via import fichier myfab"
 
 #. module: myfab_file_interface
 #: selection:filter.value.comparison.mf,operator_mf:0

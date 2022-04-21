@@ -15,7 +15,7 @@ class RecordImportMF(models.AbstractModel):
     fields_mf = fields.Char(string="Record's fields")
     fields_to_write_mf = fields.Char(string="Record's fields to write")
     status_mf = fields.Selection(
-        [("not processed", "Not processed"), ("success", "Success"), ("failed", "Failed"), ("ignored", "Ignored")],
+        [("not processed", _("Not processed")), ("success", _("Success")), ("failed", _("Failed")), ("ignored", _("Ignored"))],
         "Status", default="not processed", readonly=True
     )
     committed_mf = fields.Boolean(string="Committed", default=False)
