@@ -2,17 +2,17 @@
 <openerp>
 	<data>
 		<record id='record_import_mf' model="ir.actions.act_window">
-        	<field name="name">mtfab record import</field>
+        	<field name="name">myfab record import</field>
 			<field name="res_model">record.import.mf</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<record id='record_import_mf_treeview' model="ir.ui.view">
-        	<field name="name">mtfab record import</field>
+        	<field name="name">myfab record import</field>
 			<field name="model">record.import.mf</field>
             <field name="arch" type="xml">
-				<tree string="mtfab record imports"
+				<tree string="myfab record imports"
 					  colors="green:status_mf == 'success';red:status_mf == 'failed';">
 					<field name="method_mf"/>
 					<field name="model_mf"/>
@@ -26,7 +26,7 @@
         	<field name="name">record.import.mf.form</field>
 			<field name="model">record.import.mf</field>
             <field name="arch" type="xml">
-				<form string="mtfab file interface attempt">
+				<form string="myfab file interface attempt">
 					<group col="1" string="Record import">
 						<field name="status_mf" readonly="1"/>
 						<field name="committed_mf" readonly="1"/>

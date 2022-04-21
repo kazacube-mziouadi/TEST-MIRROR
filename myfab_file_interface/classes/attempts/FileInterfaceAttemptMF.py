@@ -24,4 +24,4 @@ class FileInterfaceAttemptMF(models.AbstractModel):
 
     @api.one
     def _compute_status(self):
-        self.status_mf = "Success" if self.is_successful_mf else "Failed"
+        self.status_mf = _("Success") if self.is_successful_mf else _("Failed")
