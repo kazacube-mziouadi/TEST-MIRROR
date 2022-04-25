@@ -2,6 +2,7 @@ from openerp import models, fields, api, registry, _
 import traceback
 import base64
 from openerp.exceptions import MissingError
+import json
 
 
 class FileInterfaceImportMF(models.Model):
@@ -102,7 +103,7 @@ class FileInterfaceImportMF(models.Model):
                 "method_mf": record_dict["method"],
                 "model_mf": record_import_model.id,
                 "record_import_rows_mf": import_rows_to_create_list,
-                "fields_mf": record_dict["fields"],
+                "fields_mf": json.dumps(record_dict["fields"], sort_keys=True, indent=4),
                 "fields_to_write_mf": record_dict["write"] if "write" in record_dict else "",
                 "callback_method_mf": record_dict["callback"] if "callback" in record_dict else "",
                 "committed_mf": record_dict["committed"] if "committed" in record_dict else False
