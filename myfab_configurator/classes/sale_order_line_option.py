@@ -9,12 +9,6 @@ class sale_order_line_option(models.Model):
     _inherit = 'sale.order.line.option'
 
     #===========================================================================
-    # SQL
-    #===========================================================================
-    _order = 'sequence asc'
-    
-    #===========================================================================
     # COLUMNS
     #===========================================================================
-    sequence = fields.Integer(string='Sequence', readonly=True, store=True)
-
+    sequence = fields.Integer(string='Sequence', readonly=True, related="option_id.sequence")
