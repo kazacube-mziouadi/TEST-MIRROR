@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<menuitem id="base.menu_external_apis_mf" name="External APIs myfab" parent="base.menu_administration" sequence="200"/>
+		<menuitem id="base.menu_external_apis_mf" name="myfab APIs" parent="base.menu_administration" sequence="200"/>
 			<menuitem id="menu_myfab_file_interface_exports" name="Exports File Interface myfab" parent="base.menu_external_apis_mf"
 					  sequence="10" action="file_interface_export_mf" groups="myfab_file_interface.group_myfab_file_interface_export"/>
 			<menuitem id="menu_myfab_file_interface_imports" name="Imports File Interface myfab" parent="base.menu_external_apis_mf"

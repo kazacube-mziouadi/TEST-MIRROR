@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab File Interface',
-    'version': '1.1.6',
+    'version': '1.1.7',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Interface myfab pour échanger avec des logiciels externes via fichiers à plat.',
