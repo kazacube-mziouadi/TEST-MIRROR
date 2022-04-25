@@ -17,4 +17,3 @@ class mrp_option(models.Model):
     # COLUMNS
     #===========================================================================
     sequence = fields.Integer(string='Sequence',required=True, default=10)
-

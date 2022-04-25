@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_sale_order_mrp' model='ir.ui.view'>
+			<field name="name">mf_view_form_sale_order_mrp</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="mrp.view_form_sale_order_mrp" />
+			<field name="priority" eval="17" />
+			<field name="arch" type="xml">			
+				<xpath expr="//field[@name='option_lines_ids']//tree" position="attributes">
+					<attribute name="default_order">sequence asc</attribute>
+				</xpath>			
+				<xpath expr="//field[@name='option_id']" position="before">
+					<field name="sequence" invisible="1"/>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</openerp>
