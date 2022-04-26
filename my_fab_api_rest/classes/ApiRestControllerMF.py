@@ -225,14 +225,14 @@ class ApiRestControllerMF(http.Controller):
         for model_field in model_fields:
 
             # Ne sont affichés que les fields voulus
-            if len(fields) > 0 and model_field.name not in fields:
+            if (len(fields) > 0 and model_field.name not in fields) or model_field.name not in record:
                 continue
 
-            if model_field.relation == False:
+            if not model_field.relation:
                 value = record[model_field.name]
             else:
                 if model_field.ttype == "many2one":
-                    if record[model_field.name].id == False:
+                    if not record[model_field.name].id:
                         value = None
                     else:
                         value = self.__record_to_short_dictionary(record[model_field.name])
