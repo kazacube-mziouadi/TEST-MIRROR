@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab Configurateur',
-     'version': '1.0.1',
+    'version': '1.0.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Configurateur myfab pour améliorer le configurateur existant.',

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab API REST',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'API Rest',
