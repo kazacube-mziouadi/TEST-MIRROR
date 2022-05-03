@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Création commandes appelées via EDI myfab',
+    'name': 'EDI Manitou myfab',
     'version': '1.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Création de commandes appelées via EDI',
+    'summary': 'Création de commandes appelées via EDI Manitou',
     'category': 'Base',
-    'description': """Crée un modèle permettant de lancer la création de commandes d\'appel sur une commande de vente via EDI.""",
+    'description': """Initialise la configuration permettant de lancer la création de commandes d\'appel sur une commande de vente via EDI, à partir d'un Excel Manitou.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
     'images': [],

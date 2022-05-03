@@ -31,11 +31,35 @@ class MFCalledSaleOrderTemp(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
-    def get_formatted_date(self, day_week_order):
-        year = self.mf_year_week[:-2]
+    def get_sale_order_lines_dates_list(self):
+        quantities_by_week_day_number_list = [
+            self.mf_monday_quantity,
+            self.mf_tuesday_quantity,
+            self.mf_wednesday_quantity,
+            self.mf_thursday_quantity,
+            self.mf_friday_quantity
+        ]
+        not_empty_sale_order_lines_dates_list = []
+        for day_week_order, quantity in enumerate(quantities_by_week_day_number_list):
+            if quantity:
+                formatted_date = self._get_formatted_date(day_week_order)
+                sale_order_dict, is_date_already_in_list = self._get_sale_order_dict_from_list_by_date(
+                    not_empty_sale_order_lines_dates_list,
+                    formatted_date
+                )
+                sale_order_dict["sale_order_lines"].append({
+                    "product_id": self.mf_product_id.id,
+                    "quantity": quantity
+                })
+                if not is_date_already_in_list:
+                    not_empty_sale_order_lines_dates_list.append(sale_order_dict)
+        return not_empty_sale_order_lines_dates_list
+
+    def _get_formatted_date(self, day_week_order):
+        year = int(str(self.mf_year_week)[:-2])
         month_number = self.mf_week_month
         day_number = self.mf_week_first_day_number + day_week_order
-        month_days_number = monthrange(year, month_number)
+        first_day_weekday, month_days_number = monthrange(year, month_number)
         if day_number > month_days_number:
             day_number -= month_days_number
             month_number += 1
@@ -49,24 +73,14 @@ class MFCalledSaleOrderTemp(models.Model):
             month_number = '0' + month_number
         if len(day_number) < 2:
             day_number = '0' + day_number
-        return datetime.datetime.strptime(day_number + month_number + year, '%d%m%y').strftime("%Y-%m-%d %H:%M:%S")
+        return datetime.datetime.strptime(day_number + month_number + year, "%d%m%Y").strftime("%Y-%m-%d %H:%M:%S")
 
-    def get_sale_order_lines_dates_dict(self):
-        quantities_by_week_day_number_list = [
-            self.mf_monday_quantity,
-            self.mf_tuesday_quantity,
-            self.mf_wednesday_quantity,
-            self.mf_thursday_quantity,
-            self.mf_friday_quantity
-        ]
-        not_empty_sale_order_lines_dates_dict = {}
-        for day_week_order, quantity in enumerate(quantities_by_week_day_number_list):
-            if quantity:
-                formatted_date = self.get_formatted_date(day_week_order)
-                if formatted_date not in not_empty_sale_order_lines_dates_dict:
-                    not_empty_sale_order_lines_dates_dict[formatted_date] = []
-                not_empty_sale_order_lines_dates_dict[formatted_date].append({
-                    "product_id": self.mf_product_id,
-                    "quantity": quantity
-                })
-        return not_empty_sale_order_lines_dates_dict
+    @staticmethod
+    def _get_sale_order_dict_from_list_by_date(sale_order_lines_dates_list, date):
+        for sale_order_lines_date_dict in sale_order_lines_dates_list:
+            if sale_order_lines_date_dict["date"] == date:
+                return sale_order_lines_date_dict, True
+        return {
+            "date": date,
+            "sale_order_lines": []
+        }, False
