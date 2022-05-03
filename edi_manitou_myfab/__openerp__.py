@@ -4,9 +4,12 @@
     'version': '1.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Création de commandes appelées via EDI Manitou',
+    'summary': 'Création de commandes appelées via CSV Manitou',
     'category': 'Base',
-    'description': """Initialise la configuration permettant de lancer la création de commandes d\'appel sur une commande de vente via EDI, à partir d'un Excel Manitou.""",
+    'description': """
+        Ajoute l'extension "CSV Manitou" à MyFab File Interface. 
+        Celle-ci permet de lancer la création de commandes d\'appel sur une commande de vente ouverte, à partir d'un CSV exporté par Manitou.
+    """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
     'images': [],
