@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* myfab_signature
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-04 15:27+0000\n"
+"PO-Revision-Date: 2022-05-04 15:27+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: myfab_signature
+#. openerp-web
+#: code:addons/myfab_signature/static/src/xml/digital_sign.xml:8
+#, python-format
+msgid "Clear"
+msgstr "Effacer"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_intervention_client_signature
+#: model:ir.ui.view,arch_db:myfab_signature.inherited_intervention_form
+msgid "Client signature"
+msgstr "Signature client"
+
+#. module: myfab_signature
+#. openerp-web
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:81
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:118
+#, python-format
+msgid "Could not display the selected image."
+msgstr "Impossible d'afficher l'image sélectionnée."
+
+#. module: myfab_signature
+#. openerp-web
+#: code:addons/myfab_signature/static/src/xml/digital_sign.xml:11
+#, python-format
+msgid "Draw your signature"
+msgstr "Dessiner la signature ci-dessous"
+
+#. module: myfab_signature
+#: model:ir.ui.view,arch_db:myfab_signature.inherited_intervention_form
+msgid "Electronic signature"
+msgstr "Signature électronique"
+
+#. module: myfab_signature
+#. openerp-web
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:81
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:118
+#, python-format
+msgid "Image"
+msgstr "Image"
+
+#. module: myfab_signature
+#: model:ir.model,name:myfab_signature.model_intervention
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: myfab_signature
+#: model:ir.model.fields,help:myfab_signature.field_intervention_client_signature
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: myfab_signature
+#: model:ir.model,name:myfab_signature.model_res_users
+msgid "Users"
+msgstr "Utilisateurs"
+

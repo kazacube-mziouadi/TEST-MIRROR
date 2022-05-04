@@ -2,19 +2,19 @@
 <templates id="template" xml:space="preserve">
    <t t-name="FieldSignature">
        <t t-if="!widget.get('effective_readonly')">
-           <div class="panel panel-default mt16 mb0 oe_edit_only" id="drawsign">
+           <div class="panel panel-default mt16 mb0 oe_edit_only signature-panel" id="drawsign">
                 <div class="panel-heading">
                     <div class="pull-right">
                         <a id="sign_clean" class="btn btn-xs oe_edit_only">Clear</a>
                         <a class="oe_edit_only save_sign"></a>
                     </div>
-                    <strong>Draw your signature</strong>
+                    Draw your signature
                 </div>
                 <div class="signature"></div>
             </div>
        </t>
        <t t-if="widget.get('effective_readonly')">
-           <div class="panel panel-default mt16 mb0 " id="drawsign">
+           <div class="panel panel-default mt16 mb0 signature-panel" id="drawsign">
                <div class="signature"></div>
             </div>
        </t>
