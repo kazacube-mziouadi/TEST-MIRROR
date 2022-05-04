@@ -10,10 +10,11 @@ class MFCalledSaleOrderGeneratorService(models.TransientModel):
     # ===========================================================================
     def generate_called_sales_order(self):
         called_sales_order_temp_ids = self.env["mf.called.sale.order.temp"].search([])
+        # TODO (IS-132) : Refondre la structure list/dict Python en objets Python
         """
         The below structure will be created : 
         
-        sales_order_to_generate = [
+        open_sales_order_to_generate = [
             {
                 "sale_order_id": sale.order(2),
                 "called_sale_orders": [
@@ -30,29 +31,33 @@ class MFCalledSaleOrderGeneratorService(models.TransientModel):
             }
         ]
         """
-        sales_order_to_generate = []
+        open_sales_order_to_generate = []
         for called_sale_order_temp in called_sales_order_temp_ids:
             new_sale_orders_dates = called_sale_order_temp.get_sale_order_lines_dates_list()
             sale_order_id = called_sale_order_temp.mf_sale_order_id
-            sale_order_current_called_sale_orders = None
-            for sale_order_to_generate in sales_order_to_generate:
-                if sale_order_to_generate["sale_order_id"] == sale_order_id.id:
-                    sale_order_current_called_sale_orders = sale_order_to_generate["called_sale_orders"]
-                    break
-            if sale_order_current_called_sale_orders:
-                self._merge_sale_order_lines_at_dates(sale_order_current_called_sale_orders, new_sale_orders_dates)
+            open_sale_order_dict = self._get_open_sale_order_in_list_by_id(
+                open_sales_order_to_generate,
+                sale_order_id.id
+            )
+            if open_sale_order_dict:
+                self._merge_called_sales_order_list(open_sale_order_dict["called_sale_orders"], new_sale_orders_dates)
             else:
-                sales_order_to_generate.append({
+                open_sales_order_to_generate.append({
                     "sale_order_id": sale_order_id.id,
                     "called_sale_orders": new_sale_orders_dates
                 })
-        print("sales_order_to_generate")
-        print(sales_order_to_generate)
-        self._generate_called_sales_order_from_temp_list(sales_order_to_generate)
+        self._generate_called_sales_order_from_temp_list(open_sales_order_to_generate)
         called_sales_order_temp_ids.unlink()
 
     @staticmethod
-    def _merge_sale_order_lines_at_dates(current_sale_orders, new_sale_orders):
+    def _get_open_sale_order_in_list_by_id(open_sales_order_list, sale_order_id):
+        for sale_order_to_generate in open_sales_order_list:
+            if sale_order_to_generate["sale_order_id"] == sale_order_id:
+                return sale_order_to_generate
+        return None
+
+    @staticmethod
+    def _merge_called_sales_order_list(current_sale_orders, new_sale_orders):
         for new_sale_order in new_sale_orders:
             new_sale_order_merged = False
             for current_sale_order in current_sale_orders:
@@ -86,7 +91,7 @@ class MFCalledSaleOrderGeneratorService(models.TransientModel):
             ], None, 1)
             sale_order_line_dict.update({
                 "sale_order_line_id": sale_order_line_id.id,
-                "price": sale_order_line_id.price_unit * sale_order_line_dict["quantity"]
+                "price": sale_order_line_id.price_unit,
             })
             sale_order_lines_create_dicts_list.append((0, 0, sale_order_line_dict))
         return sale_order_lines_create_dicts_list

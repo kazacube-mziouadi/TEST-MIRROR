@@ -18,7 +18,6 @@ class MFCalledSaleOrderTemp(models.Model):
     # ===========================================================================
     mf_sale_order_id = fields.Many2one("sale.order", string="Open sale order", required=True)
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
-    mf_delivery_address_id = fields.Many2one("address", string="Delivery address", required=True)
     mf_year_week = fields.Integer(string="Year and week number at format YYYYWW")
     mf_week_month = fields.Integer(string="Week's month number")
     mf_week_first_day_number = fields.Integer(string="Week's first day number")
