@@ -87,27 +87,3 @@ class FileInterfaceExportMF(models.Model):
         else:
             extension = '.' + self.file_extension_mf
         return "MFFI-Export-" + now_formatted + extension
-
-    @api.multi
-    def generate_cron_for_export(self):
-        return {
-            "name": _("Generate cron for export"),
-            "view_mode": "form",
-            "res_model": "wizard.file.interface.cron.mf",
-            "type": "ir.actions.act_window",
-            "target": "new",
-            "context": {
-                "record_model_name_mf": "file.interface.export.mf",
-                "record_name_mf": self.name,
-                "record_id_mf": self.id,
-                "record_method_mf": "export_records"
-            }
-        }
-
-    @api.multi
-    def delete_cron_for_export(self):
-        self.env["ir.cron"].search([
-            ("model", "=", "file.interface.export.mf"),
-            ("function", "=", "export_records"),
-            ("args", "=", repr([self.id]))
-        ], None, 1).unlink()
