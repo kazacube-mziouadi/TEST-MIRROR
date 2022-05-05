@@ -6,7 +6,8 @@
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
-        'my_fab'
+        'my_fab',
+        'sav'
     ],
     'category': 'Advanced',
     'description': """
