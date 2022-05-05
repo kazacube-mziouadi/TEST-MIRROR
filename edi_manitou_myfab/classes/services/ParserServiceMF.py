@@ -29,14 +29,16 @@ class ParserServiceMF(models.TransientModel):
             csv_row = [cell.decode(file_encoding).strip() for cell in csv_row]
             if csv_row_index == 0:
                 continue
-            product_ordered_id = self.env["product.product"].search([("code", '=', csv_row[3])], None, 1)
-            sale_order_id = self.env["sale.order"].search([("name", '=', csv_row[5])], None, 1)
+            sale_order_id = self.env["sale.order"].search([("ref_order", '=', csv_row[5])], None, 1)
+            product_sale_order_line_id = self.env["sale.order.line"].search([
+                ("sale_order_id", '=', sale_order_id.id), ("customer_product_code", '=', csv_row[3])
+            ], None, 1)
             called_sale_order_temp_to_create_list.append({
                 "method": "create",
                 "model": "mf.called.sale.order.temp",
                 "fields": {
                     "mf_sale_order_id": sale_order_id.id,
-                    "mf_product_id": product_ordered_id.id,
+                    "mf_product_id": product_sale_order_line_id.product_id.id,
                     "mf_year_week": csv_row[42],
                     "mf_week_month": csv_row[43],
                     "mf_week_first_day_number": csv_row[44],
