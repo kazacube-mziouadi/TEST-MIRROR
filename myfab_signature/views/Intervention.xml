@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="inherited_intervention_form" model="ir.ui.view">
+        <field name="name">inherited.intervention.form</field>
+        <field name="model">intervention</field>
+        <field name="inherit_id" ref="sav.view_form_intervention_sav_id" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Electronic signature">
+                    <group colspan="8" col="8" string="Electronic signature">
+                        <label for="client_signature" string="Client signature" />
+                        <h2>
+                            <field name="client_signature" widget="signature"/>
+                        </h2>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
