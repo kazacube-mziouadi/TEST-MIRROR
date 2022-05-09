@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_simulation_by_quantity' model="ir.actions.act_window">
+        	<field name="name">myfab Simulation by quantity</field>
+			<field name="res_model">mf.simulation.by.quantity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='mf_simulation_by_quantity_treeview' model="ir.ui.view">
+        	<field name="name">myfab Simulations by quantity</field>
+			<field name="model">mf.simulation.by.quantity</field>
+            <field name="arch" type="xml">
+				<tree string="myfab Simulations by quantity">
+					<field name="name"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_simulation_by_quantity_form' model="ir.ui.view">
+        	<field name="name">mf.simulation.by.quantity.form</field>
+			<field name="model">mf.simulation.by.quantity</field>
+            <field name="arch" type="xml">
+				<form string="myfab Simulation by quantity" version="8.0">
+					<group col="1">
+						<div class="oe_title">
+							<h1>
+								<field name="name" nolabel="1" />
+							</h1>
+						</div>
+						<group col="6">
+							<field name="mf_customer_id"/>
+							<field name="mf_product_id"/>
+							<field name="mf_bom_id"/>
+							<field name="mf_routing_id"/>
+							<field name="mf_simulation_lines_ids"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

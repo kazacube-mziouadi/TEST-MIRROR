@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem name="myfab Simulation by quantity"
+				  action="mf_simulation_by_quantity"
+				  id="menu_sale_order_myfab_simulation_by_quantity"
+				  parent="sale.menu_sale_analysis"
+				  groups="base.group_sale_user"/>
+	</data>
+</openerp>
