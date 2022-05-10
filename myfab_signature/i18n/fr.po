@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-04 15:27+0000\n"
-"PO-Revision-Date: 2022-05-04 15:27+0000\n"
+"POT-Creation-Date: 2022-05-10 14:22+0000\n"
+"PO-Revision-Date: 2022-05-10 14:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,15 +30,15 @@ msgstr "Signature client"
 
 #. module: myfab_signature
 #. openerp-web
-#: code:addons/myfab_signature/static/src/js/digital_sign.js:81
-#: code:addons/myfab_signature/static/src/js/digital_sign.js:118
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:80
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:117
 #, python-format
 msgid "Could not display the selected image."
 msgstr "Impossible d'afficher l'image sélectionnée."
 
 #. module: myfab_signature
 #. openerp-web
-#: code:addons/myfab_signature/static/src/xml/digital_sign.xml:11
+#: code:addons/myfab_signature/static/src/xml/digital_sign.xml:7
 #, python-format
 msgid "Draw your signature"
 msgstr "Dessiner la signature ci-dessous"
@@ -50,8 +50,8 @@ msgstr "Signature électronique"
 
 #. module: myfab_signature
 #. openerp-web
-#: code:addons/myfab_signature/static/src/js/digital_sign.js:81
-#: code:addons/myfab_signature/static/src/js/digital_sign.js:118
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:80
+#: code:addons/myfab_signature/static/src/js/digital_sign.js:117
 #, python-format
 msgid "Image"
 msgstr "Image"
@@ -63,8 +63,20 @@ msgstr "Intervention"
 
 #. module: myfab_signature
 #: model:ir.model.fields,help:myfab_signature.field_intervention_client_signature
+#: model:ir.model.fields,help:myfab_signature.field_intervention_mf_signature_contact_id
+#: model:ir.model.fields,help:myfab_signature.field_intervention_mf_signature_date
 msgid "Not defined"
 msgstr "Non défini"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_intervention_mf_signature_date
+msgid "Signature date"
+msgstr "Date de signature"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_intervention_mf_signature_contact_id
+msgid "Signing contact"
+msgstr "Contact signataire"
 
 #. module: myfab_signature
 #: model:ir.model,name:myfab_signature.model_res_users

@@ -2,14 +2,14 @@
 
 {
     'name': 'myfab Signature',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
         'my_fab',
         'sav'
     ],
-    'category': 'Advanced',
+    'category': 'advanced',
     'description': """
         Intègre un champ signature client (signature à main levée) à la fiche d'intervention SAV.
         Permet également de créer un champ signature sur n'importe quel modèle (sur l'exemple du SAV). 
