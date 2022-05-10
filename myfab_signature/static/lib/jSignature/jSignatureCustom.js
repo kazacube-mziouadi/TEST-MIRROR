@@ -873,6 +873,7 @@ function jSignatureClass(parent, options, instanceExtensions) {
                 canvas.ontouchend = drawEndHandler
                 canvas.ontouchstart = drawStartHandler
                 canvas.ontouchmove = drawMoveHandler
+                $(".signature").add("dirty")
             }
             canvas.onmousedown = function(e) {
                 canvas.ontouchstart = undef
@@ -884,6 +885,7 @@ function jSignatureClass(parent, options, instanceExtensions) {
                 canvas.onmousedown = drawStartHandler
                 canvas.onmouseup = drawEndHandler
                 canvas.onmousemove = drawMoveHandler
+                $(".signature").addClass("dirty")
             }
         }
     }).call(

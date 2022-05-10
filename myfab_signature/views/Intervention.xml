@@ -6,13 +6,19 @@
         <field name="model">intervention</field>
         <field name="inherit_id" ref="sav.view_form_intervention_sav_id" />
         <field name="arch" type="xml">
-            <xpath expr="//page[last()]" position="after">
+            <xpath expr="//notebook" position="inside">
                 <page string="Electronic signature">
-                    <group colspan="8" col="8" string="Electronic signature">
-                        <label for="client_signature" string="Client signature" />
-                        <h2>
-                            <field name="client_signature" widget="signature"/>
-                        </h2>
+                    <group col="1" string="Electronic signature">
+                        <group col="4">
+                            <field name="mf_signature_contact_id"/>
+                            <field name="mf_signature_date"/>
+                        </group>
+                        <group col="2">
+                            <label for="client_signature" string="Client signature" />
+                            <h2>
+                                <field name="client_signature" widget="signature"/>
+                            </h2>
+                        </group>
                     </group>
                 </page>
             </xpath>

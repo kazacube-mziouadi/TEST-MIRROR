@@ -41,7 +41,8 @@ odoo.define('web_digital_sign.web_digital_sign', function(require) {
             var is_empty = signature
                 ? self.empty_sign[1] === signature[1]
                 : false;
-            if (! is_empty && typeof signature !== "undefined" && signature[1]) {
+            var is_dirty = self.$el.find(".signature").hasClass("dirty")
+            if (!is_empty && is_dirty && typeof signature !== "undefined" && signature[1]) {
                 self.set('value',signature[1]);
             }
         },
@@ -59,8 +60,6 @@ odoo.define('web_digital_sign.web_digital_sign', function(require) {
                             : this.name,
                     t: new Date().getTime()
                 });
-            } else {
-                url = this.placeholder;
             }
             if (this.view.get("actual_mode") === 'view' || this.get('effective_readonly')) {
                 var $img = $(QWeb.render("FieldBinaryImage-extend", { widget: this, url: url }));
