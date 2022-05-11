@@ -22,20 +22,39 @@
         	<field name="name">mf.simulation.by.quantity.form</field>
 			<field name="model">mf.simulation.by.quantity</field>
             <field name="arch" type="xml">
-				<form string="myfab Simulation by quantity" version="8.0">
+				<form string="myfab Simulation by quantity">
 					<group col="1">
 						<div class="oe_title">
 							<h1>
 								<field name="name" nolabel="1" />
 							</h1>
 						</div>
-						<group col="6">
+						<group col="4">
 							<field name="mf_customer_id"/>
+							<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 							<field name="mf_product_id"/>
-							<field name="mf_bom_id"/>
-							<field name="mf_routing_id"/>
-							<field name="mf_simulation_lines_ids"/>
+							<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 						</group>
+						<field name="mf_simulation_lines_ids">
+							<tree string="myfab Simulations by quantity" editable="bottom">
+								<field name="mf_quantity"/>
+								<field name="mf_product_id"/>
+								<field name="mf_bom_id"/>
+								<field name="mf_routing_id"/>
+								<field name="mf_price_material" readonly="1" readonly_onchange="1"/>
+								<field name="mf_price_consumable" readonly="1" readonly_onchange="1"/>
+								<field name="mf_price_subcontracting" readonly="1" readonly_onchange="1"/>
+								<field name="mf_price_workforce" readonly="1" readonly_onchange="1"/>
+								<field name="mf_general_costs" />
+								<field name="mf_unit_cost_price" readonly="1" readonly_onchange="1"/>
+								<field name="mf_unit_margin" />
+								<field name="mf_unit_sale_price" readonly="1" readonly_onchange="1"/>
+								<field name="mf_hour_sale_price" readonly="1" readonly_onchange="1"/>
+								<field name="mf_total_cost_price" readonly="1" readonly_onchange="1"/>
+								<field name="mf_total_margin" readonly="1" readonly_onchange="1"/>
+								<field name="mf_total_sale_price" readonly="1" readonly_onchange="1"/>
+							</tree>
+						</field>
 					</group>
 				</form>
 			</field>

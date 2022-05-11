@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_simulation_by_quantity_line' model="ir.actions.act_window">
+        	<field name="name">myfab Simulation by quantity line</field>
+			<field name="res_model">mf.simulation.by.quantity.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='mf_simulation_by_quantity_line_treeview' model="ir.ui.view">
+        	<field name="name">myfab Simulations by quantity</field>
+			<field name="model">mf.simulation.by.quantity.line</field>
+            <field name="arch" type="xml">
+				<tree string="myfab Simulations by quantity" editable="bottom">
+					<field name="mf_quantity" readonly_onchange="1"/>
+					<field name="mf_product_id"/>
+					<field name="mf_bom_id"/>
+					<field name="mf_routing_id"/>
+					<field name="mf_price_material" readonly="1" readonly_onchange="1"/>
+<!--					<field name="mf_price_consumable" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_price_subcontracting" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_price_workforce" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_general_costs" />-->
+<!--					<field name="mf_unit_cost_price" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_unit_margin" />-->
+<!--					<field name="mf_unit_sale_price" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_hour_sale_price" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_total_cost_price" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_total_margin" readonly="1" readonly_onchange="1"/>-->
+<!--					<field name="mf_total_sale_price" readonly="1" readonly_onchange="1"/>-->
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_simulation_by_quantity_line_form' model="ir.ui.view">
+        	<field name="name">mf.simulation.by.quantity.line.form</field>
+			<field name="model">mf.simulation.by.quantity.line</field>
+            <field name="arch" type="xml">
+				<form string="myfab Simulation by quantity line" version="8.0">
+					<group col="6">
+						<field name="mf_quantity"/>
+						<field name="mf_product_id"/>
+						<field name="mf_bom_id"/>
+						<field name="mf_routing_id"/>
+						<field name="mf_price_material" readonly="1" readonly_onchange="1"/>
+						<field name="mf_price_consumable" readonly="1" readonly_onchange="1"/>
+						<field name="mf_price_subcontracting" readonly="1" readonly_onchange="1"/>
+						<field name="mf_price_workforce" readonly="1" readonly_onchange="1"/>
+						<field name="mf_general_costs" />
+						<field name="mf_unit_cost_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_unit_margin" />
+						<field name="mf_unit_sale_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_hour_sale_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_total_cost_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_total_margin" readonly="1" readonly_onchange="1"/>
+						<field name="mf_total_sale_price" readonly="1" readonly_onchange="1"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>
