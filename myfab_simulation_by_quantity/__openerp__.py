@@ -17,6 +17,7 @@
         'models/MFDataInitializerSimulationByQuantityTrigger.yml',
         'views/MFSimulationByQuantityLine.xml',
         'views/MFSimulationByQuantity.xml',
+        'views/wizards/MFWizardSimulationCreation.xml',
         'views/BaseMenus.xml'
     ],
     'qweb': [],

@@ -31,3 +31,29 @@ class MFSimulationByQuantity(models.Model):
             self.mf_bom_id = None
         if self.mf_bom_id not in self.mf_routing_id.bom_ids:
             self.mf_bom_id = None
+
+    @api.multi
+    def create_sale_order_button(self):
+        sale_order_model_id = self.env["ir.model"].search([("model", '=', "sale.order")], None, 1)
+        return self.open_model_creation_wizard(sale_order_model_id)
+
+    @api.multi
+    def create_quotation_button(self):
+        quotation_model_id = self.env["ir.model"].search([("model", '=', "quotation")], None, 1)
+        return self.open_model_creation_wizard(quotation_model_id)
+
+    def open_model_creation_wizard(self, model_to_create_id):
+        simulation_lines_to_create_ids = self.env["mf.simulation.by.quantity.line"].search([
+            ("mf_simulation_id", '=', self.id), ("mf_selected_for_creation", '=', True)
+        ])
+        return {
+            "name": _("Simulation by quantity - Model creation"),
+            "view_mode": "form",
+            "res_model": "mf.wizard.simulation.creation",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {
+                "mf_model_to_create_id": model_to_create_id.id,
+                "mf_simulation_lines_ids": [simulation_line.id for simulation_line in simulation_lines_to_create_ids]
+            }
+        }

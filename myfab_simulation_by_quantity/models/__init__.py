@@ -2,3 +2,4 @@
 import MFSimulationByQuantityLine
 import MFSimulationByQuantity
 import MFDataInitializerSimulationByQuantity
+import wizards

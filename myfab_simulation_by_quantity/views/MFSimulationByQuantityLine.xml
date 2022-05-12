@@ -13,22 +13,23 @@
 			<field name="model">mf.simulation.by.quantity.line</field>
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity" editable="bottom">
-					<field name="mf_quantity" readonly_onchange="1"/>
+					<field name="mf_selected_for_creation"/>
+					<field name="mf_quantity" />
 					<field name="mf_product_id"/>
 					<field name="mf_bom_id"/>
 					<field name="mf_routing_id"/>
-					<field name="mf_price_material" readonly="1" readonly_onchange="1"/>
-<!--					<field name="mf_price_consumable" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_price_subcontracting" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_price_workforce" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_general_costs" />-->
-<!--					<field name="mf_unit_cost_price" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_unit_margin" />-->
-<!--					<field name="mf_unit_sale_price" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_hour_sale_price" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_total_cost_price" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_total_margin" readonly="1" readonly_onchange="1"/>-->
-<!--					<field name="mf_total_sale_price" readonly="1" readonly_onchange="1"/>-->
+					<field name="mf_price_material" />
+					<field name="mf_price_consumable" />
+					<field name="mf_price_subcontracting" />
+					<field name="mf_price_workforce" />
+					<field name="mf_general_costs" />
+					<field name="mf_unit_cost_price" />
+					<field name="mf_unit_margin" />
+					<field name="mf_unit_sale_price" />
+					<field name="mf_hour_sale_price" />
+					<field name="mf_total_cost_price" />
+					<field name="mf_total_margin" />
+					<field name="mf_total_sale_price" />
 				</tree>
 			</field>
         </record>
@@ -43,18 +44,18 @@
 						<field name="mf_product_id"/>
 						<field name="mf_bom_id"/>
 						<field name="mf_routing_id"/>
-						<field name="mf_price_material" readonly="1" readonly_onchange="1"/>
-						<field name="mf_price_consumable" readonly="1" readonly_onchange="1"/>
-						<field name="mf_price_subcontracting" readonly="1" readonly_onchange="1"/>
-						<field name="mf_price_workforce" readonly="1" readonly_onchange="1"/>
+						<field name="mf_price_material" />
+						<field name="mf_price_consumable" />
+						<field name="mf_price_subcontracting" />
+						<field name="mf_price_workforce" />
 						<field name="mf_general_costs" />
-						<field name="mf_unit_cost_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_unit_cost_price" />
 						<field name="mf_unit_margin" />
-						<field name="mf_unit_sale_price" readonly="1" readonly_onchange="1"/>
-						<field name="mf_hour_sale_price" readonly="1" readonly_onchange="1"/>
-						<field name="mf_total_cost_price" readonly="1" readonly_onchange="1"/>
-						<field name="mf_total_margin" readonly="1" readonly_onchange="1"/>
-						<field name="mf_total_sale_price" readonly="1" readonly_onchange="1"/>
+						<field name="mf_unit_sale_price" />
+						<field name="mf_hour_sale_price" />
+						<field name="mf_total_cost_price" />
+						<field name="mf_total_margin" />
+						<field name="mf_total_sale_price" />
 					</group>
 				</form>
 			</field>
