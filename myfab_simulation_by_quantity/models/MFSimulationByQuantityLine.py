@@ -107,7 +107,7 @@ class MFSimulationByQuantityLine(models.Model):
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_unit_cost_price(self):
         self.mf_unit_cost_price = self.mf_price_material + self.mf_price_consumable + self.mf_price_subcontracting \
-               + self.mf_price_workforce + self.mf_general_costs
+            + self.mf_price_workforce + self.mf_general_costs
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")

@@ -32,8 +32,8 @@
 							</div>
 							<group col="4">
 								<field name="mf_customer_id"/>
-								<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 								<field name="mf_product_id"/>
+								<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 								<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 							</group>
 							<field name="mf_simulation_lines_ids" />
@@ -50,6 +50,11 @@
 									name="create_quotation_button"
 									string="Create quotation"
 									icon="fa-plus-square"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="recompute_simulation_lines_button"
+									string="Recompute simulation lines"
+									icon="fa-repeat"/>
 						</group>
 					</group>
 				</form>

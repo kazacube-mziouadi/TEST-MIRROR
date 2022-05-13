@@ -20,17 +20,42 @@ class MFSimulationByQuantity(models.Model):
     # METHODS
     # ===========================================================================
     @api.model
+    def default_get(self, fields_list):
+        res = super(MFSimulationByQuantity, self).default_get(fields_list=fields_list)
+        res["mf_product_id"] = self.env.context.get("mf_product_id")
+        return res
+
+    @api.model
     def create(self, fields_list):
         # We write the simulation's name using it's sequence
         fields_list['name'] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
         return super(MFSimulationByQuantity, self).create(fields_list)
 
     @api.onchange("mf_product_id")
-    def onchange_mf_product_id(self):
+    def _onchange_mf_product_id(self):
+        if not self.mf_product_id:
+            if self.mf_bom_id:
+                self.mf_bom_id = None
+            return
         if self.mf_bom_id.product_id != self.mf_product_id:
             self.mf_bom_id = None
+        if not self.mf_bom_id:
+            product_bom_id = self.env["mrp.bom"].search([("product_id", '=', self.mf_product_id.id)], None, 1)
+            if product_bom_id:
+                self.mf_bom_id = product_bom_id.id
+
+    @api.onchange("mf_bom_id")
+    def _onchange_mf_bom_id(self):
+        if not self.mf_bom_id:
+            if self.mf_routing_id:
+                self.mf_routing_id = None
+            return
         if self.mf_bom_id not in self.mf_routing_id.bom_ids:
-            self.mf_bom_id = None
+            self.mf_routing_id = None
+        if not self.mf_routing_id:
+            product_routing_id = self.env["mrp.routing"].search([("bom_ids", 'in', self.mf_bom_id.id)], None, 1)
+            if product_routing_id:
+                self.mf_routing_id = product_routing_id.id
 
     @api.multi
     def create_sale_order_button(self):
@@ -57,3 +82,8 @@ class MFSimulationByQuantity(models.Model):
                 "mf_simulation_lines_ids": [simulation_line.id for simulation_line in simulation_lines_to_create_ids]
             }
         }
+
+    @api.multi
+    def recompute_simulation_lines_button(self):
+        for simulation_line_id in self.mf_simulation_lines_ids:
+            simulation_line_id.mf_quantity = simulation_line_id.mf_quantity

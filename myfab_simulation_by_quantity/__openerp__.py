@@ -18,7 +18,8 @@
         'views/MFSimulationByQuantityLine.xml',
         'views/MFSimulationByQuantity.xml',
         'views/wizards/MFWizardSimulationCreation.xml',
-        'views/BaseMenus.xml'
+        'views/BaseMenus.xml',
+        'views/ProductProduct.xml'
     ],
     'qweb': [],
     'demo': [],
