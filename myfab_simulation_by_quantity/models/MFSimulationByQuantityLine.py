@@ -13,6 +13,7 @@ class MFSimulationByQuantityLine(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, readonly=True)
+    sequence = fields.Integer(string="Sequence", required=True, default=1)
     mf_simulation_id = fields.Many2one("mf.simulation.by.quantity", string="Simulation", ondelete="cascade")
     mf_selected_for_creation = fields.Boolean(string="Selected for creation", default=False)
     mf_quantity = fields.Float(string="Quantity", required=True, digits=dp.get_precision('Product quantity'))
@@ -45,11 +46,29 @@ class MFSimulationByQuantityLine(models.Model):
     mf_total_sale_price = fields.Float(string="Total sale price", compute="_compute_total_sale_price", store=True,
                                        default=0.0, digits=dp.get_precision('Price technical'))
 
-    @api.onchange("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
-    def _onchange_simulation_line(self):
-        self.mf_product_id = self.mf_simulation_id.mf_product_id if not self.mf_product_id else self.mf_product_id
-        self.mf_bom_id = self.mf_simulation_id.mf_bom_id if not self.mf_bom_id else self.mf_bom_id
-        self.mf_routing_id = self.mf_simulation_id.mf_routing_id if not self.mf_routing_id else self.mf_routing_id
+    @api.onchange("mf_product_id")
+    def _onchange_mf_product_id(self):
+        if not self.mf_product_id:
+            self.mf_product_id = self.mf_simulation_id.mf_product_id
+        if not self.mf_product_id or self.mf_bom_id.product_id != self.mf_product_id:
+            self.mf_bom_id = None
+        if not self.mf_bom_id:
+            product_bom_id = self.env["mrp.bom"].search([("product_id", '=', self.mf_product_id.id)], None, 1)
+            if product_bom_id:
+                self.mf_bom_id = product_bom_id.id
+
+    @api.onchange("mf_bom_id")
+    def _onchange_mf_bom_id(self):
+        if not self.mf_bom_id:
+            if self.mf_routing_id:
+                self.mf_routing_id = None
+            return
+        if self.mf_bom_id not in self.mf_routing_id.bom_ids:
+            self.mf_routing_id = None
+        if not self.mf_routing_id:
+            product_routing_id = self.env["mrp.routing"].search([("bom_ids", 'in', self.mf_bom_id.id)], None, 1)
+            if product_routing_id:
+                self.mf_routing_id = product_routing_id.id
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")

@@ -55,6 +55,11 @@
 									name="recompute_simulation_lines_button"
 									string="Recompute simulation lines"
 									icon="fa-repeat"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_product_customer_info_button"
+									string="Update product customer info"
+									icon="fa-repeat"/>
 						</group>
 					</group>
 				</form>

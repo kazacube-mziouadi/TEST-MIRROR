@@ -13,11 +13,12 @@
 			<field name="model">mf.simulation.by.quantity.line</field>
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity" editable="bottom">
+					<field name="sequence"/>
 					<field name="mf_selected_for_creation"/>
 					<field name="mf_quantity" />
 					<field name="mf_product_id"/>
-					<field name="mf_bom_id"/>
-					<field name="mf_routing_id"/>
+					<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
+					<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 					<field name="mf_price_material" />
 					<field name="mf_price_consumable" />
 					<field name="mf_price_subcontracting" />
@@ -40,10 +41,12 @@
             <field name="arch" type="xml">
 				<form string="myfab Simulation by quantity line" version="8.0">
 					<group col="6">
+						<field name="sequence"/>
+						<field name="mf_selected_for_creation"/>
 						<field name="mf_quantity"/>
 						<field name="mf_product_id"/>
-						<field name="mf_bom_id"/>
-						<field name="mf_routing_id"/>
+						<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
+						<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 						<field name="mf_price_material" />
 						<field name="mf_price_consumable" />
 						<field name="mf_price_subcontracting" />

@@ -87,3 +87,47 @@ class MFSimulationByQuantity(models.Model):
     def recompute_simulation_lines_button(self):
         for simulation_line_id in self.mf_simulation_lines_ids:
             simulation_line_id.mf_quantity = simulation_line_id.mf_quantity
+
+    @api.multi
+    def update_product_customer_info_button(self):
+        simulation_lines_ids_sorted_list = sorted(self.mf_simulation_lines_ids, key=lambda simulation_line: simulation_line.mf_product_id.id)
+        previous_product_id = None
+        product_prices_list = []
+        for simulation_line_id in simulation_lines_ids_sorted_list:
+            product_id = simulation_line_id.mf_product_id
+            product_prices_list.append((0, 0, {
+                "min_qty": simulation_line_id.mf_quantity,
+                "price": simulation_line_id.mf_total_sale_price,
+            }))
+            if previous_product_id and previous_product_id != product_id:
+                for cinfo_id in simulation_line_id.mf_product_id.cinfo_ids:
+                    if cinfo_id.partner_id == self.mf_customer_id:
+                        cinfo_id.unlink()
+                print({
+                    "sequence": simulation_line_id.sequence,
+                    "partner_id": self.mf_customer_id.id,
+                    "state": "active",
+                    "currency_id": self.mf_customer_id.currency_id.id,
+                    "company_id": self.env.user.company_id.id,
+                    "uos_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
+                    "uos_category_id": product_id.uos_id.category_id.id if product_id.uos_id else product_id.uom_id.category_id.id,
+                    "uoi_id": product_id.sale_uoi_id.id if product_id.sale_uoi_id else product_id.uom_id.id,
+                    "uom_category_id": product_id.uom_id.category_id.id,
+                    "pricelist_ids": product_prices_list
+                })
+                previous_product_id.cinfo_ids = [(0, 0, {
+                    "sequence": simulation_line_id.sequence,
+                    "partner_id": self.mf_customer_id.id,
+                    "state": "active",
+                    "currency_id": self.mf_customer_id.currency_id.id,
+                    "company_id": self.env.user.company_id.id,
+                    "uos_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
+                    "uos_category_id": product_id.uos_id.category_id.id if product_id.uos_id else product_id.uom_id.category_id.id,
+                    "uoi_id": product_id.sale_uoi_id.id if product_id.sale_uoi_id else product_id.uom_id.id,
+                    "uom_category_id": product_id.uom_id.category_id.id,
+                    "multiply_qty": 1.0,
+                    "pricelist_ids": product_prices_list
+                })]
+            previous_product_id = product_id
+
+
