@@ -15,7 +15,7 @@ class MFSimulationByQuantityLine(models.Model):
     name = fields.Char(string="Name", size=64, readonly=True)
     sequence = fields.Integer(string="Sequence", required=True, default=1)
     mf_simulation_id = fields.Many2one("mf.simulation.by.quantity", string="Simulation", ondelete="cascade")
-    mf_selected_for_creation = fields.Boolean(string="Selected for creation", default=False)
+    mf_selected_for_creation = fields.Boolean(string="Selected for creation", default=True)
     mf_quantity = fields.Float(string="Quantity", required=True, digits=dp.get_precision('Product quantity'))
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)

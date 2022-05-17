@@ -1,4 +1,5 @@
 from openerp import models, fields, api, _, modules
+from openerp.exceptions import MissingError
 
 
 class MFSimulationByQuantity(models.Model):
@@ -9,7 +10,7 @@ class MFSimulationByQuantity(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, readonly=True)
-    mf_customer_id = fields.Many2one("res.partner", string="Customer", required=True)
+    mf_customer_id = fields.Many2one("res.partner", string="Customer")
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
@@ -59,11 +60,13 @@ class MFSimulationByQuantity(models.Model):
 
     @api.multi
     def create_sale_order_button(self):
+        self.check_customer_and_lines_exist()
         sale_order_model_id = self.env["ir.model"].search([("model", '=', "sale.order")], None, 1)
         return self.open_model_creation_wizard(sale_order_model_id)
 
     @api.multi
     def create_quotation_button(self):
+        self.check_customer_and_lines_exist()
         quotation_model_id = self.env["ir.model"].search([("model", '=', "quotation")], None, 1)
         return self.open_model_creation_wizard(quotation_model_id)
 
@@ -90,44 +93,74 @@ class MFSimulationByQuantity(models.Model):
 
     @api.multi
     def update_product_customer_info_button(self):
-        simulation_lines_ids_sorted_list = sorted(self.mf_simulation_lines_ids, key=lambda simulation_line: simulation_line.mf_product_id.id)
-        previous_product_id = None
+        self.check_customer_and_lines_exist()
+        # One line case : no need to sort, we append directly the customer info and it's price within
+        if len(self.mf_simulation_lines_ids) < 2:
+            self.append_cinfo_line_to_product(
+                self.mf_simulation_lines_ids[0].mf_product_id,
+                self.mf_simulation_lines_ids[0].sequence,
+                [self.get_product_price_creation_dict(self.mf_simulation_lines_ids[0])]
+            )
+            return
+        # Multi lines case
+        # We filter the simulation lines to keep only the selected ones
+        simulation_lines_ids_sorted_list = filter(
+            lambda simulation_line: simulation_line.mf_selected_for_creation,
+            self.mf_simulation_lines_ids
+        )
+        # We sort the simulation lines list on the products' ids
+        simulation_lines_ids_sorted_list = sorted(
+            simulation_lines_ids_sorted_list,
+            key=lambda simulation_line: simulation_line.mf_product_id.id
+        )
+        previous_simulation_line_id = None
         product_prices_list = []
-        for simulation_line_id in simulation_lines_ids_sorted_list:
+        print(simulation_lines_ids_sorted_list)
+        for index, simulation_line_id in enumerate(simulation_lines_ids_sorted_list):
             product_id = simulation_line_id.mf_product_id
-            product_prices_list.append((0, 0, {
-                "min_qty": simulation_line_id.mf_quantity,
-                "price": simulation_line_id.mf_total_sale_price,
-            }))
-            if previous_product_id and previous_product_id != product_id:
-                for cinfo_id in simulation_line_id.mf_product_id.cinfo_ids:
-                    if cinfo_id.partner_id == self.mf_customer_id:
-                        cinfo_id.unlink()
-                print({
-                    "sequence": simulation_line_id.sequence,
-                    "partner_id": self.mf_customer_id.id,
-                    "state": "active",
-                    "currency_id": self.mf_customer_id.currency_id.id,
-                    "company_id": self.env.user.company_id.id,
-                    "uos_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
-                    "uos_category_id": product_id.uos_id.category_id.id if product_id.uos_id else product_id.uom_id.category_id.id,
-                    "uoi_id": product_id.sale_uoi_id.id if product_id.sale_uoi_id else product_id.uom_id.id,
-                    "uom_category_id": product_id.uom_id.category_id.id,
-                    "pricelist_ids": product_prices_list
-                })
-                previous_product_id.cinfo_ids = [(0, 0, {
-                    "sequence": simulation_line_id.sequence,
-                    "partner_id": self.mf_customer_id.id,
-                    "state": "active",
-                    "currency_id": self.mf_customer_id.currency_id.id,
-                    "company_id": self.env.user.company_id.id,
-                    "uos_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
-                    "uos_category_id": product_id.uos_id.category_id.id if product_id.uos_id else product_id.uom_id.category_id.id,
-                    "uoi_id": product_id.sale_uoi_id.id if product_id.sale_uoi_id else product_id.uom_id.id,
-                    "uom_category_id": product_id.uom_id.category_id.id,
-                    "multiply_qty": 1.0,
-                    "pricelist_ids": product_prices_list
-                })]
-            previous_product_id = product_id
+            # If it's a product not processed yet, we create the product's customer info for the previous product
+            if previous_simulation_line_id and previous_simulation_line_id.mf_product_id != product_id:
+                self.append_cinfo_line_to_product(
+                    previous_simulation_line_id.mf_product_id, previous_simulation_line_id.sequence, product_prices_list
+                )
+                product_prices_list = []
+            # We append the prices of each line for the current product
+            product_prices_list.append((0, 0, self.get_product_price_creation_dict(simulation_line_id)))
+            # If it's the last line we create the product's customer info with the prices list within
+            if index + 1 >= len(simulation_lines_ids_sorted_list):
+                self.append_cinfo_line_to_product(
+                    simulation_line_id.mf_product_id, simulation_line_id.sequence, product_prices_list
+                )
+            previous_simulation_line_id = simulation_line_id
 
+    def append_cinfo_line_to_product(self, product_id, sequence, product_prices_list):
+        for cinfo_id in product_id.cinfo_ids:
+            if cinfo_id.partner_id == self.mf_customer_id:
+                cinfo_id.unlink()
+        product_id.cinfo_ids = [(0, 0, {
+            "sequence": sequence,
+            "partner_id": self.mf_customer_id.id,
+            "state": "active",
+            "currency_id": self.mf_customer_id.currency_id.id,
+            "company_id": self.env.user.company_id.id,
+            "uos_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
+            "uos_category_id": product_id.uos_id.category_id.id if product_id.uos_id else product_id.uom_id.category_id.id,
+            "uoi_id": product_id.sale_uoi_id.id if product_id.sale_uoi_id else product_id.uom_id.id,
+            "uom_category_id": product_id.uom_id.category_id.id,
+            "multiply_qty": 1.0,
+            "pricelist_ids": product_prices_list
+        })]
+
+    @staticmethod
+    def get_product_price_creation_dict(simulation_line_id):
+        return {
+            "min_qty": simulation_line_id.mf_quantity,
+            "price": simulation_line_id.mf_total_sale_price,
+        }
+
+    def check_customer_and_lines_exist(self):
+        if not self.mf_customer_id or not self.mf_simulation_lines_ids:
+            raise MissingError(_(
+                "Make sure a customer is selected and the simulation contains at least one line before using this button."
+            ))
 
