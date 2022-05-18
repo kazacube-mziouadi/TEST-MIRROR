@@ -133,7 +133,7 @@ class MFWizardSimulationCreation(models.TransientModel):
                 "taxes_ids": [(6, 0, [sale_tax.id for sale_tax in product_id.sale_taxes_ids])]
             })
         else:
-            raise ValueError("The generation can not be executed on the model " + self.mf_model_to_create_id.model)
+            raise ValueError(_("The generation can not be executed on the model ") + self.mf_model_to_create_id.model)
         return (0, 0, creation_fields_dict)
 
     def get_random_location_id(self):

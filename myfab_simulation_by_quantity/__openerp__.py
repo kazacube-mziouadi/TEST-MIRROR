@@ -18,6 +18,8 @@
         'views/MFSimulationByQuantityLine.xml',
         'views/MFSimulationByQuantity.xml',
         'views/wizards/MFWizardSimulationCreation.xml',
+        'views/simulation_config/MFSimulationConfig.xml',
+        'views/simulation_config/MFSimulationConfigField.xml',
         'views/BaseMenus.xml',
         'views/ProductProduct.xml'
     ],

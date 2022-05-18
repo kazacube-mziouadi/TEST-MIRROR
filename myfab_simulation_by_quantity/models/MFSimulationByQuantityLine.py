@@ -1,5 +1,6 @@
 from openerp import models, fields, api, _, modules
 import openerp.addons.decimal_precision as dp
+from openerp.exceptions import MissingError
 
 RESOURCE_CATEGORY_LABEL_SUBCONTRACTING = _("Subcontracting")
 RESOURCE_CATEGORY_LABEL_ROUTING_COST = _("Routing cost")
@@ -22,17 +23,27 @@ class MFSimulationByQuantityLine(models.Model):
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
     mf_price_material = fields.Float(string="Material price", compute="_compute_mf_price_material", store=True,
                                      digits=dp.get_precision('Price technical'))
+    mf_price_consumable_is_visible = fields.Boolean(string="Consumable price is visible",
+                                                    compute="_compute_mf_price_consumable_is_visible")
     mf_price_consumable = fields.Float(string="Consumable price", default=0.0, compute="_compute_mf_price_consumable",
                                        store=True, digits=dp.get_precision('Price technical'))
+    mf_price_subcontracting_is_visible = fields.Boolean(string="Subcontracting price is visible",
+                                                        compute="_compute_mf_price_subcontracting_is_visible")
     mf_price_subcontracting = fields.Float(string="Subcontracting price", default=0.0,
                                            compute="_compute_mf_price_subcontracting", store=True,
                                            digits=dp.get_precision('Price technical'))
+    mf_price_workforce_is_visible = fields.Boolean(string="Workforce price is visible",
+                                                   compute="_compute_mf_price_workforce_is_visible")
     mf_price_workforce = fields.Float(string="Workforce price", default=0.0,
                                       compute="_compute_mf_price_workforce", store=True,
                                       digits=dp.get_precision('Price technical'))
+    mf_general_costs_is_visible = fields.Boolean(string="General costs is visible",
+                                                 compute="_compute_mf_general_costs_is_visible")
     mf_general_costs = fields.Float(string="General costs", default=0.0, digits=dp.get_precision('Price technical'))
     mf_unit_cost_price = fields.Float(string="Unit cost price", compute="_compute_unit_cost_price", store=True,
                                       default=0.0, digits=dp.get_precision('Price technical'))
+    mf_unit_margin_is_visible = fields.Boolean(string="Unit margin is visible",
+                                               compute="_compute_mf_unit_margin_is_visible")
     mf_unit_margin = fields.Float(string="Unit margin", help="Write an unit margin coefficient", default=0.0,
                                   digits=dp.get_precision('Price technical'))
     mf_unit_sale_price = fields.Float(string="Unit sale price", compute="_compute_unit_sale_price", store=True,
@@ -45,6 +56,10 @@ class MFSimulationByQuantityLine(models.Model):
                                    digits=dp.get_precision('Price technical'))
     mf_total_sale_price = fields.Float(string="Total sale price", compute="_compute_total_sale_price", store=True,
                                        default=0.0, digits=dp.get_precision('Price technical'))
+    
+    # ===========================================================================
+    # METHODS - FORM ONCHANGES
+    # ===========================================================================
 
     @api.onchange("mf_product_id")
     def _onchange_mf_product_id(self):
@@ -69,6 +84,10 @@ class MFSimulationByQuantityLine(models.Model):
             product_routing_id = self.env["mrp.routing"].search([("bom_ids", 'in', self.mf_bom_id.id)], None, 1)
             if product_routing_id:
                 self.mf_routing_id = product_routing_id.id
+
+    # ===========================================================================
+    # METHODS - FORM COMPUTE
+    # ===========================================================================
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
@@ -147,3 +166,38 @@ class MFSimulationByQuantityLine(models.Model):
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_total_sale_price(self):
         self.mf_total_sale_price = self.mf_unit_sale_price * self.mf_quantity
+
+    # ===========================================================================
+    # METHODS - VIEW COLUMNS COMPUTE
+    # ===========================================================================
+
+    @api.one
+    @api.depends("sequence")
+    def _compute_mf_price_consumable_is_visible(self):
+        self.mf_price_consumable_is_visible = self._get_field_visibility_status_by_name("mf_price_consumable")
+
+    @api.one
+    @api.depends("sequence")
+    def _compute_mf_price_subcontracting_is_visible(self):
+        self.mf_price_subcontracting_is_visible = self._get_field_visibility_status_by_name("mf_price_subcontracting")
+
+    @api.one
+    @api.depends("sequence")
+    def _compute_mf_price_workforce_is_visible(self):
+        self.mf_price_workforce_is_visible = self._get_field_visibility_status_by_name("mf_price_workforce")
+
+    @api.one
+    @api.depends("sequence")
+    def _compute_mf_general_costs_is_visible(self):
+        self.mf_general_costs_is_visible = self._get_field_visibility_status_by_name("mf_general_costs")
+
+    @api.one
+    @api.depends("sequence")
+    def _compute_mf_unit_margin_is_visible(self):
+        self.mf_unit_margin_is_visible = self._get_field_visibility_status_by_name("mf_unit_margin")
+
+    def _get_field_visibility_status_by_name(self, field_name):
+        for field_config_id in self.mf_simulation_id.mf_field_configs_ids:
+            if field_config_id.mf_field_id.name == field_name:
+                return field_config_id.mf_is_visible
+        raise MissingError(field_name + _(" is not a configurable field."))

@@ -16,6 +16,8 @@ class MFSimulationByQuantity(models.Model):
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
     mf_simulation_lines_ids = fields.One2many("mf.simulation.by.quantity.line", "mf_simulation_id", copy=True,
                                               string="Simulation lines")
+    mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id",
+                                           string="Configurable fields")
 
     # ===========================================================================
     # METHODS
@@ -29,7 +31,8 @@ class MFSimulationByQuantity(models.Model):
     @api.model
     def create(self, fields_list):
         # We write the simulation's name using it's sequence
-        fields_list['name'] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
+        fields_list["name"] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
+        fields_list["mf_field_configs_ids"] = self.env["mf.simulation.config"].get_mf_fields_ids()
         return super(MFSimulationByQuantity, self).create(fields_list)
 
     @api.onchange("mf_product_id")
@@ -115,7 +118,6 @@ class MFSimulationByQuantity(models.Model):
         )
         previous_simulation_line_id = None
         product_prices_list = []
-        print(simulation_lines_ids_sorted_list)
         for index, simulation_line_id in enumerate(simulation_lines_ids_sorted_list):
             product_id = simulation_line_id.mf_product_id
             # If it's a product not processed yet, we create the product's customer info for the previous product

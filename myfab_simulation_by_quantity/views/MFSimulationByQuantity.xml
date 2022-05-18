@@ -30,13 +30,24 @@
 									<field name="name" nolabel="1" />
 								</h1>
 							</div>
-							<group col="6">
-								<field name="mf_product_id"/>
-								<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
-								<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
-								<field name="mf_customer_id"/>
-							</group>
-							<field name="mf_simulation_lines_ids" />
+							<notebook>
+								<page string="Simulation">
+									<group col="1">
+										<group col="6">
+											<field name="mf_product_id"/>
+											<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
+											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
+											<field name="mf_customer_id"/>
+										</group>
+										<field name="mf_simulation_lines_ids" />
+									</group>
+								</page>
+								<page string="Configuration" attrs="{'invisible': [('mf_field_configs_ids', '=', [])]}">
+									<group col="1">
+										<field name="mf_field_configs_ids" />
+									</group>
+								</page>
+							</notebook>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="mf_simulation_by_quantity_action_menu_mf">
 							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />

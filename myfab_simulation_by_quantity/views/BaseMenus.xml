@@ -3,9 +3,15 @@
 	<data>
 		<menuitem name="Simulation | Offer by quantity"
 				  action="mf_simulation_by_quantity"
-				  id="menu_sale_order_myfab_simulation_by_quantity"
+				  id="menu_product_myfab_simulation_by_quantity"
 				  parent="product.menu_product_main"
 				  sequence="120"
 				  groups="product.product_fonctional"/>
+		<menuitem name="Simulation | Offer by quantity"
+				  action="mf_simulation_config"
+				  id="menu_product_myfab_simulation_by_quantity_config"
+				  parent="product.menu_technical_data_configuration"
+				  sequence="120"
+				  groups="base.group_erp_manager"/>
 	</data>
 </openerp>

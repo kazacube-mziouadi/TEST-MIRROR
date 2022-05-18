@@ -25,3 +25,5 @@ class MFDataInitializerSimulationByQuantity(models.Model):
                 "number_increment": 1,
                 "number_next_actual": 1
             })
+        if not self.env["mf.simulation.config"].search([]):
+            self.env["mf.simulation.config"].create({})
