@@ -78,7 +78,7 @@ class FileInterfaceMF(models.AbstractModel):
                     or self.env["file.interface.export.mf"].search([("directory_mf", '=', directory_id.id)])):
                 continue
             directories_with_no_interface_ids_list.append(directory_id.id)
-        return [("id", "in", directories_with_no_interface_ids_list)] if directories_with_no_interface_ids_list else []
+        return [("id", "in", directories_with_no_interface_ids_list)]
 
     # ===========================================================================
     # METHODS - STATIC
