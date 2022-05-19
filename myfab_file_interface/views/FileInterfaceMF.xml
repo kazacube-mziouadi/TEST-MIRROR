@@ -30,7 +30,8 @@
 									<page string="General" name="page_configuration_general">
 										<group col="4">
 											<field name="name"/>
-											<field name="directory_mf"/>
+											<field name="directory_mf" domain="[('id', 'in', mf_directories_with_no_interface_ids)]"/>
+											<field name="mf_directories_with_no_interface_ids" invisible="1"/>
 											<field name="cron_already_exists_mf" invisible="1"/>
 										</group>
 									</page>
