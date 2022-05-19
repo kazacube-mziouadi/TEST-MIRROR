@@ -20,7 +20,7 @@ class FileInterfaceMF(models.AbstractModel):
     name = fields.Char(string="Name", size=128, required=True)
     directory_mf = fields.Many2one("physical.directory.mf", string="Linked directory", ondelete="cascade",
                                    help="The directory where are stored the files processed by the file interface.",
-                                   required=True, copy=False)
+                                   required=True, copy=False, domain=lambda self: self._get_directory_mf_domain())
     directory_path_mf = fields.Char(related="directory_mf.path_mf", string="Directory's path", readonly=True)
     directory_files_mf = fields.One2many(related="directory_mf.files_mf", string="Directory's files")
     directory_scan_is_needed_mf = fields.Boolean(related="directory_mf.directory_scan_is_needed_mf", readonly=True)
@@ -34,6 +34,7 @@ class FileInterfaceMF(models.AbstractModel):
     # ===========================================================================
     # METHODS - ORM
     # ===========================================================================
+
     @api.multi
     def copy(self, default=None):
         if not default:
@@ -44,6 +45,13 @@ class FileInterfaceMF(models.AbstractModel):
         })
         default["directory_mf"] = new_directory.id
         return super(FileInterfaceMF, self).copy(default=default)
+
+    @api.multi
+    def unlink(self):
+        directory_id = self.directory_mf
+        res = super(FileInterfaceMF, self).unlink()
+        directory_id.unlink()
+        return res
 
     # ===========================================================================
     # METHODS - COMPUTE
@@ -56,6 +64,21 @@ class FileInterfaceMF(models.AbstractModel):
             ("args", "=", repr([self.id]))
         ], None, 1)
         self.cron_already_exists_mf = True if existing_cron_for_self else False
+
+    # ===========================================================================
+    # METHODS - DOMAIN
+    # ===========================================================================
+
+    @api.model
+    def _get_directory_mf_domain(self):
+        directories_ids = self.env["physical.directory.mf"].search([])
+        directories_with_no_interface_ids_list = []
+        for directory_id in directories_ids:
+            if (self.env["file.interface.import.mf"].search([("directory_mf", '=', directory_id.id)])
+                    or self.env["file.interface.export.mf"].search([("directory_mf", '=', directory_id.id)])):
+                continue
+            directories_with_no_interface_ids_list.append(directory_id.id)
+        return [("id", "in", directories_with_no_interface_ids_list)]
 
     # ===========================================================================
     # METHODS - STATIC

@@ -29,7 +29,7 @@ class PhysicalDirectoryMF(models.Model):
     @api.one
     @api.depends("path_mf")
     def _compute_name(self):
-        self.name = os.path.basename(self.path_mf)
+        self.name = self.path_mf
 
     @api.one
     def _compute_directory_scan_is_needed(self):
