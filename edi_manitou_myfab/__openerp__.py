@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'EDI Manitou myfab',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Création de commandes appelées via CSV Manitou',
