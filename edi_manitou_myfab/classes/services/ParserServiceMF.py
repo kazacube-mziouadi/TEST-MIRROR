@@ -29,7 +29,9 @@ class ParserServiceMF(models.TransientModel):
             csv_row = [cell.decode(file_encoding).strip() for cell in csv_row]
             if csv_row_index == 0:
                 continue
-            sale_order_id = self.env["sale.order"].search([("ref_order", '=', csv_row[5])], None, 1)
+            sale_order_id = self.env["sale.order"].search([("type", '=', "open"), ("ref_order", '=', csv_row[5])])
+            if len(sale_order_id) > 1:
+                raise ValueError(_("The following reference is used by more than one open sale order : ") + csv_row[5])
             product_sale_order_line_id = self.env["sale.order.line"].search([
                 ("sale_order_id", '=', sale_order_id.id), ("customer_product_code", '=', csv_row[3])
             ], None, 1)

@@ -1,0 +1,168 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* edi_manitou_myfab
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-19 12:59+0000\n"
+"PO-Revision-Date: 2022-05-19 12:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_create_uid
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_create_date
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_display_name
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_friday_quantity
+msgid "Friday quantity"
+msgstr "Quantité du vendredi"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_id
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_id
+msgid "ID"
+msgstr "ID"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service___last_update
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_write_uid
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_generator_service_write_date
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_monday_quantity
+msgid "Monday quantity"
+msgstr "Quantité du lundi"
+
+#. module: edi_manitou_myfab
+#: model:ir.model,name:edi_manitou_myfab.model_file_interface_import_mf
+msgid "MyFab file interface import configuration"
+msgstr "Configuration d'import myfab File Interface"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service___last_update
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_create_date
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_create_uid
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_display_name
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_id
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_write_date
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_generator_service_write_uid
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp___last_update
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_create_date
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_create_uid
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_display_name
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_id
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_friday_quantity
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_monday_quantity
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_product_id
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_sale_order_id
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_thursday_quantity
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_tuesday_quantity
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_wednesday_quantity
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_week_first_day_number
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_week_month
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_year_week
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_write_date
+#: model:ir.model.fields,help:edi_manitou_myfab.field_mf_called_sale_order_temp_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_sale_order_id
+msgid "Open sale order"
+msgstr "Commande ouverte"
+
+#. module: edi_manitou_myfab
+#: model:ir.model,name:edi_manitou_myfab.model_parser_service_mf
+msgid "Parser service MyFab"
+msgstr "Service de parsing myfab"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_product_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: edi_manitou_myfab
+#: code:addons/edi_manitou_myfab/classes/services/ParserServiceMF.py:34
+#, python-format
+msgid "The following reference is used by more than one open sale order : "
+msgstr "La référence suivante est utilisée par plus d'une commande ouverte : "
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_thursday_quantity
+msgid "Thursday quantity"
+msgstr "Quantité du jeudi"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_tuesday_quantity
+msgid "Tuesday quantity"
+msgstr "Quantité du mardi"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_wednesday_quantity
+msgid "Wednesday quantity"
+msgstr "Quantité du mercredi"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_week_first_day_number
+msgid "Week's first day number"
+msgstr "Numéro du premier jour de la semaine"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_week_month
+msgid "Week's month number"
+msgstr "Numéro du mois de la semaine"
+
+#. module: edi_manitou_myfab
+#: model:ir.model.fields,field_description:edi_manitou_myfab.field_mf_called_sale_order_temp_mf_year_week
+msgid "Year and week number at format YYYYWW"
+msgstr "Année et semaine au format AAAASS"
+
+#. module: edi_manitou_myfab
+#: model:ir.model,name:edi_manitou_myfab.model_mf_file_convertor_service
+msgid "myfab file convertor service"
+msgstr "Service de conversion myfab"
+
+#. module: edi_manitou_myfab
+#: model:ir.model,name:edi_manitou_myfab.model_mf_called_sale_order_generator_service
+msgid "myfab generator service of called sales order"
+msgstr "Service myfab de génération de commandes appelées"
+
+#. module: edi_manitou_myfab
+#: model:ir.model,name:edi_manitou_myfab.model_mf_called_sale_order_temp
+msgid "myfab temp model of called sales order"
+msgstr "Modèle temporaire de création de commandes appelées"
+
