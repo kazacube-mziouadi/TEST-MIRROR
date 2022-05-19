@@ -7,7 +7,7 @@
     'summary': 'Création de commandes appelées via CSV Manitou',
     'category': 'Base',
     'description': """
-        Ajoute l'extension "CSV Manitou" à MyFab File Interface. 
+        Ajoute l'extension "CSV Manitou" à myfab File Interface. 
         Celle-ci permet de lancer la création de commandes d\'appel sur une commande de vente ouverte, à partir d'un CSV exporté par Manitou.
     """,
     'website': 'https://www.myfab.fr/',

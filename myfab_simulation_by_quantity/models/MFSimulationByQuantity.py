@@ -32,8 +32,18 @@ class MFSimulationByQuantity(models.Model):
     def create(self, fields_list):
         # We write the simulation's name using it's sequence
         fields_list["name"] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
-        fields_list["mf_field_configs_ids"] = self.env["mf.simulation.config"].get_mf_fields_ids()
+        fields_list["mf_field_configs_ids"] = self.get_field_configs_ids_from_global_config()
         return super(MFSimulationByQuantity, self).create(fields_list)
+
+    def get_field_configs_ids_from_global_config(self):
+        global_config_id = self.env["mf.simulation.config"].search([], None, 1)
+        field_configs_ids_list = []
+        for field_config_id in global_config_id.mf_fields_ids:
+            field_configs_ids_list.append((0, 0, {
+                "mf_is_visible": field_config_id.mf_is_visible,
+                "mf_field_id": field_config_id.mf_field_id.id
+            }))
+        return field_configs_ids_list
 
     @api.onchange("mf_product_id")
     def _onchange_mf_product_id(self):

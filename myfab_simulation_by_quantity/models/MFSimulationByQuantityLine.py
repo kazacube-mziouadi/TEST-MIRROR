@@ -89,6 +89,20 @@ class MFSimulationByQuantityLine(models.Model):
     # METHODS - FORM COMPUTE
     # ===========================================================================
 
+    def _get_field_value(self, field_name):
+        if field_name in self.env["mf.simulation.config"].get_configurable_simulation_fields_names_list():
+            field_is_visible = self._is_configurable_field_visible(field_name)
+            if field_is_visible:
+                return getattr(self, field_name)
+            else:
+                return 1
+
+    def _is_configurable_field_visible(self, field_name):
+        for configurable_field in self.mf_simulation_id.mf_field_configs_ids:
+            if configurable_field.mf_field_id.name == field_name:
+                return configurable_field.mf_is_visible
+        raise MissingError(field_name + _(" is not a configurable field."))
+
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_mf_price_material(self):

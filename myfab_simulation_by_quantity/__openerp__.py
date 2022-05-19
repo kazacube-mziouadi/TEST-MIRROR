@@ -21,7 +21,8 @@
         'views/simulation_config/MFSimulationConfig.xml',
         'views/simulation_config/MFSimulationConfigField.xml',
         'views/BaseMenus.xml',
-        'views/ProductProduct.xml'
+        'views/ProductProduct.xml',
+        'views/myfab_simulation_by_quantity_view.xml'
     ],
     'qweb': [],
     'demo': [],

@@ -13,7 +13,3 @@ class MFSimulationConfigField(models.Model):
     mf_simulation_id = fields.Many2one("mf.simulation.by.quantity", string="Simulation")
     mf_is_visible = fields.Boolean(string="Is visible", default=True)
     mf_field_id = fields.Many2one("ir.model.fields", string="Configured field")
-
-    # ===========================================================================
-    # METHODS
-    # ===========================================================================

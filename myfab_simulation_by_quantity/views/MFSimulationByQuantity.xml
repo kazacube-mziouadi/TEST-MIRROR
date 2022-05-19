@@ -39,13 +39,19 @@
 											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 											<field name="mf_customer_id"/>
 										</group>
-										<field name="mf_simulation_lines_ids" />
+										<field name="mf_simulation_lines_ids" attrs="{'invisible': [('name', '=', False)]}"/>
+										<p attrs="{'invisible': [('name', '!=', False)]}">
+											You must save the form before being able to launch simulations
+										</p>
 									</group>
 								</page>
-								<page string="Configuration" attrs="{'invisible': [('mf_field_configs_ids', '=', [])]}">
-									<group col="1">
+								<page string="Configuration">
+									<group col="1" attrs="{'invisible': [('name', '=', False)]}">
 										<field name="mf_field_configs_ids" />
 									</group>
+									<p attrs="{'invisible': [('name', '!=', False)]}">
+										You must save the form before being able to edit it's configuration
+									</p>
 								</page>
 							</notebook>
 						</group>

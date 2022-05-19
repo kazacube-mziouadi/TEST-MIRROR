@@ -44,3 +44,7 @@ class MFSimulationConfig(models.Model):
         for field_id in configurable_simulation_fields_ids:
             simulation_config_fields_create_list.append((0, 0, {"mf_field_id": field_id.id}))
         return simulation_config_fields_create_list
+
+    @staticmethod
+    def get_configurable_simulation_fields_names_list():
+        return CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST
