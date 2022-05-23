@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_form_xml_import_bom_comparator">
+            <field name="name">view_form_xml_import_bom_comporator</field>
+            <field name="model">xml.import.bom.comparator</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Bom comparator">
+                    <group colspan="12">
+                        <group colspan="6" string="Components">
+                            <!--<field name="mf_product_id" domain="[('id','=',False)]"/>-->
+                            <!--<field name="mf_bom_id"/>-->
+                        </group>
+                        <group colspan="6" string="Components">
+                            <!--<field name="mf_xml_import_id"/>-->
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="validate_bom_selection" string="Validate" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="mf_bom_comparator">
+            <field name="name">Import XML file</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xml.import.bom.comparator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="mf_bom_comparator_simulation">
+            <field name="name">Simulate import XML file</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">xml.import.bom.comparator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
