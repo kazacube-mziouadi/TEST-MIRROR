@@ -30,5 +30,6 @@ class xml_import_bom_comparator(models.TransientModel):
     @api.multi
     def validate_bom_selection(self):
         if self.mf_xml_import_id:
+            lines = False
             lines = self.mf_xml_import_id.mf_get_file_content()
             self.mf_xml_import_id.mf_file_analyse(lines)

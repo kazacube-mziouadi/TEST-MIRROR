@@ -11,6 +11,8 @@ class xml_import_processing(models.Model):
 
     @api.multi
     def mf_get_file_content(self):
+        lines = False
+
         if self.preprocessing_file:
             lines = base64.b64decode(self.preprocessing_file)
         elif self.file:
@@ -25,12 +27,15 @@ class xml_import_processing(models.Model):
         return lines
 
     @api.multi
-    def mf_simulate_file_analyse(self,lines,simulation_for_compare = False):
+    def mf_simulate_file_analyse(self,lines = False,simulation_for_compare = False):
         """
         simulate import au file or preprocessing file and create a list of simualte action. Put processsing in simulate state.
         """
         error = False
         msg = ''
+
+        if not lines:
+            lines = self.mf_get_file_content()
                 
         try:
             root = lxml.etree.fromstring(lines)
@@ -53,7 +58,7 @@ class xml_import_processing(models.Model):
     
     
     @api.multi
-    def mf_file_analyse(self,lines):
+    def mf_file_analyse(self,lines = False):
         """
         Retrieves the file to be analyzed, retrieves its contents as a string.        
         Create the XML object . etree . Element Tree . Element that contains the root of the XML file tree 
@@ -61,6 +66,9 @@ class xml_import_processing(models.Model):
         """
         error = False
         msg = ''
+
+        if not lines:
+            lines = self.mf_get_file_content()
                 
         try:
             root = lxml.etree.fromstring(lines)

@@ -7,11 +7,11 @@
 			<field name="inherit_id" ref="xml_import.view_form_xml_import_processing" />
             <field name="priority" eval="17" />
 			<field name="arch" type="xml">			
-				<xpath expr="//button[@name='file_analyse']" position="attribute">
+				<xpath expr="//button[@name='file_analyse']" position="attributes">
                     <attribute name="type">action</attribute>
                     <attribute name="name">%(mf_bom_comparator)d</attribute>
 				</xpath>
-                <xpath expr="//button[@name='simulate_file_analyse']" position="attribute">
+                <xpath expr="//button[@name='simulate_file_analyse']" position="attributes">
 					<attribute name="type">action</attribute>
                     <attribute name="name">%(mf_bom_comparator_simulation)d</attribute>
 				</xpath>
