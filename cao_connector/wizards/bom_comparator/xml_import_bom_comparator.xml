@@ -12,8 +12,26 @@
                             <!--<field name="mf_product_id" domain="[('id','=',False)]"/>-->
                             <!--<field name="mf_bom_id"/>-->
                         </group>
-                        <group colspan="6" string="Components">
-                            <!--<field name="mf_xml_import_id"/>-->
+                        <group colspan="6" string="Existing components">
+                            <field name="">
+                                <tree string="BoM Structure">
+                                    <field name="sequence" invisible="1" />
+                                    <field name="price_qty" invisible="1" />
+                                    <field name="product_id" />
+                                    <field name="qty_with_factor" compute_value_recurs="['return_qty_component_with_price_qty_on_qty', ['price_qty', 'quantity']]" />
+                                    <field name="type_component" />
+                                    <field name="quantity" compute_value_recurs="['return_qty_component_with_price_qty_unit', ['price_qty', 'quantity', 'fixedvalue:price_qty']]" />
+                                    <field name="fixed_qty" />
+                                    <field name="uom_id" />
+                                    <field name="production_cost_price" />
+                                    <field name="price_total_component_buy" />
+                                    <field name="price_unit_component_buy" />
+                                    <field name="price_total_routing" />
+                                    <field name="routing_first_price" />
+                                    <field name="routing_first_id" />
+                                    <field name="state" />
+                                </tree>
+                            </field>
                         </group>
                     </group>
                     <footer>
