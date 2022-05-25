@@ -24,38 +24,7 @@ class xml_import_processing(models.Model):
             else:    
                 lines = base64.b64decode(self.file)
 
-        return lines
-
-    @api.multi
-    def mf_simulate_file_analyse(self,lines = False,simulation_for_compare = False):
-        """
-        simulate import au file or preprocessing file and create a list of simualte action. Put processsing in simulate state.
-        """
-        error = False
-        msg = ''
-
-        if not lines:
-            lines = self.mf_get_file_content()
-                
-        try:
-            root = lxml.etree.fromstring(lines)
-        except:
-            msg = 'Invalid XML file.'
-            error = True
-        
-        if not error:
-            configuration_table_rc = self.model_id
-            self.env.cr.commit()
-            history = []
-            configuration_table_rc.with_context(source='simulation').interpreter(root, history_list=history)
-            self.create_simulate_import(history)
-            if not simulation_for_compare:
-                self.wkf_processing_sim()
-            
-        if error:    
-            self.wkf_processing_error()
-            self.write({'error_message': msg})
-    
+        return lines    
     
     @api.multi
     def mf_file_analyse(self,lines = False):

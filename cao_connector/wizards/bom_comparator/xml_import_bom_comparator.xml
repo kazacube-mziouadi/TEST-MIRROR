@@ -7,13 +7,12 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Bom comparator">
-                    <group colspan="12">
-                        <group colspan="6" string="Components">
-                            <!--<field name="mf_product_id" domain="[('id','=',False)]"/>-->
-                            <!--<field name="mf_bom_id"/>-->
+                    <group colspan="2">
+                        <group colspan="1" col="1" string="Imported components" readonly="1">
+                            <field name="mf_xml_import_id" />
                         </group>
-                        <group colspan="6" string="Existing components">
-                            <field name="">
+                        <group colspan="1" col="1"  string="Existing components" readonly="1">
+                            <field name="mf_bom_reference_ids">
                                 <tree string="BoM Structure">
                                     <field name="sequence" invisible="1" />
                                     <field name="price_qty" invisible="1" />
@@ -35,7 +34,7 @@
                         </group>
                     </group>
                     <footer>
-                        <button name="validate_bom_selection" string="Validate" type="object" class="oe_highlight" />
+                        <button name="validate_bom_selection" string="Import selection" type="object" class="oe_highlight" />
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>

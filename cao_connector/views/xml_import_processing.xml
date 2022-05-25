@@ -7,15 +7,18 @@
 			<field name="inherit_id" ref="xml_import.view_form_xml_import_processing" />
             <field name="priority" eval="17" />
 			<field name="arch" type="xml">			
-				<xpath expr="//button[@name='file_analyse']" position="attributes">
-                    <attribute name="type">action</attribute>
-                    <attribute name="name">%(mf_bom_comparator)d</attribute>
-				</xpath>
-                <xpath expr="//button[@name='simulate_file_analyse']" position="attributes">
-					<attribute name="type">action</attribute>
-                    <attribute name="name">%(mf_bom_comparator_simulation)d</attribute>
+				<xpath expr="//button[@name='file_analyse']" position="after">
+					<button class="oe_inline oe_stat_button" type="action" string="Compare BoM" name="%(mf_bom_comparator)d" icon="fa-plus-square" attrs="{'invisible': ['|', '|', ('file', '=', False), ('model_id', '=', False), ('state','!=', 'wait'), ('state','!=', 'sim')]}"/>
 				</xpath>
 			</field>
 		</record>
+
+		<menuitem id="mf_base_menu_xml_import_view" name="Import CAO" parent="base.menu_tracability_export" sequence="40"/>
+		<menuitem id="mf_base_menu_xml_import_configuration_table" name="Configuration table" sequence="10" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_import_configuration_table" />
+		<menuitem id="mf_base_menu_xml_import_beacon" name="Beacon" sequence="20" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_import_beacon_relation" />
+		<menuitem id="mf_base_menu_xml_import_attribute" name="Attribute" sequence="30" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_import_attribute" />
+		<menuitem id="mf_base_menu_xml_import_processing" name="Processing" sequence="15" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_import_processing" />
+		<menuitem id="mf_base_menu_xml_preprocessing" name="PreProcessing" sequence="15" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_preprocessing" />
+		<menuitem id="mf_base_menu_xml_preprocessing_table" name="PreProcessing table" sequence="20" parent="mf_base_menu_xml_import_view" action="xml_import.act_xml_preprocessing_table" />
     </data>
 </openerp>
