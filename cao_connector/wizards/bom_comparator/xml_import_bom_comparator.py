@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from itertools import product
 from openerp import models, fields, api
 
 class xml_import_bom_comparator(models.TransientModel):
@@ -8,7 +9,7 @@ class xml_import_bom_comparator(models.TransientModel):
     _name = 'xml.import.bom.comparator'
     _description = 'Bom comparator'
 
-     #===========================================================================
+    #===========================================================================
     # COLUMNS
     #===========================================================================
 
@@ -40,8 +41,8 @@ class xml_import_bom_comparator(models.TransientModel):
         
         list_of_bom = []
         for id in processing_simulate_action_ids:
-            if id.type != 'error' and id.object_model.model == 'mrp.bom':
-                mrp_bom_if = self.env['mrp.bom'].search([('name','=',id.reference)])
+            if id.type != 'error' and id.reference and len(id.reference) > 0 and id.object_model.model == 'product.product':
+                mrp_bom_if = self.env['mrp.bom'].search([('product_id','=',id.reference.id)])
                 if mrp_bom_if:
                     list_of_bom.append(mrp_bom_if.id)
 
