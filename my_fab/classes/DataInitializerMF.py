@@ -94,7 +94,7 @@ class DataInitializerMF(models.AbstractModel):
         self.env["importer.service.mf"].with_context(lang="fr_FR").import_records_list(records_to_process_list)
 
     # Returns the module's data directory
-    def get_data_dir_path(self,import_mode):
+    def get_data_dir_path(self, import_mode):
         dir_index = 5
         python_file_path = os.path.realpath(self.get_file_path())
         python_file_path_list = python_file_path.split(os.sep)
