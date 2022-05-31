@@ -89,13 +89,13 @@ class MFSimulationByQuantityLine(models.Model):
     # METHODS - FORM COMPUTE
     # ===========================================================================
 
-    def _get_field_value(self, field_name):
+    def _get_field_value_if_visible(self, field_name, value_if_invisible=0):
         if field_name in self.env["mf.simulation.config"].get_configurable_simulation_fields_names_list():
             field_is_visible = self._is_configurable_field_visible(field_name)
             if field_is_visible:
                 return getattr(self, field_name)
             else:
-                return 1
+                return value_if_invisible
 
     def _is_configurable_field_visible(self, field_name):
         for configurable_field in self.mf_simulation_id.mf_field_configs_ids:
@@ -158,18 +158,20 @@ class MFSimulationByQuantityLine(models.Model):
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_unit_cost_price(self):
-        self.mf_unit_cost_price = self.mf_price_material + self.mf_price_consumable + self.mf_price_subcontracting \
-            + self.mf_price_workforce + self.mf_general_costs
+        self.mf_unit_cost_price = self.mf_price_material + self._get_field_value_if_visible("mf_price_consumable") \
+            + self._get_field_value_if_visible("mf_price_subcontracting") \
+            + self._get_field_value_if_visible("mf_price_workforce") \
+            + self._get_field_value_if_visible("mf_general_costs")
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_unit_sale_price(self):
-        self.mf_unit_sale_price = self.mf_unit_cost_price * self.mf_unit_margin
+        self.mf_unit_sale_price = self.mf_unit_cost_price * self._get_field_value_if_visible("mf_unit_margin", 1)
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_hour_sale_price(self):
-        self.mf_hour_sale_price = self.mf_price_workforce * self.mf_unit_margin
+        self.mf_hour_sale_price = self.mf_price_workforce * self._get_field_value_if_visible("mf_unit_margin", 1)
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")

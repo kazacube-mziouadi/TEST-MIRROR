@@ -48,6 +48,11 @@
 								<page string="Configuration">
 									<group col="1" attrs="{'invisible': [('name', '=', False)]}">
 										<field name="mf_field_configs_ids" />
+										<field name="mf_hide_warning_config_message" invisible="1" />
+										<p style="color:red" attrs="{'invisible': [('mf_hide_warning_config_message', '=', True)]}">
+											You must save the form to apply the new configuration. <br/>
+											Warning : changing the fields' configurations will recompute all the simulation lines.
+										</p>
 									</group>
 									<p attrs="{'invisible': [('name', '!=', False)]}">
 										You must save the form before being able to edit it's configuration

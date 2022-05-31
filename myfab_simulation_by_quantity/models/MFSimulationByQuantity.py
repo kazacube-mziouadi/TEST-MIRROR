@@ -18,9 +18,10 @@ class MFSimulationByQuantity(models.Model):
                                               string="Simulation lines")
     mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id",
                                            string="Configurable fields")
+    mf_hide_warning_config_message = fields.Boolean("Hide warning config message", default=True)
 
     # ===========================================================================
-    # METHODS
+    # METHODS - MODEL
     # ===========================================================================
     @api.model
     def default_get(self, fields_list):
@@ -35,6 +36,29 @@ class MFSimulationByQuantity(models.Model):
         fields_list["mf_field_configs_ids"] = self.get_field_configs_ids_from_global_config()
         return super(MFSimulationByQuantity, self).create(fields_list)
 
+    @api.multi
+    def write(self, fields_list):
+        # Check if the fields configuration has been written
+        # If so we have to recompute the simulation lines
+        if "mf_field_configs_ids" in fields_list:
+            # Updating the fields' configurations manually before write (else recompute does not work)
+            # Loop through the written fields configurations
+            for field_config_write_list in fields_list["mf_field_configs_ids"]:
+                # Get the necessary data from writing list
+                field_config_id_id = field_config_write_list[1]
+                field_config_write_dict = field_config_write_list[2]
+                # Continue if no fields have been changed on the field's configuration
+                if not field_config_write_dict:
+                    continue
+                # Loop through the real fields configurations and update the corresponding field's configuration
+                for field_config_id in self.mf_field_configs_ids:
+                    if field_config_id.id == field_config_id_id:
+                        field_config_id.mf_is_visible = field_config_write_dict["mf_is_visible"]
+                        break
+            self.recompute_simulation_lines_button()
+        fields_list["mf_hide_warning_config_message"] = True
+        return super(MFSimulationByQuantity, self).write(fields_list)
+
     def get_field_configs_ids_from_global_config(self):
         global_config_id = self.env["mf.simulation.config"].search([], None, 1)
         field_configs_ids_list = []
@@ -44,6 +68,10 @@ class MFSimulationByQuantity(models.Model):
                 "mf_field_id": field_config_id.mf_field_id.id
             }))
         return field_configs_ids_list
+
+    # ===========================================================================
+    # METHODS - ONCHANGE
+    # ===========================================================================
 
     @api.onchange("mf_product_id")
     def _onchange_mf_product_id(self):
@@ -70,6 +98,14 @@ class MFSimulationByQuantity(models.Model):
             product_routing_id = self.env["mrp.routing"].search([("bom_ids", 'in', self.mf_bom_id.id)], None, 1)
             if product_routing_id:
                 self.mf_routing_id = product_routing_id.id
+
+    @api.onchange("mf_field_configs_ids")
+    def _onchange_mf_field_configs_ids(self):
+        self.mf_hide_warning_config_message = False
+
+    # ===========================================================================
+    # METHODS - BUTTONS
+    # ===========================================================================
 
     @api.multi
     def create_sale_order_button(self):
@@ -173,6 +209,6 @@ class MFSimulationByQuantity(models.Model):
     def check_customer_and_lines_exist(self):
         if not self.mf_customer_id or not self.mf_simulation_lines_ids:
             raise MissingError(_(
-                "Make sure a customer is selected and the simulation contains at least one line before using this button."
+                "Make sure that a customer is selected and that the simulation contains at least one line."
             ))
 
