@@ -30,18 +30,21 @@ class xml_import_bom_comparator(models.TransientModel):
                 if not xml_import_processing_rs.processing_simulate_action_ids:
                     xml_import_processing_rs.simulate_file_analyse()
 
-                res = self.__get_mrp_bom(res,xml_import_processing_rs.processing_simulate_action_ids) 
+                if not xml_import_processing_rs.processing_records_ids:
+                    xml_import_processing_rs.file_analyse()
+                    
+                res = self.__get_mrp_bom(res,xml_import_processing_rs.processing_records_ids) 
 
                 res['mf_xml_import_id'] = xml_import_processing_rs.id
 
         return res
 
 
-    def __get_mrp_bom(self, res, processing_simulate_action_ids):
+    def __get_mrp_bom(self, res, processing_records_ids):
         
         list_of_bom = []
-        for id in processing_simulate_action_ids:
-            if id.type != 'error' and id.reference and len(id.reference) > 0 and id.object_model.model == 'product.product':
+        for id in processing_records_ids:
+            if id.type != 'error' and id.reference and len(id.reference) > 0 and id.object_model.model == 'product.product.temporary':
                 mrp_bom_if = self.env['mrp.bom'].search([('product_id','=',id.reference.id)])
                 if mrp_bom_if:
                     list_of_bom.append(mrp_bom_if.id)
@@ -52,5 +55,5 @@ class xml_import_bom_comparator(models.TransientModel):
 
     @api.multi
     def validate_bom_selection(self):
-        if self.mf_xml_import_id:
-            self.mf_xml_import_id.mf_file_analyse(self.mf_xml_import_id.mf_get_file_content())
+        self.mf_xml_import_id = False
+        self.mf_bom_reference_ids = False

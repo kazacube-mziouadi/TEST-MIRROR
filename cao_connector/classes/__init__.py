@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-import xml_import_processing
+import product_temporary
+import mrp_bom_temporary
