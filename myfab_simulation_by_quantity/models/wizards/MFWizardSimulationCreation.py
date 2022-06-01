@@ -27,11 +27,11 @@ class MFWizardSimulationCreation(models.TransientModel):
     def action_multi_creation(self):
         model_line_field_id = self.get_model_line_field_id()
         partner_id = self.mf_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
-        for simulation_line_id in self.mf_simulation_lines_ids:
+        for index, simulation_line_id in enumerate(self.mf_simulation_lines_ids):
             record_to_create_dict = self.get_common_fields_dict(partner_id)
             # Ex: in sale.order, model_line_field_id.name will be "order_line_ids"
             record_to_create_dict[model_line_field_id.name] = [
-                self.get_line_creation_dict_for_simulation_line(simulation_line_id)
+                self.get_line_creation_dict_for_simulation_line(simulation_line_id, index)
             ]
             if self.mf_model_to_create_id.model == "sale.order":
                 record_to_create_dict.update(self.get_sale_order_fields_dict(partner_id))
@@ -49,10 +49,10 @@ class MFWizardSimulationCreation(models.TransientModel):
             record_to_create_dict.update(self.get_sale_order_fields_dict(partner_id))
         elif self.mf_model_to_create_id.model == "quotation":
             record_to_create_dict.update(self.get_quotation_fields_dict(partner_id))
-        for simulation_line_id in self.mf_simulation_lines_ids:
+        for index, simulation_line_id in enumerate(self.mf_simulation_lines_ids):
             # Ex: in sale.order, model_line_field_id.name will be "order_line_ids"
             record_to_create_dict[model_line_field_id.name].append(
-                self.get_line_creation_dict_for_simulation_line(simulation_line_id)
+                self.get_line_creation_dict_for_simulation_line(simulation_line_id, index)
             )
         self.env[self.mf_model_to_create_id.model].create(record_to_create_dict)
 
@@ -109,9 +109,11 @@ class MFWizardSimulationCreation(models.TransientModel):
             "partner_country_id": partner_id.delivery_address_ids[0].country_id.id if partner_id.delivery_address_ids else partner_id.address_id.country_id.id,
         }
 
-    def get_line_creation_dict_for_simulation_line(self, simulation_line_id):
+    def get_line_creation_dict_for_simulation_line(self, simulation_line_id, index):
         product_id = simulation_line_id.mf_product_id
+        print(index)
         creation_fields_dict = {
+            "sequence": index,
             "product_id": product_id.id,
             "uoi_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
             "price_unit": simulation_line_id.mf_unit_sale_price,

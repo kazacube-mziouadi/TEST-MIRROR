@@ -14,7 +14,7 @@
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity" default_order="sequence" editable="bottom">
 					<field name="mf_selected_for_creation"/>
-					<field name="sequence"/>
+					<field name="sequence" invisible="1"/>
 					<field name="mf_quantity" />
 					<field name="mf_product_id"/>
 					<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
