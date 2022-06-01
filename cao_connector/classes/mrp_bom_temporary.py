@@ -2,7 +2,7 @@
 from openerp import models, api, fields, _
 from openerp.exceptions import UserError, ValidationError
 
-class mrp_bom(models.Model):
+class mrp_bom_temporary(models.Model):
     _name = 'mrp.bom.temporary'
     _inherit = 'mrp.bom'
     _description = 'Bill of Material temporary'
@@ -10,6 +10,9 @@ class mrp_bom(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
+    mf_is_selected = fields.Boolean(string='Selected', default=True)
+    mf_xml_import_processing_id = fields.Many2one('xml.import.processing.history', string='Processing', ondelete='cascade', readonly=True)
+
     product_id = fields.Many2one('product.product.temporary', string='Product', select=True, required=False, ondelete='restrict')
     bom_ids = fields.One2many('mrp.bom.temporary', 'bom_id',  string='Component', copy=True)
 

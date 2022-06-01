@@ -41,23 +41,5 @@
                 </form>
             </field>
         </record>
-
-        <record model="ir.actions.act_window" id="mf_bom_comparator">
-            <field name="name">Import XML file</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">xml.import.bom.comparator</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="mf_bom_comparator_simulation">
-            <field name="name">Simulate import XML file</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">xml.import.bom.comparator</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
     </data>
 </openerp>
