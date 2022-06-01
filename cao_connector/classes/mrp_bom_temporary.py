@@ -10,14 +10,14 @@ class mrp_bom(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    #Entête
     product_id = fields.Many2one('product.product.temporary', string='Product', select=True, required=False, ondelete='restrict')
     bom_ids = fields.One2many('mrp.bom.temporary', 'bom_id',  string='Component', copy=True)
 
     @api.one
-    def get_existing_mrp_bom(self):
-        mrp_bom_id = self.id
-        mrp_bom_rc = self.env['mrp.bom'].search([('product_id', '=', self.product_id)])
+    @api.depends('product_id')
+    def get_corresponding_mrp_bom(self):
+        temporary_id = self.id
+        mrp_bom_rc = self.env['mrp.bom'].search([('product_id', '=', self.product_id.id)])
         if mrp_bom_rc:
             self = mrp_bom_rc
-            self.id = mrp_bom_id
+            self.id = temporary_id
