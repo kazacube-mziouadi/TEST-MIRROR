@@ -7,7 +7,7 @@ class xml_import_processing(models.Model):
 
     @api.multi
     def file_analyse(self):
-        super.file_analyse()
+        super(xml_import_processing, self).file_analyse()
 
         is_need_bom_comparator = False
 
