@@ -5,7 +5,7 @@
             <field name="name">mf.wizard.simulation.creation.form</field>
             <field name="model">mf.wizard.simulation.creation</field>
             <field name="arch" type="xml">
-                <form string="Simulation by quantity - Model creation">
+                <form string="Simulation by quantity - Lines export">
                     <group col="1">
                         <field name="mf_model_to_create_id" />
                         <field name="mf_simulation_lines_ids" />

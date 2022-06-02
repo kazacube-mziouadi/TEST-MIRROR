@@ -125,7 +125,7 @@ class MFSimulationByQuantity(models.Model):
             ("mf_simulation_id", '=', self.id), ("mf_selected_for_creation", '=', True)
         ])
         return {
-            "name": _("Simulation by quantity - Model creation"),
+            "name": _("Simulation by quantity - Lines export"),
             "view_mode": "form",
             "res_model": "mf.wizard.simulation.creation",
             "type": "ir.actions.act_window",
@@ -196,7 +196,6 @@ class MFSimulationByQuantity(models.Model):
         }
 
     def append_customer_info_line_to_product(self, product_id, product_prices_list):
-        print(product_prices_list)
         # Check if there is already a customer info for this customer ; if so, we merge the lines in it
         for customer_info_id in product_id.cinfo_ids:
             if customer_info_id.partner_id == self.mf_customer_id:
@@ -217,25 +216,34 @@ class MFSimulationByQuantity(models.Model):
             "uom_category_id": product_id.uom_id.category_id.id,
             "multiple_qty": 1.0,
             "pricelist_ids": product_prices_list,
-            "internal_note": _("Generate from the myfab simulation by quantity ") + self.name
+            "internal_note": _("Generated from the myfab simulation by quantity ") + self.name
         })]
 
-    @staticmethod
-    def end_prices_today_when_possible(customer_info_id):
+    def end_prices_today_when_possible(self, customer_info_id):
         today = date.today()
         for price_id in customer_info_id.pricelist_ids:
-            if (not price_id.date_start or datetime.strptime(price_id.date_start, "%Y-%m-%d").date() <= today) and not price_id.date_stop:
+            if not price_id.date_start:
+                continue
+            price_date_start = self.str_to_date(price_id.date_start)
+            if price_date_start <= today and not price_id.date_stop:
                 price_id.date_stop = today
 
     def merge_product_prices_list_in_customer_info(self, product_prices_list, customer_info_id):
-        for product_price_dict in product_prices_list:
+        product_prices_list_indexes_to_pop = []
+        for index, product_price_tuple in enumerate(product_prices_list):
             prices_with_same_quantity_ids_list = self.get_prices_with_same_quantity_ids_list(
-                customer_info_id.pricelist_ids, product_price_dict
+                customer_info_id.pricelist_ids, product_price_tuple
             )
             if len(prices_with_same_quantity_ids_list) > 0:
-                self.set_date_stop_on_product_price_when_necessary(
-                    product_price_dict, prices_with_same_quantity_ids_list
+                success = self.set_dates_on_price_line_creation_tuple_depending_on_existing_lines_with_same_quantity(
+                    product_price_tuple, prices_with_same_quantity_ids_list
                 )
+                # The price line creation is impossible : we pop it's tuple from the list
+                if not success:
+                    product_prices_list_indexes_to_pop.append(index)
+        product_prices_list_indexes_to_pop_reversed = sorted(product_prices_list_indexes_to_pop, reverse=True)
+        for product_price_list_index_to_pop in product_prices_list_indexes_to_pop_reversed:
+            product_prices_list.pop(product_price_list_index_to_pop)
 
     @staticmethod
     def get_prices_with_same_quantity_ids_list(prices_ids_list, price_creation_dict):
@@ -245,14 +253,59 @@ class MFSimulationByQuantity(models.Model):
                 prices_with_same_quantity_ids_list.append(price_id)
         return prices_with_same_quantity_ids_list
 
-    @staticmethod
-    def set_date_stop_on_product_price_when_necessary(price_creation_tuple, prices_with_same_quantity_ids_list):
-        today = str(date.today())
+    """
+        Set the date_start and date_stop of the line depending on the date_start and date_stop of the existing lines.
+        Returns True if the dates have been set, else False (impossible line creation case).
+    """
+    def set_dates_on_price_line_creation_tuple_depending_on_existing_lines_with_same_quantity(
+        self, price_creation_tuple, prices_with_same_quantity_ids_list
+    ):
         price_creation_dict = price_creation_tuple[2]
-        prices_with_same_quantity_ids_sorted_list = sorted(prices_with_same_quantity_ids_list, key=lambda price_id: price_id.date_stop)
+        prices_with_same_quantity_ids_sorted_list = sorted(
+            prices_with_same_quantity_ids_list, key=lambda price_id: price_id.date_stop
+        )
+        # First loop : we set the price line's date_start between all existing prices for this quantity
         for price_with_same_quantity_id in prices_with_same_quantity_ids_sorted_list:
-            if today < price_with_same_quantity_id.date_stop:
-                if "date_stop" not in price_creation_dict or price_with_same_quantity_id.date_stop < price_creation_dict["date_stop"]:
-                    price_creation_dict["date_stop"] = str(datetime.strptime(
-                        price_with_same_quantity_id.date_stop, "%Y-%m-%d"
-                    ).date() - timedelta(days=1))
+            # Convert the date start and the date stop (if instantiated) to datetime.date
+            price_with_same_quantity_date_start = self.str_to_date(
+                price_with_same_quantity_id.date_start
+            ) if price_with_same_quantity_id.date_start else None
+            price_with_same_quantity_date_stop = self.str_to_date(
+                price_with_same_quantity_id.date_stop
+            ) if price_with_same_quantity_id.date_stop else None
+            # Exclusion case : we can not create the new line in the below conditions
+            if price_with_same_quantity_date_start and (
+                price_with_same_quantity_date_start <= price_creation_dict["date_start"]
+            ) and not price_with_same_quantity_id.date_stop:
+                return False
+            # Check overlapping rules
+            if (
+                price_with_same_quantity_date_stop and (
+                    price_creation_dict["date_start"] <= price_with_same_quantity_date_stop
+                )
+            ) and (
+                not price_with_same_quantity_date_start or (
+                    price_with_same_quantity_date_start <= price_creation_dict["date_start"]
+                )
+            ):
+                price_creation_dict["date_start"] = price_with_same_quantity_date_stop + timedelta(days=1)
+        # Second loop : we set the price line's date_stop before all existing prices for this quantity
+        for price_with_same_quantity_id in prices_with_same_quantity_ids_sorted_list:
+            price_with_same_quantity_date_start = self.str_to_date(
+                price_with_same_quantity_id.date_start
+            ) if price_with_same_quantity_id.date_start else None
+            # Exclusion case : we can not create the new line in the below conditions
+            if price_with_same_quantity_date_start and (
+                    price_with_same_quantity_date_start <= price_creation_dict["date_start"]
+            ) and not price_with_same_quantity_id.date_stop:
+                return False
+            # Check overlapping rules
+            if price_with_same_quantity_date_start and (
+                    price_creation_dict["date_start"] <= price_with_same_quantity_date_start
+            ):
+                price_creation_dict["date_stop"] = price_with_same_quantity_date_start - timedelta(days=1)
+        return True
+
+    @staticmethod
+    def str_to_date(date_str):
+        return datetime.strptime(date_str, "%Y-%m-%d").date()

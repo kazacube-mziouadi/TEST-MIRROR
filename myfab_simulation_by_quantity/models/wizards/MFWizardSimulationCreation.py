@@ -111,9 +111,8 @@ class MFWizardSimulationCreation(models.TransientModel):
 
     def get_line_creation_dict_for_simulation_line(self, simulation_line_id, index):
         product_id = simulation_line_id.mf_product_id
-        print(index)
         creation_fields_dict = {
-            "sequence": index,
+            "sequence": index + 1,
             "product_id": product_id.id,
             "uoi_id": product_id.uos_id.id if product_id.uos_id else product_id.uom_id.id,
             "price_unit": simulation_line_id.mf_unit_sale_price,
