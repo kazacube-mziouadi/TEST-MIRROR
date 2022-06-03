@@ -28,33 +28,37 @@ class MFWizardSimulationCreation(models.TransientModel):
         model_line_field_id = self.get_model_line_field_id()
         partner_id = self.mf_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
         for index, simulation_line_id in enumerate(self.mf_simulation_lines_ids):
-            record_to_create_dict = self.get_common_fields_dict(partner_id)
-            # Ex: in sale.order, model_line_field_id.name will be "order_line_ids"
-            record_to_create_dict[model_line_field_id.name] = [
-                self.get_line_creation_dict_for_simulation_line(simulation_line_id, index)
-            ]
-            if self.mf_model_to_create_id.model == "sale.order":
-                record_to_create_dict.update(self.get_sale_order_fields_dict(partner_id))
-            elif self.mf_model_to_create_id.model == "quotation":
-                record_to_create_dict.update(self.get_quotation_fields_dict(partner_id))
-            self.env[self.mf_model_to_create_id.model].create(record_to_create_dict)
+            # Ex: in sale.order, the below key model_line_field_id.name will be "order_line_ids"
+            record_to_create_dict = {model_line_field_id.name: [
+                self.get_line_creation_dict_for_simulation_line(simulation_line_id, 1)
+            ]}
+            self.create_record(record_to_create_dict, partner_id)
 
     @api.multi
     def action_single_creation(self):
         model_line_field_id = self.get_model_line_field_id()
         partner_id = self.mf_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
-        record_to_create_dict = self.get_common_fields_dict(partner_id)
-        record_to_create_dict[model_line_field_id.name] = []
-        if self.mf_model_to_create_id.model == "sale.order":
-            record_to_create_dict.update(self.get_sale_order_fields_dict(partner_id))
-        elif self.mf_model_to_create_id.model == "quotation":
-            record_to_create_dict.update(self.get_quotation_fields_dict(partner_id))
-        for index, simulation_line_id in enumerate(self.mf_simulation_lines_ids):
+        record_to_create_dict = {model_line_field_id.name: []}
+        simulation_lines_ids_sorted_list = sorted(
+            self.mf_simulation_lines_ids, key=lambda simulation_line_id: simulation_line_id.sequence
+        )
+        for index, simulation_line_id in enumerate(simulation_lines_ids_sorted_list):
             # Ex: in sale.order, model_line_field_id.name will be "order_line_ids"
             record_to_create_dict[model_line_field_id.name].append(
                 self.get_line_creation_dict_for_simulation_line(simulation_line_id, index)
             )
-        self.env[self.mf_model_to_create_id.model].create(record_to_create_dict)
+        self.create_record(record_to_create_dict, partner_id)
+
+    def create_record(self, record_to_create_dict, partner_id):
+        if self.mf_model_to_create_id.model == "sale.order":
+            self.env[self.mf_model_to_create_id.model].with_context(self.env.context.copy()).create_sale(
+                customer=partner_id,
+                other_data=record_to_create_dict
+            )
+        else:
+            if self.mf_model_to_create_id.model == "quotation":
+                record_to_create_dict.update(self.get_quotation_fields_dict(partner_id))
+            self.env[self.mf_model_to_create_id.model].create(record_to_create_dict)
 
     """
         Returns the relational ir.field corresponding to the one2many lines of the current model
@@ -69,41 +73,14 @@ class MFWizardSimulationCreation(models.TransientModel):
         ])
 
     """
-        Returns a dict containing the common fields of the possible models (sale.order & quotation for now) 
-    """
-    @staticmethod
-    def get_common_fields_dict(partner_id):
-        return {
-            "partner_id": partner_id.id,
-            "currency_id": partner_id.currency_id.id,
-            "payment_term_id": partner_id.property_payment_term_id.id,
-        }
-
-    """
-        Returns a dict containing the sale order fields required for creation (and not contained in common fields dict)
-    """
-    def get_sale_order_fields_dict(self, partner_id):
-        return {
-            "order_address_id": partner_id.address_id.id,
-            "invoicing_address_id": partner_id.address_id.id,
-            "invoicing_method_id": partner_id.sale_invoicing_method_id.id,
-            "invoiced_customer_id": partner_id.id,
-            "paid_customer_id": partner_id.id,
-            "payment_id": partner_id.sale_payment_method_id.id,
-            "delivered_address_id": partner_id.delivery_address_ids[0].id if partner_id.delivery_address_ids else partner_id.address_id.id,
-            "delivered_name": partner_id.name,
-            "sale_account_system_id": partner_id.property_account_position_id.id,
-            "delivered_country_id": partner_id.delivery_address_ids[0].country_id.id if partner_id.delivery_address_ids else partner_id.address_id.country_id.id,
-            "location_id": partner_id.customer_location_id.id if partner_id.customer_location_id else self.get_random_location_id(),
-            "delivered_customer_id": partner_id.id,
-        }
-
-    """
         Returns a dict containing the quotation fields required for creation (and not contained in common fields dict)
     """
     @staticmethod
     def get_quotation_fields_dict(partner_id):
         return {
+            "partner_id": partner_id.id,
+            "currency_id": partner_id.currency_id.id,
+            "payment_term_id": partner_id.property_payment_term_id.id,
             "quotation_account_system_id": partner_id.property_account_position_id.id,
             "partner_name": partner_id.name,
             "partner_country_id": partner_id.delivery_address_ids[0].country_id.id if partner_id.delivery_address_ids else partner_id.address_id.country_id.id,
@@ -136,7 +113,3 @@ class MFWizardSimulationCreation(models.TransientModel):
         else:
             raise ValueError(_("The generation can not be executed on the model ") + self.mf_model_to_create_id.model)
         return (0, 0, creation_fields_dict)
-
-    def get_random_location_id(self):
-        location_id = self.env["stock.location"].search([], None, 1)
-        return location_id.id

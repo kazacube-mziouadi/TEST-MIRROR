@@ -197,8 +197,8 @@ msgstr "Dernière mise à jour le"
 #. module: myfab_simulation_by_quantity
 #: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantity.py:186
 #, python-format
-msgid "Make sure that a customer is selected and that the simulation contains at least one line."
-msgstr "Assurez-vous qu'un client est sélectionné et que la simulation contient au moins une ligne."
+msgid "Make sure that a customer is selected and that the simulation contains at least one selected line."
+msgstr "Assurez-vous qu'un client est choisi et que la simulation contient au moins une ligne sélectionnée pour création."
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_material

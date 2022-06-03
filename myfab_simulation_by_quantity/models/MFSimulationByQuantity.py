@@ -182,10 +182,19 @@ class MFSimulationByQuantity(models.Model):
             previous_simulation_line_id = simulation_line_id
 
     def check_customer_and_lines_exist(self):
-        if not self.mf_customer_id or not self.mf_simulation_lines_ids:
+        if (
+                not self.mf_customer_id or not self.mf_simulation_lines_ids
+                or not self.at_least_one_simulation_line_is_selected()
+        ):
             raise MissingError(_(
-                "Make sure that a customer is selected and that the simulation contains at least one line."
+                "Make sure that a customer is selected and that the simulation contains at least one selected line."
             ))
+
+    def at_least_one_simulation_line_is_selected(self):
+        for simulation_line_id in self.mf_simulation_lines_ids:
+            if simulation_line_id.mf_selected_for_creation:
+                return True
+        return False
 
     @staticmethod
     def get_product_price_creation_dict(simulation_line_id):

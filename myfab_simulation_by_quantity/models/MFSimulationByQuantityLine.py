@@ -21,11 +21,12 @@ class MFSimulationByQuantityLine(models.Model):
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
-    mf_price_material = fields.Float(string="Material price", compute="_compute_mf_price_material", store=True,
-                                     digits=dp.get_precision('Price technical'))
+    mf_price_material = fields.Float(string="Material price", compute="_compute_mf_price_material_and_consumable",
+                                     store=True, digits=dp.get_precision('Price technical'))
     mf_price_consumable_is_visible = fields.Boolean(string="Consumable price is visible",
                                                     compute="_compute_mf_price_consumable_is_visible")
-    mf_price_consumable = fields.Float(string="Consumable price", default=0.0, compute="_compute_mf_price_consumable",
+    mf_price_consumable = fields.Float(string="Consumable price", default=0.0,
+                                       compute="_compute_mf_price_material_and_consumable",
                                        store=True, digits=dp.get_precision('Price technical'))
     mf_price_subcontracting_is_visible = fields.Boolean(string="Subcontracting price is visible",
                                                         compute="_compute_mf_price_subcontracting_is_visible")
@@ -105,22 +106,8 @@ class MFSimulationByQuantityLine(models.Model):
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
-    def _compute_mf_price_material(self):
-        self.mf_price_material, ptb, pucb, pc, pur1, puf1 = self.mf_bom_id.function_compute_price(
-            button=False,
-            type=self.mf_bom_id.type,
-            product=self.mf_product_id,
-            serie_eco=self.mf_quantity,
-            prod_family=self.mf_bom_id.prod_family_id,
-            return_detail_price=True,
-            product_rc=self.mf_product_id,
-            bom_rc=self.mf_bom_id
-        )
-
-    @api.one
-    @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
-    def _compute_mf_price_consumable(self):
-        pm, ptb, pucb, self.mf_price_consumable, pur1, puf1 = self.mf_bom_id.function_compute_price(
+    def _compute_mf_price_material_and_consumable(self):
+        self.mf_price_material, ptb, pucb, self.mf_price_consumable, pur1, puf1 = self.mf_bom_id.function_compute_price(
             button=False,
             type=self.mf_bom_id.type,
             product=self.mf_product_id,
