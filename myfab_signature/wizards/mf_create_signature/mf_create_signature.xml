@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_mf_create_signature" model="ir.ui.view">
+            <field name="name">Create signature</field>
+            <field name="model">mf.create.signature</field>
+            <field name="arch" type="xml">
+                <form string="Load a Translation">
+                    <group>
+                        <field name="mf_model_id"/>
+                        <field name="mf_view_id"/>
+                    </group>
+                    <footer>
+                        <button name="validate" string="Validate" type="object" class="btn-primary"/>
+                        <button special="cancel" string="Close" class="btn-default"/>
+                    </footer>
+                </form>
+           </field>
+        </record>
+
+        <record id="action_mf_create_signature" model="ir.actions.act_window">
+            <field name="name">Create signature</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mf.create.signature</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Create signature" action="action_mf_create_signature" id="menu_mf_create_signature" parent="base.next_id_2" sequence="2"/>
+    </data>
+</openerp>
