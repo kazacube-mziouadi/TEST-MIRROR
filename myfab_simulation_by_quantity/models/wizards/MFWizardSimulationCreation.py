@@ -26,15 +26,15 @@ class MFWizardSimulationCreation(models.TransientModel):
     @api.multi
     def action_multi_creation(self):
         model_line_field_id = self.get_model_line_field_id()
-        print("model_line_field_id.name")
-        print(model_line_field_id.name)
         partner_id = self.mf_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
+        last_record_created_id = None
         for index, simulation_line_id in enumerate(self.mf_simulation_lines_ids):
             # Ex: in sale.order, the below key model_line_field_id.name will be "order_line_ids"
             record_to_create_dict = {model_line_field_id.name: [
                 self.get_line_creation_dict_for_simulation_line(simulation_line_id, 1)
             ]}
-            self.create_record(record_to_create_dict, partner_id)
+            last_record_created_id = self.create_record(record_to_create_dict, partner_id)
+        return self.get_record_form_opening_dict(last_record_created_id)
 
     @api.multi
     def action_single_creation(self):
@@ -49,11 +49,21 @@ class MFWizardSimulationCreation(models.TransientModel):
             record_to_create_dict[model_line_field_id.name].append(
                 self.get_line_creation_dict_for_simulation_line(simulation_line_id, index + 1)
             )
-        self.create_record(record_to_create_dict, partner_id)
+        record_created_id = self.create_record(record_to_create_dict, partner_id)
+        return self.get_record_form_opening_dict(record_created_id)
+
+    def get_record_form_opening_dict(self, record_id):
+        return {
+            "view_mode": "form",
+            "res_model": self.mf_model_to_create_id.model,
+            "res_id": record_id.id,
+            "type": "ir.actions.act_window",
+            "target": "current"
+        }
 
     def create_record(self, record_to_create_dict, partner_id):
         if self.mf_model_to_create_id.model == "sale.order":
-            self.env[self.mf_model_to_create_id.model].with_context(self.env.context.copy()).create_sale(
+            record_created_id = self.env[self.mf_model_to_create_id.model].with_context(self.env.context.copy()).create_sale(
                 customer=partner_id,
                 other_data=record_to_create_dict
             )
@@ -63,6 +73,7 @@ class MFWizardSimulationCreation(models.TransientModel):
             record_created_id = self.env[self.mf_model_to_create_id.model].create(record_to_create_dict)
             if self.mf_model_to_create_id.model == "quotation":
                 record_created_id.compute_all_taxes()
+        return record_created_id
 
     """
         Returns the relational ir.field corresponding to the one2many lines of the current model

@@ -32,21 +32,23 @@
 							</div>
 							<notebook>
 								<page string="Simulation">
-									<group col="1">
+									<group string="Simulation" col="1">
 										<group col="6">
 											<field name="mf_product_id"/>
 											<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 											<field name="mf_customer_id"/>
 										</group>
-										<field name="mf_simulation_lines_ids" attrs="{'invisible': [('name', '=', False)]}"/>
+										<field name="mf_simulation_lines_ids"
+											   nolabel="1"
+											   attrs="{'invisible': [('name', '=', False)]}"/>
 										<p attrs="{'invisible': [('name', '!=', False)]}">
 											You must save the form before being able to launch simulations
 										</p>
 									</group>
 								</page>
 								<page string="Configuration">
-									<group col="1" attrs="{'invisible': [('name', '=', False)]}">
+									<group string="Configuration" col="1" attrs="{'invisible': [('name', '=', False)]}">
 										<field name="mf_field_configs_ids" />
 										<field name="mf_hide_warning_config_message" invisible="1" />
 										<p style="color:red" attrs="{'invisible': [('mf_hide_warning_config_message', '=', True)]}">
