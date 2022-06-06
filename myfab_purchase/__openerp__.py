@@ -19,7 +19,6 @@
     'images': [],
     'depends': [
         'purchase',
-        'my_fab',
     ],
     'data': [
         'views/purchase_order.xml',

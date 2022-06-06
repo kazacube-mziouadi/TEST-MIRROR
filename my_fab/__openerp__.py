@@ -11,7 +11,8 @@
     'module_type': 'base',
     'images': [],
     'depends': [
-        'myfab_file_interface'
+        'myfab_file_interface',
+        'myfab_purchase',
     ],
     'data': [
         'classes/DataInitializerMyFabTriggerMF.yml',
