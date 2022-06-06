@@ -8,7 +8,7 @@
                 <form string="Simulation by quantity - Lines export">
                     <group col="1">
                         <field name="mf_model_to_create_id" />
-                        <field name="mf_simulation_lines_ids" />
+                        <field name="mf_simulation_lines_ids" readonly="1"/>
                     </group>
                     <p>
                         Choose the creation type below. You can use mouse hover on the buttons to know more about their actions.

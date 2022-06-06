@@ -22,41 +22,41 @@ class MFSimulationByQuantityLine(models.Model):
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
     mf_price_material = fields.Float(string="Material price", compute="_compute_mf_price_material_and_consumable",
-                                     store=True, digits=dp.get_precision('Price technical'))
+                                     store=True, digits=dp.get_precision("Price technical"))
     mf_price_consumable_is_visible = fields.Boolean(string="Consumable price is visible",
                                                     compute="_compute_mf_price_consumable_is_visible")
     mf_price_consumable = fields.Float(string="Consumable price", default=0.0,
                                        compute="_compute_mf_price_material_and_consumable",
-                                       store=True, digits=dp.get_precision('Price technical'))
+                                       store=True, digits=dp.get_precision("Price technical"))
     mf_price_subcontracting_is_visible = fields.Boolean(string="Subcontracting price is visible",
                                                         compute="_compute_mf_price_subcontracting_is_visible")
     mf_price_subcontracting = fields.Float(string="Subcontracting price", default=0.0,
                                            compute="_compute_mf_price_subcontracting", store=True,
-                                           digits=dp.get_precision('Price technical'))
+                                           digits=dp.get_precision("Price technical"))
     mf_price_workforce_is_visible = fields.Boolean(string="Workforce price is visible",
                                                    compute="_compute_mf_price_workforce_is_visible")
     mf_price_workforce = fields.Float(string="Workforce price", default=0.0,
                                       compute="_compute_mf_price_workforce", store=True,
-                                      digits=dp.get_precision('Price technical'))
+                                      digits=dp.get_precision("Price technical"))
     mf_general_costs_is_visible = fields.Boolean(string="General costs is visible",
                                                  compute="_compute_mf_general_costs_is_visible")
-    mf_general_costs = fields.Float(string="General costs", default=0.0, digits=dp.get_precision('Price technical'))
+    mf_general_costs = fields.Float(string="General costs", default=0.0, digits=dp.get_precision("Price technical"))
     mf_unit_cost_price = fields.Float(string="Unit cost price", compute="_compute_unit_cost_price", store=True,
-                                      default=0.0, digits=dp.get_precision('Price technical'))
+                                      default=0.0, digits=dp.get_precision("Price technical"))
     mf_unit_margin_is_visible = fields.Boolean(string="Unit margin is visible",
                                                compute="_compute_mf_unit_margin_is_visible")
     mf_unit_margin = fields.Float(string="Unit margin", help="Write an unit margin coefficient", default=0.0,
-                                  digits=dp.get_precision('Price technical'))
+                                  digits=dp.get_precision("Price technical"))
     mf_unit_sale_price = fields.Float(string="Unit sale price", compute="_compute_unit_sale_price", store=True,
-                                      default=0.0, digits=dp.get_precision('Price technical'))
+                                      default=0.0, digits=dp.get_precision("Price technical"))
     mf_hour_sale_price = fields.Float(string="Hour sale price", compute="_compute_hour_sale_price", store=True,
-                                      default=0.0, digits=dp.get_precision('Price technical'))
+                                      default=0.0, digits=dp.get_precision("Price technical"))
     mf_total_cost_price = fields.Float(string="Total cost price", compute="_compute_total_cost_price", store=True,
-                                       default=0.0, digits=dp.get_precision('Price technical'))
-    mf_total_margin = fields.Float(string="Total margin", help="Write a total margin coefficient", default=0.0,
-                                   digits=dp.get_precision('Price technical'))
+                                       default=0.0, digits=dp.get_precision("Price technical"))
+    mf_total_margin = fields.Float(string="Total margin", compute="_compute_total_margin", store=True, default=0.0,
+                                   digits=dp.get_precision("Price technical"))
     mf_total_sale_price = fields.Float(string="Total sale price", compute="_compute_total_sale_price", store=True,
-                                       default=0.0, digits=dp.get_precision('Price technical'))
+                                       default=0.0, digits=dp.get_precision("Price technical"))
     
     # ===========================================================================
     # METHODS - FORM ONCHANGES
@@ -164,6 +164,11 @@ class MFSimulationByQuantityLine(models.Model):
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_total_cost_price(self):
         self.mf_total_cost_price = self.mf_unit_cost_price * self.mf_quantity
+
+    @api.one
+    @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
+    def _compute_total_margin(self):
+        self.mf_total_margin = self.mf_total_sale_price - self.mf_total_cost_price
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
