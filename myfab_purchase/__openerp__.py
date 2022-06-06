@@ -21,12 +21,14 @@
         'purchase',
         'my_fab',
     ],
-    'data': [],
+    'data': [
+        'views/purchase_order.xml',
+    ],
     'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,
     'auto_install': False,
     'application': True,
-    'not_show': True,
+    #'not_show': True,
 }
