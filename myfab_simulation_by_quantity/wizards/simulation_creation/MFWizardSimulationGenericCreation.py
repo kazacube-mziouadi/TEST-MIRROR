@@ -3,8 +3,8 @@ from openerp import models, fields, api, _
 import datetime
 
 
-class MFWizardSimulationCreation(models.TransientModel):
-    _name = "mf.wizard.simulation.creation"
+class MFWizardSimulationGenericCreation(models.TransientModel):
+    _name = "mf.wizard.simulation.generic.creation"
 
     # ===========================================================================
     # COLUMNS
@@ -12,13 +12,17 @@ class MFWizardSimulationCreation(models.TransientModel):
     name = fields.Char(string="Name", size=32, required=False)
     mf_model_to_create_id = fields.Many2one("ir.model", string="Model to create", readonly=1)
     mf_simulation_lines_ids = fields.Many2many("mf.simulation.by.quantity.line",
-                                               "mf_wizard_simulation_creation_lines_rel",
-                                               "mf_wizard_simulation_creation_id", "mf_simulation_line_id",
-                                               copy=True, string="Simulation lines", readonly=1)
+                                               "mf_wizard_simulation_generic_creation_lines_rel",
+                                               "mf_wizard_simulation_generic_creation_id", "mf_simulation_line_id",
+                                               copy=True, string="Exported simulation lines", readonly=1)
+
+    # ===========================================================================
+    # COLUMNS
+    # ===========================================================================
 
     @api.model
     def default_get(self, fields_list):
-        res = super(MFWizardSimulationCreation, self).default_get(fields_list=fields_list)
+        res = super(MFWizardSimulationGenericCreation, self).default_get(fields_list=fields_list)
         res["mf_model_to_create_id"] = self.env.context.get("mf_model_to_create_id")
         res["mf_simulation_lines_ids"] = self.env.context.get("mf_simulation_lines_ids")
         return res

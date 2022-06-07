@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
-		<record id="view_mf_wizard_simulation_creation" model="ir.ui.view">
-            <field name="name">mf.wizard.simulation.creation.form</field>
-            <field name="model">mf.wizard.simulation.creation</field>
+		<record id="view_mf_wizard_simulation_generic_creation" model="ir.ui.view">
+            <field name="name">mf.wizard.simulation.generic.creation.form</field>
+            <field name="model">mf.wizard.simulation.generic.creation</field>
             <field name="arch" type="xml">
                 <form string="Simulation by quantity - Lines export">
                     <group col="1">
