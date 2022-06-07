@@ -7,7 +7,6 @@
     'license': 'Open-prod license',
     'depends': [
         'purchase',
-        'my_fab',
     ],
     'category': 'base',
     'description': """
