@@ -38,7 +38,7 @@ class purchase_order(models.Model):
             for product_document in product_line.product_id.internal_plan_ids:
                 # Check if the product document already is in the list to not over-write those added manualy
                 # With this check we add to the automatic list only those which are not already in list
-                if not self._product_document_already_in_list(document_ids,product_document.id):
+                if not self._document_already_in_list(document_ids,product_document.id):
                     product_documents_to_add_ids.append(product_document.id)
                     document_ids.append(product_document.id)
 
@@ -47,7 +47,7 @@ class purchase_order(models.Model):
 
         return document_ids
 
-    def _product_document_already_in_list(self,document_ids,current_document_id):
+    def _document_already_in_list(self,document_ids,current_document_id):
         if current_document_id:
             for purchase_order_document in document_ids:
                 if purchase_order_document == current_document_id:
