@@ -32,7 +32,7 @@ class MFSimulationConfig(models.Model):
     # ===========================================================================
     @api.model
     def create(self, fields_list):
-        # We write the simulation's name using it's sequence
+        # Fill the one2many list of configurable fields using the list at the top of the file
         fields_list["mf_fields_ids"] = self.get_mf_fields_ids()
         return super(MFSimulationConfig, self).create(fields_list)
 
