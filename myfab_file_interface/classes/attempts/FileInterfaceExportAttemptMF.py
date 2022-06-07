@@ -9,5 +9,5 @@ class FileInterfaceExportAttemptMF(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    file_interface_export_mf = fields.Many2one("file.interface.export.mf", required=False,
+    file_interface_export_mf = fields.Many2one("file.interface.export.mf", required=False, ondelete="cascade",
                                                string="myfab file interface export")

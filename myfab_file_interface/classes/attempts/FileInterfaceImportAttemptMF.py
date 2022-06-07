@@ -10,10 +10,10 @@ class FileInterfaceImportAttemptMF(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    file_interface_import_mf = fields.Many2one("file.interface.import.mf", string="myfab file interface import")
+    file_interface_import_mf = fields.Many2one("file.interface.import.mf", string="myfab file interface import",
+                                               ondelete="cascade")
     record_imports_mf = fields.One2many("file.interface.import.attempt.record.import.mf",
-                                        "file_interface_import_attempt_mf", string="Record imports",
-                                        ondelete="cascade")
+                                        "file_interface_import_attempt_mf", string="Record imports")
 
     # ===========================================================================
     # METHODS
