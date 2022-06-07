@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_mf_wizard_simulation_product_info_creation" model="ir.ui.view">
+            <field name="name">mf.wizard.simulation.product.info.creation.form</field>
+            <field name="model">mf.wizard.simulation.product.info.creation</field>
+            <field name="arch" type="xml">
+                <form string="Simulation by quantity - Product info creation">
+                    <p>
+                        Choose a start date for the inserted product info lines.<br/>
+                        All current product info lines for this product and this customer will be ended to the day before the selected date when possible.<br/>
+                        Else, the lines will be inserted as best as possible between the existing lines.
+                    </p>
+                    <group col="2">
+                        <field name="mf_product_info_lines_start_date" />
+                        <field name="mf_customer_id" />
+                    </group>
+                    <group col="1">
+                        <field name="mf_simulation_lines_ids" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_product_info_creation"
+                                type="object"
+                                string="Insert product info lines"
+                                class="oe_highlight"
+                                help="Insert the above product info lines." />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

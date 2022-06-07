@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_simulation_config_field' model="ir.actions.act_window">
+        	<field name="name">myfab Simulation by quantity field's config</field>
+			<field name="res_model">mf.simulation.config.field</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='mf_simulation_config_field_treeview' model="ir.ui.view">
+        	<field name="name">myfab Simulation by quantity field's configs</field>
+			<field name="model">mf.simulation.config.field</field>
+            <field name="arch" type="xml">
+				<tree string="myfab Simulation by quantity field's configs" editable="bottom" create="0" delete="0">
+					<field name="mf_field_id" readonly="1"/>
+					<field name="mf_is_visible"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_simulation_config_field_form' model="ir.ui.view">
+        	<field name="name">mf.simulation.config.field.form</field>
+			<field name="model">mf.simulation.config.field</field>
+            <field name="arch" type="xml">
+				<form string="myfab Simulation by quantity field's config" version="8.0">
+					<group col="1">
+						<field name="mf_field_id" readonly="1"/>
+						<field name="mf_is_visible"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

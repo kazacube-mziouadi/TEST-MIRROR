@@ -1,0 +1,650 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* myfab_simulation_by_quantity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-07 10:09+0000\n"
+"PO-Revision-Date: 2022-06-07 10:09+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantityLine.py:105
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantityLine.py:211
+#, python-format
+msgid " is not a configurable field."
+msgstr " n'est pas un champ configurable."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Actions"
+msgstr "Actions"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_product_info_creation
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_product_info_creation
+msgid "Choose a start date for the inserted product info lines.<br/>\n"
+"                        All current product info lines for this product and this customer will be ended to the day before the selected date when possible.<br/>\n"
+"                        Else, the lines will be inserted as best as possible between the existing lines."
+msgstr "Choisissez une date dé début pour les lignes de référencement client/produit insérées.<br/>\n"
+"                        Toutes les lignes de référencement existantes pour ce produit et ce client seront, si possible, terminées au jour précédant la date sélectionnée.<br/>\n"
+"                        Les lignes ajoutées seront insérées au mieux avant, entre ou après les lignes existantes."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+msgid "Choose the creation type below. You can use mouse hover on the buttons to know more about their actions."
+msgstr "Choisissez le type de création ci-dessous. Vous pouvez survoler les boutons pour en savoir plus sur leurs actions."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_field_configs_ids
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_mf_fields_ids
+msgid "Configurable fields"
+msgstr "Champs configurables"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_field_id
+msgid "Configured field"
+msgstr "Champ configuré"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_consumable
+msgid "Consumable price"
+msgstr "Prix consommables"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_consumable_is_visible
+msgid "Consumable price is visible"
+msgstr "Prix consommables visibles"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+msgid "Create a different record for each of the selected simulation lines"
+msgstr "Créer un enregistrement différent pour chacune des lignes de simulation sélectionnées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+msgid "Create a single record with all the selected simulation lines"
+msgstr "Créer un seul enregistrement contenant toutes les lignes de simulation sélectionnées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Create quotation"
+msgstr "Créer devis"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Create sale order"
+msgstr "Créer commande(s) de vente"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_create_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_create_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_customer_id
+msgid "Customer"
+msgstr "Client"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_customer_id
+msgid "Customer linked to product info lines"
+msgstr "Client lié aux lignes de référencement insérées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_display_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_mf_simulation_lines_ids
+msgid "Exported simulation lines"
+msgstr "Lignes de simulation exportées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs
+msgid "General costs"
+msgstr "Frais généraux"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs_is_visible
+msgid "General costs is visible"
+msgstr "Frais généraux visibles"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/wizards/product_info_creation/MFWizardSimulationProductInfoCreation.py:93
+#, python-format
+msgid "Generated from the myfab simulation by quantity "
+msgstr "Généré depuis la simulation par quantité myfab "
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_hide_warning_config_message
+msgid "Hide warning config message"
+msgstr "Cacher le message d'alerte de configuration"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_hour_sale_price
+msgid "Hour sale price"
+msgstr "Prix de vente heure"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_id
+msgid "ID"
+msgstr "ID"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_product_info_creation
+msgid "Insert product info lines"
+msgstr "Insérer les lignes de référencement"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_product_info_creation
+msgid "Insert the above product info lines."
+msgstr "Insère les lignes de référencement ci-dessus, dans les conditions explicitées en haut de page."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_product_info_lines_start_date
+msgid "Inserted product info lines start date"
+msgstr "Date de début pour les lignes de référencement insérées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_simulation_lines_ids
+msgid "Inserted simulation lines"
+msgstr "Lignes de simulation insérées"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_is_configuration_done
+msgid "Is configuration done"
+msgstr "Configuration terminée"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_is_visible
+msgid "Is visible"
+msgstr "Est visible"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation___last_update
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_write_uid
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_write_date
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantity.py:166
+#, python-format
+msgid "Make sure that a customer is selected and that the simulation contains at least one selected line."
+msgstr "Assurez-vous qu'un client est choisi et que la simulation contient au moins une ligne sélectionnée pour création."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_material
+msgid "Material price"
+msgstr "Prix matière"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_mf_model_to_create_id
+msgid "Model to create"
+msgstr "Modèle à créer"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+msgid "Multi creation"
+msgstr "Création multiple"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_name
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_bom_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_bom_id
+msgid "Nomenclature"
+msgstr "Nomenclature"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_is_configuration_done
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_data_initializer_simulation_by_quantity_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_bom_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_hour_sale_price
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_consumable
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_consumable_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_material
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_subcontracting
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_subcontracting_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_workforce
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_workforce_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_product_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_quantity
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_routing_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_selected_for_creation
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_simulation_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_cost_price
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_margin
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_sale_price
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_cost_price
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_margin_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_sale_price
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_sequence
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_bom_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_customer_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_field_configs_ids
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_hide_warning_config_message
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_product_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_routing_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_simulation_lines_ids
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_field_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_simulation_config_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_simulation_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_field_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_mf_fields_ids
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_config_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_mf_model_to_create_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_mf_simulation_lines_ids
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_generic_creation_write_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation___last_update
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_create_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_create_uid
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_display_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_customer_id
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_product_info_lines_start_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_mf_simulation_lines_ids
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_name
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_write_date
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_product_product
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_product_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_product_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_quantity
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Recompute simulation lines"
+msgstr "Recalculer les lignes de simulation"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_routing_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_routing_id
+msgid "Routing"
+msgstr "Gamme"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantityLine.py:6
+#, python-format
+msgid "Routing cost"
+msgstr "Coût de gamme"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_selected_for_creation
+msgid "Selected for creation"
+msgstr "Sélectionné pour créations"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_simulation_id
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_simulation_id
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Simulation"
+msgstr "Simulation"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/ProductProduct.py:10
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_inherited_product_product_form
+#, python-format
+msgid "Simulation by quantity"
+msgstr "Simulation par quantité"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantity.py:127
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+#, python-format
+msgid "Simulation by quantity - Lines export"
+msgstr "Simulation par quantité - Export des lignes"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_product_info_creation
+msgid "Simulation by quantity - Product info creation"
+msgstr "Simulation par quantité - Création de référencement"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantity.py:150
+#, python-format
+msgid "Simulation by quantity - Product info update"
+msgstr "Simulation par quantité - Mise à jour de référencement"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_config_field_mf_simulation_config_id
+msgid "Simulation config"
+msgstr "Configuration de simulation"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/simulation_config/MFSimulationConfig.py:26
+#, python-format
+msgid "Simulation global configuration"
+msgstr "Configuration globale des simulations"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_simulation_lines_ids
+msgid "Simulation lines"
+msgstr "Lignes de simulation"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity
+#: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity_config
+msgid "Simulation | Offer by quantity"
+msgstr "Simulation | Offre par quantité"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.view_mf_wizard_simulation_generic_creation
+msgid "Single creation"
+msgstr "Création simple"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantityLine.py:5
+#, python-format
+msgid "Subcontracting"
+msgstr "Sous-traitance"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_subcontracting
+msgid "Subcontracting price"
+msgstr "Prix de sous-traitance"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_subcontracting_is_visible
+msgid "Subcontracting price is visible"
+msgstr "Prix de sous-traitance visible"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/wizards/simulation_creation/MFWizardSimulationGenericCreation.py:135
+#, python-format
+msgid "The generation can not be executed on the model "
+msgstr "La génération ne peut être exécutée sur le modèle "
+
+#. module: myfab_simulation_by_quantity
+#: sql_constraint:mf.simulation.config:0
+msgid "There can only be one simulation by quantity config"
+msgstr "Il ne peut y avoir qu'une seule configuration de simulation par quantité."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_cost_price
+msgid "Total cost price"
+msgstr "Prix de revient total"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_margin
+msgid "Total margin"
+msgstr "Marge totale"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_total_sale_price
+msgid "Total sale price"
+msgstr "Prix de vente total"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_cost_price
+msgid "Unit cost price"
+msgstr "Prix de revient unitaire"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_margin
+msgid "Unit margin"
+msgstr "Marge"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_margin_is_visible
+msgid "Unit margin is visible"
+msgstr "Marge est visible"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_sale_price
+msgid "Unit sale price"
+msgstr "Prix de vente unitaire"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Update products customers info"
+msgstr "Mettre à jour les référencements produit/client"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_workforce
+msgid "Workforce price"
+msgstr "Prix de main d'oeuvre"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_price_workforce_is_visible
+msgid "Workforce price is visible"
+msgstr "Prix de main d'oeuvre est visible"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_unit_margin
+msgid "Write an unit margin coefficient"
+msgstr "Saisissez un coefficient de marge unitaire"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "You must save the form before being able to edit it's configuration"
+msgstr "Vous devez sauvegarder le formulaire avant de pouvoir éditer sa configuration"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "You must save the form before being able to launch simulations"
+msgstr "Vous devez sauvegarder le formulaire avant de pouvoir lancer des simulations"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "You must save the form to apply the new configuration. <br/>\n"
+"											Warning : changing the fields' configurations will recompute all the simulation lines."
+msgstr "Vous devez sauvegarder le formulaire pour appliquer la nouvelle configuration. <br/>\n"
+"											Attention : changer les configurations de champs déclenchera le recalcul de toutes les lignes de simulation."
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_data_initializer_simulation_by_quantity
+msgid "mf.data.initializer.simulation.by.quantity"
+msgstr "mf.data.initializer.simulation.by.quantity"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_wizard_simulation_creation
+msgid "mf.wizard.simulation.creation"
+msgstr "mf.wizard.simulation.creation"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_wizard_simulation_creation_choice
+msgid "mf.wizard.simulation.creation.choice"
+msgstr "mf.wizard.simulation.creation.choice"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_wizard_simulation_generic_creation
+msgid "mf.wizard.simulation.generic.creation"
+msgstr "mf.wizard.simulation.generic.creation"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_wizard_simulation_product_info_creation
+msgid "mf.wizard.simulation.product.info.creation"
+msgstr "mf.wizard.simulation.product.info.creation"
+
+#. module: myfab_simulation_by_quantity
+#: code:addons/myfab_simulation_by_quantity/models/MFDataInitializerSimulationByQuantity.py:19
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_by_quantity
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_config
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_config_field
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+#, python-format
+msgid "myfab Simulation by quantity"
+msgstr "Simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_form
+msgid "myfab Simulation by quantity config"
+msgstr "Configuration de simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_treeview
+msgid "myfab Simulation by quantity configs"
+msgstr "Configurations de simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config_field
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_field_form
+msgid "myfab Simulation by quantity field's config"
+msgstr "Configuration de champ de simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_field_treeview
+msgid "myfab Simulation by quantity field's configs"
+msgstr "Configurations de champs de simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity_line
+#: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_by_quantity_line
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_form
+msgid "myfab Simulation by quantity line"
+msgstr "Lignes de simulation par quantité myfab"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_treeview
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_treeview
+msgid "myfab Simulations by quantity"
+msgstr "Simulations par quantité myfab"
+
