@@ -23,8 +23,12 @@
 			<field name="model">mf.production.config</field>
             <field name="arch" type="xml">
 				<form string="myfab production config">
-					<group col="6" string="Time tracking config">
-						<field name="mf_default_end_time" widget="float_time"/>
+					<group col="2" string="Time tracking config">
+						<field name="mf_use_default_end_time" />
+						<field name="mf_default_end_time"
+							   widget="float_time"
+							   attrs="{'required': [('mf_use_default_end_time', '=', True)]}"/>
+						<field name="mf_default_end_time_timezone_name" invisible="1"/>
 					</group>
 				</form>
 			</field>
