@@ -1,7 +1,0 @@
-span[data-fieldname="mf_price_consumable"],
-span[data-fieldname="mf_price_subcontracting"],
-span[data-fieldname="mf_price_workforce"],
-span[data-fieldname="mf_general_costs"],
-span[data-fieldname="mf_unit_margin"] {
-    display: block !important;
-}
