@@ -12,7 +12,7 @@
         	<field name="name">myfab production config configs</field>
 			<field name="model">mf.production.config</field>
             <field name="arch" type="xml">
-				<tree string="myfab production configs">
+				<tree string="myfab production configs" create="false" delete="0">
 					<field name="name"/>
 				</tree>
 			</field>
@@ -22,13 +22,12 @@
         	<field name="name">mf.production.config.form</field>
 			<field name="model">mf.production.config</field>
             <field name="arch" type="xml">
-				<form string="myfab production config">
+				<form string="myfab production config" create="0" delete="0">
 					<group col="2" string="Time tracking config">
 						<field name="mf_use_default_end_time" />
 						<field name="mf_default_end_time"
 							   widget="float_time"
 							   attrs="{'required': [('mf_use_default_end_time', '=', True)]}"/>
-						<field name="mf_default_end_time_timezone_name" invisible="1"/>
 					</group>
 				</form>
 			</field>

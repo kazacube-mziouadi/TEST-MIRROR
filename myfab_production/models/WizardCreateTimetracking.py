@@ -9,27 +9,35 @@ class WizardCreateTimetracking(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    end_date = fields.Datetime(default=lambda self: self._get_default_datetime())
+    end_date = fields.Datetime(default=lambda self: self._mf_get_default_end_date())
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
-    def _get_default_datetime(self):
+    def _mf_get_default_end_date(self):
         mf_production_config_id = self.env["mf.production.config"].search([], None, 1)
-        use_config_default_end_time = mf_production_config_id.mf_use_default_end_time
-        config_default_end_time = mf_production_config_id.mf_default_end_time
-        config_default_end_time_timezone_name = mf_production_config_id.mf_default_end_time_timezone_name
-        if not use_config_default_end_time:
+        if not mf_production_config_id.mf_use_default_end_time:
             return fields.Datetime.now()
-        config_default_end_time_timezone_offset_int = self.get_timezone_offset_int(config_default_end_time_timezone_name)
+        config_default_end_time = mf_production_config_id.mf_default_end_time
         today_str = datetime.today().strftime("%Y-%m-%d")
         end_time_hours_str = self.get_hours_str_from_time_float(config_default_end_time)
         end_time_minutes_str = self.get_minutes_str_from_time_float(config_default_end_time)
-        end_datetime_utc0 = datetime.strptime(
+        end_datetime_at_user_timezone = datetime.strptime(
             today_str + ' ' + end_time_hours_str + ':' + end_time_minutes_str, "%Y-%m-%d %H:%M"
         )
-        end_datetime_correct_utc = end_datetime_utc0 - timedelta(hours=config_default_end_time_timezone_offset_int)
-        return end_datetime_correct_utc.strftime("%Y-%m-%d %H:%M:%S")
+        # TODO : In Odoo, the timezone for datetime display is taken from the browser timezone.
+        #  So if the user's timezone is != from it's browser timezone, the end_datetime default setting will not be ok
+        end_datetime_utc = self.convert_tz(str(end_datetime_at_user_timezone), self.env.user.tz, "UTC")
+        return end_datetime_utc.strftime("%Y-%m-%d %H:%M:%S")
+
+    # TODO : Planify to add this method to a class installed with the myfab base package
+    @staticmethod
+    def convert_tz(date, t_from, t_to):
+        date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+        tz = pytz.timezone(t_from)
+        date_user = tz.localize(date)
+        tz1 = pytz.timezone(t_to)
+        return date_user.astimezone(tz1)
 
     @staticmethod
     def get_hours_str_from_time_float(time_float):
@@ -44,15 +52,3 @@ class WizardCreateTimetracking(models.Model):
         default_end_time_decimal_part_float = time_float % 1
         default_end_time_minutes_int = int(round(60 * default_end_time_decimal_part_float))
         return str(default_end_time_minutes_int)
-
-    # Returns the timezone offset as an int
-    @staticmethod
-    def get_timezone_offset_int(timezone):
-        # The offset at format +01:00 or -02:00 for example
-        offset_str = str(datetime.now(pytz.timezone(timezone)))[-6:]
-        operator_str = offset_str[0]
-        offset_hours_int = int(offset_str[1:3])
-        if operator_str == '+':
-            return offset_hours_int
-        else:
-            return -offset_hours_int
