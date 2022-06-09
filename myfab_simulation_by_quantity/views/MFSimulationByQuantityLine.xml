@@ -23,9 +23,6 @@
 					<field name="mf_price_consumable_is_visible" invisible="1"/>
 					<field name="mf_price_consumable"
 						   column_invisible_list="[('mf_price_consumable_is_visible', '=', False)]"/>
-					<field name="mf_price_subcontracting_is_visible" invisible="1"/>
-					<field name="mf_price_subcontracting"
-						   column_invisible_list="[('mf_price_subcontracting_is_visible', '=', False)]"/>
 					<field name="mf_price_workforce_is_visible" invisible="1"/>
 					<field name="mf_price_workforce"
 						   column_invisible_list="[('mf_price_workforce_is_visible', '=', False)]"/>

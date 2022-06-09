@@ -121,32 +121,19 @@ class MFSimulationByQuantityLine(models.Model):
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_mf_price_subcontracting(self):
-        self.mf_price_subcontracting = self.compute_price_for_resource_category(RESOURCE_CATEGORY_LABEL_SUBCONTRACTING)
+        self.mf_price_subcontracting = 0
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_mf_price_workforce(self):
-        self.mf_price_workforce = self.compute_price_for_resource_category(RESOURCE_CATEGORY_LABEL_ROUTING_COST)
-
-    def compute_price_for_resource_category(self, resource_category_name):
-        total_routing_price_for_resource_category = 0.0
-        for routing_line in self.mf_routing_id.routing_line_ids:
-            total_routing_line_price_for_resource_category = 0.0
-            for resource_category in routing_line.rl_resource_category_ids:
-                if resource_category.category_id.name == resource_category_name:
-                    total_resource_time = resource_category.preparation_time + resource_category.production_time_seizure
-                    nb_resources = resource_category.nb_resource
-                    hourly_rate = resource_category.category_id.hourly_rate
-                    total_resource_category_price = total_resource_time * nb_resources * hourly_rate
-                    total_routing_price_for_resource_category += total_resource_category_price
-            total_routing_price_for_resource_category += total_routing_line_price_for_resource_category
-        return total_routing_price_for_resource_category
+        self.mf_price_workforce = (
+                self.mf_quantity and self.mf_price_consumable / self.mf_quantity or self.mf_price_consumable
+        )
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_unit_cost_price(self):
         self.mf_unit_cost_price = self.mf_price_material + self._get_field_value_if_visible("mf_price_consumable") \
-            + self._get_field_value_if_visible("mf_price_subcontracting") \
             + self._get_field_value_if_visible("mf_price_workforce") \
             + self._get_field_value_if_visible("mf_general_costs")
 

@@ -2,7 +2,6 @@ from openerp import models, fields, api, _, modules
 
 CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
     "mf_price_consumable",
-    "mf_price_subcontracting",
     "mf_price_workforce",
     "mf_general_costs",
     "mf_unit_margin",
