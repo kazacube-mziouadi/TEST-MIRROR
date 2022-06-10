@@ -5,11 +5,11 @@
     'author': 'myfab',
     'license': 'Open-prod license',
     'category': 'base',
+    'summary': "Intègre des options pour le module de production",
     'description': """
-        Intègre des options pour le module de production 
-    """,
-    'summary': """
-        Intègre des options pour le module de production
+        Intègre des options pour le module de production.
+        Attention : pour le paramétrage des heures de saisie par défaut, le fuseau horaire de l'utilisateur dans 
+        Open-Prod doit être le même que celui de son navigateur Internet.
     """,
     'images': [],
     'depends': [
