@@ -14,10 +14,10 @@ class FileInterfaceExportMF(models.Model):
     # ===========================================================================
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                       "file_interface_export_mf", copy=True,
-                                                      string="Models to Export", ondelete="cascade")
+                                                      string="Models to Export")
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
-                                         string="Export attempts", ondelete="cascade", readonly=True)
+                                         string="Export attempts", readonly=True)
     use_custom_extension = fields.Boolean(string="Name files with a custom extension", default=False)
     custom_extension = fields.Char(string="Custom extension")
     mf_method_to_apply = fields.Selection("_mf_method_to_apply_get", "Method to apply at import", default="create", required=True,

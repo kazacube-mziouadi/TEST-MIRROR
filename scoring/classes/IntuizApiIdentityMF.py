@@ -12,7 +12,7 @@ class IntuizApiIdentityMF(models.TransientModel):
     @api.model
     def default_get(self, fields_list):
         res = super(IntuizApiIdentityMF, self).default_get(fields_list=fields_list)
-        # TODO : instantiate Identity uri
+        # instantiate Identity uri
         res["uri_mf"] = "https://" + res["host_mf"] + "/iws-v3.18/services/CallistoIdentiteObjectSecure.CallistoIdentiteObjectSecureHttpsSoap11Endpoint/"
         return res
 

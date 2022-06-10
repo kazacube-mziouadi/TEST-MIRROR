@@ -17,10 +17,10 @@ class ModelDictionaryMF(models.AbstractModel):
                                            "model_dictionary_mf_id", "model_field_id", string="Fields to export",
                                            copy=True, readonly=False)
     fields_filters_mf = fields.One2many("model.dictionary.field.filter.mf", "model_dictionary_mf", copy=True,
-                                        string="Filters to apply on fields at export", ondelete="cascade")
-    parent_model_dictionary_mf = fields.Many2one(string="Parent myfab model export config")
+                                        string="Filters to apply on fields at export")
+    parent_model_dictionary_mf = fields.Many2one(string="Parent myfab model export config", ondelete="cascade")
     children_model_dictionaries_mf = fields.One2many("model.dictionary.mf", "parent_model_dictionary_mf", copy=True,
-                                                     string="Children myfab model export configs", ondelete="cascade")
+                                                     string="Children myfab model export configs")
     hide_fields_view = fields.Boolean(compute="compute_hide_fields_view")
     number_of_records_exported = fields.Integer(string="Number of records exported", readonly=True)
     number_of_records_to_export_limit_mf = fields.Integer(string="Number of records to export limit",
