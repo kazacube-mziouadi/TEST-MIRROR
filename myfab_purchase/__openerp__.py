@@ -5,9 +5,6 @@
     'version': '1.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
-    'depends': [
-        'purchase',
-    ],
     'category': 'base',
     'description': """
         Intègre des options pour le module d'achat 
