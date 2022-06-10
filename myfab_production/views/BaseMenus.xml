@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem name="myfab production config"
+				  action="mf_production_config"
+				  id="menu_production_myfab_production_config"
+				  parent="mrp.menu_production_configuration"
+				  sequence="120"
+				  groups="mrp.group_manufacturing_admin"/>
+	</data>
+</openerp>

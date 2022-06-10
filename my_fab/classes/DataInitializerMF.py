@@ -23,7 +23,7 @@ class DataInitializerMF(models.AbstractModel):
     # METHODS OVERRIDABLE
     # ===========================================================================
 
-    # Method to copy in the herited class to get the right file path
+    # /!\ MANDATORY : method to copy in the herited class to get the right file path
     @staticmethod
     def get_file_path():
         return __file__

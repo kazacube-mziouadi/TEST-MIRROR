@@ -364,6 +364,16 @@ msgid "Fields to search at import"
 msgstr "Champs à rechercher à l'import"
 
 #. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_mf_field_relation_model_id
+msgid "Field's relation model"
+msgstr "Modèle enfant"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_mf_child_model_fields_filters
+msgid "Child model's fields filters"
+msgstr "Filtres de champs du modèle enfant"
+
+#. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
 msgid "File"
