@@ -11,20 +11,19 @@
     ],
     'category': 'advanced',
     'description': """
-        Intègre un champ signature client (signature à main levée) à la fiche d'intervention SAV.
         Permet également de créer un champ signature sur n'importe quel modèle (sur l'exemple du SAV). 
     """,
     'summary': """
-        Champ signature client pour fiche SAV
+        Création d'un  champ signature sur n'importe qu'elle modèle
     """,
     'images': [
         'static/description/icon.jpg'
     ],
     'data': [
         'views/web_digital_sign_view.xml',
-        'views/Intervention.xml'
+        'wizards/mf_create_signature/mf_create_signature.xml',
     ],
-    'website': 'http://www.serpentcs.com',
+    'website': '',
     'qweb': [
         'static/src/xml/digital_sign.xml'
     ],
