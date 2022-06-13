@@ -8,10 +8,10 @@ class Intervention(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    client_signature = fields.Binary(string="Client signature")
-    mf_signature_contact_id = fields.Many2one("res.partner", string="Signing contact")
-    mf_signature_date = fields.Datetime(string="Signature date", compute="_compute_mf_signature_date", readonly=True,
-                                        store=True)
+    x_mf_signature = fields.Binary(string="Client signature")
+    x_mf_signature_contact_id = fields.Many2one("res.partner", string="Signing contact")
+    x_mf_signature_date = fields.Datetime(string="Signature date", compute="_compute_mf_signature_date", readonly=True,
+                                          store=True)
 
     # ===========================================================================
     # METHODS
@@ -19,7 +19,7 @@ class Intervention(models.Model):
     @api.one
     @api.depends("client_signature")
     def _compute_mf_signature_date(self):
-        if self.client_signature:
+        if self.x_mf_signature:
             self.mf_signature_date = datetime.datetime.now()
 
     @api.one

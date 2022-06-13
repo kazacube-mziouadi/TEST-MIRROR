@@ -10,13 +10,13 @@
                 <page string="Electronic signature">
                     <group col="1" string="Electronic signature">
                         <group col="4">
-                            <field name="mf_signature_contact_id"/>
-                            <field name="mf_signature_date"/>
+                            <field name="x_mf_signature_contact_id"/>
+                            <field name="x_mf_signature_date"/>
                         </group>
                         <group col="2">
                             <label for="client_signature" string="Client signature" />
                             <h2>
-                                <field name="client_signature" widget="signature"/>
+                                <field name="x_mf_signature" widget="signature"/>
                             </h2>
                         </group>
                     </group>
