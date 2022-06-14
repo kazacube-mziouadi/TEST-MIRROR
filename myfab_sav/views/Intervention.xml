@@ -11,10 +11,10 @@
                     <group col="1" string="Electronic signature">
                         <group col="4">
                             <field name="x_mf_signature_contact_id"/>
-                            <field name="x_mf_signature_date"/>
+                            <field name="x_mf_signature_datetime"/>
                         </group>
                         <group col="2">
-                            <label for="client_signature" string="Client signature" />
+                            <label for="x_mf_signature" string="Client signature" />
                             <h2>
                                 <field name="x_mf_signature" widget="signature"/>
                             </h2>

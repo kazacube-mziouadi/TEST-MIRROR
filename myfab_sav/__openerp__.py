@@ -2,7 +2,7 @@
 
 {
     'name': 'myfab SAV',
-    'version': '1.0.0',
+    'version': '2.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
@@ -13,7 +13,7 @@
     'category': 'Advanced',
     'description': """
         Intègre un champ signature client (signature à main levée) à la fiche d'intervention SAV.
-        """,
+    """,
     'summary': """
         Champ signature client pour fiche SAV
     """,
@@ -21,6 +21,7 @@
         'static/description/icon.jpg'
     ],
     'data': [
+        'data/JasperDocument.xml',
         'views/Intervention.xml',
     ],
     'website': '',
