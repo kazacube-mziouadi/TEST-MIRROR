@@ -23,42 +23,24 @@ class connector_category(models.Model):
     parent_id = fields.Many2one('octopart.category', compute='_compute_parent_id', string="Parent")
     characteristics_type_ids = fields.Many2many('characteristic.type', string='Spec type')
     characteristics_value_ids = fields.Many2many('characteristic.value', string='Spec value')
-    apiKey = fields.Char(compute='_compute_apiKey')
-    
-    @api.one
-    def _compute_apiKey(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        if search_api_key:
-            self.apiKey = search_api_key[0].octopart_api_key
-
             
-    @api.multi
-    def name_get(self):
-        result = self.custom_name_get()
-        if not result:
-            result = []
-            for categ_rc in self:
-                display_name = categ_rc.name
-                if categ_rc.parent_id:
-                    id_parent = categ_rc.parent_id
-                    while id_parent and id_parent.name:   
-                        display_name = id_parent.name + '/' + display_name
-                        id_parent = id_parent.parent_id
-                result.append((categ_rc.id, display_name))
-        
-        return result
+#    @api.multi
+#    def name_get(self):
+#        result = self.custom_name_get()
+#        if not result:
+#            result = []
+#            for categ_rc in self:
+#                display_name = categ_rc.name
+#                if categ_rc.parent_id:
+#                    id_parent = categ_rc.parent_id
+#                    while id_parent and id_parent.name:   
+#                        display_name = id_parent.name + '/' + display_name
+#                        id_parent = id_parent.parent_id
+#                result.append((categ_rc.id, display_name))        
+#        return result
     
-    @api.one
-    def _compute_parent_id(self):
-        
-        search_category = self.env['octopart.category'].search([['uid', '=', self.parent_uid], ])
-        if search_category:
-            self.parent_id = search_category[0].id
-        return True
-
     @api.one 
     def _compute_complete_path(self):
-        
         self.complete_path = self.name
         if self.parent_id:
             id_parent = self.parent_id
@@ -68,28 +50,26 @@ class connector_category(models.Model):
         
         return True
     
-    
+    @api.one
+    def _compute_parent_id(self):
+        search_category = self.env['octopart.category'].search([['uid', '=', self.parent_uid], ])
+        if search_category and self.id != search_category[0].id:
+            self.parent_id = search_category[0].id
+        return True
+
     @api.multi
     def get_characteristics(self):
-        if self.apiKey:
-            res = self.send_V4()
-            search_result = json.loads(res)
-        else:
-            raise Warning(_("You do not have a key to connect to Octopart."))  
-            
-        #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
-        if 'errors' in search_result.keys():            
-            raise ValidationError(search_result['errors'][0]['message'])
-            
-        attributes = search_result['data']['categories'][0]['relevant_attributes']        
-        for attribute in attributes:
-            self.characteristics_manager(attribute)
-
-        return True
+        search_result = self.env['octopart.api'].get_data(self._set_data())
+        if search_result:
+            attributes = search_result['data']['categories'][0]['relevant_attributes']        
+            for attribute in attributes:
+                self._characteristics_manager(attribute)
+            return True
+        return False
     
 
 #Méthode pour le création ou la modification des characteristic
-    def characteristics_manager(self, current_attributs):
+    def _characteristics_manager(self, current_attributs):
         updating = False 
         spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
         if spec_octopart:
@@ -118,27 +98,16 @@ class connector_category(models.Model):
 
 
 #méthode envoie et récupération de donnée serveur
-    def send_V4(self):
+    def _set_data(self):
         ids = [str(self.uid)]
         variables = {'ids': ids}
-        url = 'https://octopart.com/api/v4/endpoint'
-        headers = {'Accept': 'application/json',
-                   'Content-Type': 'application/json'}
-        headers['token'] = '{}'.format(self.apiKey)
-        data = {'query': self.query_def(),
+        data = {'query': self._query_def(),
                 'variables': variables}
-        req = urllib2.Request(url, json.dumps(data).encode('utf-8'), headers)
-        try:
-            response = urllib2.urlopen(req)
-            return response.read().decode('utf-8')
-        except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
+        return data
 
 
 #construtction de la requête 
-    def query_def(self):
+    def _query_def(self):
         query ='''
         query Query_Characteristics($ids: [String!]!) {
             categories(ids:$ids){

@@ -12,7 +12,7 @@
                         <field name="explaination" nolabel="1" readonly="1"/>
                     </group>
                     <footer>
-                        <button name="request_seller" string="Import sellers" type="object" class="oe_highlight" />
+                        <button name="import_sellers" string="Import sellers" type="object" class="oe_highlight" />
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>

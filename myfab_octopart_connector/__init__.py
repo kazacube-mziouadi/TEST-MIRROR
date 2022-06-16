@@ -5,3 +5,4 @@ import res_partner
 import product
 import config
 import characteristics
+import classes

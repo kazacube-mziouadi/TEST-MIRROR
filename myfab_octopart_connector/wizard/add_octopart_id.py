@@ -12,13 +12,6 @@ class add_octopart_id(models.TransientModel):
     seller_id = fields.Many2one('connector.seller', string="Seller", required=True)    
     partner_id = fields.Many2one('res.partner', 'Partner', ondelete='cascade', required=True, domain = "[('is_supplier','=',True), ('octopart_uid_seller','=','0')]")
     list_sellers_ids = fields.One2many('octopart.seller.add.id', 'add_octopart_id', string='Octopart sellers list')
-    apiKey = fields.Char(compute='_compute_apiKey')
-    
-    @api.one
-    def _compute_apiKey(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        if search_api_key:
-            self.apiKey = search_api_key[0].octopart_api_key
     
     @api.multi
     def search_seller(self):

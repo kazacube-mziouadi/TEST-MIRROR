@@ -53,7 +53,7 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button name="request_part" string="Search parts"
+                            <button name="search_part" string="Search parts"
                                 type="object" class="oe_inline oe_stat_button" icon="fa-search" />
                             <button name="clear_part" string="Clear part list"
                                 type="object" class="oe_inline oe_stat_button" icon="fa-eraser"/>  

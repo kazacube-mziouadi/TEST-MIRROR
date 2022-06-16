@@ -24,91 +24,28 @@ class connector_product(models.Model):
     list_specs_search_ids = fields.Many2many('specs.search', 'search_connector_id', string='Search filters', domain = "[('search_connector_id','=', active_id),]")
     result_number = fields.Integer(default=0)
     count_response = fields.Integer(default=0)
-    sample = fields.Integer(string="Sample", default=10)
-    apiKey = fields.Char(compute='_compute_apiKey')
+    sample = fields.Integer(string="Sample", default=10)  
     
-    
-    @api.one
-    def _compute_apiKey(self):
-        # Get api key from technical data config
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        if search_api_key:
-            self.apiKey = search_api_key[0].octopart_api_key
-    
-        return True
-   
-    
+    @api.onchange('category_id', 'brand_name', 'seller_name', 'description', 'list_specs_search_ids')
+    def _onchange_stop_more_result(self):
+        self.write({'count_response' : 0 })
+
     @api.multi
-    def request_part(self):
-        
+    def search_part(self):
         self.write({'count_response' : 0, 'result_number' : 0})
         self.list_result_ids.unlink()
-        
-        self.search_part()       
-           
+        self._search_part()       
         return True
     
     
     @api.multi
     def more_result(self):
-        
         if self.count_response<901:
-            self.search_part()
-        
+            self._search_part()
         return True
 
-    
-    def search_part_v4(self, variables):
-        #Test de connection serveur Octopart api V4
-        url = 'https://octopart.com/api/v4/endpoint'
-        headers = {'Accept': 'application/json',
-                   'Content-Type': 'application/json'}
-        headers['token'] = '{}'.format(self.apiKey)
-        data = {'query': self.get_search(),
-                'variables': variables}
-        req = urllib2.Request(url, json.dumps(data).encode('utf-8'), headers)
-        try:
-            response = urllib2.urlopen(req)
-            return response.read().decode('utf-8')
-        except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
-    
-    
-    def get_search(self):
-        query='''
-        query($q:String, $start: Int, $limit:Int ,$filters: Map){ 
-            search(q: $q, start:$start, limit:$limit, filters:$filters){
-                hits
-                results {
-                  part{
-                    mpn
-                    name
-                    id
-                    octopart_url
-                    short_description
-                    manufacturer{
-                      name
-                    }
-                    specs{
-                      attribute{
-                        id
-                        name
-                        shortname
-                      }
-                      display_value
-                    }
-                  }
-                }
-            }
-        }
-        '''
-        return query
-
-
     @api.multi
-    def search_part(self):
+    def _search_part(self):
         search_string = ""
         check_search_value = True
         result_ignored = 0
@@ -175,90 +112,81 @@ class connector_product(models.Model):
         variable['start'] = self.count_response
         variable['filters'] = filter_args
         
-        if self.apiKey:
-            res = self.search_part_v4(variable)
-            search_result = json.loads(res)
-        else:
-            raise ValidationError(_("You do not have a key to connect to Octopart."))  
-
-        #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
-        if 'errors' in search_result.keys():            
-            raise ValidationError(search_result['errors'][0]['message'])
-        
-        datas = search_result['data']['search']
-        if self.count_response == 0:
-            resultNumber = datas['hits']
-        else:
-            resultNumber = self.result_number
-        parts = datas['results']    
-        # Result from api request
-        if parts:
-            for part in parts:
-                # Check if result respect advanced filter
-                values = part['part']
-                # Check if result is already an openprod product
-                is_present = False
-                search_product = self.env['product.product'].search_count([('octopart_uid_product', '=', values['id']), ])
-                if search_product > 0 :
-                    is_present = True
-                # Create result in openprod
-                active_result_rc  = self.env['connector.result'].create({
-                    'search_id' : self.id,
-                    'brand_name' : values['manufacturer']['name'],
-                    'mnp' : values['mpn'],
-                    'octopart_url' : values['octopart_url'],
-                    'short_description' : values['short_description'],
-                    'octopart_uid' : values['id'],
-                    'is_in_openprod' : is_present,
-                })
-                    
-                # Get specs from api request response
-                specs = values['specs']
-                for element in specs:
-                    active_spec_rc = self.characteristics_manager(element['attribute'])
-                        
-                    if self.id not in active_spec_rc.octopart_category_ids.ids:
-                        active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
-                    # Get value from spec 
-                    
-                    # Check if value is already an openprod characteristic value
-                    search_characteristic_value = self.env['characteristic.value'].search([('name', '=', element['display_value'])])
-                    if search_characteristic_value:
-                       active_value_rc = search_characteristic_value[0]
-                    else:
-                        # Create characteristic value
-                        add_spec_value_octopart  = self.env['characteristic.value'].create({
-                            'name' : element['display_value'],
-                            'type_id' : active_spec_rc.id,   
-                        }) 
-                        active_value_rc = add_spec_value_octopart
-                      
-                    if self.id not in active_value_rc.octopart_category_ids.ids:  
-                        active_value_rc.write({'octopart_category_ids' : [(4, self.id)],  })  
-                    
-                    unit_openprod = ""
-                    search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_rc.unit_octopart), ])
-                    if search_unit_openprod:
-                        unit_openprod = search_unit_openprod[0].id
-                    #Create characteristic for result
-                    add_characteristic = self.env['characteristic'].create({
-                        'characteristic_type_id' : active_spec_rc.id,
-                        'value' : active_value_rc.id,
-                        'unit_octopart' : active_spec_rc.unit_octopart,
-                        'uom_id' : unit_openprod,
-                        'result_id' : active_result_rc.id,
+        search_result = self.env['octopart.api'].get_data(self._set_data(variable))
+        if search_result:
+            datas = search_result['data']['search']
+            if self.count_response == 0:
+                resultNumber = datas['hits']
+            else:
+                resultNumber = self.result_number
+            parts = datas['results']    
+            # Result from api request
+            if parts:
+                for part in parts:
+                    # Check if result respect advanced filter
+                    values = part['part']
+                    # Check if result is already an openprod product
+                    is_present = False
+                    search_product = self.env['product.product'].search_count([('octopart_uid_product', '=', values['id']), ])
+                    if search_product > 0 :
+                        is_present = True
+                    # Create result in openprod
+                    active_result_rc  = self.env['connector.result'].create({
+                        'search_id' : self.id,
+                        'brand_name' : values['manufacturer']['name'],
+                        'mnp' : values['mpn'],
+                        'octopart_url' : values['octopart_url'],
+                        'short_description' : values['short_description'],
+                        'octopart_uid' : values['id'],
+                        'is_in_openprod' : is_present,
                     })
-                    active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],    })
-                                      
                         
-        self.write({'count_response' : self.count_response + 10 })
-        resultNumber = resultNumber-result_ignored
-        self.write({'result_number' : resultNumber})
+                    # Get specs from api request response
+                    specs = values['specs']
+                    for element in specs:
+                        active_spec_rc = self._characteristics_management(element['attribute'])
+                            
+                        if self.id not in active_spec_rc.octopart_category_ids.ids:
+                            active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
+                        # Get value from spec 
+                        
+                        # Check if value is already an openprod characteristic value
+                        search_characteristic_value = self.env['characteristic.value'].search([('name', '=', element['display_value'])])
+                        if search_characteristic_value:
+                            active_value_rc = search_characteristic_value[0]
+                        else:
+                            # Create characteristic value
+                            add_spec_value_octopart  = self.env['characteristic.value'].create({
+                                'name' : element['display_value'],
+                                'type_id' : active_spec_rc.id,   
+                            }) 
+                            active_value_rc = add_spec_value_octopart
+                        
+                        if self.id not in active_value_rc.octopart_category_ids.ids:  
+                            active_value_rc.write({'octopart_category_ids' : [(4, self.id)],  })  
+                        
+                        unit_openprod = ""
+                        search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_rc.unit_octopart), ])
+                        if search_unit_openprod:
+                            unit_openprod = search_unit_openprod[0].id
+                        #Create characteristic for result
+                        add_characteristic = self.env['characteristic'].create({
+                            'characteristic_type_id' : active_spec_rc.id,
+                            'value' : active_value_rc.id,
+                            'unit_octopart' : active_spec_rc.unit_octopart,
+                            'uom_id' : unit_openprod,
+                            'result_id' : active_result_rc.id,
+                        })
+                        active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],    })
+                                                     
+            self.write({'count_response' : self.count_response + 10 })
+            resultNumber = resultNumber-result_ignored
+            self.write({'result_number' : resultNumber})
         
         return True
    
    
-    def characteristics_manager(self, current_attributs):
+    def _characteristics_management(self, current_attributs):
         updating = False 
         spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
         if spec_octopart:
@@ -285,23 +213,51 @@ class connector_product(models.Model):
                 
         return active_spec_rc
     
-        
-    @api.onchange('category_id', 'brand_name', 'seller_name', 'description', 'list_specs_search_ids')
-    def _onchange_stop_more_result(self):
-        self.write({'count_response' : 0 })
-        
-    
-    
     @api.multi
     def clear_part(self):
-
         self.list_result_ids.unlink()
         self.write({'count_response' : 0})
         self.write({'result_number' : 0})        
         filters = self.list_specs_search_ids.search([('search_connector_id', '=', self.id), ])
-        filters.unlink()   
-           
-        
+        filters.unlink() 
+
+    
+    def _set_data(self, variables):
+        #Test de connection serveur Octopart api V4
+        data = {'query': self.get_search(),
+                'variables': variables}
+        return data
+    
+    
+    def get_search(self):
+        query='''
+        query($q:String, $start: Int, $limit:Int ,$filters: Map){ 
+            search(q: $q, start:$start, limit:$limit, filters:$filters){
+                hits
+                results {
+                  part{
+                    mpn
+                    name
+                    id
+                    octopart_url
+                    short_description
+                    manufacturer{
+                      name
+                    }
+                    specs{
+                      attribute{
+                        id
+                        name
+                        shortname
+                      }
+                      display_value
+                    }
+                  }
+                }
+            }
+        }
+        '''
+        return query
 
 
 class connector_result(models.Model):

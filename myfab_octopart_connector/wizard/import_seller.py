@@ -16,38 +16,23 @@ class import_seller_wizard(models.TransientModel):
     # COLUMNS
     #===========================================================================
     explaination = fields.Text(default=(_('Select import sellers to import all available sellers from Octopart to Openprod.')))
-    apiKey = fields.Char(compute='_compute_apiKey')
-    
-    @api.one
-    def _compute_apiKey(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        if search_api_key:
-            self.apiKey = search_api_key[0].octopart_api_key
             
     @api.multi
-    def request_seller(self):
-        if self.apiKey:
-            res = self.send_V4()
-            search_result = json.loads(res)
-        else:
-            raise Warning(_("You do not have a key to connect to Octopart."))  
-        
-        #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
-        if 'errors' in search_result.keys():            
-            raise ValidationError(search_result['errors'][0]['message'])
-            
-        sellers_res = search_result['data']['sellers']
-        for seller in sellers_res: 
-            self.category_seller(seller)
-
-        return True
+    def import_sellers(self):
+        search_result = self.env['octopart.api'].get_data(self._set_data())
+        if search_result:
+            sellers_res = search_result['data']['sellers']
+            for seller in sellers_res: 
+                self._seller_management(seller)
+            return True
+        return False
     
 
-#Méthode pour le création ou la modification des categorie
-    def category_seller(self, current_seller):
+    #Méthode pour le création ou la modification des vendeurs
+    def _seller_management(self, current_seller):
         search_seller = self.env['connector.seller'].search([['octopart_uid', '=', current_seller['id']], ])
         if len(search_seller) == 0:
-            result_recherche  = self.env['connector.seller'].create({
+            result_recherche = self.env['connector.seller'].create({
                 'name' : current_seller['name'],
                 'octopart_uid' : current_seller['id'],
                 'homepage_url' : current_seller['homepage_url'],
@@ -69,24 +54,13 @@ class import_seller_wizard(models.TransientModel):
         return True
 
 
-#méthode envoie et récupération de donnée serveur
-    def send_V4(self):
-        url = 'https://octopart.com/api/v4/endpoint'
-        headers = {'Accept': 'application/json',
-                   'Content-Type': 'application/json'}
-        headers['token'] = '{}'.format(self.apiKey)
-        data = {'query': self.query_def()}
-        req = urllib2.Request(url, json.dumps(data).encode('utf-8'), headers)
-        try:
-            response = urllib2.urlopen(req)
-            return response.read().decode('utf-8')
-        except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
+    #méthode envoie et récupération de donnée serveur
+    def _set_data(self):
+        data = {'query': self._query_def()}
+        return data
 
-#construtction de la requête 
-    def query_def(self):
+    #construtction de la requête 
+    def _query_def(self):
         query ='''
         query Query_Seller{
             sellers{

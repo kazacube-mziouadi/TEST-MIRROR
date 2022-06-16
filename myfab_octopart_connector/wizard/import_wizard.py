@@ -33,13 +33,6 @@ class import_wizard_template(models.TransientModel):
     uop_id = fields.Many2one('product.uom', string='UoP',required=True, ondelete='restrict', help='Unit of Purchase')
     uoi_id = fields.Many2one('product.uom', string='UoI',required=True, ondelete='restrict', help='Unit of Invoice')
     directory_id = fields.Many2one('document.directory', string='Directory', required=True, ondelete='set null')
-    apiKey = fields.Char(compute='_compute_apiKey')
-    
-    @api.one
-    def _compute_apiKey(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        if search_api_key:
-            self.apiKey = search_api_key[0].octopart_api_key
 
     @api.onchange('product_template_id')
     def _onchange_categ_id(self):
@@ -69,13 +62,11 @@ class import_wizard_template(models.TransientModel):
         if search_manufacturer:
             id_manufacturer = search_manufacturer[0].id
         else:
-            
             # Create manufacturer
             add_manufacturer  = self.env['octopart.manufacturer'].create({
                 'name' : self.manufacturer_name,
                 'octopart_uid' : self.manufacturer_uid_octopart,
-                'homepage_url' : self.manufacturer_url,
-                          
+                'homepage_url' : self.manufacturer_url,          
             })
             id_manufacturer = add_manufacturer.id
             
@@ -140,105 +131,79 @@ class import_wizard_template(models.TransientModel):
     @api.multi
     def import_details(self):
         #API request
-        res = self.request_values_v4()
-        
-        #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
-        if 'errors' in res.keys():            
-            raise ValidationError(res['errors'][0]['message'])
-        
-        search_response = res['data']['parts'][0]
-        currency_octopart = ''
-        price_octopart = ''
-        item_number = ''
-        
-        # Write request result to wizard
-        url_datasheet = False
-        url_image = False
-        if 'sellers' in search_response:
-            sellers = search_response['sellers']
-        if search_response['best_datasheet'] != None:
-            if 'url' in search_response['best_datasheet']:
-                url_datasheet = search_response['best_datasheet']['url']
-        if len(search_response['images']) > 0 and 'url' in search_response['images'][0]:
-            url_image = search_response['images'][0]['url']
-        
-        self.write({
-            'datasheet' : url_datasheet,
-            'image' : url_image,
-            'manufacturer_name' : search_response['manufacturer']['name'],
-            'manufacturer_uid_octopart' : search_response['manufacturer']['id'],
-            'manufacturer_url' : search_response['manufacturer']['homepage_url'],
-            })
-        for seller in sellers:
-            # Check if seller is in openprod
-            search_value = self.env['res.partner'].search_count([['octopart_uid_seller', '=', int(seller['company']['id'])], ])
-            if search_value > 0:
-                company_value = seller['company']                 
-                for offer in seller['offers']:
-                    # Check if order delay exist
-                    if offer['factory_lead_days']:
-                        order_delay_total = int(offer['factory_lead_days'])
-                        week_number = order_delay_total // 7
-                        order_delay = week_number * 5 + order_delay_total%7
-                    else:
-                        order_delay = None
-                    add_seller_offer  = self.env['sellers.offers'].create({
-                        'name' :company_value['name'], 
-                        'seller_identifier' : company_value['id'], 
-                        'sku' : offer['sku'],
-                        #'octopart_currency' : currency_octopart,
-                        'oder_delay' : order_delay,
-                        'import_wizard_template_id' : self.id
-                    })
-                    # Create seller offer in wizard
-                    for price in offer['prices']:
-                        # Create price offer in wizard
-                        add_price_offer  = self.env['price.offer'].create({
-                            'offer_id' : add_seller_offer.id,
-                            'currency' : price['currency'],
-                            'price' : price['price'],
-                            'number_item' : price['quantity']
+        search_result = self.env['octopart.api'].get_data(self._set_data())
+        if search_result:
+            search_response = search_result['data']['parts'][0]
+            currency_octopart = ''
+            price_octopart = ''
+            item_number = ''
+            
+            # Write request result to wizard
+            url_datasheet = False
+            url_image = False
+            if 'sellers' in search_response:
+                sellers = search_response['sellers']
+            if search_response['best_datasheet'] != None:
+                if 'url' in search_response['best_datasheet']:
+                    url_datasheet = search_response['best_datasheet']['url']
+            if len(search_response['images']) > 0 and 'url' in search_response['images'][0]:
+                url_image = search_response['images'][0]['url']
+            
+            self.write({
+                'datasheet' : url_datasheet,
+                'image' : url_image,
+                'manufacturer_name' : search_response['manufacturer']['name'],
+                'manufacturer_uid_octopart' : search_response['manufacturer']['id'],
+                'manufacturer_url' : search_response['manufacturer']['homepage_url'],
+                })
+            for seller in sellers:
+                # Check if seller is in openprod
+                search_value = self.env['res.partner'].search_count([['octopart_uid_seller', '=', int(seller['company']['id'])], ])
+                if search_value > 0:
+                    company_value = seller['company']                 
+                    for offer in seller['offers']:
+                        # Check if order delay exist
+                        if offer['factory_lead_days']:
+                            order_delay_total = int(offer['factory_lead_days'])
+                            week_number = order_delay_total // 7
+                            order_delay = week_number * 5 + order_delay_total%7
+                        else:
+                            order_delay = None
+                        add_seller_offer  = self.env['sellers.offers'].create({
+                            'name' :company_value['name'], 
+                            'seller_identifier' : company_value['id'], 
+                            'sku' : offer['sku'],
+                            #'octopart_currency' : currency_octopart,
+                            'oder_delay' : order_delay,
+                            'import_wizard_template_id' : self.id
                         })
-                add_seller_offer.refresh()
+                        # Create seller offer in wizard
+                        for price in offer['prices']:
+                            # Create price offer in wizard
+                            add_price_offer  = self.env['price.offer'].create({
+                                'offer_id' : add_seller_offer.id,
+                                'currency' : price['currency'],
+                                'price' : price['price'],
+                                'number_item' : price['quantity']
+                            })
+                    add_seller_offer.refresh()
 
-        return {
-            'type': 'ir.actions.act_window_no_close'
-        }
-
-
-    #Méthode pour l'envoie de requète
-    def request_values_v4(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        apikey = search_api_key[0].octopart_api_key
-        if apikey:
-            res = self.send_V4(apikey)
-            return json.loads(res)
-        else:
-            raise Warning(_("You do not have a key to connect to Octopart.")) 
+            return {
+                'type': 'ir.actions.act_window_no_close'
+            }
     
       
     #méthode envoie et récupération de donnée serveur
-    def send_V4(self, apikey):
+    def _set_data(self):
         ids = [str(self.part_uid_octopart)]
         variables = {'ids': ids}
-        url = 'https://octopart.com/api/v4/endpoint'
-        headers = {'Accept': 'application/json',
-                   'Content-Type': 'application/json'}
-        headers['token'] = '{}'.format(apikey)
-        data = {'query': self.query_def(),
+        data = {'query': self._query_def(),
                 'variables': variables}
-        req = urllib2.Request(url, json.dumps(data).encode('utf-8'), headers)
-        try:
-            response = urllib2.urlopen(req)
-            return response.read().decode('utf-8')
-        except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
+        return data
     
        
     #construtction de la requête 
-    def query_def(self):
+    def _query_def(self):
         query ='''
         query Part_Search($ids:[String!]!) {
           parts(ids: $ids, country:"", currency:"", distributorapi_timeout:"3"){

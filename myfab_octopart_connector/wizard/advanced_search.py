@@ -44,19 +44,19 @@ class advanced_search(models.TransientModel):
             self.category_id = False
         
         if self.add_characteristics_type_id:
-            return self.show_spec_value()
+            return self._show_spec_value()
         return res
             
 
     @api.multi
-    def show_spec_value(self):
+    def _show_spec_value(self):
         if self.add_characteristics_type_id:
             # Make sure that all previous specs.value.search have been deleted
             #erase = self.env['specs.value.search'].search([])
             #erase.unlink()
             
             self.name = self.add_characteristics_type_id.name
-            datas = self.request_values_v4()
+            datas = self._request_values()
             
             #On récupère les possible erreur et on les fais remonter
             if 'warning' in datas:
@@ -94,49 +94,26 @@ class advanced_search(models.TransientModel):
         }
         
     #Méthode pour l'envoie de requète
-    def request_values_v4(self):
-        search_api_key = self.env['technical.data.config.settings'].search([('octopart_api_key', '!=', ''), ])
-        apikey = search_api_key[0].octopart_api_key
-        if apikey:
-            res = self.send_V4(apikey)
-            search_result = json.loads(res)
-        else:
-            raise Warning(_("You do not have a key to connect to Octopart.")) 
-        
-        #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
-        if 'errors' in search_result.keys():            
-            res = {}
-            res['warning'] = {'title':_('Warning'), 'message': search_result['errors'][0]['message']}
-            return res
-            
-        aggs = search_result['data']['search']['spec_aggs'][0]
-        return aggs   
+    def _request_values(self):
+        search_result = self.env['octopart.api'].get_data(self._set_data())
+        if search_result:
+            aggs = search_result['data']['search']['spec_aggs'][0]
+            return aggs
+        return False           
     
-      
     #méthode envoie et récupération de donnée serveur
-    def send_V4(self, apikey):
+    def _set_data(self):
         ids = [str(self.category_id.uid)]
         attrs = []
         for attr in self.add_characteristics_type_id:
             attrs.append(str(attr.octopart_key))
         variables = {'ids': ids, 'attrs': attrs}
-        url = 'https://octopart.com/api/v4/endpoint'
-        headers = {'Accept': 'application/json',
-                   'Content-Type': 'application/json'}
-        headers['token'] = '{}'.format(apikey)
-        data = {'query': self.query_def(),
+        data = {'query': self._query_def(),
                 'variables': variables}
-        req = urllib2.Request(url, json.dumps(data).encode('utf-8'), headers)
-        try:
-            response = urllib2.urlopen(req)
-            return response.read().decode('utf-8')
-        except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
+        return data
        
     #construtction de la requête 
-    def query_def(self):
+    def _query_def(self):
         query ='''
         query Query_values($ids: [String!]!, $attrs: [String!]!){
           search(filters:{category_id: $ids}, in_stock_only:true) {
