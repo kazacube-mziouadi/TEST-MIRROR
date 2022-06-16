@@ -7,7 +7,7 @@
     'summary': 'Connecteur Octopart par myfab',
     'category' : 'Product',
     'description' : """
-        Connecteur importation produit électronique
+        Connecteur OCTOPART importation produit électronique
     """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'optional',

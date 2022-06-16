@@ -14,7 +14,7 @@
                     <field name="octopart_uid_product" readonly="1"/>
                 </xpath>
                 <xpath expr="//separator[@name='separator_analysis_menu']" position="before">
-                    <button name="request_update_price" string="Update octopart price"
+                    <button name="octopart_price_update" string="Update octopart price"
                         type="object" class="oe_inline oe_stat_button" icon="fa-cog" attrs="{'invisible':[('octopart_uid_product', '=', False)]}"/>
                     <button class="oe_inline oe_stat_button" type="action"
                         context="{'default_part_uid_octopart': octopart_uid_product, 'default_product_id': context.get('active_id')}"

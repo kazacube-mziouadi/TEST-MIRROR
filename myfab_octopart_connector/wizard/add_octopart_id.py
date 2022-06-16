@@ -3,13 +3,13 @@ from openerp import models, api, fields, _
 import json
 import urllib
 
-class add_octopart_id(models.TransientModel):
-    _name = 'add.octopart.seller.id'
+class octopart_seller_add(models.TransientModel):
+    _name = 'octopart.seller.add'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    seller_id = fields.Many2one('connector.seller', string="Seller", required=True)    
+    seller_id = fields.Many2one('octopart.seller', string="Seller", required=True)    
     partner_id = fields.Many2one('res.partner', 'Partner', ondelete='cascade', required=True, domain = "[('is_supplier','=',True), ('octopart_uid_seller','=','0')]")
     list_sellers_ids = fields.One2many('octopart.seller.add.id', 'add_octopart_id', string='Octopart sellers list')
     
@@ -30,11 +30,10 @@ class add_octopart_id(models.TransientModel):
         
     @api.multi
     def add_seller_id(self):
-        
         self.partner_id.write({'octopart_uid_seller' : self.seller_id.octopart_uid })
 
     
-class octopart_seller(models.TransientModel):
+class octopart_seller_add_id(models.TransientModel):
     _name = 'octopart.seller.add.id'
     
     #===========================================================================
@@ -42,7 +41,7 @@ class octopart_seller(models.TransientModel):
     #===========================================================================
     name = fields.Char(strin="name")  
     uid_octopart = fields.Char(string="Octopart id")
-    add_octopart_id = fields.Many2one('add.octopart.seller.id', required=True, ondelete='cascade')
+    add_octopart_id = fields.Many2one('octopart.seller.add', required=True, ondelete='cascade')
     
     @api.multi
     def add_seller_id(self):

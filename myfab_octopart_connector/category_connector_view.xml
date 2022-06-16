@@ -54,7 +54,7 @@
         </record>
         
         <act_window name="Import category" 
-                    res_model="import.category.wizard" 
+                    res_model="octopart.category.import.wizard" 
                     src_model="octopart.category" 
                     view_mode="form" 
                     target="new" 
@@ -63,7 +63,7 @@
                     context="{'sidebar_without_id': True, }"/>
                     
         <act_window name="Import characteristics" 
-                    res_model="import.characteristics.wizard" 
+                    res_model="octopart.characteristic.import.wizard" 
                     src_model="octopart.category" 
                     view_mode="form" 
                     target="new" 

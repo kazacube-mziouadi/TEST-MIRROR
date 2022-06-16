@@ -10,8 +10,8 @@ import urllib2
 import base64
 import os
 
-class import_characteristics_wizard(models.TransientModel):
-    _name = 'import.characteristics.wizard'
+class octopart_characteristic_import_wizard(models.TransientModel):
+    _name = 'octopart.characteristic.import.wizard'
 
     #===========================================================================
     # COLUMNS
@@ -20,11 +20,11 @@ class import_characteristics_wizard(models.TransientModel):
     
     @api.multi
     def import_characteristics(self):
-        ids = self.env.context.get('active  _ids')
+        ids = self.env.context.get('active_ids')
         if self.env['octopart.api'].check_api_key():
             for id in ids:
                 category_rc = self.env['octopart.category'].search([('id', '=', id)])
-                search_result = self.env['octopart.api'].get_data(self._set_data(category_rc.uid))
+                search_result = self.env['octopart.api'].get_api_data(self._set_data(category_rc.uid))
                 if search_result and len(search_result['data']['categories']) > 0:
                     attributes = search_result['data']['categories'][0]['relevant_attributes']        
                     for attribute in attributes:

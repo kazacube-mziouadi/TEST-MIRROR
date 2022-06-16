@@ -11,13 +11,13 @@ import base64
 import requests
 from datetime import datetime
 
-class import_wizard_template(models.TransientModel):
-    _name = 'connector.import.wizard.template'
+class octopart_import_wizard_template(models.TransientModel):
+    _name = 'octopart.import.wizard.template'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    product_id = fields.Many2one('connector.result', string="Product")
+    product_id = fields.Many2one('octopart.search.result', string="Product")
     name = fields.Char(required=True)
     code_product = fields.Char(default=lambda self: self.env['ir.sequence'].get('product.product'), required=True)
     datasheet = fields.Char(string="Datasheet")
@@ -27,7 +27,7 @@ class import_wizard_template(models.TransientModel):
     manufacturer_uid_octopart = fields.Char(string="Manufacturer Octopart id")
     manufacturer_code = fields.Char(string="Manufacturer code")
     manufacturer_url = fields.Char(string="Manufacturer url")
-    list_seller_offers_ids = fields.One2many('sellers.offers', 'import_wizard_template_id', string='Offers')
+    list_seller_offers_ids = fields.One2many('octopart.seller.offer', 'import_wizard_template_id', string='Offers')
     product_template_id = fields.Many2one('product.product', 'Product template', required=True, ondelete='cascade')
     company_id = fields.Many2one('res.company', string='Company', required=True, ondelete='restrict', default=lambda self: self.env.user.company_id)
     uop_id = fields.Many2one('product.uom', string='UoP',required=True, ondelete='restrict', help='Unit of Purchase')
@@ -46,7 +46,7 @@ class import_wizard_template(models.TransientModel):
 
     @api.multi
     def import_product_template_wizard(self):
-        search_result = self.env['connector.result'].browse(self.env.context.get('active_id'))
+        search_result = self.env['octopart.search.result'].browse(self.env.context.get('active_id'))
         
         # Convert image and datasheet to correct format
         photo = False
@@ -131,7 +131,7 @@ class import_wizard_template(models.TransientModel):
     @api.multi
     def import_details(self):
         #API request
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             search_response = search_result['data']['parts'][0]
             currency_octopart = ''
@@ -169,7 +169,7 @@ class import_wizard_template(models.TransientModel):
                             order_delay = week_number * 5 + order_delay_total%7
                         else:
                             order_delay = None
-                        add_seller_offer  = self.env['sellers.offers'].create({
+                        add_seller_offer  = self.env['octopart.seller.offer'].create({
                             'name' :company_value['name'], 
                             'seller_identifier' : company_value['id'], 
                             'sku' : offer['sku'],
@@ -180,7 +180,7 @@ class import_wizard_template(models.TransientModel):
                         # Create seller offer in wizard
                         for price in offer['prices']:
                             # Create price offer in wizard
-                            add_price_offer  = self.env['price.offer'].create({
+                            add_price_offer  = self.env['octopart.price.offer'].create({
                                 'offer_id' : add_seller_offer.id,
                                 'currency' : price['currency'],
                                 'price' : price['price'],
@@ -242,21 +242,21 @@ class import_wizard_template(models.TransientModel):
         return query
 
 
-class sellers_offers(models.TransientModel):
-    _name = 'sellers.offers'
+class octopart_seller_offer(models.TransientModel):
+    _name = 'octopart.seller.offer'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    import_wizard_template_id = fields.Many2one('connector.import.wizard.template', ondelte='cascade')
-    add_price_id = fields.Many2one('add.octopart.price', ondelte='cascade')
+    import_wizard_template_id = fields.Many2one('octopart.import.wizard.template', ondelte='cascade')
+    add_price_id = fields.Many2one('octopart.price.add', ondelte='cascade')
     name = fields.Char(string="Name")
     seller_identifier = fields.Char(string="Seller")
     sku = fields.Char(String="Sku")
     eligible_region = fields.Char()
     #octopart_currency = fields.Char()
     oder_delay = fields.Integer(string="Order delay")
-    list_price_ids = fields.One2many('price.offer', 'offer_id', string='List of prices')
+    list_price_ids = fields.One2many('octopart.price.offer', 'offer_id', string='List of prices')
     
     @api.multi
     def add_price(self):
@@ -281,13 +281,13 @@ class sellers_offers(models.TransientModel):
         
         return True
 
-class price_offer(models.TransientModel):
-    _name = 'price.offer'
+class octopart_price_offer(models.TransientModel):
+    _name = 'octopart.price.offer'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    offer_id = fields.Many2one('sellers.offers', required=True, ondelete='cascade')
+    offer_id = fields.Many2one('octopart.seller.offer', required=True, ondelete='cascade')
     price = fields.Char()
     currency = fields.Char(string="Currency")
     number_item = fields.Char(string='Minimum order quantity')

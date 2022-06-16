@@ -4,7 +4,7 @@
     
         <record model="ir.ui.view" id="view_form_advanced_search">
             <field name="name">view_form_advanced_search</field>
-            <field name="model">connector.advanced.search</field>
+            <field name="model">octopart.advanced.search</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import wizard">
@@ -42,7 +42,7 @@
         <record model="ir.actions.act_window" id="action_create_advanced_search_filter">
             <field name="name">Advanced filter</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">connector.advanced.search</field>
+            <field name="res_model">octopart.advanced.search</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

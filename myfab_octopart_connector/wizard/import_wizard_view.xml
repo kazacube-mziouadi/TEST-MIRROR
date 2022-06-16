@@ -3,7 +3,7 @@
     <data>
         <record model="ir.ui.view" id="view_form_connector_import_wizard_template">
             <field name="name">view_form_connector_import_wizard_template</field>
-            <field name="model">connector.import.wizard.template</field>
+            <field name="model">octopart.import.wizard.template</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import wizard">
@@ -43,7 +43,7 @@
         <record model="ir.actions.act_window" id="action_create_import_wizard_template">
             <field name="name">Import product options</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">connector.import.wizard.template</field>
+            <field name="res_model">octopart.import.wizard.template</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

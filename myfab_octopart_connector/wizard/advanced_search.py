@@ -6,8 +6,8 @@ import urllib
 import urllib2
 
 
-class advanced_search(models.TransientModel):
-    _name = 'connector.advanced.search'
+class octopart_advanced_search(models.TransientModel):
+    _name = 'octopart.advanced.search'
 
     #===========================================================================
     # COLUMNS
@@ -18,8 +18,8 @@ class advanced_search(models.TransientModel):
     min_value = fields.Float(string="Minimum value", readonly=True, help="The minimum value of this attribute")
     spec_max_value = fields.Float(string="Maximum value choose", help="The maximum value chosen for this attribute.")
     max_value = fields.Float(string="Maximum value", readonly=True, help="The maximum value of this attribute")
-    list_possible_values_ids = fields.One2many('specs.value.search', 'search_id', string='Possible values')
-    active_connector_id = fields.Many2one('connector.product', required=True, ondelete='cascade')
+    list_possible_values_ids = fields.One2many('octopart.specs.value.search', 'search_id', string='Possible values')
+    active_connector_id = fields.Many2one('octopart.product', required=True, ondelete='cascade')
     is_numerical_value = fields.Boolean(default=True)
 
     
@@ -51,8 +51,8 @@ class advanced_search(models.TransientModel):
     @api.multi
     def _show_spec_value(self):
         if self.add_characteristics_type_id:
-            # Make sure that all previous specs.value.search have been deleted
-            #erase = self.env['specs.value.search'].search([])
+            # Make sure that all previous octopart.specs.value.search have been deleted
+            #erase = self.env['octopart.specs.value.search'].search([])
             #erase.unlink()
             
             self.name = self.add_characteristics_type_id.name
@@ -64,7 +64,7 @@ class advanced_search(models.TransientModel):
             
             res = datas['buckets']
             value_added = []
-            # Create a specs.value.search for each value associated to the given characteristic type
+            # Create a octopart.specs.value.search for each value associated to the given characteristic type
             result = []
             for value in res:
                 if value['float_value'] != None:
@@ -95,7 +95,7 @@ class advanced_search(models.TransientModel):
         
     #Méthode pour l'envoie de requète
     def _request_values(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             aggs = search_result['data']['search']['spec_aggs'][0]
             return aggs
@@ -143,7 +143,7 @@ class advanced_search(models.TransientModel):
     def add_filter(self):
         filter_list = []
         is_use_value = False
-        search_result = self.env['connector.result'].browse(self.env.context.get('active_id'))
+        search_result = self.env['octopart.search.result'].browse(self.env.context.get('active_id'))
         # Create filter with selected value in wizard
         for element in self.list_possible_values_ids:
             if element.use_value == True:
@@ -162,7 +162,7 @@ class advanced_search(models.TransientModel):
                             'string_value' : value_type,
                         }
                 
-                filter_list.append(self.env['specs.search'].create(values).id)
+                filter_list.append(self.env['octopart.specs.search'].create(values).id)
         # Set the upper and lower limit of specification
         if self.is_numerical_value and not is_use_value:
             if self.spec_min_value or self.spec_max_value:
@@ -186,7 +186,7 @@ class advanced_search(models.TransientModel):
                         'spec_max_value' : self.spec_max_value
                     }
                     
-                    filter_list.append(self.env['specs.search'].create(values).id)
+                    filter_list.append(self.env['octopart.specs.search'].create(values).id)
             
         for filter_id in filter_list:
             self.active_connector_id.write({'list_specs_search_ids': [(4, filter_id, 0)]})
@@ -194,18 +194,18 @@ class advanced_search(models.TransientModel):
         self.list_possible_values_ids.unlink()
         
     
-class specs_value_search(models.TransientModel):
-    _name = 'specs.value.search'
+class octopart_specs_value_search(models.TransientModel):
+    _name = 'octopart.specs.value.search'
     _description = 'List of value associated to a spec for the wizard'
     
     #===========================================================================
     # COLUMNS
     #===========================================================================
     name = fields.Char(string="Name")
-    search_id = fields.Many2one('connector.advanced.search', required=True, ondelete='cascade')
+    search_id = fields.Many2one('octopart.advanced.search', required=True, ondelete='cascade')
     string_value = fields.Boolean(string="String value", default = False)
     spec_value = fields.Char(string="Value")
     unit_value = fields.Char(string="Unit")
     use_value = fields.Boolean()
-    connector_id = fields.Many2one('connector.product', ondelete='cascade')
+    connector_id = fields.Many2one('octopart.product', ondelete='cascade')
  

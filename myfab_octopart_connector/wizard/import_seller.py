@@ -9,8 +9,8 @@ import urllib
 import urllib2
 import base64
 
-class import_seller_wizard(models.TransientModel):
-    _name = 'import.seller.wizard'
+class octopart_seller_import_wizard(models.TransientModel):
+    _name = 'octopart.seller.import.wizard'
 
     #===========================================================================
     # COLUMNS
@@ -19,7 +19,7 @@ class import_seller_wizard(models.TransientModel):
             
     @api.multi
     def import_sellers(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             sellers_res = search_result['data']['sellers']
             for seller in sellers_res: 
@@ -30,9 +30,9 @@ class import_seller_wizard(models.TransientModel):
 
     #Méthode pour le création ou la modification des vendeurs
     def _seller_management(self, current_seller):
-        search_seller = self.env['connector.seller'].search([['octopart_uid', '=', current_seller['id']], ])
+        search_seller = self.env['octopart.seller'].search([['octopart_uid', '=', current_seller['id']], ])
         if len(search_seller) == 0:
-            result_recherche = self.env['connector.seller'].create({
+            result_recherche = self.env['octopart.seller'].create({
                 'name' : current_seller['name'],
                 'octopart_uid' : current_seller['id'],
                 'homepage_url' : current_seller['homepage_url'],

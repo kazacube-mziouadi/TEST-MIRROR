@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-    
         <record model="ir.ui.view" id="view_form_import_seller_wizard">
             <field name="name">view_form_import_seller_wizard</field>
-            <field name="model">import.seller.wizard</field>
+            <field name="model">octopart.seller.import.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import wizard">
@@ -19,11 +18,11 @@
                 </form>
             </field>
         </record>
-
+        
         <record model="ir.actions.act_window" id="act_import_seller">
             <field name="name">Import sellers</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">import.seller.wizard</field>
+            <field name="res_model">octopart.seller.import.wizard</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

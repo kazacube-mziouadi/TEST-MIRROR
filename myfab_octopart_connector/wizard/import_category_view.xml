@@ -4,7 +4,7 @@
     
         <record model="ir.ui.view" id="view_form_import_category_wizard">
             <field name="name">view_form_import_category_wizard</field>
-            <field name="model">import.category.wizard</field>
+            <field name="model">octopart.category.import.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import wizard">
@@ -23,7 +23,7 @@
         <record model="ir.actions.act_window" id="act_import_category">
             <field name="name">Import categories</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">import.category.wizard</field>
+            <field name="res_model">octopart.category.import.wizard</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

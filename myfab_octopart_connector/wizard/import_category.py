@@ -10,8 +10,8 @@ import urllib2
 import base64
 import os
 
-class import_category_wizard(models.TransientModel):
-    _name = 'import.category.wizard'
+class octopart_category_import_wizard(models.TransientModel):
+    _name = 'octopart.category.import.wizard'
 
     #===========================================================================
     # COLUMNS
@@ -20,7 +20,7 @@ class import_category_wizard(models.TransientModel):
             
     @api.multi
     def import_categories(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             root = search_result['data']['categories'][0]
             self._category_management(root)

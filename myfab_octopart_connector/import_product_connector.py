@@ -7,8 +7,8 @@ import urllib
 import urllib2
 import ast
 
-class connector_product(models.Model):
-    _name = 'connector.product'
+class octopart_product(models.Model):
+    _name = 'octopart.product'
     _description = 'Search product connector'
 
     #===========================================================================
@@ -18,10 +18,10 @@ class connector_product(models.Model):
     category_id = fields.Many2one('octopart.category', 'Category Octopart')
     brand_name = fields.Char()
     manufacturer_name = fields.Many2one('octopart.manufacturer', 'Manufacturer')
-    seller_name = fields.Many2one('connector.seller', 'Seller')
+    seller_name = fields.Many2one('octopart.seller', 'Seller')
     description = fields.Char(string="Description")
-    list_result_ids = fields.One2many('connector.result', 'search_id', string='Result')
-    list_specs_search_ids = fields.Many2many('specs.search', 'search_connector_id', string='Search filters', domain = "[('search_connector_id','=', active_id),]")
+    list_result_ids = fields.One2many('octopart.search.result', 'search_id', string='Result')
+    list_specs_search_ids = fields.Many2many('octopart.specs.search', 'search_connector_id', string='Search filters', domain = "[('search_connector_id','=', active_id),]")
     result_number = fields.Integer(default=0)
     count_response = fields.Integer(default=0)
     sample = fields.Integer(string="Sample", default=10)  
@@ -54,25 +54,25 @@ class connector_product(models.Model):
                     
         # Add argument depending on fields value
         filter_args = {}
-        if 'category_id' in self.env['connector.product']._fields:
+        if 'category_id' in self.env['octopart.product']._fields:
             if self.category_id:
                 filter_args['category_id'] = int(self.category_id.uid)
             
-        if 'manufacturer_name' in self.env['connector.product']._fields:
+        if 'manufacturer_name' in self.env['octopart.product']._fields:
             if self.manufacturer_name:
                 filter_args['manufacturer_id'] = int(self.manufacturer_name.octopart_uid)
 
-        if 'seller_name' in self.env['connector.product']._fields:
+        if 'seller_name' in self.env['octopart.product']._fields:
             if self.seller_name:
                 seller_name = self.seller_name.name.replace('-', ' ')
                 filter_args['sellers_id'] = int(self.seller_name.octopart_uid)
                 
-        if 'description' in self.env['connector.product']._fields:
+        if 'description' in self.env['octopart.product']._fields:
             if self.description:
                 variable['q'] = self.description
 
         # Check for advanced search filter       
-        if 'list_specs_search_ids' in self.env['connector.product']._fields:
+        if 'list_specs_search_ids' in self.env['octopart.product']._fields:
             if self.list_specs_search_ids:
                 for element in self.list_specs_search_ids:
                     if element.spec_value:
@@ -112,7 +112,7 @@ class connector_product(models.Model):
         variable['start'] = self.count_response
         variable['filters'] = filter_args
         
-        search_result = self.env['octopart.api'].get_data(self._set_data(variable))
+        search_result = self.env['octopart.api'].get_api_data(self._set_data(variable))
         if search_result:
             datas = search_result['data']['search']
             if self.count_response == 0:
@@ -131,7 +131,7 @@ class connector_product(models.Model):
                     if search_product > 0 :
                         is_present = True
                     # Create result in openprod
-                    active_result_rc  = self.env['connector.result'].create({
+                    active_result_rc  = self.env['octopart.search.result'].create({
                         'search_id' : self.id,
                         'brand_name' : values['manufacturer']['name'],
                         'mnp' : values['mpn'],
@@ -260,14 +260,14 @@ class connector_product(models.Model):
         return query
 
 
-class connector_result(models.Model):
-    _name = 'connector.result'
+class octopart_search_result(models.Model):
+    _name = 'octopart.search.result'
     _description = 'Result from search product'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    search_id = fields.Many2one('connector.product',required=True, ondelete='cascade')
+    search_id = fields.Many2one('octopart.product',required=True, ondelete='cascade')
     brand_name = fields.Char()
     mnp = fields.Char()
     octopart_url = fields.Char()
@@ -286,8 +286,8 @@ class connector_result(models.Model):
         }
     
     
-class specs_search(models.Model):
-    _name = 'specs.search'
+class octopart_specs_search(models.Model):
+    _name = 'octopart.specs.search'
     _description = 'Specs from Octopart'
     
     #===========================================================================
@@ -295,15 +295,15 @@ class specs_search(models.Model):
     #===========================================================================
     metedata_key = fields.Char(string="Octopart Key")
     name = fields.Char(string="Filter name")
-    search_connector_id = fields.Many2one('connector.product',required=True, ondelete='cascade')
+    search_connector_id = fields.Many2one('octopart.product',required=True, ondelete='cascade')
     spec_value = fields.Char(string="Value")
     string_value = fields.Boolean(string="String value", default=False)
     spec_min_value = fields.Float(string="Min value")
     spec_max_value = fields.Float(string="Max value")
       
         
-class connector_seller(models.Model):
-    _name = 'connector.seller'
+class octopart_seller(models.Model):
+    _name = 'octopart.seller'
 
     #===========================================================================
     # COLUMNS
@@ -311,10 +311,10 @@ class connector_seller(models.Model):
     name = fields.Char(required=True)
     octopart_uid = fields.Char(required=True)
     homepage_url = fields.Char()
-    display_flag = fields.Char()
-    has_ecommerce = fields.Boolean()
     is_verified = fields.Boolean(string=" Is verified", default=False, help="True if a manufacturer participates in Octopart's Verified Manufacturer program.")
     is_distributorapi = fields.Boolean(string="Is distributor", default=False, help="rue if a distributor has an API integration with Octopart to provide latest pricing and stock data.")
+    display_flag = fields.Char()
+    has_ecommerce = fields.Boolean()
         
         
 class octopart_manufacturer(models.Model):
@@ -326,9 +326,9 @@ class octopart_manufacturer(models.Model):
     name = fields.Char()
     octopart_uid = fields.Char()
     homepage_url = fields.Char()
-    part_in_openprod = fields.Integer(compute='_compute_part_in_openprod')
     is_verified = fields.Boolean(string=" Is verified", default=False, help="True if a manufacturer participates in Octopart's Verified Manufacturer program.")
     is_distributorapi = fields.Boolean(string="Is distributor", default=False, help="rue if a distributor has an API integration with Octopart to provide latest pricing and stock data.")
+    part_in_openprod = fields.Integer(compute='_compute_part_in_openprod')
     
     
     @api.one

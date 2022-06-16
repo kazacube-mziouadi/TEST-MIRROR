@@ -1635,13 +1635,13 @@ msgstr "Vous devez avoir une clé Octopart pour utiliser cette action."
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_add_octopart_price
-msgid "add.octopart.price"
-msgstr "add.octopart.price"
+msgid "octopart.price.add"
+msgstr "octopart.price.add"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_add_octopart_seller_id
-msgid "add.octopart.seller.id"
-msgstr "add.octopart.seller.id"
+msgid "octopart.seller.add"
+msgstr "octopart.seller.add"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_characteristic
@@ -1650,8 +1650,8 @@ msgstr "caractéristique"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_advanced_search
-msgid "connector.advanced.search"
-msgstr "connector.advanced.search"
+msgid "octopart.advanced.search"
+msgstr "octopart.advanced.search"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard
@@ -1660,33 +1660,33 @@ msgstr "connector.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard_template
-msgid "connector.import.wizard.template"
-msgstr "connector.import.wizard.template"
+msgid "octopart.import.wizard.template"
+msgstr "octopart.import.wizard.template"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_seller
-msgid "connector.seller"
-msgstr "connector.seller"
+msgid "octopart.seller"
+msgstr "octopart.seller"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_import_category_wizard
-msgid "import.category.wizard"
-msgstr "import.category.wizard"
+msgid "octopart.category.import.wizard"
+msgstr "octopart.category.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_import_characteristics_wizard
-msgid "import.characteristics.wizard"
-msgstr "import.characteristics.wizard"
+msgid "octopart.characteristic.import.wizard"
+msgstr "octopart.characteristic.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_import_manufacturer_wizard
-msgid "import.manufacturer.wizard"
-msgstr "import.manufacturer.wizard"
+msgid "octopart.manufacturer.import.wizard"
+msgstr "octopart.manufacturer.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_import_seller_wizard
-msgid "import.seller.wizard"
-msgstr "import.seller.wizard"
+msgid "octopart.seller.import.wizard"
+msgstr "octopart.seller.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_manufacturer
@@ -1711,8 +1711,8 @@ msgstr "ou"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_price_offer
-msgid "price.offer"
-msgstr "price.offer"
+msgid "octopart.price.offer"
+msgstr "octopart.price.offer"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_is_distributorapi
@@ -1722,8 +1722,8 @@ msgstr "Vrai si un distributeur a une intégration API avec Octopart pour fourni
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_sellers_offers
-msgid "sellers.offers"
-msgstr "sellers.offers"
+msgid "octopart.seller.offer"
+msgstr "octopart.seller.offer"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_specs_search

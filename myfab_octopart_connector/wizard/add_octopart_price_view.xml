@@ -4,7 +4,7 @@
 
         <record model="ir.ui.view" id="view_form_add_octopart_price">
             <field name="name">view_form_add_octopart_price</field>
-            <field name="model">add.octopart.price</field>
+            <field name="model">octopart.price.add</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Add octopart price">
@@ -39,7 +39,7 @@
         <record model="ir.actions.act_window" id="action_add_octopart_price">
             <field name="name">Add octopart price</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">add.octopart.price</field>
+            <field name="res_model">octopart.price.add</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

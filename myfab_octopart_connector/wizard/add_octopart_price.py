@@ -8,14 +8,14 @@ import json
 import urllib
 import urllib2
 
-class add_octopart_price(models.TransientModel):
-    _name = 'add.octopart.price'
+class octopart_price_add(models.TransientModel):
+    _name = 'octopart.price.add'
     
     #===========================================================================
     # COLUMNS
     #===========================================================================
     part_uid_octopart = fields.Char(string="Part Octopart id", required=True)
-    list_seller_offers_ids = fields.One2many('sellers.offers', 'add_price_id', string='Offers')
+    list_seller_offers_ids = fields.One2many('octopart.seller.offer', 'add_price_id', string='Offers')
     company_id = fields.Many2one('res.company', string='Company', required=True, ondelete='restrict', default=lambda self: self.env.user.company_id)
     uop_id = fields.Many2one('product.uom', string='UoP',required=True, ondelete='restrict', help='Unit of Purchase')
     uoi_id = fields.Many2one('product.uom', string='UoI',required=True, ondelete='restrict', help='Unit of Invoice')
@@ -29,7 +29,7 @@ class add_octopart_price(models.TransientModel):
         }
 
     def _request_price(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             sellers_res = search_result['data']['parts'][0]['sellers']
             for seller in sellers_res: 
@@ -44,7 +44,7 @@ class add_octopart_price(models.TransientModel):
         if len(search_value) > 0:
             company_value = current_seller['company']                 
             for offer in current_seller['offers']:
-                add_seller_offer  = self.env['sellers.offers'].create({
+                add_seller_offer  = self.env['octopart.seller.offer'].create({
                     'name' :company_value['name'], 
                     'seller_identifier' : company_value['id'], 
                     'sku' : offer['sku'],
@@ -52,7 +52,7 @@ class add_octopart_price(models.TransientModel):
                 })
                 for price in offer['prices']:
                     # Create price offer in wizard
-                    add_price_offer  = self.env['price.offer'].create({
+                    add_price_offer  = self.env['octopart.price.offer'].create({
                         'offer_id' : add_seller_offer.id,
                         'currency' : price['currency'],
                         'price' : price['price'],

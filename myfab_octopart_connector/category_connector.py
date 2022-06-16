@@ -6,7 +6,7 @@ import json
 import urllib
 import urllib2
 
-class connector_category(models.Model):
+class octopart_category(models.Model):
     _name = 'octopart.category'
 
     _description = 'Category from Octopart'
@@ -59,7 +59,7 @@ class connector_category(models.Model):
 
     @api.multi
     def get_characteristics(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             attributes = search_result['data']['categories'][0]['relevant_attributes']        
             for attribute in attributes:
@@ -94,7 +94,7 @@ class connector_category(models.Model):
         if self.id not in active_spec_rc.octopart_category_ids.ids:
             active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
                 
-        return True
+        return active_spec_rc
 
 
 #méthode envoie et récupération de donnée serveur

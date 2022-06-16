@@ -5,7 +5,7 @@
 		<!-- FORM VIEW Import product -->
 		<record id='view_form_connector_product' model='ir.ui.view'>
 			<field name="name">view_form_connector_product</field>
-			<field name="model">connector.product</field>
+			<field name="model">octopart.product</field>
 			<field name="arch" type="xml">
 				<form string="Search product" version="8.0">
                     <group colspan="4" col="9" name="group_all">
@@ -72,7 +72,7 @@
 		<!-- TREE VIEW Connector product -->
         <record id='view_tree_connector_product' model='ir.ui.view'>
             <field name="name">view_tree_connector_product</field>
-            <field name="model">connector.product</field>
+            <field name="model">octopart.product</field>
             <field name="arch" type="xml">
                 <tree string="Connector product">
                     <field name="name" />
@@ -85,7 +85,7 @@
 		<record model="ir.actions.act_window"
 			id="action_see_import_product">
 			<field name="name">Search product</field>
-			<field name="res_model">connector.product</field>
+			<field name="res_model">octopart.product</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
@@ -144,7 +144,7 @@
         </record>
         
          <act_window name="Import manufacturer"
-            res_model="import.manufacturer.wizard" 
+            res_model="octopart.manufacturer.import.wizard" 
             src_model="octopart.manufacturer" 
             view_mode="form" 
             target="new" 
@@ -159,7 +159,7 @@
         <!-- FORM VIEW Octopart result -->
         <record id='view_form_octopart_result' model='ir.ui.view'>
             <field name="name">view_form_octopart_result</field>
-            <field name="model">connector.result</field>
+            <field name="model">octopart.search.result</field>
             <field name="arch" type="xml">
                 <form string="Octopart options" version="8.0">
                     <group colspan="4" col="9" name="group_all">
@@ -184,7 +184,7 @@
         <!-- FORM VIEW Octopart sellers -->
         <record id='view_form_octopart_seller' model='ir.ui.view'>
             <field name="name">view_form_octopart_seller</field>
-            <field name="model">connector.seller</field>
+            <field name="model">octopart.seller</field>
             <field name="arch" type="xml">
                 <form string="Octopart seller" version="8.0">
                     <group colspan="4" col="4" name="group_all"> 
@@ -208,7 +208,7 @@
         <!-- TREE VIEW Octopart sellers -->
         <record id='view_tree_octopart_seller' model='ir.ui.view'>
             <field name="name">view_tree_octopart_seller</field>
-            <field name="model">connector.seller</field>
+            <field name="model">octopart.seller</field>
             <field name="arch" type="xml">
                 <tree string="Sellers Octopart">
                     <field name="name" />
@@ -222,15 +222,15 @@
         <record model="ir.actions.act_window"
             id="action_see_octopart_seller">
             <field name="name">Octopart seller</field>
-            <field name="res_model">connector.seller</field>
+            <field name="res_model">octopart.seller</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'create':False, 'copy': False, 'delete': True, 'edit':True}</field>
         </record>
         
          <act_window name="Import seller" 
-                    res_model="import.seller.wizard" 
-                    src_model="connector.seller" 
+                    res_model="octopart.seller.import.wizard" 
+                    src_model="octopart.seller" 
                     view_mode="form" 
                     target="new" 
                     key2="client_action_multi" 
@@ -245,7 +245,7 @@
                 <!-- FORM VIEW Octopart sellers -->
         <record id='view_form_specs_search' model='ir.ui.view'>
             <field name="name">view_form_specs_search</field>
-            <field name="model">specs.search</field>
+            <field name="model">octopart.specs.search</field>
             <field name="arch" type="xml">
                 <form string="specs_search" version="8.0">
                     <group colspan="4" col="4" name="group_all" string="Detail">
@@ -262,7 +262,7 @@
         <record model="ir.actions.act_window"
             id="action_see_specs_search">
             <field name="name">Specs Search</field>
-            <field name="res_model">specs.search</field>
+            <field name="res_model">octopart.specs.search</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="context">{'create':False, 'copy': False, 'delete': False, 'edit':False}</field>

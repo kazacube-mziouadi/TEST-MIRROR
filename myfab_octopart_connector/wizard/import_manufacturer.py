@@ -9,8 +9,8 @@ import urllib
 import urllib2
 import base64
 
-class import_manufacturer_wizard(models.TransientModel):
-    _name = 'import.manufacturer.wizard'
+class octopart_manufacturer_import_wizard(models.TransientModel):
+    _name = 'octopart.manufacturer.import.wizard'
 
     #===========================================================================
     # COLUMNS
@@ -19,7 +19,7 @@ class import_manufacturer_wizard(models.TransientModel):
         
     @api.multi
     def import_manufacturers(self):
-        search_result = self.env['octopart.api'].get_data(self._set_data())
+        search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result:
             manufacturers_res = search_result['data']['manufacturers']
             for manufacturer in manufacturers_res: 
