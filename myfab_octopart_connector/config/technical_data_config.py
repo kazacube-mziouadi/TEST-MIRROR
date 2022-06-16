@@ -17,6 +17,10 @@ class technical_data_config_settings(models.Model):
 
     @api.onchange('octopart_api_key')
     def _onchange_load_static_data(self):
+        self.import_all_data()
+
+    @api.one
+    def import_all_data(self):
         if self.env['octopart.api'].check_api_key():
             self.env['import.manufacturer.wizard'].import_manufacturers()
             self.env['import.seller.wizard'].import_sellers()

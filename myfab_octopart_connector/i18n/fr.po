@@ -102,7 +102,7 @@ msgid "Add seller id"
 msgstr "Ajouter vendeur"
 
 #. module: myfab_octopart_connector
-#: model:res.groups,name:myfab_octopart_connector.import_product_connector_security_responsible
+#: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_responsible
 msgid "Administrator"
 msgstr "Administrateur"
 
@@ -423,7 +423,7 @@ msgid "Filter name"
 msgstr "Nom du filtre"
 
 #. module: myfab_octopart_connector
-#: model:res.groups,name:myfab_octopart_connector.import_product_connector_security_fonctionnal
+#: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_fonctionnal
 msgid "Fonctionnal"
 msgstr "Fonctionnel"
 
@@ -529,7 +529,7 @@ msgid "Import product"
 msgstr "Importer produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.module.category,name:myfab_octopart_connector.module_import_product_connector_security
+#: model:ir.module.category,name:myfab_octopart_connector.module_myfab_octopart_connector_security
 msgid "Import product connector security"
 msgstr "Importer la sécurité des connecteurs de produits"
 
@@ -574,7 +574,7 @@ msgid "Import wizard template id"
 msgstr "Id wizard avec template d'import"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.menu,name:myfab_octopart_connector.menu_import_product_connector
+#: model:ir.ui.menu,name:myfab_octopart_connector.menu_myfab_octopart_connector
 msgid "Importer un produit"
 msgstr "Importer un produit"
 
@@ -686,7 +686,7 @@ msgid "Lot"
 msgstr "Lot"
 
 #. module: myfab_octopart_connector
-#: model:res.groups,name:myfab_octopart_connector.import_product_connector_security_manager
+#: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_manager
 msgid "Manager"
 msgstr "Manager"
 
@@ -1572,7 +1572,7 @@ msgid "Use value"
 msgstr "Utiliser la valeur"
 
 #. module: myfab_octopart_connector
-#: model:res.groups,name:myfab_octopart_connector.import_product_connector_security_user
+#: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_user
 msgid "User"
 msgstr "Utilisateur"
 

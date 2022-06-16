@@ -12,6 +12,14 @@
                     <field name="name"/>
                     <field name="octopart_api_key"/>
                 </xpath>
+
+                <xpath expr="//group[last()]" position="after">
+                    <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
+                        <separator string="Actions" colspan="1" name="separator_action_menu" />
+                        <button name="import_all_data" string="Import Octopart datas"
+                            type="object" class="oe_inline oe_stat_button" icon="fa-search" />
+                    </group>
+                </xpath>
             </field>
         </record>
     </data>
