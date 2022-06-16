@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+    
+        <!-- Groupe -->
+        <record model="ir.module.category" id="module_import_product_connector_security">
+            <field name="name">Import product connector security</field>
+            <field name="sequence">15</field>
+        </record>    
+    
+        <record model="res.groups" id="import_product_connector_security_user">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_import_product_connector_security"/>
+        </record>
+        
+        <record model="res.groups" id="import_product_connector_security_fonctionnal">
+            <field name="name">Fonctionnal</field>
+            <field name="category_id" ref="module_import_product_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('import_product_connector_security_user'))]"/>
+        </record>
+        
+        <record model="res.groups" id="import_product_connector_security_manager">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_import_product_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('import_product_connector_security_fonctionnal'))]"/>
+        </record>
+        
+        <record model="res.groups" id="import_product_connector_security_responsible">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_import_product_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('import_product_connector_security_manager'))]"/>
+        </record>
+    
+     </data>
+</openerp>

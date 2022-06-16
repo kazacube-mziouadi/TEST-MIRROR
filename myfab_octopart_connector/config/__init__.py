@@ -1,0 +1,1 @@
+import technical_data_config

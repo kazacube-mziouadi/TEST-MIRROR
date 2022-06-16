@@ -1,0 +1,1736 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * import_product_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-25 15:16+0000\n"
+"PO-Revision-Date: 2021-02-25 15:16+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_is_verified
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_is_verified
+msgid " Is verified"
+msgstr " Est vérifier"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "10 derniers achats"
+msgstr "10 derniers achats"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,trigger_supply:0
+msgid "A la demande"
+msgstr "A la demande"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,trigger_supply:0
+msgid "A la demande en tenant compte du stock"
+msgstr "A la demande en tenant compte du stock"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,supply_method:0
+msgid "Acheter"
+msgstr "Acheter"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_categorie
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Actions"
+msgstr "Actions"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_active_connector_id
+msgid "Active connector id"
+msgstr "Id connecteur active"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+msgid "Add Filter"
+msgstr "Ajouter filtre"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_add_characteristics_type_id
+msgid "Add characteristics type id"
+msgstr "Ajout de l'id de type de caractéristique"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Add id supplyer"
+msgstr "Ajouter id fournisseur octopart"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_add_octopart_seller_id
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_add_octopart_id
+msgid "Add octopart id"
+msgstr "Ajouter id Octopart"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Add octopart id to supplyer"
+msgstr "Ajouter Octopart id au fournisseur"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_add_octopart_price
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_product_form_octopart
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+msgid "Add octopart price"
+msgstr "Ajouter prix Octopart"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+msgid "Add offer"
+msgstr "Ajouter offre"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_add_price_id
+msgid "Add price id"
+msgstr "Ajouter prix"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Add seller id"
+msgstr "Ajouter vendeur"
+
+#. module: import_product_connector
+#: model:res.groups,name:import_product_connector.import_product_connector_security_responsible
+msgid "Administrator"
+msgstr "Administrateur"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_create_advanced_search_filter
+msgid "Advanced filter"
+msgstr "Filtre avancé"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_ancestor_uids
+msgid "Ancestor uids"
+msgstr "Identifiant octopart des ancêtres"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_product_product_api_key
+msgid "Api key"
+msgstr "Clé api"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_apiKey
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_apiKey
+msgid "Apikey"
+msgstr "Clé d'api"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Associate"
+msgstr "Associer"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_result
+msgid "Attribute"
+msgstr "Attribut"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,trigger_supply:0
+msgid "Aucun"
+msgstr "Aucun"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_brand_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_brand_name
+msgid "Brand name"
+msgstr "Marque"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_category_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_characteristics_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_manufacturer_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_seller_wizard
+msgid "Cancel"
+msgstr "Annulé"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_categorie
+msgid "Categorie Octopart"
+msgstr "Catégorie Octopart"
+
+#. module: import_product_connector
+#: model:ir.ui.menu,name:import_product_connector.menu_category_connector
+msgid "Categories Octopart"
+msgstr "Catégories Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_categ_id
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_category_id
+#: model:ir.ui.view,arch_db:import_product_connector.view_tree_product
+msgid "Category Octopart"
+msgstr "Catégorie Octopart"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_octopart_category
+msgid "Category from Octopart"
+msgstr "Catégorie Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_category_id
+msgid "Category id"
+msgstr "Catégorie"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_characteristic_value
+msgid "Characteristic value"
+msgstr "Valeur de la caractéristique"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Clear part list"
+msgstr "Vider la liste des composants"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_code_product
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_code_product
+msgid "Code product"
+msgstr "Code produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_company_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_company_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_company_id
+msgid "Company"
+msgstr "Compagnie"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_complete_path
+msgid "Complete path"
+msgstr "Chemin complet"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_num_parts
+msgid "Component number"
+msgstr "Nombre de composants"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_connector_id
+msgid "Connector id"
+msgstr "Id du connecteur"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_name
+msgid "Connector name"
+msgstr "Nom connecteur"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_tree_connector_product
+msgid "Connector product"
+msgstr "Connecteur produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_count_response
+msgid "Count response"
+msgstr "Nombre de réponse"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_create_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_create_uid
+msgid "Created by"
+msgstr "Crée par"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_create_date
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_currency
+msgid "Currency"
+msgstr "Monnai"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_datasheet
+msgid "Datasheet"
+msgstr "Fiche technique"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "Dernier achat"
+msgstr "Dernier achat"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_description
+#: model:ir.model.fields,field_description:import_product_connector.field_product_product_description
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_result
+msgid "Description"
+msgstr "Description"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_categorie
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_specs_search
+msgid "Detail"
+msgstr "Détail"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_manufacturer
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_seller
+msgid "Details"
+msgstr "Détails"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_directory_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_directory_id
+msgid "Directory"
+msgstr "Répertoire"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_display_name
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_display_flag
+msgid "Display flag"
+msgstr "Nom affiché"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+msgid "Do you want to add this price ?"
+msgstr "Voulez vous ajouter ce prix ?"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Do you want to associate this octopart uid to the partner as supplyer?"
+msgstr "Voulez vous associé l'id octopart au partenaire en tant que fournisseur ?"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_partner_form_octopart
+msgid "Do you want to set octopart manufacturer id to '0' ?"
+msgstr "Voulez vous réinitialiser l'id du constructeur d'octopart à '0' ?"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_partner_form_octopart
+msgid "Do you want to set octopart seller id to '0' ?"
+msgstr "Voulez vous réinitialiser l'id du vendeur d'octopart à '0' ?"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_trigger_supply
+msgid "Déclencheur d'approvisionnement"
+msgstr "Déclencheur d'approvisionnement"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_eligible_region
+msgid "Eligible region"
+msgstr "Région éligible"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_property_account_expense_id
+msgid "Expense Account"
+msgstr "Compte de charges"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_explaination
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_explaination
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_explaination
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_explaination
+msgid "Explaination"
+msgstr "Description de l'action"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+msgid "Filter"
+msgstr "Filtre"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_name
+msgid "Filter name"
+msgstr "Nom du filtre"
+
+#. module: import_product_connector
+#: model:res.groups,name:import_product_connector.import_product_connector_security_fonctionnal
+msgid "Fonctionnal"
+msgstr "Fonctionnel"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_complete_path
+msgid "Full path"
+msgstr "Chemin complet"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_has_ecommerce
+msgid "Has ecommerce"
+msgstr "Ecommerce possible"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_homepage_url
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_homepage_url
+msgid "Homepage url"
+msgstr "Url site web"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_id
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_id
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_id
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_id
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_id
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_id
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_id
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_id
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_id
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_id
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_id
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_id
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_id
+msgid "ID"
+msgstr "ID"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_image
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_image
+msgid "Image"
+msgstr "Image"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_category_wizard
+msgid "Import categories"
+msgstr "Importer catégories"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.act_import_category
+#: model:ir.actions.act_window,name:import_product_connector.action_see_category_connector
+msgid "Import category"
+msgstr "Importer catégories"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_category_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_characteristics_wizard
+msgid "Import category wizard"
+msgstr "Wizard d'import de catégories"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.act_import_characteristics
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_characteristics_wizard
+msgid "Import characteristics"
+msgstr "Importer caractéristiques"
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/import_characteristics.py:19
+#, python-format
+msgid "Import characteristics of all select octopart category"
+msgstr "Importation de caractéristiques de toutes les catégories d’octoparties sélectionnées"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+msgid "Import details"
+msgstr "Importer les détails"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.act_import_manufacturer
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_manufacturer_wizard
+msgid "Import manufacturer"
+msgstr "Importer farbriquant"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_manufacturer_wizard
+msgid "Import manufacturer wizard"
+msgstr "Wizard d'import de fabriquant"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Import part with template"
+msgstr "Importer composant avec template"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+msgid "Import product"
+msgstr "Importer produit"
+
+#. module: import_product_connector
+#: model:ir.module.category,name:import_product_connector.module_import_product_connector_security
+msgid "Import product connector security"
+msgstr "Importer la sécurité des connecteurs de produits"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_create_import_wizard
+#: model:ir.actions.act_window,name:import_product_connector.action_create_import_wizard_template
+msgid "Import product options"
+msgstr "Option d'import de produit"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.act_import_seller
+msgid "Import seller"
+msgstr "Importer Vendeur"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_seller_wizard
+msgid "Import seller wizard"
+msgstr "Wizard d'importation de vendeur"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_seller_wizard
+msgid "Import sellers"
+msgstr "Importer vendeurs"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_category_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_manufacturer_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_seller_wizard
+msgid "Import wizard"
+msgstr "Wizard d'import"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_import_wizard_id
+msgid "Import wizard id"
+msgstr "Id wizard d'import"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_import_wizard_template_id
+msgid "Import wizard template id"
+msgstr "Id wizard avec template d'import"
+
+#. module: import_product_connector
+#: model:ir.ui.menu,name:import_product_connector.menu_import_product_connector
+msgid "Importer un produit"
+msgstr "Importer un produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_is_distributorapi
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_is_distributorapi
+msgid "Is distributor"
+msgstr "Est distributeur"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_is_in_openprod
+msgid "Is in openprod"
+msgstr "Est dans openprod"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_is_numerical_value
+msgid "Is numerical value"
+msgstr "Est une valeur numérique"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search___last_update
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_write_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_category_wizard_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_characteristics_wizard_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_manufacturer_wizard_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_import_seller_wizard_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_write_date
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_list_price_ids
+msgid "List of prices"
+msgstr "Liste de prix"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_specs_value_search
+msgid "List of value associated to a spec for the wizard"
+msgstr "Liste de valeur de la caractéristique
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "Liste de prix fournisseur"
+msgstr "Liste de prix fournisseur"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "Liste de prix fournisseur avec EOQ"
+msgstr "Liste de prix fournisseur avec EOQ"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,inventory_valuation:0
+msgid "Lot"
+msgstr "Lot"
+
+#. module: import_product_connector
+#: model:res.groups,name:import_product_connector.import_product_connector_security_manager
+msgid "Manager"
+msgstr "Manager"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "Manuel"
+msgstr "Manuel"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_manufacturer_name
+#: model:ir.model.fields,field_description:import_product_connector.field_product_product_manufacturer_id
+#: model:ir.ui.menu,name:import_product_connector.menu_octopart_manufacturer
+msgid "Manufacturer"
+msgstr "Fabriquant"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_tree_octopart_manufacturer
+msgid "Manufacturer Octopart"
+msgstr "Fabriquant Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
+msgid "Manufacturer Octopart id"
+msgstr "Id Octopart du fabriquant"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_manufacturer_code
+#: model:ir.model.fields,field_description:import_product_connector.field_product_product_manufacturer_code
+msgid "Manufacturer code"
+msgstr "Code fabriquant"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_manufacturer_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_manufacturer_name
+msgid "Manufacturer name"
+msgstr "Nom fabriquant"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_manufacturer_uid_octopart
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
+msgid "Manufacturer uid octopart"
+msgstr "id Octopart du fabriquant"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_manufacturer_url
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_manufacturer_url
+msgid "Manufacturer url"
+msgstr "Url fabriquant"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_spec_max_value
+msgid "Max value"
+msgstr "Valeur maximum"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_max_value
+msgid "Maximum value"
+msgstr "Valeur Maximum"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_spec_max_value
+msgid "Maximum value choose"
+msgstr "Valeur Maximum choisie"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_spec_min_value
+msgid "Min value"
+msgstr "Valeur minimum"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_number_item
+msgid "Minimum order quantity"
+msgstr "Nombre d'item minimum"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_min_value
+msgid "Minimum value"
+msgstr "Valeur Minimum"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_spec_min_value
+msgid "Minimum value choose"
+msgstr "Valeur Minimum choisie"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_mnp
+msgid "Mnp"
+msgstr "Mnp"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "More result"
+msgstr "Plus de résultats"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_cost_method
+msgid "Méthode de coût"
+msgstr "Méthode de coût"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_supply_method
+msgid "Méthode de fourniture par défaut "
+msgstr "Méthode de fourniture par défaut "
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_name
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_name
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_name
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_name
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_name
+#: model:ir.model.fields,field_description:import_product_connector.field_technical_data_config_settings_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price___last_update
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_company_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_create_date
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_display_name
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_list_seller_offers_ids
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_part_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_product_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_write_date
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id___last_update
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_create_date
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_display_name
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_list_sellers_ids
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_partner_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_seller_id
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_write_date
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_seller_id_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_result_id
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_type_octopart_category_ids
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_type_octopart_key
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_type_unit_octopart
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_unit_octopart
+#: model:ir.model.fields,help:import_product_connector.field_characteristic_value_octopart_category_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_active_connector_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_add_characteristics_type_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_category_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_is_numerical_value
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_list_possible_values_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_spec_max_value
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_spec_min_value
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_categ_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_code_product
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_company_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_cost_method
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_datasheet
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_directory_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_image
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_inventory_valuation
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_list_seller_offers_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_manufacturer_code
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_manufacturer_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_manufacturer_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_manufacturer_url
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_part_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_product_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_property_account_expense_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_supply_method
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_code_product
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_company_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_datasheet
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_directory_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_image
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_list_seller_offers_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_manufacturer_code
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_manufacturer_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_manufacturer_url
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_part_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_product_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_product_template_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_trigger_supply
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_type_valuation_purchase
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_uom_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_product___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_brand_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_category_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_count_response
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_description
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_list_result_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_list_specs_search_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_manufacturer_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_result_number
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_sample
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_seller_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_product_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_result___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_brand_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_is_in_openprod
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_mnp
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_octopart_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_octopart_url
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_search_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_short_description
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_value_ids
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_result_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller___last_update
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_create_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_display_flag
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_display_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_has_ecommerce
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_homepage_url
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_name
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_octopart_uid
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_write_date
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard___last_update
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_create_date
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_display_name
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_explaination
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_write_date
+#: model:ir.model.fields,help:import_product_connector.field_import_category_wizard_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard___last_update
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_create_date
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_display_name
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_explaination
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_write_date
+#: model:ir.model.fields,help:import_product_connector.field_import_characteristics_wizard_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard___last_update
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_create_date
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_display_name
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_explaination
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_write_date
+#: model:ir.model.fields,help:import_product_connector.field_import_manufacturer_wizard_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard___last_update
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_create_date
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_display_name
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_explaination
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_write_date
+#: model:ir.model.fields,help:import_product_connector.field_import_seller_wizard_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category___last_update
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_ancestor_uids
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_apiKey
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_characteristics_type_ids
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_characteristics_value_ids
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_complete_path
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_create_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_display_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_id
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_num_parts
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_parent_id
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_parent_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_sample_size
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_write_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_category_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer___last_update
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_create_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_display_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_homepage_url
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_id
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_octopart_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_part_in_openprod
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_write_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id___last_update
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_add_octopart_id
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_create_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_display_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_id
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_name
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_uid_octopart
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_write_date
+#: model:ir.model.fields,help:import_product_connector.field_octopart_seller_add_id_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_price_offer___last_update
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_create_date
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_currency
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_display_name
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_id
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_number_item
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_offer_id
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_price
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_write_date
+#: model:ir.model.fields,help:import_product_connector.field_price_offer_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_product_product_api_key
+#: model:ir.model.fields,help:import_product_connector.field_product_product_description
+#: model:ir.model.fields,help:import_product_connector.field_product_product_manufacturer_code
+#: model:ir.model.fields,help:import_product_connector.field_product_product_manufacturer_id
+#: model:ir.model.fields,help:import_product_connector.field_product_product_octopart_uid_product
+#: model:ir.model.fields,help:import_product_connector.field_res_partner_octopart_uid_manufacturer
+#: model:ir.model.fields,help:import_product_connector.field_res_partner_octopart_uid_seller
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers___last_update
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_add_price_id
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_create_date
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_display_name
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_eligible_region
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_id
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_import_wizard_id
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_import_wizard_template_id
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_list_price_ids
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_name
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_octopart_currency
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_oder_delay
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_seller_identifier
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_sku
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_write_date
+#: model:ir.model.fields,help:import_product_connector.field_sellers_offers_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_specs_search___last_update
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_create_date
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_display_name
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_id
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_metedata_key
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_name
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_search_connector_id
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_spec_max_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_spec_min_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_spec_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_string_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_write_date
+#: model:ir.model.fields,help:import_product_connector.field_specs_search_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search___last_update
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_connector_id
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_create_date
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_create_uid
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_display_name
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_id
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_name
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_search_id
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_spec_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_string_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_unit_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_use_value
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_write_date
+#: model:ir.model.fields,help:import_product_connector.field_specs_value_search_write_uid
+#: model:ir.model.fields,help:import_product_connector.field_technical_data_config_settings_name
+#: model:ir.model.fields,help:import_product_connector.field_technical_data_config_settings_octopart_api_key
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_parent_uid
+msgid "Ocotpart Parent id"
+msgstr "Id Octopart du parent"
+
+#. module: import_product_connector
+#: model:ir.ui.menu,name:import_product_connector.menu_octopart_conf
+msgid "Octopart"
+msgstr "Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_metedata_key
+msgid "Octopart Key"
+msgstr "Clé Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_technical_data_config_settings_octopart_api_key
+msgid "Octopart api key"
+msgstr "Clé d'api Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_type_octopart_category_ids
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_value_octopart_category_ids
+msgid "Octopart category"
+msgstr "Catégorie octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_seller_add_id_uid_octopart
+msgid "Octopart id"
+msgstr "Id Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_type_octopart_key
+msgid "Octopart key"
+msgstr "Clé Octopart"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_see_octopart_manufacturer
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_manufacturer
+msgid "Octopart manufacturer"
+msgstr "Fabriquant Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_res_partner_octopart_uid_manufacturer
+msgid "Octopart manufacturer id"
+msgstr "Id fabriquant Octopart"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_result
+msgid "Octopart options"
+msgstr "Option Octopart"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_see_octopart_seller
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_octopart_seller
+msgid "Octopart seller"
+msgstr "Vendeur Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_res_partner_octopart_uid_seller
+msgid "Octopart seller id"
+msgstr "Vendeur Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_list_sellers_ids
+msgid "Octopart sellers list"
+msgstr "Liste vendeurs Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_octopart_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_seller_octopart_uid
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_octopart_uid
+msgid "Octopart uid"
+msgstr "id Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_product_product_octopart_uid_product
+msgid "Octopart uid product"
+msgstr "id produit Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_octopart_url
+msgid "Octopart url"
+msgstr "Url Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_oder_delay
+msgid "Oder delay"
+msgstr "Délai de livraison"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_offer_id
+msgid "Offer id"
+msgstr "Offres"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_list_seller_offers_ids
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_list_seller_offers_ids
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_list_seller_offers_ids
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+msgid "Offers"
+msgstr "Offres"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Open sellers offers"
+msgstr "Ouvrir les offres vendeurs"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_oder_delay
+msgid "Order delay"
+msgstr "Délai de livraison"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_parent_id
+msgid "Parent"
+msgstr "Parent"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_part_uid_octopart
+msgid "Part Octopart id"
+msgstr "Part Octopart id"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_manufacturer_part_in_openprod
+msgid "Part in openprod"
+msgstr "Composant dans openprod"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_part_uid_octopart
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_part_uid_octopart
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_part_uid_octopart
+msgid "Part uid octopart"
+msgstr "Composant Octopart"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_res_partner
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_advanced_search_list_possible_values_ids
+msgid "Possible values"
+msgstr "Valeurs possibles"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_price_offer_price
+msgid "Price"
+msgstr "Prix"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,inventory_valuation:0
+msgid "Prix moyen pondéré"
+msgstr "Prix moyen pondéré"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_product_product
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_product_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_product_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_product_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_product_id
+msgid "Product id"
+msgstr "Produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_product_template_id
+msgid "Product template"
+msgstr "Template produit"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,supply_method:0
+msgid "Produire"
+msgstr "Produire"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_partner_form_octopart
+msgid "Reset octopart manufacturer id"
+msgstr "Réinitialiser id fabriquant Octopart"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_partner_form_octopart
+msgid "Reset octopart seller id"
+msgstr "Réinitialiser id vendeur Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_list_result_ids
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Result"
+msgstr "Résultat"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_result
+msgid "Result from search product"
+msgstr "Résultat de la recherche de produit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_result_number
+msgid "Result number"
+msgstr "Nombre de résultat"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_result_id
+msgid "Result search"
+msgstr "Résultat de la recherche"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Results"
+msgstr "Résultats"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,type_valuation_purchase:0
+msgid "Réel"
+msgstr "Réel"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_sample_size
+msgid "Sample size"
+msgstr "Taille de l'échantillon"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_sample
+msgid "Sample"
+msgstr "Échantillon"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_search_connector_id
+msgid "Search connector id"
+msgstr "Recherche id connecteur"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_list_specs_search_ids
+msgid "Search filters"
+msgstr "Filtre de recherche"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_search_id
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_search_id
+msgid "Search id"
+msgstr "Id recherche"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Search parts"
+msgstr "Recherche de composant"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_see_import_product
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Search product"
+msgstr "Recherche de produit"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_product
+msgid "Search product connector"
+msgstr "Connecteur de recherche de produit"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Search seller"
+msgstr "Recherche de vendeur"
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/import_category.py:18
+#, python-format
+msgid "Select import categories to import all available categories from Octopart to Openprod."
+msgstr "Importe toutes les catégories Octopart."
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/import_manufacturer.py:18
+#, python-format
+msgid "Select import manufacturer to import all available manufacturer from Octopart to Openprod."
+msgstr "Importe tous les fabriquant d'Octopart."
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/import_seller.py:18
+#, python-format
+msgid "Select import sellers to import all available sellers from Octopart to Openprod."
+msgstr "Importe tous les vendeur d'Octopart."
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_seller_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_product_seller_name
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_seller_identifier
+msgid "Seller"
+msgstr "Vendeur"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_seller_identifier
+msgid "Seller identifier"
+msgstr "Identifiant vendeur"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+msgid "Seller infomation"
+msgstr "Information vendeur."
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_seller_id_seller_name
+msgid "Seller name"
+msgstr "Nom vendeur"
+
+#. module: import_product_connector
+#: model:ir.ui.menu,name:import_product_connector.menu_octopart_seller
+msgid "Sellers"
+msgstr "Vendeurs"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_tree_octopart_seller
+msgid "Sellers Octopart"
+msgstr "Vendeur Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_short_description
+msgid "Short description"
+msgstr "Description"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+msgid "Show offer"
+msgstr "Afficher offres"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+msgid "Show possible value for the spec"
+msgstr "Afficher valeurs possibles pour la spec"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_sellers_offers_sku
+msgid "Sku"
+msgstr "Sku"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_characteristics_type_ids
+msgid "Spec type"
+msgstr "Type charactéristique"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_octopart_category_characteristics_value_ids
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_spec_value
+msgid "Spec value"
+msgstr "Valeur de la caratéristique"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_categorie
+msgid "Specification"
+msgstr "Specification"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_product
+msgid "Specifications"
+msgstr "Spécifications"
+
+#. module: import_product_connector
+#: model:ir.actions.act_window,name:import_product_connector.action_see_specs_search
+msgid "Specs Search"
+msgstr "recherche charatéristique"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_specs_search
+msgid "Specs from Octopart"
+msgstr "Caratéristique d'Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_string_value
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_string_value
+msgid "String value"
+msgstr "String value"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_price
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+msgid "Supplier reference informations"
+msgstr "Information de référencement fournisseur"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,trigger_supply:0
+msgid "Sur planificateur"
+msgstr "Sur planificateur"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,type_valuation_purchase:0
+msgid "Théorique"
+msgstr "Théorique"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_spec_max_value
+msgid "The maximum value chosen for this attribute."
+msgstr "La valeur maximale choisie pour cet attribut."
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_max_value
+msgid "The maximum value of this attribute"
+msgstr "La valeur maximale de cet attribut"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_spec_min_value
+msgid "The minimum value chosen for this attribute."
+msgstr "La valeur minimum choisie pour cet attribut."
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_advanced_search_min_value
+msgid "The minimum value of this attribute"
+msgstr "La valeur minimum de cet attribut"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_is_verified
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_is_verified
+msgid "True if a manufacturer participates in Octopart's Verified Manufacturer program."
+msgstr "Vrai si un fabricant participe au programme de vérification d’Octopart."
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_characteristic_type
+msgid "Type of characteristic"
+msgstr "Type de caractéristique"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_unit_value
+msgid "Unit"
+msgstr "Unit"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_type_unit_octopart
+#: model:ir.model.fields,field_description:import_product_connector.field_characteristic_unit_octopart
+msgid "Unit octopart"
+msgstr "Unité octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_uoi_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_uoi_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_uoi_id
+msgid "Unit of Invoice"
+msgstr "Unité de facturation"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_add_octopart_price_uop_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_template_uop_id
+#: model:ir.model.fields,help:import_product_connector.field_connector_import_wizard_uop_id
+msgid "Unit of Purchase"
+msgstr "Unité d'achat"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_uom_id
+msgid "Unit of measure"
+msgstr Unité de mesure
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_unit_value
+msgid "Unit value"
+msgstr Unité de valeur
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_uoi_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_uoi_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_uoi_id
+msgid "UoI"
+msgstr "UdF"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_add_octopart_price_uop_id
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_template_uop_id
+msgid "UoP"
+msgstr "UdA"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.openprod_view_product_form_octopart
+msgid "Update octopart price"
+msgstr "Mettre à jour les prix Octopart"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_use_value
+msgid "Use value"
+msgstr "Utiliser la valeur"
+
+#. module: import_product_connector
+#: model:res.groups,name:import_product_connector.import_product_connector_security_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: import_product_connector
+#: selection:connector.import.wizard,cost_method:0
+msgid "Valorisation"
+msgstr "Valorisation"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_import_wizard_inventory_valuation
+msgid "Valorisation de l'inventaire"
+msgstr "Valorisation de l'inventaire"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_search_spec_value
+#: model:ir.model.fields,field_description:import_product_connector.field_specs_value_search_spec_value
+msgid "Value"
+msgstr "Valeur"
+
+#. module: import_product_connector
+#: model:ir.model.fields,field_description:import_product_connector.field_connector_result_value_ids
+msgid "Value ids"
+msgstr "Ids valeur"
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/advanced_search.py:33
+#: code:addons/import_product_connector/wizard/advanced_search.py:43
+#: code:addons/import_product_connector/wizard/advanced_search.py:109
+#, python-format
+msgid "Warning"
+msgstr "Attention"
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/category_connector.py:78
+#: code:addons/import_product_connector/import_product_connector.py:117
+#: code:addons/import_product_connector/import_product_connector.py:183
+#: code:addons/import_product_connector/wizard/advanced_search.py:104
+#: code:addons/import_product_connector/wizard/import_category.py:35
+#: code:addons/import_product_connector/wizard/import_characteristics.py:48
+#: code:addons/import_product_connector/wizard/import_manufacturer.py:34
+#: code:addons/import_product_connector/wizard/import_seller.py:33
+#: code:addons/import_product_connector/wizard/import_wizard.py:212
+#, python-format
+msgid "You do not have a key to connect to Octopart."
+msgstr "Vous n'avez pas de clé pour vous connecter a Octopart."
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/wizard/advanced_search.py:33
+#: code:addons/import_product_connector/wizard/advanced_search.py:43
+#, python-format
+msgid "You must first select a category in Octopart connector"
+msgstr "Vous devez d’abord sélectionner une catégorie dans le connecteur Octopart"
+
+#. module: import_product_connector
+#: code:addons/import_product_connector/product.py:29
+#: code:addons/import_product_connector/wizard/add_octopart_price.py:38
+#, python-format
+msgid "You must have an Octopart key to use this action."
+msgstr "Vous devez avoir une clé Octopart pour utiliser cette action."
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_add_octopart_price
+msgid "add.octopart.price"
+msgstr "add.octopart.price"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_add_octopart_seller_id
+msgid "add.octopart.seller.id"
+msgstr "add.octopart.seller.id"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_characteristic
+msgid "characteristic"
+msgstr "caractéristique"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_advanced_search
+msgid "connector.advanced.search"
+msgstr "connector.advanced.search"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_import_wizard
+msgid "connector.import.wizard"
+msgstr "connector.import.wizard"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_import_wizard_template
+msgid "connector.import.wizard.template"
+msgstr "connector.import.wizard.template"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_connector_seller
+msgid "connector.seller"
+msgstr "connector.seller"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_import_category_wizard
+msgid "import.category.wizard"
+msgstr "import.category.wizard"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_import_characteristics_wizard
+msgid "import.characteristics.wizard"
+msgstr "import.characteristics.wizard"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_import_manufacturer_wizard
+msgid "import.manufacturer.wizard"
+msgstr "import.manufacturer.wizard"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_import_seller_wizard
+msgid "import.seller.wizard"
+msgstr "import.seller.wizard"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_octopart_manufacturer
+msgid "octopart.manufacturer"
+msgstr "octopart.manufacturer"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_octopart_seller_add_id
+msgid "octopart.seller.add.id"
+msgstr "octopart.seller.add.id"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_add_octopart_seller_id
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_advanced_search
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_connector_import_wizard_template
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_category_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_characteristics_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_manufacturer_wizard
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_import_seller_wizard
+msgid "or"
+msgstr "ou"
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_price_offer
+msgid "price.offer"
+msgstr "price.offer"
+
+#. module: import_product_connector
+#: model:ir.model.fields,help:import_product_connector.field_connector_seller_is_distributorapi
+#: model:ir.model.fields,help:import_product_connector.field_octopart_manufacturer_is_distributorapi
+msgid "rue if a distributor has an API integration with Octopart to provide latest pricing and stock data."
+msgstr "Vrai si un distributeur a une intégration API avec Octopart pour fournir les derniers prix et les données de stock."
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_sellers_offers
+msgid "sellers.offers"
+msgstr "sellers.offers"
+
+#. module: import_product_connector
+#: model:ir.ui.view,arch_db:import_product_connector.view_form_specs_search
+msgid "specs_search"
+msgstr "Recherche de caractéristique."
+
+#. module: import_product_connector
+#: model:ir.model,name:import_product_connector.model_technical_data_config_settings
+msgid "technical.data.config.settings"
+msgstr "technical.data.config.settings"

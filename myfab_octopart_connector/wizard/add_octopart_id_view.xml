@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="view_form_add_octopart_seller_id">
+            <field name="name">view_form_add_octopart_seller_id</field>
+            <field name="model">add.octopart.seller.id</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add id supplyer">
+                    <group colspan="5" col="5">
+                        <group colspan="5" col="4" string="Seller infomation">  
+                            <field name="seller_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="add_seller_id" string="Associate" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_add_octopart_seller_id">
+            <field name="name">Add octopart id</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">add.octopart.seller.id</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+    </data>
+</openerp>
