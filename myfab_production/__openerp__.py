@@ -13,7 +13,7 @@
     """,
     'images': [],
     'depends': [
-        'purchase',
+        'mrp',
     ],
     'data': [
         'data/MFProductionConfig.xml',
