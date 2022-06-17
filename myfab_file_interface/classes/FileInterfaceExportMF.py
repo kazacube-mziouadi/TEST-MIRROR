@@ -40,13 +40,13 @@ class FileInterfaceExportMF(models.Model):
     @api.one
     def launch(self):
         if not self.model_dictionaries_to_export_mf:
-            raise MissingError("You must configure the models to export before being able to launch the export.")
+            raise MissingError(_("You must configure the models to export before being able to launch the export."))
         for model_dictionary in self.model_dictionaries_to_export_mf:
             self.export_model_dictionary(model_dictionary)
 
     def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()
-        file_name = self.get_file_name()
+        file_name = self.get_file_name(model_dictionary)
         records_to_export_list = self.env["exporter.service.mf"].get_records_to_export_list_from_model_dictionary(
             model_dictionary, self.mf_method_to_apply
         )
@@ -79,11 +79,11 @@ class FileInterfaceExportMF(models.Model):
             })]
         })
 
-    def get_file_name(self):
+    def get_file_name(self, model_dictionary_id):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
         now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")
         if self.use_custom_extension:
             extension = ('.' if not self.custom_extension.startswith('.') else '') + self.custom_extension
         else:
             extension = '.' + self.file_extension_mf
-        return "MFFI-Export-" + now_formatted + extension
+        return model_dictionary_id.model_to_export_mf.model.replace('.', '_') + '-' + now_formatted + extension
