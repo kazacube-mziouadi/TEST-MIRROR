@@ -30,9 +30,11 @@ class ModelDictionaryMF(models.AbstractModel):
                                            string="Fields to search at import", copy=True, readonly=False,
                                            help="At import, fields on which search the records to process. \
                                                 Warning : if no field is set here, all the records will be processed.")
+    mf_field_setters = fields.One2many("mf.field.setter", "mf_model_dictionary_id", copy=True,
+                                       string="Fields setting at export")
 
     # ===========================================================================
-    # FIELDS METHODS
+    # METHODS - FIELDS
     # ===========================================================================
 
     # To enrich the children model exports list automatically
@@ -65,7 +67,7 @@ class ModelDictionaryMF(models.AbstractModel):
         self.hide_fields_view = not self.id or not self.model_to_export_mf
 
     # ===========================================================================
-    # METHODS
+    # METHODS - EXPORT
     # ===========================================================================
     def get_list_of_records_to_export(self, ids_to_search_list=False):
         list_of_records_to_export = []
@@ -78,6 +80,7 @@ class ModelDictionaryMF(models.AbstractModel):
         self.number_of_records_exported = len(objects_to_export)
         for object_to_export in objects_to_export:
             list_of_records_to_export.append(self.get_dict_of_record_to_export(object_to_export))
+            object_to_export.write(self.get_dict_of_values_to_set_at_export())
         return list_of_records_to_export
 
     def get_filters_list_to_apply(self):
@@ -133,3 +136,6 @@ class ModelDictionaryMF(models.AbstractModel):
             else:
                 fields_names_list.append(prefix + field_to_export.name)
         return fields_names_list
+
+    def get_dict_of_values_to_set_at_export(self):
+        return {field_setter.mf_field_to_set_id.name: field_setter.mf_value for field_setter in self.mf_field_setters}

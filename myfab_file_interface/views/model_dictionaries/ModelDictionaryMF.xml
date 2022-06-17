@@ -43,6 +43,11 @@
 									   context="{'model_dictionary_mf': active_id, 'model_to_filter_id': model_to_export_mf}" />
 							</group>
 						</page>
+						<page string="Setters" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
+							<group col="1">
+								<field name="mf_field_setters"/>
+							</group>
+						</page>
 						<page string="Advanced" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
 							<group col="1">
 								<field name="mf_fields_to_search"

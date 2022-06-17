@@ -18,8 +18,7 @@ class FilterDatetimeDeltaMF(models.Model, FilterInterfaceMF):
     delta_orientation_mf = fields.Selection([
         ("-", "Before now"), ("+", "After now")
     ], "Delta Orientation", required=True)
-    model_dictionary_field_mf = fields.Many2one("model.dictionary.field.mf", string="Model dictionary field",
-                                                required=False)
+    model_dictionary_field_mf = fields.Many2one(string="Model dictionary field", required=False)
 
     # ===========================================================================
     # METHODS
