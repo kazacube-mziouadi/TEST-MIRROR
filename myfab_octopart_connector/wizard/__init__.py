@@ -1,5 +1,5 @@
 import data
-import import_wizard
+import import_product
 import advanced_search
 import add_octopart_id
 import add_octopart_price

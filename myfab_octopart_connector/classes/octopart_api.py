@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, api, fields, _
-import openerp.addons.decimal_precision as dp
-from docutils.nodes import field
 from openerp.exceptions import ValidationError
 import json
 import urllib

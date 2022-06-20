@@ -2,8 +2,6 @@
 from openerp import models, api, fields, _
 from bs4 import element
 import json
-import urllib
-import urllib2
 
 
 class octopart_advanced_search(models.TransientModel):

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+    <!-- Octopart category -->
+        <!-- FORM VIEW category -->
+        <record id='view_form_connector_categorie' model='ir.ui.view'>
+            <field name="name">view_form_connector_categorie</field>
+            <field name="model">octopart.category</field>
+            <field name="arch" type="xml">
+                <form string="Categorie Octopart" version="8.0">
+                    <group col="8">
+                        <group colspan="8">
+                            <div>
+                                <h1>
+                                    <field name="name" nolabel="1"/>
+                                </h1>
+                            </div>
+                            <group colspan="8" col="4" string="Detail">   
+                                <field name="complete_path" readonly="1"/>                   
+                                <field name="uid" readonly="1"/>  
+                                <field name="parent_id" readonly="1"/>         
+                                <field name="num_parts" readonly="1"/>       
+                            </group>
+                            <group colspan="8" string="Specification">   
+                                <field name="characteristics_type_ids"  nolabel="1"/>                           
+                            </group>
+                        </group>                                                     
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- TREE VIEW category -->
+        <record id='view_tree_product' model='ir.ui.view'>
+            <field name="name">view_tree_category_connectort</field>
+            <field name="model">octopart.category</field>
+            <field name="arch" type="xml">
+                <tree string="Category Octopart" version="8.0">
+                    <field name="complete_path" />
+                    <field name="name" />
+                    <field name="num_parts" />
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Octopart category -->
+        <record model="ir.actions.act_window"
+            id="action_see_category_connector">
+            <field name="name">Import category</field>
+            <field name="res_model">octopart.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'create':False, 'copy': False, 'delete': True, 'edit':True}</field>
+        </record>
+        
+        <!-- Action -->
+        <act_window name="Import category" 
+                    res_model="octopart.category.import.wizard" 
+                    src_model="octopart.category" 
+                    view_mode="form" 
+                    target="new" 
+                    key2="client_action_multi" 
+                    id="act_import_category" 
+                    context="{'sidebar_without_id': True, }"/>
+        
+        <act_window name="Import characteristics" 
+                    res_model="octopart.characteristic.import.wizard" 
+                    src_model="octopart.category" 
+                    view_mode="form" 
+                    target="new" 
+                    key2="client_action_multi" 
+                    id="act_import_characteristics"
+                    context="{'sidebar_without_id': True, }"/>
+
+        <!-- Category menu -->
+        <menuitem name="Categories Octopart"
+            action="action_see_category_connector" 
+            id="menu_category_connector"
+            parent="menu_octopart_conf" sequence="800" />
+	</data>
+</openerp>

@@ -1,4 +1,9 @@
 import octopart_api
-import res_partner
+import technical_data_config
+import partner
 import product
 import characteristics
+import octopart_manufacturer
+import octopart_seller
+import octopart_category
+import octopart_product_search

@@ -39,7 +39,7 @@
                                         <field name="brand_name" />
                                         <field name="octopart_uid" />
                                         <field name="is_in_openprod" readonly="True"/>
-                                        <field name="mnp" />
+                                        <field name="mpn" />
                                         <field name="short_description" />
                                         <button name="open_sellers_offers" string="Open sellers offers"
                                             type="object" class="oe_inline oe_stat_button" />  
@@ -53,11 +53,11 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button name="search_part" string="Search parts"
+                            <button name="search_product" string="Search parts"
                                 type="object" class="oe_inline oe_stat_button" icon="fa-search" />
-                            <button name="more_result" string="More result"
+                            <button name="more_product_results" string="More result"
                                 type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('result_number', '=', 0)]}" /> 
-                            <button name="clear_part" string="Clear part list"
+                            <button name="clear_result" string="Clear part list"
                                 type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('result_number', '=', 0),('result_number', '=', 'count_response')]}"/>  
                             <separator string="" colspan="1"
                                 name="separator_connector_menu_4" /> 

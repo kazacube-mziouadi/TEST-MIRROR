@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
-import urllib
 
 class octopart_seller_add(models.TransientModel):
     _name = 'octopart.seller.add'

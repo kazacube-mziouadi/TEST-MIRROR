@@ -1,14 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-from openerp.tools.translate import _
-import openerp.addons.decimal_precision as dp
-from openerp.exceptions import ValidationError
-from openerp.addons.base_openprod.common import get_form_view
 import json
-import urllib
-import urllib2
-import base64
-import os
 
 class octopart_category_import_wizard(models.TransientModel):
     _name = 'octopart.category.import.wizard'

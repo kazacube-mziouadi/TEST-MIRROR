@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <!-- FORM VIEW PARTNER -->
+        <!-- FORM VIEW PRODUCT -->
         <record id='openprod_view_product_form_octopart' model='ir.ui.view'>
             <field name="name">view_form_product_octopart</field>
             <field name="model">product.product</field>

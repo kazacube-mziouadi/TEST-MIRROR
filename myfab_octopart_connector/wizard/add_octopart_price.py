@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-from openerp.tools.translate import _
-import openerp.addons.decimal_precision as dp
-from openerp.addons.base_openprod.common import get_form_view
-from openerp.exceptions import ValidationError
 import json
-import urllib
-import urllib2
 
 class octopart_price_add(models.TransientModel):
     _name = 'octopart.price.add'
@@ -30,7 +24,7 @@ class octopart_price_add(models.TransientModel):
 
     def _request_price(self):
         search_result = self.env['octopart.api'].get_api_data(self._set_data())
-        if search_result:
+        if search_result and len(search_result['data']['parts']) > 0:
             sellers_res = search_result['data']['parts'][0]['sellers']
             for seller in sellers_res: 
                 self._offer_management(seller)
@@ -52,7 +46,7 @@ class octopart_price_add(models.TransientModel):
                 })
                 for price in offer['prices']:
                     # Create price offer in wizard
-                    add_price_offer  = self.env['octopart.price.offer'].create({
+                    add_price_offer  = self.env['octopart.seller.offer.price'].create({
                         'offer_id' : add_seller_offer.id,
                         'currency' : price['currency'],
                         'price' : price['price'],

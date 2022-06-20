@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-
-from openerp import api, fields, models
-import openerp.addons.decimal_precision as dp
+from openerp import models, api, fields, _
 
 
 class technical_data_config_settings(models.Model):
     _inherit = 'technical.data.config.settings'
-    
     
     #===========================================================================
     # COLUMNS

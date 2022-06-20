@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import models, api, fields
-from openerp.exceptions import ValidationError
+from openerp import models, api, fields, _
 import json
-import urllib
-import urllib2
 
 
 class product(models.Model):
@@ -20,10 +17,10 @@ class product(models.Model):
     @api.multi
     def octopart_price_update(self):
         search_result = self.env['octopart.api'].get_api_data(self._set_data())
-        if search_result:    
+        if search_result and len(search_result['data']['parts']) > 0:    
             sellers_res = search_result['data']['parts'][0]['sellers']
             for seller in sellers_res: 
-                self.update_price(seller)
+                self._update_price(seller)
             return True
         return False
     

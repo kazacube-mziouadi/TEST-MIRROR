@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-from docutils.nodes import field
-from openerp.exceptions import ValidationError
 import json
-import urllib
-import urllib2
 
 class octopart_category(models.Model):
     _name = 'octopart.category'

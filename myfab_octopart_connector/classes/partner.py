@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, api, fields
+from openerp import models, api, fields, _
 
 class res_partner(models.Model):
     _inherit = 'res.partner'

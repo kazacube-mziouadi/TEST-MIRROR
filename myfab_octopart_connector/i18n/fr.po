@@ -1660,8 +1660,8 @@ msgstr "connector.import.wizard"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard_template
-msgid "octopart.import.wizard.template"
-msgstr "octopart.import.wizard.template"
+msgid "octopart.import.product"
+msgstr "octopart.import.product"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_seller
@@ -1711,8 +1711,8 @@ msgstr "ou"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_price_offer
-msgid "octopart.price.offer"
-msgstr "octopart.price.offer"
+msgid "octopart.seller.offer.price"
+msgstr "octopart.seller.offer.price"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_is_distributorapi

@@ -1,5 +1,2 @@
-import wizard
-import import_product_connector
-import octopart_category
-import config
 import classes
+import wizard

@@ -1,18 +1,12 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-from openerp.tools.translate import _
-from openerp.exceptions import ValidationError
-import openerp.addons.decimal_precision as dp
-from openerp.addons.base_openprod.common import get_form_view
 import json
-import urllib
-import urllib2
 import base64
 import requests
 from datetime import datetime
 
-class octopart_import_wizard_template(models.TransientModel):
-    _name = 'octopart.import.wizard.template'
+class octopart_import_product_wizard(models.TransientModel):
+    _name = 'octopart.import.product'
 
     #===========================================================================
     # COLUMNS
@@ -98,7 +92,7 @@ class octopart_import_wizard_template(models.TransientModel):
                         # Create seller offer in wizard
                         for price in offer['prices']:
                             # Create price offer in wizard
-                            add_price_offer  = self.env['octopart.price.offer'].create({
+                            add_price_offer  = self.env['octopart.seller.offer.price'].create({
                                 'offer_id' : add_seller_offer.id,
                                 'currency' : price['currency'],
                                 'price' : price['price'],
@@ -245,15 +239,14 @@ class octopart_seller_offer(models.TransientModel):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    import_wizard_template_id = fields.Many2one('octopart.import.wizard.template', ondelte='cascade')
+    import_wizard_template_id = fields.Many2one('octopart.import.product', ondelte='cascade')
     add_price_id = fields.Many2one('octopart.price.add', ondelte='cascade')
     name = fields.Char(string="Name")
     seller_identifier = fields.Char(string="Seller")
     sku = fields.Char(String="Sku")
     eligible_region = fields.Char()
-    #octopart_currency = fields.Char()
     oder_delay = fields.Integer(string="Order delay")
-    list_price_ids = fields.One2many('octopart.price.offer', 'offer_id', string='List of prices')
+    list_price_ids = fields.One2many('octopart.seller.offer.price', 'offer_id', string='List of prices')
     
     @api.multi
     def add_price(self):
@@ -278,8 +271,8 @@ class octopart_seller_offer(models.TransientModel):
         
         return True
 
-class octopart_price_offer(models.TransientModel):
-    _name = 'octopart.price.offer'
+class octopar_seller_offer_price(models.TransientModel):
+    _name = 'octopart.seller.offer.price'
 
     #===========================================================================
     # COLUMNS
