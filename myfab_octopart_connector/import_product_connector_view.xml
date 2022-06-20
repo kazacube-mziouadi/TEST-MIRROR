@@ -95,33 +95,6 @@
 			action="action_see_import_product" id="menu_myfab_octopart_connector"
 			parent="product.menu_product_main" sequence="300" />
 
-
-        <!-- FORM VIEW Octopart result -->
-        <record id='view_form_octopart_result' model='ir.ui.view'>
-            <field name="name">view_form_octopart_result</field>
-            <field name="model">octopart.search.result</field>
-            <field name="arch" type="xml">
-                <form string="Octopart options" version="8.0">
-                    <group colspan="4" col="9" name="group_all">
-                        <group colspan="8" col="1" string="Description">
-                            <field name="short_description" nolabel="1"/>
-                        </group>
-                        <group colspan="8" col="1" string="Attribute">
-                            <field name="value_ids" colspan="4" nolabel="1">
-                                <tree editable="bottom">
-                                    <field name="characteristic_type_id" />
-                                    <field name="value" />
-                                    <field name="unit_octopart" />
-                                    <field name="uom_id" />
-                                </tree>
-                            </field>
-                        </group>
-                    </group>
-                </form>
-            </field>
-        </record>
-        
-
         <!-- FORM VIEW Octopart specs search -->
         <record id='view_form_specs_search' model='ir.ui.view'>
             <field name="name">view_form_specs_search</field>
@@ -146,6 +119,31 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="context">{'create':False, 'copy': False, 'delete': False, 'edit':False}</field>
+        </record>
+
+        <!-- FORM VIEW Octopart result -->
+        <record id='view_form_octopart_result' model='ir.ui.view'>
+            <field name="name">view_form_octopart_result</field>
+            <field name="model">octopart.search.result</field>
+            <field name="arch" type="xml">
+                <form string="Octopart options" version="8.0">
+                    <group colspan="4" col="9" name="group_all">
+                        <group colspan="8" col="1" string="Description">
+                            <field name="short_description" nolabel="1"/>
+                        </group>
+                        <group colspan="8" col="1" string="Attribute">
+                            <field name="value_ids" colspan="4" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="characteristic_type_id" />
+                                    <field name="value" />
+                                    <field name="unit_octopart" />
+                                    <field name="uom_id" />
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                </form>
+            </field>
         </record>
 	</data>
 </openerp>
