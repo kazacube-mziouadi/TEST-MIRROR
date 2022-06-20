@@ -30,21 +30,26 @@ class octopart_product(models.Model):
     def _onchange_stop_more_result(self):
         self.write({'count_response' : 0 })
 
-    @api.multi
+    @api.one
     def search_part(self):
-        self.write({'count_response' : 0, 'result_number' : 0})
-        self.list_result_ids.unlink()
+        self.clear_part()
         self._search_part()       
         return True
     
-    
-    @api.multi
+    @api.one
     def more_result(self):
-        if self.count_response<901:
+        if self.count_response <= self.result_number and self.count_response < 901:
             self._search_part()
         return True
 
-    @api.multi
+    @api.one
+    def clear_part(self):
+        self.list_result_ids.unlink()
+        self.write({'count_response' : 0})
+        self.write({'result_number' : 0})        
+        filters = self.list_specs_search_ids.search([('search_connector_id', '=', self.id), ])
+        filters.unlink() 
+
     def _search_part(self):
         search_string = ""
         check_search_value = True
@@ -125,20 +130,14 @@ class octopart_product(models.Model):
                 for part in parts:
                     # Check if result respect advanced filter
                     values = part['part']
-                    # Check if result is already an openprod product
-                    is_present = False
-                    search_product = self.env['product.product'].search_count([('octopart_uid_product', '=', values['id']), ])
-                    if search_product > 0 :
-                        is_present = True
                     # Create result in openprod
                     active_result_rc  = self.env['octopart.search.result'].create({
                         'search_id' : self.id,
                         'brand_name' : values['manufacturer']['name'],
-                        'mnp' : values['mpn'],
+                        'mpn' : values['mpn'],
                         'octopart_url' : values['octopart_url'],
                         'short_description' : values['short_description'],
-                        'octopart_uid' : values['id'],
-                        'is_in_openprod' : is_present,
+                        'octopart_uid' : values['id']
                     })
                         
                     # Get specs from api request response
@@ -178,13 +177,15 @@ class octopart_product(models.Model):
                             'result_id' : active_result_rc.id,
                         })
                         active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],    })
-                                                     
-            self.write({'count_response' : self.count_response + 10 })
+
             resultNumber = resultNumber-result_ignored
+            count_response = self.count_response + 10
+            if count_response > resultNumber:
+                count_response = resultNumber
+            self.write({'count_response' : count_response })
             self.write({'result_number' : resultNumber})
         
         return True
-   
    
     def _characteristics_management(self, current_attributs):
         updating = False 
@@ -212,15 +213,6 @@ class octopart_product(models.Model):
             active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
                 
         return active_spec_rc
-    
-    @api.multi
-    def clear_part(self):
-        self.list_result_ids.unlink()
-        self.write({'count_response' : 0})
-        self.write({'result_number' : 0})        
-        filters = self.list_specs_search_ids.search([('search_connector_id', '=', self.id), ])
-        filters.unlink() 
-
     
     def _set_data(self, variables):
         #Test de connection serveur Octopart api V4
@@ -269,13 +261,17 @@ class octopart_search_result(models.Model):
     #===========================================================================
     search_id = fields.Many2one('octopart.product',required=True, ondelete='cascade')
     brand_name = fields.Char()
-    mnp = fields.Char()
+    mpn = fields.Char(string="Manufacturer code")
     octopart_url = fields.Char()
     short_description = fields.Char()
     octopart_uid = fields.Char()
-    is_in_openprod = fields.Boolean(default=False)
+    is_in_openprod = fields.Boolean(compute='_compute_in_octopart')
     value_ids = fields.Many2many('characteristic')
     
+    def _compute_in_octopart(self):
+        if self.env['product.product'].search([['octopart_uid_product', '=', self.octopart_uid], ]):
+            return True
+        return False
     
     @api.multi
     def open_sellers_offers(self):

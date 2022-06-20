@@ -23,22 +23,7 @@ class octopart_category(models.Model):
     parent_id = fields.Many2one('octopart.category', compute='_compute_parent_id', string="Parent")
     characteristics_type_ids = fields.Many2many('characteristic.type', string='Spec type')
     characteristics_value_ids = fields.Many2many('characteristic.value', string='Spec value')
-            
-#    @api.multi
-#    def name_get(self):
-#        result = self.custom_name_get()
-#        if not result:
-#            result = []
-#            for categ_rc in self:
-#                display_name = categ_rc.name
-#                if categ_rc.parent_id:
-#                    id_parent = categ_rc.parent_id
-#                    while id_parent and id_parent.name:   
-#                        display_name = id_parent.name + '/' + display_name
-#                        id_parent = id_parent.parent_id
-#                result.append((categ_rc.id, display_name))        
-#        return result
-    
+               
     @api.one 
     def _compute_complete_path(self):
         self.complete_path = self.name
@@ -57,19 +42,19 @@ class octopart_category(models.Model):
             self.parent_id = search_category[0].id
         return True
 
-    @api.multi
+    @api.one
     def get_characteristics(self):
         search_result = self.env['octopart.api'].get_api_data(self._set_data())
-        if search_result:
+        if search_result and len(search_result['data']['categories']) > 0:
             attributes = search_result['data']['categories'][0]['relevant_attributes']        
             for attribute in attributes:
-                self._characteristics_manager(attribute)
+                self._characteristics_management(attribute)
             return True
         return False
     
 
 #Méthode pour le création ou la modification des characteristic
-    def _characteristics_manager(self, current_attributs):
+    def _characteristics_management(self, current_attributs):
         updating = False 
         spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
         if spec_octopart:

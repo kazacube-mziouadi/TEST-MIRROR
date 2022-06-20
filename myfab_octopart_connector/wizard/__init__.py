@@ -1,8 +1,5 @@
+import data
 import import_wizard
 import advanced_search
 import add_octopart_id
 import add_octopart_price
-import import_seller
-import import_category
-import import_manufacturer
-import import_characteristics

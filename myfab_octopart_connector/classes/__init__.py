@@ -1,1 +1,4 @@
 import octopart_api
+import res_partner
+import product
+import characteristics
