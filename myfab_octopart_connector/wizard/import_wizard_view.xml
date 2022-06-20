@@ -19,8 +19,7 @@
                             <field name="uop_id"/>
                             <field name="uoi_id"/>
                         </group>
-                        <button name="import_details" string="Import details"
-                            type="object" class="oe_inline oe_stat_button" icon="fa-cog" />
+                        <button name="import_details" string="Import details" type="object" class="oe_inline oe_stat_button" icon="fa-cog" />
                         <group colspan="4" col="1" string="Offers">
                             <field name="list_seller_offers_ids" colspan="4" nolabel="1">
                                 <tree editable="bottom">
