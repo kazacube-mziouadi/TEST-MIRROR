@@ -43,9 +43,6 @@ class octopart_import_product_wizard(models.TransientModel):
         search_result = self.env['octopart.api'].get_api_data(self._set_data())
         if search_result and len(search_result['data']['parts']) > 0:
             search_response = search_result['data']['parts'][0]
-            currency_octopart = ''
-            price_octopart = ''
-            item_number = ''
             
             # Write request result to wizard
             if 'sellers' in search_response:
@@ -59,7 +56,7 @@ class octopart_import_product_wizard(models.TransientModel):
             if len(search_response['images']) > 0 and 'url' in search_response['images'][0]:
                 url_image = search_response['images'][0]['url']
             
-            self.write({
+            self.update({
                 'datasheet' : url_datasheet,
                 'image' : url_image,
                 'manufacturer_name' : search_response['manufacturer']['name'],
@@ -81,26 +78,23 @@ class octopart_import_product_wizard(models.TransientModel):
                         else:
                             order_delay = None
 
-                        add_seller_offer  = self.env['octopart.seller.offer'].create({
-                            'name' :company_value['name'], 
-                            'seller_identifier' : company_value['id'], 
-                            'sku' : offer['sku'],
-                            #'octopart_currency' : currency_octopart,
-                            'oder_delay' : order_delay,
-                            'import_wizard_template_id' : self.id
-                        })
                         # Create seller offer in wizard
+                        add_price_offers = []
                         for price in offer['prices']:
                             # Create price offer in wizard
-                            add_price_offer  = self.env['octopart.seller.offer.price'].create({
-                                'offer_id' : add_seller_offer.id,
+                            add_price_offers.append((0,0,{
                                 'currency' : price['currency'],
                                 'price' : price['price'],
                                 'number_item' : price['quantity']
-                            })
-                    add_seller_offer.refresh()
-                    
-                    #TODO : refresh all wizard
+                            }))
+
+                        self.list_seller_offers_ids = [(0,0,{
+                            'name' :company_value['name'], 
+                            'seller_identifier' : company_value['id'], 
+                            'sku' : offer['sku'],
+                            'oder_delay' : order_delay,
+                            'list_price_ids' : add_price_offers,
+                        })]
             return {
                 'type': 'ir.actions.act_window_no_close'
             }
