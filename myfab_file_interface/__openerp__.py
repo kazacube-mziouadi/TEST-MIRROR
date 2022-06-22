@@ -100,6 +100,7 @@
         'views/filters/FilterDatetimeDeltaMF.xml',
         'views/filters/FilterValueComparisonMF.xml',
         'views/setters/MFFieldSetter.xml',
+        'views/setters/MFMethodSetter.xml',
         'views/MyFabFileInterfaceWeb.xml',
         'views/wizards/WizardFileInterfaceCronMF.xml',
         'views/wizards/WizardUploadImportFileMF.xml',

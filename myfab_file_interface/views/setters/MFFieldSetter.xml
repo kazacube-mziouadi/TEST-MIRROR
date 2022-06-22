@@ -13,10 +13,8 @@
 			<field name="model">mf.field.setter</field>
             <field name="arch" type="xml">
 				<tree string="myfab Field Filters Value Comparison" editable="bottom">
-					<field name="mf_field_to_set_id"
-						   domain="[('model_id', '=', mf_model_dictionary_model_id_int)]"/>
+					<field name="mf_field_to_set_id"/>
 					<field name="mf_value"/>
-					<field name="mf_model_dictionary_model_id_int"/>
 				</tree>
 			</field>
         </record>
@@ -27,10 +25,8 @@
             <field name="arch" type="xml">
 				<form string="myfab field setter">
 					<group col="2">
-						<field name="mf_field_to_set_id"
-							   domain="[('model_id', '=', mf_model_dictionary_model_id_int)]"/>
+						<field name="mf_field_to_set_id"/>
 						<field name="mf_value"/>
-						<field name="mf_model_dictionary_model_id_int" invisible="1"/>
 					</group>
 				</form>
 			</field>

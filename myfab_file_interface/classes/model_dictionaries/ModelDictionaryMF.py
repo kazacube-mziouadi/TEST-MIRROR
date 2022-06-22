@@ -32,6 +32,8 @@ class ModelDictionaryMF(models.AbstractModel):
                                                 Warning : if no field is set here, all the records will be processed.")
     mf_field_setters = fields.One2many("mf.field.setter", "mf_model_dictionary_id", copy=True,
                                        string="Fields setting at export")
+    mf_method_setters = fields.One2many("mf.method.setter", "mf_model_dictionary_id", copy=True,
+                                        string="Methods triggered at export")
 
     # ===========================================================================
     # METHODS - FIELDS
@@ -74,13 +76,15 @@ class ModelDictionaryMF(models.AbstractModel):
         filters_list = self.get_filters_list_to_apply()
         if ids_to_search_list:
             filters_list.append(("id", "in", ids_to_search_list))
-        objects_to_export = self.env[self.model_to_export_mf.model].search(
+        records_to_export = self.env[self.model_to_export_mf.model].search(
             filters_list, limit=self.number_of_records_to_export_limit_mf
         )
-        self.number_of_records_exported = len(objects_to_export)
-        for object_to_export in objects_to_export:
-            list_of_records_to_export.append(self.get_dict_of_record_to_export(object_to_export))
-            object_to_export.write(self.get_dict_of_values_to_set_at_export())
+        self.number_of_records_exported = len(records_to_export)
+        for record_to_export in records_to_export:
+            list_of_records_to_export.append(self.get_dict_of_record_to_export(record_to_export))
+            # Post export processes
+            record_to_export.write(self.get_dict_of_values_to_set_at_export())
+            self.apply_methods_at_export_on_record(record_to_export)
         return list_of_records_to_export
 
     def get_filters_list_to_apply(self):
@@ -89,20 +93,20 @@ class ModelDictionaryMF(models.AbstractModel):
             filters_list = filters_list + field_filter.get_field_filters_list_to_apply()
         return filters_list
 
-    def get_dict_of_record_to_export(self, object_to_export, apply_filters=False):
+    def get_dict_of_record_to_export(self, record_to_export, apply_filters=False):
         if apply_filters:
             orm_filtered_search_result = self.env[self.model_to_export_mf.model].search(
-                self.get_filters_list_to_apply() + [("id", "=", object_to_export.id)]
+                self.get_filters_list_to_apply() + [("id", "=", record_to_export.id)]
             )
             if not orm_filtered_search_result:
                 return {}
         object_dict = {}
         for field_to_export in self.fields_to_export_mf:
-            object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, object_to_export)
+            object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, record_to_export)
         return object_dict
 
-    def get_value_of_field_to_export(self, field_to_export, object_to_export):
-        object_field_value = getattr(object_to_export, field_to_export.name)
+    def get_value_of_field_to_export(self, field_to_export, record_to_export):
+        object_field_value = getattr(record_to_export, field_to_export.name)
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of records
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
@@ -139,3 +143,7 @@ class ModelDictionaryMF(models.AbstractModel):
 
     def get_dict_of_values_to_set_at_export(self):
         return {field_setter.mf_field_to_set_id.name: field_setter.mf_value for field_setter in self.mf_field_setters}
+
+    def apply_methods_at_export_on_record(self, record_id):
+        for method_setter_id in self.mf_method_setters:
+            method_setter_id.apply_method_on_record(record_id)

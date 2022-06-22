@@ -6,7 +6,6 @@
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
-        'my_fab',
         'sav',
         'myfab_signature'
     ],

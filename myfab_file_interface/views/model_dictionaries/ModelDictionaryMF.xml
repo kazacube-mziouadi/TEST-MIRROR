@@ -45,7 +45,9 @@
 						</page>
 						<page string="Setters" attrs="{'invisible': [('hide_fields_view', '=', True)]}">
 							<group col="1">
-								<field name="mf_field_setters"/>
+								<field name="mf_field_setters"
+									   context="{'model_to_export_id': model_to_export_mf}"/>
+								<field name="mf_method_setters" />
 							</group>
 						</page>
 						<page string="Advanced" attrs="{'invisible': [('hide_fields_view', '=', True)]}">

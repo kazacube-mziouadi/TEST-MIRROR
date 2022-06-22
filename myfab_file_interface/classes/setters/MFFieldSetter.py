@@ -9,13 +9,13 @@ class MFFieldSetter(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, required=False, help='')
-    mf_field_to_set_id = fields.Many2one("ir.model.fields", string="Field to set", required=True)
+    mf_field_to_set_id = fields.Many2one("ir.model.fields", string="Field to set", required=True,
+                                         domain=lambda self: self._get_mf_field_to_set_id_domain())
     mf_value = fields.Char(string="Value to set", required=True, help="Value to set the field with at export.")
-    mf_model_dictionary_id = fields.Many2one("file.interface.export.model.dictionary.mf",
-                                             string="Model dictionary", required=False, ondelete="cascade")
-    mf_model_dictionary_model_id_int = fields.Integer(compute="_compute_mf_model_dictionary_model_id_int")
+    mf_model_dictionary_id = fields.Many2one(string="Model dictionary", required=False, ondelete="cascade")
 
-    @api.one
-    def _compute_mf_model_dictionary_model_id_int(self):
-        print("***")
-        self.mf_model_dictionary_model_id_id = 1
+    @api.model
+    def _get_mf_field_to_set_id_domain(self):
+        if "model_to_export_id" in self.env.context:
+            return [("model_id", "=", self.env.context["model_to_export_id"])]
+        return []

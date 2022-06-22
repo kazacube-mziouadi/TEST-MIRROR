@@ -14,10 +14,6 @@ class MFSignatureConfig(models.Model):
                                                "mf_signature_config_id", "model_field_id", string="Signature fields",
                                                readonly=True)
     mf_signature_view_id = fields.Many2one("ir.ui.view", string="Signature view", readonly=True)
-    mf_signature_base_action_rules_ids = fields.Many2many("base.action.rule",
-                                                          "mf_signature_base_action_rules_ids_manual_onchange_rel",
-                                                          "mf_signature_config_id", "manual_onchange_id", readonly=True,
-                                                          string="Signature base action rules")
     mf_target_model_name = fields.Char(string="Model name", compute="_compute_mf_target_model_name")
 
     # ===========================================================================
@@ -43,15 +39,11 @@ class MFSignatureConfig(models.Model):
         signature_config_id.mf_signature_fields_ids = [(6, 0, signature_config_id.create_fields())]
         self.env.cr.commit()
         signature_config_id.mf_signature_view_id = signature_config_id.create_fields_view()
-        signature_config_id.mf_signature_base_action_rules_ids = [(6, 0, signature_config_id.create_base_action_rule())]
         return signature_config_id
 
     @api.one
     def unlink(self):
         self.mf_signature_view_id.unlink()
-        for base_action_rule_id in self.mf_signature_base_action_rules_ids:
-            base_action_rule_id.server_action_ids.unlink()
-            base_action_rule_id.unlink()
         self.mf_signature_fields_ids.unlink()
         super(MFSignatureConfig, self).unlink()
 
@@ -82,6 +74,13 @@ class MFSignatureConfig(models.Model):
                 "field_description": _("Signature datetime"),
                 "ttype": "datetime",
                 "readonly": True,
+                "compute": """
+for record in self:
+    if record.x_mf_signature:
+        record['x_mf_signature_datetime'] = datetime.datetime.now()
+                """,
+                "depends": "x_mf_signature",
+                "is_stored_compute": True
             }),
             self.env["ir.model.fields"].search([("name", '=', "x_mf_signature_filename")]),
         ]
@@ -118,21 +117,3 @@ class MFSignatureConfig(models.Model):
             """,
         })
         return view_id.id
-
-    def create_base_action_rule(self):
-        manual_onchanges_ids = [self.env["base.action.rule"].create({
-            "name": _("Signature datetime base action rule for model ") + self.mf_target_model_id.model,
-            "model_id": self.mf_target_model_id.id,
-            "active": True,
-            "kind": "on_write",
-            "server_action_ids": [(0, 0, {
-                "name": _("Signature datetime action server for model ") + self.mf_target_model_id.model,
-                "model_id": self.mf_target_model_id.id,
-                "state": "code",
-                "code": """
-if object.x_mf_signature:
-    object.write({'x_mf_signature_datetime': datetime.datetime.now()})
-            """
-            })]
-        })]
-        return map(lambda manual_onchange_id: manual_onchange_id.id, manual_onchanges_ids)

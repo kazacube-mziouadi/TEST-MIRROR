@@ -34,9 +34,7 @@ class ModelDictionaryFieldFilterMF(models.Model):
     @api.model
     def _get_field_to_export_domain(self):
         if "model_to_filter_id" in self.env.context:
-            model_to_filter_id = self.env.context["model_to_filter_id"]
-            model = self.env["ir.model"].search([("id", "=", model_to_filter_id)], None, 1)
-            return [("id", "in", [field.id for field in model.field_id])]
+            return [("model_id", "=", self.env.context["model_to_filter_id"])]
         return []
 
     # ===========================================================================
