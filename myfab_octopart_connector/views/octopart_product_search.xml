@@ -15,15 +15,15 @@
                                 </h1>
                             </div>
                             <group colspan="8" col="4" string="Detail">
-                                <field name="category_id" />
-        						<field name="manufacturer_name" />
-                				<field name="seller_name" />
             					<field name="description" />
+        						<field name="manufacturer_id" options="{'no_create': True}" />
+                                <field name="category_id" options="{'no_create': True}" />
+                				<field name="seller_id" options="{'no_create': True}" />
             					<field name="sample"/>
             				</group>
-                            <group colspan="8" col="8" string="Specifications">
+                            <group colspan="8" col="8" string="Specifications" attrs="{'invisible': [('category_id', '=', False)]}">
                                 <group colspan="7" col="1">
-                                    <field name="list_specs_search_ids" widget="many2many_tags" colspan="2" nolabel="1" />
+                                    <field name="list_specs_search_ids" widget="many2many_tags" colspan="2" nolabel="1" options="{'no_create': True}" />
                                 </group>
                                 <group colspan="1" col="1">                             
                                     <button class="oe_icon_button" type="action" string="" style="font-size: 25px; margin-top: -10px;"
@@ -33,16 +33,15 @@
                             </group>                          
                             <group colspan="8" col="4" string="Results">                                
                                 <field name="result_number" readonly="True" />
-                                <field name="count_response" readonly="True" />
+                                <field name="count_response" readonly="True"/>
                                 <field name="list_result_ids" colspan="4" nolabel="1" readonly="1">
                                     <tree editable="bottom">
-                                        <field name="brand_name" />
-                                        <field name="octopart_uid" />
+                                        <button name="open_sellers_offers" string="Open sellers offers" type="object" class="oe_inline oe_stat_button" />  
+                                        <field name="brand_name" readonly="True"/>
+                                        <field name="mpn" readonly="True"/>
+                                        <field name="short_description" readonly="True"/>
+                                        <field name="octopart_uid" readonly="True"/>
                                         <field name="is_in_openprod" readonly="True"/>
-                                        <field name="mpn" />
-                                        <field name="short_description" />
-                                        <button name="open_sellers_offers" string="Open sellers offers"
-                                            type="object" class="oe_inline oe_stat_button" />  
                                         <button class="oe_inline oe_stat_button" type="action"
                                             context="{'default_name': short_description, 'default_part_uid_octopart': octopart_uid, 'default_product_id': id}"
                                             string="Import part with template" name="%(action_create_import_wizard_template)d"
@@ -53,16 +52,11 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button name="search_product" string="Search parts"
-                                type="object" class="oe_inline oe_stat_button" icon="fa-search" />
-                            <button name="more_product_results" string="More result"
-                                type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('result_number', '=', 0)]}" /> 
-                            <button name="clear_result" string="Clear part list"
-                                type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('result_number', '=', 0),('result_number', '=', 'count_response')]}"/>  
-                            <separator string="" colspan="1"
-                                name="separator_connector_menu_4" /> 
-                            <button class="oe_inline oe_stat_button" type="action"
-                                string="Add octopart id to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
+                            <button name="search_product" string="Search parts" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
+                            <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('result_number', '=', 0)]}" /> 
+                            <button name="clear_result" string="Clear part list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('result_number', '=', 0),('result_number', '=', 'count_response')]}"/>  
+                            <separator string="" colspan="1" name="separator_connector_menu_4" /> 
+                            <button class="oe_inline oe_stat_button" type="action" string="Add octopart id to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
                         </group>
                     </group>
 				</form>

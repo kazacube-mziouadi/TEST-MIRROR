@@ -12,8 +12,8 @@ class octopart_category(models.Model):
     #===========================================================================
     name = fields.Char(string="Name")
     complete_path = fields.Char(compute='_compute_complete_path', string="Full path")
-    uid = fields.Char(string="Octopart id")
-    parent_uid = fields.Char(string="Ocotpart Parent id")
+    octopart_uid = fields.Char()
+    octopart_parent_uid = fields.Char()
     ancestor_uids = fields.Char()
     num_parts = fields.Integer(string='Component number')
     parent_id = fields.Many2one('octopart.category', compute='_compute_parent_id', string="Parent")
@@ -33,7 +33,7 @@ class octopart_category(models.Model):
     
     @api.one
     def _compute_parent_id(self):
-        search_category = self.env['octopart.category'].search([['uid', '=', self.parent_uid], ])
+        search_category = self.env['octopart.category'].search([['octopart_uid', '=', self.octopart_parent_uid], ])
         if search_category and self.id != search_category[0].id:
             self.parent_id = search_category[0].id
         return True
@@ -78,7 +78,7 @@ class octopart_category(models.Model):
 
 #méthode envoie et récupération de donnée serveur
     def _set_data(self):
-        ids = [str(self.uid)]
+        ids = [str(self.octopart_uid)]
         variables = {'ids': ids}
         data = {'query': self._query_def(),
                 'variables': variables}

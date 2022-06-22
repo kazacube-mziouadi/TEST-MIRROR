@@ -11,18 +11,17 @@ class octopart_product(models.Model):
     # COLUMNS
     #===========================================================================
     name = fields.Char(string="Connector name", required=True, default='Connector Octopart')
+    description = fields.Char()
     category_id = fields.Many2one('octopart.category', 'Category Octopart')
-    brand_name = fields.Char()
-    manufacturer_name = fields.Many2one('octopart.manufacturer', 'Manufacturer')
-    seller_name = fields.Many2one('octopart.seller', 'Seller')
-    description = fields.Char(string="Description")
-    list_result_ids = fields.One2many('octopart.search.result', 'search_id', string='Result')
+    manufacturer_id = fields.Many2one('octopart.manufacturer', 'Manufacturer')
+    seller_id = fields.Many2one('octopart.seller', 'Seller')
+    sample = fields.Integer(default=10)  
     list_specs_search_ids = fields.Many2many('octopart.specs.search', 'search_connector_id', string='Search filters', domain = "[('search_connector_id','=', active_id),]")
     result_number = fields.Integer(default=0)
     count_response = fields.Integer(default=0)
-    sample = fields.Integer(string="Sample", default=10)  
+    list_result_ids = fields.One2many('octopart.search.result', 'search_id', string='Result')
     
-    @api.onchange('category_id', 'brand_name', 'seller_name', 'description', 'list_specs_search_ids')
+    @api.onchange('category_id', 'seller_id', 'description', 'list_specs_search_ids')
     def _onchange_stop_more_result(self): 
         self.write({'count_response' : 0 })
 
@@ -46,7 +45,7 @@ class octopart_product(models.Model):
         filters.unlink() 
 
     def _search_product(self):
-        if count_response >= resultNumber:
+        if self.count_response > 0 and self.count_response >= self.result_number:
             return True
 
         variable = {}
@@ -58,7 +57,7 @@ class octopart_product(models.Model):
         variable['limit'] = self.sample
         variable['start'] = self.count_response
         variable['filters'] = self._get_filter()
-        
+
         search_result = self.env['octopart.api'].get_api_data(self._set_data(variable))
         if search_result:
             datas = search_result['data']['search']
@@ -79,14 +78,14 @@ class octopart_product(models.Model):
     def _get_filter(self):
         filter_args = {}
         if 'category_id' in self.env['octopart.product']._fields and self.category_id:
-            filter_args['category_id'] = int(self.category_id.uid)
+            filter_args['category_id'] = int(self.category_id.octopart_uid)
             
-        if 'manufacturer_name' in self.env['octopart.product']._fields and self.manufacturer_name:
+        if 'manufacturer_id' in self.env['octopart.product']._fields and self.manufacturer_id:
             filter_args['manufacturer_id'] = int(self.manufacturer_name.octopart_uid)
 
-        if 'seller_name' in self.env['octopart.product']._fields and self.seller_name:
-            seller_name = self.seller_name.name.replace('-', ' ')
-            filter_args['sellers_id'] = int(self.seller_name.octopart_uid)
+        if 'seller_id' in self.env['octopart.product']._fields and self.seller_id:
+            seller_id = self.seller_id.name.replace('-', ' ')
+            filter_args['sellers_id'] = int(self.seller_id.octopart_uid)
 
         # Check for advanced search filter       
         if 'list_specs_search_ids' in self.env['octopart.product']._fields and self.list_specs_search_ids:

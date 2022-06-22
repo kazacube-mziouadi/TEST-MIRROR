@@ -101,7 +101,7 @@ class octopart_advanced_search(models.TransientModel):
     
     #méthode envoie et récupération de donnée serveur
     def _set_data(self):
-        ids = [str(self.category_id.uid)]
+        ids = [str(self.category_id.octopart_uid)]
         attrs = []
         for attr in self.add_characteristics_type_id:
             attrs.append(str(attr.octopart_key))

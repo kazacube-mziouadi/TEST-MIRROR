@@ -22,18 +22,18 @@ class octopart_category_import_wizard(models.TransientModel):
 
     #Méthode pour le création ou la modification des categorie
     def _category_management(self, current_category):
-        test_category = self.env['octopart.category'].search([('uid', '=', current_category['id'])])
+        test_category = self.env['octopart.category'].search([('octopart_uid', '=', current_category['id'])])
         if len(test_category) == 0:
             result_recherche  = self.env['octopart.category'].create({
                 'name' : current_category['name'],
-                'uid' : current_category['id'],
-                'parent_uid' : current_category['parent_id'],
+                'octopart_uid' : current_category['id'],
+                'octopart_parent_uid' : current_category['parent_id'],
                 'num_parts' : current_category['num_parts']
             })
         elif len(test_category) == 1:
             test_category.write({
                 'name' : current_category['name'],
-                'parent_uid' : current_category['parent_id'],
+                'octopart_parent_uid' : current_category['parent_id'],
                 'num_parts' : current_category['num_parts']
             })
         else:

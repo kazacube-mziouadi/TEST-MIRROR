@@ -9,10 +9,11 @@
             <field name="arch" type="xml">
                 <form string="Add id supplyer">
                     <group colspan="5" col="5">
-                        <group colspan="5" col="4" string="Seller infomation">  
-                            <field name="seller_id"/>
+                        <group colspan="5" col="4" string="Seller infomation">
+                            <field name="seller_id" options="{'no_create': True}" attrs="{'readonly': [('is_seller_id_set', '=', True)]}"/>
                             <field name="partner_id"/>
                         </group>
+                        <field name="is_seller_id_set" invisible="1"/>
                     </group>
                     <footer>
                         <button name="add_seller_id" string="Associate" type="object" class="oe_highlight" />

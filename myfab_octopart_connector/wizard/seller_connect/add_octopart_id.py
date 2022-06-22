@@ -9,39 +9,66 @@ class octopart_seller_partner_connect(models.TransientModel):
     #===========================================================================
     seller_id = fields.Many2one('octopart.seller', string="Seller", required=True)    
     partner_id = fields.Many2one('res.partner', 'Partner', ondelete='cascade', required=True, domain = "[('is_supplier','=',True), ('octopart_uid_seller','=','0')]")
-    list_sellers_ids = fields.One2many('octopart.seller.partner.connect.ids', 'add_octopart_id', string='Octopart sellers list')
-    
-    @api.multi
-    def add_seller_id(self):
-        self.partner_id.write({'octopart_uid_seller' : self.seller_id.octopart_uid })
+    is_seller_id_set = fields.Boolean()
 
-    @api.multi
-    def search_seller(self):
-        self.list_sellers_ids.unlink() 
-        
-        result_recherche  = self.env['octopart.seller.partner.connect.ids'].create({
-            'name' : self.seller_id.name,
-            'uid_octopart' : self.seller_id.octopart_uid,
-            'add_octopart_id' : self.id
-        })       
-        
-        return {
-            'type': 'ir.actions.act_window_no_close'
-        }
-          
-class octopart_seller_partner_connect_ids(models.TransientModel):
-    _name = 'octopart.seller.partner.connect.ids'
-    
     #===========================================================================
-    # COLUMNS
+    # Auto call functions
     #===========================================================================
-    name = fields.Char(strin="name")  
-    uid_octopart = fields.Char(string="Octopart id")
-    add_octopart_id = fields.Many2one('octopart.seller.partner.connect', required=True, ondelete='cascade')
-    
-    @api.multi
+    @api.model
+    def default_get(self, fields_list):
+        res = super(octopart_seller_partner_connect, self).default_get(fields_list=fields_list)
+        
+        seller_id = False
+        res['is_seller_id_set'] = seller_id
+
+        context = self.env.context
+        if context.get('active_id', False):
+            active_model_rs = self.env[context.get('active_model', '')].browse(context['active_id'])
+            if context.get('active_model', '') == 'octopart.seller':
+                seller_id = active_model_rs
+            elif context.get('active_model', '') == 'octopart.product':
+                seller_id = active_model_rs.seller_id
+
+        if seller_id:
+            res['seller_id'] = seller_id.id
+            res['is_seller_id_set'] = True
+            partner_id = self._get_associated_partner(seller_id)
+            if partner_id:
+                res['partner_id'] = partner_id.id
+        
+        return res
+
+    @api.onchange('seller_id')
+    def _onchange_get_partner_id(self):
+        if self.seller_id:
+            self.partner_id = self._get_associated_partner(self.seller_id)
+
+    def _get_partner_ids(self, octopart_uid):
+        if octopart_uid > 0:
+            partner_ids = self.env['res.partner'].search([("octopart_uid_seller", '=', octopart_uid)])
+            return partner_ids
+        return False
+
+    def _get_associated_partner(self, seller_id):
+        if seller_id and seller_id.octopart_uid > 0:
+            partner_rc = self._get_partner_ids(seller_id.octopart_uid)
+            if partner_rc:
+                return partner_rc
+        return False
+
+    #===========================================================================
+    # Actions
+    #===========================================================================
+    @api.one
     def add_seller_id(self):
-        self.add_octopart_id.partner_id.write({'octopart_uid_seller' : self.uid_octopart })
-        return {
-            'type': 'ir.actions.act_window_no_close'
-        }
+        self._clear_all_associated_partners()
+        self._update_partner(self.partner_id,self.seller_id.octopart_uid)
+
+    def _clear_all_associated_partners(self):
+        partner_rcs = self._get_partner_ids(self.seller_id.octopart_uid)
+        for partner_id in partner_rcs:
+            self._update_partner(partner_id,0)
+
+    def _update_partner(self, partner_id, octopart_uid):
+        if partner_id:
+            partner_id.write({'octopart_uid_seller' : octopart_uid })

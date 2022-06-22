@@ -17,12 +17,12 @@
                             </div>
                             <group colspan="8" col="4" string="Detail">   
                                 <field name="complete_path" readonly="1"/>                   
-                                <field name="uid" readonly="1"/>  
-                                <field name="parent_id" readonly="1"/>         
+                                <field name="octopart_parent_uid" readonly="1"/>         
                                 <field name="num_parts" readonly="1"/>       
+                                <field name="octopart_uid" readonly="1"/>  
                             </group>
                             <group colspan="8" string="Specification">   
-                                <field name="characteristics_type_ids"  nolabel="1"/>                           
+                                <field name="characteristics_type_ids"  nolabel="1" readonly="1"/>                           
                             </group>
                         </group>                                                     
                     </group>
@@ -69,8 +69,7 @@
                     view_mode="form" 
                     target="new" 
                     key2="client_action_multi" 
-                    id="act_import_characteristics"
-                    context="{'sidebar_without_id': True, }"/>
+                    id="act_import_characteristics"/>
 
         <!-- Category menu -->
         <menuitem name="Categories Octopart"
