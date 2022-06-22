@@ -78,6 +78,7 @@ class FileInterfaceExportMF(models.Model):
                 "file_mf": export_attempt_file.id
             })]
         })
+        self.env["exporter.service.mf"].launch_post_export_processes_on_model_dictionary_records(model_dictionary)
 
     def get_file_name(self, model_dictionary_id):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)

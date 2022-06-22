@@ -71,8 +71,14 @@ class ModelDictionaryMF(models.AbstractModel):
     # ===========================================================================
     # METHODS - EXPORT
     # ===========================================================================
+    def get_list_of_records_dict_to_export(self, ids_to_search_list=False):
+        list_of_records_dict_to_export = []
+        records_to_export = self.get_list_of_records_to_export(ids_to_search_list)
+        for record_to_export in records_to_export:
+            list_of_records_dict_to_export.append(self.get_dict_of_record_to_export(record_to_export))
+        return list_of_records_dict_to_export
+
     def get_list_of_records_to_export(self, ids_to_search_list=False):
-        list_of_records_to_export = []
         filters_list = self.get_filters_list_to_apply()
         if ids_to_search_list:
             filters_list.append(("id", "in", ids_to_search_list))
@@ -80,12 +86,7 @@ class ModelDictionaryMF(models.AbstractModel):
             filters_list, limit=self.number_of_records_to_export_limit_mf
         )
         self.number_of_records_exported = len(records_to_export)
-        for record_to_export in records_to_export:
-            list_of_records_to_export.append(self.get_dict_of_record_to_export(record_to_export))
-            # Post export processes
-            record_to_export.write(self.get_dict_of_values_to_set_at_export())
-            self.apply_methods_at_export_on_record(record_to_export)
-        return list_of_records_to_export
+        return records_to_export
 
     def get_filters_list_to_apply(self):
         filters_list = []
@@ -110,7 +111,7 @@ class ModelDictionaryMF(models.AbstractModel):
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of records
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_list_of_records_to_export(
+            return child_model_dictionary.get_list_of_records_dict_to_export(
                 [sub_object.id for sub_object in object_field_value] if object_field_value else []
             )
         elif field_to_export.ttype == "many2one":
