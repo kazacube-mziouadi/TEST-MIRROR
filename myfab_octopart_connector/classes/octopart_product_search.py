@@ -154,10 +154,10 @@ class octopart_product(models.Model):
     def _specs_management(self, active_result_rc, specs):
         if specs:
             for element in specs:
-                active_spec_rc = self._characteristics_management(element['attribute'])
+                active_spec_category_rc = self.env['octopart.category'].characteristics_management(self.id, element['attribute'])
                     
-                if self.id not in active_spec_rc.octopart_category_ids.ids:
-                    active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
+                if self.id not in active_spec_category_rc.octopart_category_ids.ids:
+                    active_spec_category_rc.write({'octopart_category_ids' : [(4, self.id)],  })
                 # Get value from spec 
                 
                 # Check if value is already an openprod characteristic value
@@ -166,55 +166,28 @@ class octopart_product(models.Model):
                     active_value_rc = search_characteristic_value[0]
                 else:
                     # Create characteristic value
-                    add_spec_value_octopart  = self.env['characteristic.value'].create({
+                    active_value_rc = self.env['characteristic.value'].create({
                         'name' : element['display_value'],
-                        'type_id' : active_spec_rc.id,   
+                        'type_id' : active_spec_category_rc.id,   
                     }) 
-                    active_value_rc = add_spec_value_octopart
                 
                 if self.id not in active_value_rc.octopart_category_ids.ids:  
-                    active_value_rc.write({'octopart_category_ids' : [(4, self.id)],  })  
+                    active_value_rc.write({'octopart_category_ids' : [(4, self.id)],})  
                 
                 unit_openprod = ""
-                search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_rc.unit_octopart), ])
+                search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_category_rc.unit_octopart), ])
                 if search_unit_openprod:
                     unit_openprod = search_unit_openprod[0].id
+
                 #Create characteristic for result
                 add_characteristic = self.env['characteristic'].create({
-                    'characteristic_type_id' : active_spec_rc.id,
+                    'characteristic_type_id' : active_spec_category_rc.id,
                     'value' : active_value_rc.id,
-                    'unit_octopart' : active_spec_rc.unit_octopart,
+                    'unit_octopart' : active_spec_category_rc.unit_octopart,
                     'uom_id' : unit_openprod,
                     'result_id' : active_result_rc.id,
                 })
-                active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],    })
-
-    def _characteristics_management(self, current_attributs):
-        updating = False 
-        spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
-        if spec_octopart:
-            active_spec_rc = spec_octopart[0]
-            updating = True
-            
-        format_characteristic = 'string'
-        
-        if updating:
-            active_spec_rc.write({
-                'format' : format_characteristic,
-                'octopart_key' : current_attributs['shortname'],
-            })
-        else:    
-            add_characteristic_type  = self.env['characteristic.type'].create({
-                'name' : current_attributs['name'],
-                'format' : format_characteristic,
-                'octopart_key' : current_attributs['shortname'],
-            })
-            active_spec_rc = add_characteristic_type
-            
-        if self.id not in active_spec_rc.octopart_category_ids.ids:
-            active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
-                
-        return active_spec_rc
+                active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],})
     
     def _set_count_and_results(self,count_response,resultNumber):
         self.write({'count_response' : count_response })
@@ -225,7 +198,6 @@ class octopart_product(models.Model):
         data = {'query': self._query_def(),
                 'variables': variables}
         return data
-    
     
     def _query_def(self):
         query='''

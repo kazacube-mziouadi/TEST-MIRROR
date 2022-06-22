@@ -36,23 +36,23 @@ class octopart_price_add(models.TransientModel):
     def _offer_management(self, current_seller):
         search_value = self.env['res.partner'].search([['octopart_uid_seller', '=', current_seller['company']['id']], ])
         if len(search_value) > 0:
-            company_value = current_seller['company']                 
+            company_value = current_seller['company']   
             for offer in current_seller['offers']:
-                add_seller_offer  = self.env['octopart.seller.offer'].create({
-                    'name' :company_value['name'], 
-                    'seller_identifier' : company_value['id'], 
-                    'sku' : offer['sku'],
-                    'add_price_id' : self.id
-                })
+                add_price_offers = []
                 for price in offer['prices']:
                     # Create price offer in wizard
-                    add_price_offer  = self.env['octopart.seller.offer.price'].create({
-                        'offer_id' : add_seller_offer.id,
+                    add_price_offers.append((0,0,{
                         'currency' : price['currency'],
                         'price' : price['price'],
                         'number_item' : price['quantity']
-                    })
-            add_seller_offer.refresh()
+                    }))
+
+                self.list_seller_offers_ids = [(0,0,{
+                    'name' :company_value['name'], 
+                    'seller_identifier' : company_value['id'], 
+                    'sku' : offer['sku'],
+                    'list_price_ids' : add_price_offers,
+                })]
         
         return True
 

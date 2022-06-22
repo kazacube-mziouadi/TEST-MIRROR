@@ -44,36 +44,34 @@ class octopart_category(models.Model):
         if search_result and len(search_result['data']['categories']) > 0:
             attributes = search_result['data']['categories'][0]['relevant_attributes']        
             for attribute in attributes:
-                self._characteristics_management(attribute)
+                self.characteristics_management(self.id, attribute)
             return True
         return False
     
 
 #Méthode pour le création ou la modification des characteristic
-    def _characteristics_management(self, current_attributs):
-        updating = False 
+    def characteristics_management(self, current_id, current_attributs):
+        active_spec_rc = False
         spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
         if spec_octopart:
             active_spec_rc = spec_octopart[0]
-            updating = True
             
         format_characteristic = 'string'
         
-        if updating:
+        if active_spec_rc:
             active_spec_rc.write({
                 'format' : format_characteristic,
                 'octopart_key' : current_attributs['shortname'],
             })
         else:    
-            add_characteristic_type  = self.env['characteristic.type'].create({
+            active_spec_rc  = self.env['characteristic.type'].create({
                 'name' : current_attributs['name'],
                 'format' : format_characteristic,
                 'octopart_key' : current_attributs['shortname'],
             })
-            active_spec_rc = add_characteristic_type
             
-        if self.id not in active_spec_rc.octopart_category_ids.ids:
-            active_spec_rc.write({'octopart_category_ids' : [(4, self.id)],  })
+        if current_id not in active_spec_rc.octopart_category_ids.ids:
+            active_spec_rc.write({'octopart_category_ids' : [(4, current_id)],  })
                 
         return active_spec_rc
 

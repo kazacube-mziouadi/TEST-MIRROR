@@ -1640,8 +1640,8 @@ msgstr "octopart.price.add"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_add_octopart_seller_id
-msgid "octopart.seller.add"
-msgstr "octopart.seller.add"
+msgid "octopart.seller.partner.connect"
+msgstr "octopart.seller.partner.connect"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_characteristic
@@ -1695,8 +1695,8 @@ msgstr "octopart.manufacturer"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_add_id
-msgid "octopart.seller.add.id"
-msgstr "octopart.seller.add.id"
+msgid "octopart.seller.partner.connect.ids"
+msgstr "octopart.seller.partner.connect.ids"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
