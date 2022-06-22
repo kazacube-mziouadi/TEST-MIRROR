@@ -121,6 +121,7 @@ class MFSimulationByQuantityLine(models.Model):
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id", "mf_general_costs", "mf_unit_margin")
     def _compute_mf_price_subcontracting(self):
+        # TODO : ce champ est cache le temps que le besoin soit affine
         self.mf_price_subcontracting = 0
 
     @api.one
