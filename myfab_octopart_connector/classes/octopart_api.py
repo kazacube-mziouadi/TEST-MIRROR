@@ -38,7 +38,7 @@ class octopart_api(models.TransientModel):
     def _check_api_key(self,api_key,raise_error=True):
         if not api_key:
             if raise_error:
-                raise ValidationError(_("You do not have a key to connect to Octopart.")) 
+                raise ValidationError(_("You do not have an API key to connect to Octopart.")) 
             return False
         return True
 

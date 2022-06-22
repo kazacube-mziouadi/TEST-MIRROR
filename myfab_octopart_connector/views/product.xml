@@ -9,7 +9,7 @@
             <field name="inherit_id" ref="product.view_form_product" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='purchase_cost_price_manual']" position="after">
-                    <field name="manufacturer_id" readonly="1"/>
+                    <field name="octopart_uid_manufacturer" readonly="1"/>
                     <field name="manufacturer_code" readonly="1"/>
                     <field name="octopart_uid_product" readonly="1"/>
                 </xpath>

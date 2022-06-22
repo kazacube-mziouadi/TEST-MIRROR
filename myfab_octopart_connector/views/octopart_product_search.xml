@@ -4,7 +4,7 @@
 		<!-- FORM VIEW Import product -->
 		<record id='view_form_connector_product' model='ir.ui.view'>
 			<field name="name">view_form_connector_product</field>
-			<field name="model">octopart.product</field>
+			<field name="model">octopart.product.research</field>
 			<field name="arch" type="xml">
 				<form string="Search product" version="8.0">
                     <group colspan="4" col="9" name="group_all">
@@ -23,7 +23,7 @@
             				</group>
                             <group colspan="8" col="8" string="Specifications" attrs="{'invisible': [('category_id', '=', False)]}">
                                 <group colspan="7" col="1">
-                                    <field name="list_specs_search_ids" widget="many2many_tags" colspan="2" nolabel="1" options="{'no_create': True}" />
+                                    <field name="characteristics_filter_ids" widget="many2many_tags" colspan="2" nolabel="1" options="{'no_create': True}" />
                                 </group>
                                 <group colspan="1" col="1">                             
                                     <button class="oe_icon_button" type="action" string="" style="font-size: 25px; margin-top: -10px;"
@@ -32,11 +32,11 @@
                                 </group>
                             </group>                          
                             <group colspan="8" col="4" string="Results">                                
-                                <field name="result_number" readonly="True" />
-                                <field name="count_response" readonly="True"/>
-                                <field name="list_result_ids" colspan="4" nolabel="1" readonly="1">
+                                <field name="number_of_results" readonly="True" />
+                                <field name="number_of_results_readed" readonly="True"/>
+                                <field name="result_ids" colspan="4" nolabel="1" readonly="1">
                                     <tree editable="bottom">
-                                        <button name="open_sellers_offers" string="Open sellers offers" type="object" class="oe_inline oe_stat_button" />  
+                                        <button name="open_sellers_offers" string="Open octopart sellers offers web page" type="object" class="oe_inline oe_stat_button" />  
                                         <field name="brand_name" readonly="True"/>
                                         <field name="mpn" readonly="True"/>
                                         <field name="short_description" readonly="True"/>
@@ -44,7 +44,7 @@
                                         <field name="is_in_openprod" readonly="True"/>
                                         <button class="oe_inline oe_stat_button" type="action"
                                             context="{'default_name': short_description, 'default_part_uid_octopart': octopart_uid, 'default_product_id': id}"
-                                            string="Import part with template" name="%(action_create_import_wizard_template)d"
+                                            string="Import product with template" name="%(action_create_import_wizard_template)d"
                                             attrs="{'invisible': [('is_in_openprod', '=', True)]}"/> 
                                     </tree>
                                 </field>
@@ -52,25 +52,24 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button name="search_product" string="Search parts" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
-                            <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('result_number', '=', 0)]}" /> 
-                            <button name="clear_result" string="Clear part list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('result_number', '=', 0),('result_number', '=', 'count_response')]}"/>  
+                            <button name="search_product" string="Search products" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
+                            <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('number_of_results', '=', 0)]}" /> 
+                            <button name="clear_result" string="Clear product list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('number_of_results', '=', 0),('number_of_results', '=', 'number_of_results_readed')]}"/>  
                             <separator string="" colspan="1" name="separator_connector_menu_4" /> 
-                            <button class="oe_inline oe_stat_button" type="action" string="Add octopart id to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
+                            <button class="oe_inline oe_stat_button" type="action" string="Associate to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
                         </group>
                     </group>
 				</form>
 			</field>
 		</record>
 		
-		<!-- TREE VIEW Connector product -->
+		<!-- TREE VIEW Product research -->
         <record id='view_tree_connector_product' model='ir.ui.view'>
             <field name="name">view_tree_connector_product</field>
-            <field name="model">octopart.product</field>
+            <field name="model">octopart.product.research</field>
             <field name="arch" type="xml">
-                <tree string="Connector product">
+                <tree string="Product research">
                     <field name="name" />
-                    <field name="category_id" />
                 </tree>
             </field>
         </record>
@@ -79,27 +78,27 @@
 		<record model="ir.actions.act_window"
 			id="action_see_import_product">
 			<field name="name">Search product</field>
-			<field name="res_model">octopart.product</field>
+			<field name="res_model">octopart.product.research</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
 		</record>
 
         <!-- Import product menu -->
-		<menuitem name="Importer un produit"
+		<menuitem name="Import octopart product"
 			action="action_see_import_product" id="menu_myfab_octopart_connector"
 			parent="product.menu_product_main" sequence="300" />
 
         <!-- FORM VIEW Octopart specs search -->
         <record id='view_form_specs_search' model='ir.ui.view'>
             <field name="name">view_form_specs_search</field>
-            <field name="model">octopart.specs.search</field>
+            <field name="model">octopart.characteristics.research</field>
             <field name="arch" type="xml">
-                <form string="specs_search" version="8.0">
+                <form string="Characteristics search" version="8.0">
                     <group colspan="4" col="4" name="group_all" string="Detail">
-                        <field name="metedata_key"/> 
-                        <field name="spec_value" attrs="{'invisible': [('spec_value', '=', False)]}"/>
-                        <field name="spec_min_value" attrs="{'invisible': [('spec_min_value', '=', False)]}"/>
-                        <field name="spec_max_value" attrs="{'invisible': [('spec_max_value', '=', False)]}"/>
+                        <field name="metadata_key"/> 
+                        <field name="characteristic_value" attrs="{'invisible': [('characteristic_value', '=', False)]}"/>
+                        <field name="min_value_choose" attrs="{'invisible': [('min_value_choose', '=', False)]}"/>
+                        <field name="max_value_choose" attrs="{'invisible': [('max_value_choose', '=', False)]}"/>
                     </group>
                 </form>
             </field>
@@ -108,8 +107,8 @@
         <!-- ACTION Octopart specs search form -->
         <record model="ir.actions.act_window"
             id="action_see_specs_search">
-            <field name="name">Specs Search</field>
-            <field name="res_model">octopart.specs.search</field>
+            <field name="name">Characteristics search</field>
+            <field name="res_model">octopart.characteristics.research</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="context">{'create':False, 'copy': False, 'delete': False, 'edit':False}</field>
@@ -118,9 +117,9 @@
         <!-- FORM VIEW Octopart result -->
         <record id='view_form_octopart_result' model='ir.ui.view'>
             <field name="name">view_form_octopart_result</field>
-            <field name="model">octopart.search.result</field>
+            <field name="model">octopart.research.result</field>
             <field name="arch" type="xml">
-                <form string="Octopart options" version="8.0">
+                <form string="Octopart characteristics" version="8.0">
                     <group colspan="4" col="9" name="group_all">
                         <group colspan="8" col="1" string="Description">
                             <field name="short_description" nolabel="1"/>

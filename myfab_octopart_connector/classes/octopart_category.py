@@ -5,20 +5,19 @@ import json
 class octopart_category(models.Model):
     _name = 'octopart.category'
 
-    _description = 'Category from Octopart'
+    _description = 'Category Octopart'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    name = fields.Char(string="Name")
-    complete_path = fields.Char(compute='_compute_complete_path', string="Full path")
+    name = fields.Char()
     octopart_uid = fields.Char()
+    complete_path = fields.Char(compute='_compute_complete_path', string="Full path")
     octopart_parent_uid = fields.Char()
-    ancestor_uids = fields.Char()
-    num_parts = fields.Integer(string='Component number')
+    number_of_products = fields.Integer(string='Number of products')
     parent_id = fields.Many2one('octopart.category', compute='_compute_parent_id', string="Parent")
-    characteristics_type_ids = fields.Many2many('characteristic.type', string='Spec type')
-    characteristics_value_ids = fields.Many2many('characteristic.value', string='Spec value')
+    characteristics_type_ids = fields.Many2many('characteristic.type', string='Characteristic type')
+    characteristics_value_ids = fields.Many2many('characteristic.value', string='Characteristic value')
                
     @api.one 
     def _compute_complete_path(self):

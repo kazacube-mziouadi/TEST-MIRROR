@@ -9,11 +9,12 @@ class product(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
+    # Stored in a char field because the octopart product ID is stored in the research result, if it is reset we lose the link
+    # in this situation it is better to store it in a char to keep it active
     octopart_uid_product = fields.Char()
-    manufacturer_id = fields.Many2one('octopart.manufacturer', string='Manufacturer')
+    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Manufacturer')
     manufacturer_code = fields.Char()
 
-    
     @api.multi
     def octopart_price_update(self):
         search_result = self.env['octopart.api'].get_api_data(self._set_data())

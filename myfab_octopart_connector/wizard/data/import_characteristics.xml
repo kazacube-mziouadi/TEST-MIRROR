@@ -8,7 +8,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import characteristics">
-                    <group colspan="4" col="4" string="Import category wizard">
+                    <group colspan="4" col="4" string="Import categories wizard">
                         <field name="explaination" label="0" readonly="1" nolabel="1"/>
                     </group>
                     <footer>

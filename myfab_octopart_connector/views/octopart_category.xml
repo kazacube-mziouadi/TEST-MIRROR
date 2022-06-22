@@ -7,7 +7,7 @@
             <field name="name">view_form_connector_categorie</field>
             <field name="model">octopart.category</field>
             <field name="arch" type="xml">
-                <form string="Categorie Octopart" version="8.0">
+                <form string="Category Octopart" version="8.0">
                     <group col="8">
                         <group colspan="8">
                             <div>
@@ -18,10 +18,10 @@
                             <group colspan="8" col="4" string="Detail">   
                                 <field name="complete_path" readonly="1"/>                   
                                 <field name="octopart_parent_uid" readonly="1"/>         
-                                <field name="num_parts" readonly="1"/>       
+                                <field name="number_of_products" readonly="1"/>       
                                 <field name="octopart_uid" readonly="1"/>  
                             </group>
-                            <group colspan="8" string="Specification">   
+                            <group colspan="8" string="Caracteristics">   
                                 <field name="characteristics_type_ids"  nolabel="1" readonly="1"/>                           
                             </group>
                         </group>                                                     
@@ -38,7 +38,7 @@
                 <tree string="Category Octopart" version="8.0">
                     <field name="complete_path" />
                     <field name="name" />
-                    <field name="num_parts" />
+                    <field name="number_of_products" />
                 </tree>
             </field>
         </record>
@@ -46,7 +46,7 @@
         <!-- Octopart category -->
         <record model="ir.actions.act_window"
             id="action_see_category_connector">
-            <field name="name">Import category</field>
+            <field name="name">Import categories</field>
             <field name="res_model">octopart.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -54,7 +54,7 @@
         </record>
         
         <!-- Action -->
-        <act_window name="Import category" 
+        <act_window name="Import categories" 
                     res_model="octopart.category.import.wizard" 
                     src_model="octopart.category" 
                     view_mode="form" 

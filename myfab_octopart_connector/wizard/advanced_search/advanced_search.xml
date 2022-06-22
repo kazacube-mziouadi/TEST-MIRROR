@@ -4,25 +4,25 @@
     
         <record model="ir.ui.view" id="view_form_advanced_search">
             <field name="name">view_form_advanced_search</field>
-            <field name="model">octopart.advanced.search</field>
+            <field name="model">octopart.characteristic.filter</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Import wizard">
                     <group colspan="4" col="4" name="group_all">
                         <group colspan="4" col="4">
                             <group colspan="4" col="4" string="Detail">
-                                <field name="add_characteristics_type_id"/>
+                                <field name="characteristic_type_id"/>
                                 <field name="category_id" readonly="1"/>
                                 <field name="is_numerical_value" attrs="{'invisible': 1}"/>
                             </group>
                             <group colspan="4" col="4" string="Filter">
                                 <field name="min_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
                                 <field name="max_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>                               
-                                <field name="spec_min_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
-                                <field name="spec_max_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
-                                <field name="list_possible_values_ids" colspan="4" nolabel="1">
+                                <field name="min_value_choose" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
+                                <field name="max_value_choose" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
+                                <field name="possible_values_ids" colspan="4" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="spec_value" />
+                                        <field name="characteristic_value" />
                                         <field name="unit_value" />                                    
                                         <field name="use_value" />
                                     </tree>
@@ -31,7 +31,7 @@
                         </group>
                     </group>
                     <footer>
-                        <button name="add_filter" string="Add Filter" type="object" class="oe_highlight"/>
+                        <button name="add_characteristic_filter" string="Add Filter" type="object" class="oe_highlight"/>
                         or
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
@@ -42,7 +42,7 @@
         <record model="ir.actions.act_window" id="action_create_advanced_search_filter">
             <field name="name">Advanced filter</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">octopart.advanced.search</field>
+            <field name="res_model">octopart.characteristic.filter</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

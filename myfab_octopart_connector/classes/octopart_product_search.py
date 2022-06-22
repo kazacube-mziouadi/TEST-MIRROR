@@ -3,27 +3,27 @@ from openerp import models, api, fields, _
 import json
 import ast
 
-class octopart_product(models.Model):
-    _name = 'octopart.product'
+class octopart_product_research(models.Model):
+    _name = 'octopart.product.research'
     _description = 'Search product on Octopart'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    name = fields.Char(string="Connector name", required=True, default='Connector Octopart')
+    name = fields.Char(string="Research name", required=True, default=_('Octopart search'))
     description = fields.Char()
-    category_id = fields.Many2one('octopart.category', 'Category Octopart')
-    manufacturer_id = fields.Many2one('octopart.manufacturer', 'Manufacturer')
-    seller_id = fields.Many2one('octopart.seller', 'Seller')
+    category_id = fields.Many2one('octopart.category', 'Octopart Category')
+    manufacturer_id = fields.Many2one('octopart.manufacturer', 'Octopart Manufacturer')
+    seller_id = fields.Many2one('octopart.seller', 'Octopart Seller')
     sample = fields.Integer(default=10)  
-    list_specs_search_ids = fields.Many2many('octopart.specs.search', 'search_connector_id', string='Search filters', domain = "[('search_connector_id','=', active_id),]")
-    result_number = fields.Integer(default=0)
-    count_response = fields.Integer(default=0)
-    list_result_ids = fields.One2many('octopart.search.result', 'search_id', string='Result')
+    characteristics_filter_ids = fields.Many2many('octopart.characteristics.research', 'search_id', string='Characteristics filters', domain = "[('search_id','=', active_id),]")
+    number_of_results = fields.Integer(default=0)
+    number_of_results_readed = fields.Integer(default=0)
+    result_ids = fields.One2many('octopart.research.result', 'search_id', string='Result')
     
-    @api.onchange('category_id', 'seller_id', 'description', 'list_specs_search_ids')
+    @api.onchange('category_id', 'seller_id', 'description', 'characteristics_filter_ids')
     def _onchange_stop_more_result(self): 
-        self.write({'count_response' : 0 })
+        self.write({'number_of_results_readed' : 0 })
 
     @api.one
     def search_product(self):
@@ -33,64 +33,64 @@ class octopart_product(models.Model):
     
     @api.one
     def more_product_results(self):
-        if self.count_response <= self.result_number and self.count_response < 901:
+        if self.number_of_results_readed <= self.number_of_results and self.number_of_results_readed < 901:
             self._search_product()
         return True
 
     @api.one
     def clear_result(self):
-        self.list_result_ids.unlink()
-        self._set_count_and_results(0,0)    
-        filters = self.list_specs_search_ids.search([('search_connector_id', '=', self.id), ])
+        self.result_ids.unlink()
+        self._set_number_of_results(0,0)    
+        filters = self.characteristics_filter_ids.search([('search_id', '=', self.id), ])
         filters.unlink() 
 
     def _search_product(self):
-        if self.count_response > 0 and self.count_response >= self.result_number:
+        if self.number_of_results_readed > 0 and self.number_of_results_readed >= self.number_of_results:
             return True
 
         variable = {}
                     
         # Add argument depending on fields value
-        if 'description' in self.env['octopart.product']._fields and self.description:
+        if 'description' in self.env['octopart.product.research']._fields and self.description:
             variable['q'] = self.description
 
         variable['limit'] = self.sample
-        variable['start'] = self.count_response
+        variable['start'] = self.number_of_results_readed
         variable['filters'] = self._get_filter()
 
         search_result = self.env['octopart.api'].get_api_data(self._set_data(variable))
         if search_result:
             datas = search_result['data']['search']
-            if self.count_response == 0:
-                resultNumber = datas['hits']
+            if self.number_of_results_readed == 0:
+                number_of_results = datas['hits']
             else:
-                resultNumber = self.result_number
+                number_of_results = self.number_of_results
 
-            self._parts_management(datas['results'])
+            self._product_management(datas['results'])
 
-            count_response = self.count_response + self.sample
-            if count_response > resultNumber:
-                count_response = resultNumber
-            self._set_count_and_results(count_response, resultNumber)
+            number_of_results_readed = self.number_of_results_readed + self.sample
+            if number_of_results_readed > number_of_results:
+                number_of_results_readed = number_of_results
+            self._set_number_of_results(number_of_results_readed, number_of_results)
         
         return True
 
     def _get_filter(self):
         filter_args = {}
-        if 'category_id' in self.env['octopart.product']._fields and self.category_id:
+        if 'category_id' in self.env['octopart.product.research']._fields and self.category_id:
             filter_args['category_id'] = int(self.category_id.octopart_uid)
             
-        if 'manufacturer_id' in self.env['octopart.product']._fields and self.manufacturer_id:
+        if 'manufacturer_id' in self.env['octopart.product.research']._fields and self.manufacturer_id:
             filter_args['manufacturer_id'] = int(self.manufacturer_name.octopart_uid)
 
-        if 'seller_id' in self.env['octopart.product']._fields and self.seller_id:
+        if 'seller_id' in self.env['octopart.product.research']._fields and self.seller_id:
             seller_id = self.seller_id.name.replace('-', ' ')
             filter_args['sellers_id'] = int(self.seller_id.octopart_uid)
 
         # Check for advanced search filter       
-        if 'list_specs_search_ids' in self.env['octopart.product']._fields and self.list_specs_search_ids:
+        if 'characteristics_filter_ids' in self.env['octopart.product.research']._fields and self.characteristics_filter_ids:
             #api v4
-            list_specs_filter = self._get_spec_filter()
+            list_specs_filter = self._get_characteristic_filter()
             for spec in list_specs_filter:
                 is_string_value = False
                 try:
@@ -108,37 +108,37 @@ class octopart_product(models.Model):
             
         return filter_args
 
-    def _get_spec_filter(self):
+    def _get_characteristic_filter(self):
         list_specs_filter = {}
-        for element in self.list_specs_search_ids:
-            if element.spec_value:
-                if element.metedata_key not in list_specs_filter:
-                    list_specs_filter[element.metedata_key] = []  
+        for element in self.characteristics_filter_ids:
+            if element.characteristic_value:
+                if element.metadata_key not in list_specs_filter:
+                    list_specs_filter[element.metadata_key] = []  
 
-                if element.spec_value:
-                    list_specs_filter[element.metedata_key].append(element.spec_value)
+                if element.characteristic_value:
+                    list_specs_filter[element.metadata_key].append(element.characteristic_value)
                     
-            elif element.spec_min_value or element.spec_max_value:
-                if element.metedata_key not in list_specs_filter:
-                    list_specs_filter[element.metedata_key] = []
+            elif element.min_value_choose or element.max_value_choose:
+                if element.metadata_key not in list_specs_filter:
+                    list_specs_filter[element.metadata_key] = []
                     
-                if element.spec_max_value and element.spec_min_value:
-                    list_specs_filter[element.metedata_key].append('"('+str(element.spec_min_value)+'__'+str(element.spec_max_value)+')"')
-                elif element.spec_max_value:
-                    list_specs_filter[element.metedata_key].append('"('+str(element.spec_min_value)+'__)"')
-                elif element.spec_min_value:
-                    list_specs_filter[element.metedata_key].append('"(__'+str(element.spec_max_value)+')"')
+                if element.max_value_choose and element.min_value_choose:
+                    list_specs_filter[element.metadata_key].append('"('+str(element.min_value_choose)+'__'+str(element.max_value_choose)+')"')
+                elif element.max_value_choose:
+                    list_specs_filter[element.metadata_key].append('"('+str(element.min_value_choose)+'__)"')
+                elif element.min_value_choose:
+                    list_specs_filter[element.metadata_key].append('"(__'+str(element.max_value_choose)+')"')
         
         return list_specs_filter
 
-    def _parts_management(self, parts):
+    def _product_management(self, parts):
         # Result from api request
         if parts:
             for part in parts:
                 # Check if result respect advanced filter
                 values = part['part']
                 # Create result in openprod
-                active_result_rc  = self.env['octopart.search.result'].create({
+                active_result_rc  = self.env['octopart.research.result'].create({
                     'search_id' : self.id,
                     'brand_name' : values['manufacturer']['name'],
                     'mpn' : values['mpn'],
@@ -148,9 +148,9 @@ class octopart_product(models.Model):
                 })
                     
                 # Get specs from api request response
-                self._specs_management(active_result_rc, values['specs'])
+                self._characteristics_management(active_result_rc, values['specs'])
 
-    def _specs_management(self, active_result_rc, specs):
+    def _characteristics_management(self, active_result_rc, specs):
         if specs:
             for element in specs:
                 active_spec_category_rc = self.env['octopart.category'].characteristics_management(self.id, element['attribute'])
@@ -188,9 +188,9 @@ class octopart_product(models.Model):
                 })
                 active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],})
     
-    def _set_count_and_results(self,count_response,resultNumber):
-        self.write({'count_response' : count_response })
-        self.write({'result_number' : resultNumber})
+    def _set_number_of_results(self,number_of_results_readed,number_of_results):
+        self.write({'number_of_results' : number_of_results})
+        self.write({'number_of_results_readed' : number_of_results_readed })
 
     def _set_data(self, variables):
         #Test de connection serveur Octopart api V4
@@ -228,38 +228,38 @@ class octopart_product(models.Model):
         '''
         return query
 
-class octopart_specs_search(models.Model):
-    _name = 'octopart.specs.search'
-    _description = 'Specs from Octopart'
+class octopart_characteristics_research(models.Model):
+    _name = 'octopart.characteristics.research'
+    _description = 'Octopart characteristics research'
     
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    metedata_key = fields.Char(string="Octopart Key")
     name = fields.Char(string="Filter name")
-    search_connector_id = fields.Many2one('octopart.product',required=True, ondelete='cascade')
-    string_value = fields.Boolean(string="String value", default=False)
-    spec_value = fields.Char(string="Value")
-    spec_min_value = fields.Float(string="Min value")
-    spec_max_value = fields.Float(string="Max value")
+    search_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
+    metadata_key = fields.Char(string="Octopart Key")
+    string_value = fields.Boolean(default=False)
+    characteristic_value = fields.Char(string="Value")
+    min_value_choose = fields.Float(string="Min value")
+    max_value_choose = fields.Float(string="Max value")
 
-class octopart_search_result(models.Model):
-    _name = 'octopart.search.result'
-    _description = 'Result from search product'
+class octopart_research_result(models.Model):
+    _name = 'octopart.research.result'
+    _description = 'Result Octopart product search'
 
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    search_id = fields.Many2one('octopart.product',required=True, ondelete='cascade')
+    search_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
     octopart_uid = fields.Char()
     brand_name = fields.Char()
     mpn = fields.Char(string="Manufacturer code")
     octopart_url = fields.Char()
     short_description = fields.Char()
     value_ids = fields.Many2many('characteristic')
-    is_in_openprod = fields.Boolean(compute='_compute_in_openprod')
+    is_in_openprod = fields.Boolean(compute='_compute_is_in_openprod')
     
-    def _compute_in_openprod(self):
+    def _compute_is_in_openprod(self):
         if self.env['product.product'].search([['octopart_uid_product', '=', self.octopart_uid], ]):
             self.is_in_openprod = True
         else:

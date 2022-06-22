@@ -29,7 +29,7 @@ class octopart_seller_import_wizard(models.TransientModel):
                 'name' : current_seller['name'],
                 'octopart_uid' : current_seller['id'],
                 'homepage_url' : current_seller['homepage_url'],
-                'display_flag' : current_seller['slug'],
+                'octopart_name' : current_seller['slug'],
                 'is_verified' : current_seller['is_verified'],
                 'is_distributorapi' : current_seller['is_distributorapi'],
             })
@@ -37,7 +37,7 @@ class octopart_seller_import_wizard(models.TransientModel):
             search_seller.write({
                 'name' : current_seller['name'],
                 'homepage_url' : current_seller['homepage_url'],
-                'display_flag' : current_seller['slug'],
+                'octopart_name' : current_seller['slug'],
                 'is_verified' : current_seller['is_verified'],
                 'is_distributorapi' : current_seller['is_distributorapi'],
             })

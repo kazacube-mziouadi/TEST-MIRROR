@@ -8,8 +8,8 @@ class octopart_price_add(models.TransientModel):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    part_uid_octopart = fields.Char(string="Part Octopart id", required=True)
-    list_seller_offers_ids = fields.One2many('octopart.seller.offer', 'add_price_id', string='Offers')
+    product_octopart_uid = fields.Char(string="Product Octopart id", required=True)
+    sellers_offers_ids = fields.One2many('octopart.seller.offer', 'add_price_id', string='Offers')
     company_id = fields.Many2one('res.company', string='Company', required=True, ondelete='restrict', default=lambda self: self.env.user.company_id)
     uop_id = fields.Many2one('product.uom', string='UoP',required=True, ondelete='restrict', help='Unit of Purchase')
     uoi_id = fields.Many2one('product.uom', string='UoI',required=True, ondelete='restrict', help='Unit of Invoice')
@@ -44,21 +44,21 @@ class octopart_price_add(models.TransientModel):
                     add_price_offers.append((0,0,{
                         'currency' : price['currency'],
                         'price' : price['price'],
-                        'number_item' : price['quantity']
+                        'minimum_order_quantity' : price['quantity']
                     }))
 
-                self.list_seller_offers_ids = [(0,0,{
+                self.sellers_offers_ids = [(0,0,{
                     'name' :company_value['name'], 
-                    'seller_identifier' : company_value['id'], 
+                    'seller_octopart_uid' : company_value['id'], 
                     'sku' : offer['sku'],
-                    'list_price_ids' : add_price_offers,
+                    'price_ids' : add_price_offers,
                 })]
         
         return True
 
     #méthode envoie et récupération de donnée serveur
     def _set_data(self):
-        ids = [str(self.part_uid_octopart)]
+        ids = [str(self.product_octopart_uid)]
         variables = {'ids': ids}
         data = {'query': self._query_def(),
                 'variables': variables}

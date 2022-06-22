@@ -18,11 +18,11 @@
                     <button name="reset_octopart_seller_uid" string="Reset octopart seller id"
                         type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
                         attrs="{'invisible': [('octopart_uid_seller', '=', '0')]}"
-                        confirm="Do you want to set octopart seller id to '0' ?"/>
+                        confirm="o you want to reset octopart seller link ?"/>
                     <button name="reset_octopart_manufacturer_uid" string="Reset octopart manufacturer id"
                         type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
                         attrs="{'invisible': [('octopart_uid_manufacturer', '=', '0')]}"
-                        confirm="Do you want to set octopart manufacturer id to '0' ?"/>
+                        confirm="Do you want to reset octopart manufacturer link ?"/>
                 </xpath>
             </field>
         </record>

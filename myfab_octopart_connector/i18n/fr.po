@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * myfab_octopart_connector
+#	* myfab_octopart_connector
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 9.0c\n"
+"Project-id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-25 15:16+0000\n"
-"PO-Revision-Date: 2021-02-25 15:16+0000\n"
+"POT-Creation-Date: 2022-06-22 14:43+0000\n"
+"PO-Revision-Date: 2022-06-22 14:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,42 +16,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_is_verified
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_is_verified
-msgid " Is verified"
-msgstr " Est vérifier"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "10 derniers achats"
-msgstr "10 derniers achats"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,trigger_supply:0
-msgid "A la demande"
-msgstr "A la demande"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,trigger_supply:0
-msgid "A la demande en tenant compte du stock"
-msgstr "A la demande en tenant compte du stock"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,supply_method:0
-msgid "Acheter"
-msgstr "Acheter"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_categorie
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_seller
 msgid "Actions"
 msgstr "Actions"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_active_connector_id
-msgid "Active connector id"
-msgstr "Id connecteur active"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_advanced_search
@@ -59,32 +27,11 @@ msgid "Add Filter"
 msgstr "Ajouter filtre"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_add_characteristics_type_id
-msgid "Add characteristics type id"
-msgstr "Ajout de l'id de type de caractéristique"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
-msgid "Add id supplyer"
-msgstr "Ajouter id fournisseur octopart"
-
-#. module: myfab_octopart_connector
-#: model:ir.actions.act_window,name:myfab_octopart_connector.action_add_octopart_seller_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_add_octopart_id
-msgid "Add octopart id"
-msgstr "Ajouter id Octopart"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
-msgid "Add octopart id to supplyer"
-msgstr "Ajouter Octopart id au fournisseur"
-
-#. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.action_add_octopart_price
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.openprod_view_product_form_octopart
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
 msgid "Add octopart price"
-msgstr "Ajouter prix Octopart"
+msgstr "Ajouter tarif Octopart"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
@@ -92,14 +39,9 @@ msgid "Add offer"
 msgstr "Ajouter offre"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_add_price_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_add_price_id
 msgid "Add price id"
-msgstr "Ajouter prix"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
-msgid "Add seller id"
-msgstr "Ajouter vendeur"
+msgstr "Ajouter tarif"
 
 #. module: myfab_octopart_connector
 #: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_responsible
@@ -112,33 +54,17 @@ msgid "Advanced filter"
 msgstr "Filtre avancé"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_ancestor_uids
-msgid "Ancestor uids"
-msgstr "Identifiant octopart des ancêtres"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_product_product_api_key
-msgid "Api key"
-msgstr "Clé api"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_apiKey
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_apiKey
-msgid "Apikey"
-msgstr "Clé d'api"
-
-#. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
 msgid "Associate"
 msgstr "Associer"
+
+#. module: myfab_octopart_connector
+#: model:ir.actions.act_window,name:myfab_octopart_connector.action_add_octopart_seller_id
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_seller
+msgid "Associate to supplyer"
+msgstr "Associer au fournisseur"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_result
@@ -146,13 +72,7 @@ msgid "Attribute"
 msgstr "Attribut"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,trigger_supply:0
-msgid "Aucun"
-msgstr "Aucun"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_brand_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_brand_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_brand_name
 msgid "Brand name"
 msgstr "Marque"
 
@@ -160,7 +80,6 @@ msgstr "Marque"
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_advanced_search
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard_template
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_category_wizard
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_characteristics_wizard
@@ -170,22 +89,12 @@ msgid "Cancel"
 msgstr "Annulé"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_categorie
-msgid "Categorie Octopart"
-msgstr "Catégorie Octopart"
-
-#. module: myfab_octopart_connector
 #: model:ir.ui.menu,name:myfab_octopart_connector.menu_category_connector
 msgid "Categories Octopart"
 msgstr "Catégories Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_categ_id
-msgid "Category"
-msgstr "Catégorie"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_category_id
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_categorie
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_tree_product
 msgid "Category Octopart"
 msgstr "Catégorie Octopart"
@@ -193,130 +102,113 @@ msgstr "Catégorie Octopart"
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_category
 msgid "Category from Octopart"
-msgstr "Catégorie Octopart"
+msgstr "Catégorie d'Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_category_id
-msgid "Category id"
-msgstr "Catégorie"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_characteristic_filter_id
+msgid "Characteristic filter id"
+msgstr "Id filtre caractéristique"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_characteristics_type_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_characteristic_type_id
+msgid "Characteristic type"
+msgstr "Type de caractéristique"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_characteristic_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_characteristics_value_ids
 msgid "Characteristic value"
 msgstr "Valeur de la caractéristique"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
-msgid "Clear part list"
-msgstr "Vider la liste des composants"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_characteristic_value_filter
+msgid "Characteristic values used by filter"
+msgstr "Valeurs de caractéristique utilisé par le filtre"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_code_product
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_code_product
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
+msgid "Clear product list"
+msgstr "Vider la liste des produits"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_code_product
 msgid "Code product"
 msgstr "Code produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_company_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_company_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_company_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_company_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_company_id
 msgid "Company"
 msgstr "Compagnie"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_complete_path
-msgid "Complete path"
-msgstr "Chemin complet"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_num_parts
-msgid "Component number"
-msgstr "Nombre de composants"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_connector_id
-msgid "Connector id"
-msgstr "Id du connecteur"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_name
-msgid "Connector name"
-msgstr "Nom connecteur"
+#: code:addons/myfab_octopart_connector/classes/octopart_product_search.py:13
+#, python-format
+msgid "Connector Octopart"
+msgstr "Connector Octopart"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_tree_connector_product
-msgid "Connector product"
-msgstr "Connecteur produit"
+msgid "Product research"
+msgstr "Recherche de produits"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_count_response
-msgid "Count response"
-msgstr "Nombre de réponse"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_create_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_create_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_create_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_create_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_create_uid
 msgid "Created by"
 msgstr "Crée par"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_create_date
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_create_date
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_create_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_create_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_create_date
 msgid "Created on"
 msgstr "Crée le"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_currency
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_currency
 msgid "Currency"
-msgstr "Monnai"
+msgstr "Devise"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_datasheet
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_datasheet
 msgid "Datasheet"
 msgstr "Fiche technique"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "Dernier achat"
-msgstr "Dernier achat"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_description
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_product_product_description
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_description
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_result
 msgid "Description"
 msgstr "Description"
@@ -336,81 +228,64 @@ msgid "Details"
 msgstr "Détails"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_directory_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_directory_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_directory_id
 msgid "Directory"
 msgstr "Répertoire"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_display_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_display_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_display_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_display_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_display_flag
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_display_flag
 msgid "Display flag"
 msgstr "Nom affiché"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
 msgid "Do you want to add this price ?"
-msgstr "Voulez vous ajouter ce prix ?"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
-msgid "Do you want to associate this octopart uid to the partner as supplyer?"
-msgstr "Voulez vous associé l'id octopart au partenaire en tant que fournisseur ?"
+msgstr "Voulez vous ajouter ce tarif ?"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.openprod_view_partner_form_octopart
-msgid "Do you want to set octopart manufacturer id to '0' ?"
-msgstr "Voulez vous réinitialiser l'id du constructeur d'octopart à '0' ?"
+msgid "Do you want to reset octopart manufacturer link ?"
+msgstr "Voulez vous réinitialiser le lien avec le fabricant d'octopart ?"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.openprod_view_partner_form_octopart
-msgid "Do you want to set octopart seller id to '0' ?"
-msgstr "Voulez vous réinitialiser l'id du vendeur d'octopart à '0' ?"
+msgid "o you want to reset octopart seller link ?"
+msgstr "Voulez vous réinitialiser le lien avec le vendeur d'octopart ?"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_trigger_supply
-msgid "Déclencheur d'approvisionnement"
-msgstr "Déclencheur d'approvisionnement"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_eligible_region
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_eligible_region
 msgid "Eligible region"
 msgstr "Région éligible"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_property_account_expense_id
-msgid "Expense Account"
-msgstr "Compte de charges"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_explaination
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_explaination
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_explaination
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_explaination
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_explaination
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_explaination
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_explaination
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_explaination
 msgid "Explaination"
-msgstr "Description de l'action"
+msgstr "Explication"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_advanced_search
@@ -418,7 +293,7 @@ msgid "Filter"
 msgstr "Filtre"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_name
 msgid "Filter name"
 msgstr "Nom du filtre"
 
@@ -433,73 +308,67 @@ msgid "Full path"
 msgstr "Chemin complet"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_has_ecommerce
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_has_ecommerce
 msgid "Has ecommerce"
-msgstr "Ecommerce possible"
+msgstr "e-commerce possible"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_homepage_url
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_homepage_url
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_homepage_url
 msgid "Homepage url"
 msgstr "Url site web"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_id
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_id
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_id
-msgid "ID"
-msgstr "ID"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_id
+msgid "Id"
+msgstr "Id"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_image
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_image
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_image
 msgid "Image"
 msgstr "Image"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_category_wizard
-msgid "Import categories"
-msgstr "Importer catégories"
-
-#. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.act_import_category
 #: model:ir.actions.act_window,name:myfab_octopart_connector.action_see_category_connector
-msgid "Import category"
-msgstr "Importer catégories"
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_category_wizard
+msgid "Import categories"
+msgstr "Import des catégories"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_category_wizard
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_characteristics_wizard
-msgid "Import category wizard"
-msgstr "Wizard d'import de catégories"
+msgid "Import categories wizard"
+msgstr "Assistant d'import de catégories"
 
 #. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.act_import_characteristics
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_characteristics_wizard
 msgid "Import characteristics"
-msgstr "Importer caractéristiques"
+msgstr "Import des caractéristiques"
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/import_characteristics.py:19
+#: code:addons/myfab_octopart_connector/wizard/data/import_characteristics.py:10
 #, python-format
-msgid "Import characteristics of all select octopart category"
-msgstr "Importation de caractéristiques de toutes les catégories d’octoparties sélectionnées"
+msgid "Import characteristics of all selected octopart categories"
+msgstr "Import des caracteristiques de toutes les catégories Octopart sélectionnées"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard_template
@@ -510,49 +379,44 @@ msgstr "Importer les détails"
 #: model:ir.actions.act_window,name:myfab_octopart_connector.act_import_manufacturer
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_manufacturer_wizard
 msgid "Import manufacturer"
-msgstr "Importer farbriquant"
+msgstr "Importer les farbriquants"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_manufacturer_wizard
 msgid "Import manufacturer wizard"
-msgstr "Wizard d'import de fabricant"
+msgstr "Assistant d'import de fabricant"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
-msgid "Import part with template"
-msgstr "Importer composant avec template"
+#: model:ir.actions.act_window,name:myfab_octopart_connector.action_create_import_wizard_template
+#: model:ir.ui.menu,name:myfab_octopart_connector.menu_myfab_octopart_connector
+msgid "Import octopart product"
+msgstr "Import du produit octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard_template
 msgid "Import product"
-msgstr "Importer produit"
+msgstr "Import le produit"
 
 #. module: myfab_octopart_connector
 #: model:ir.module.category,name:myfab_octopart_connector.module_myfab_octopart_connector_security
 msgid "Import product connector security"
-msgstr "Importer la sécurité des connecteurs de produits"
+msgstr "Sécurité du connecteur d'import de produits"
 
 #. module: myfab_octopart_connector
-#: model:ir.actions.act_window,name:myfab_octopart_connector.action_create_import_wizard
-#: model:ir.actions.act_window,name:myfab_octopart_connector.action_create_import_wizard_template
-msgid "Import product options"
-msgstr "Option d'import de produit"
-
-#. module: myfab_octopart_connector
-#: model:ir.actions.act_window,name:myfab_octopart_connector.act_import_seller
-msgid "Import seller"
-msgstr "Importer Vendeur"
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
+msgid "Import product with template"
+msgstr "Importer le produit via un modèle de produit"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_seller_wizard
 msgid "Import seller wizard"
-msgstr "Wizard d'importation de vendeur"
+msgstr "Assistant d'importation de vendeur"
 
 #. module: myfab_octopart_connector
+#: model:ir.actions.act_window,name:myfab_octopart_connector.act_import_seller
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_seller_wizard
 msgid "Import sellers"
-msgstr "Importer vendeurs"
+msgstr "Import des vendeurs"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_advanced_search
@@ -561,129 +425,121 @@ msgstr "Importer vendeurs"
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_manufacturer_wizard
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_import_seller_wizard
 msgid "Import wizard"
-msgstr "Wizard d'import"
+msgstr "Assistant d'import"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_import_wizard_id
-msgid "Import wizard id"
-msgstr "Id wizard d'import"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_import_wizard_template_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_import_wizard_template_id
 msgid "Import wizard template id"
-msgstr "Id wizard avec template d'import"
+msgstr "Id du modèle de l'assistant d'import"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.menu,name:myfab_octopart_connector.menu_myfab_octopart_connector
-msgid "Importer un produit"
-msgstr "Importer un produit"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_is_distributorapi
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_is_distributorapi
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_is_distributorapi
 msgid "Is distributor"
 msgstr "Est distributeur"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_is_in_openprod
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_is_in_openprod
 msgid "Is in openprod"
 msgstr "Est dans openprod"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_is_numerical_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_is_numerical_value
 msgid "Is numerical value"
 msgstr "Est une valeur numérique"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_is_product_in_openprod
+msgid "Is in openprod"
+msgstr "Est dans openprod"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_is_seller_set
+msgid "Is seller set"
+msgstr "Est vendeur affecté"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_is_verified
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_is_verified
+msgid "Is verified"
+msgstr "Est vérifié"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api___last_update
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product___last_update
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search___last_update
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price___last_update
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_write_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_write_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_write_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_write_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_category_wizard_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_characteristics_wizard_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_manufacturer_wizard_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_import_seller_wizard_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_import_wizard_write_date
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_import_wizard_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_write_date
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_write_date
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_import_wizard_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_write_date
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_list_price_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_ids
 msgid "List of prices"
-msgstr "Liste de prix"
+msgstr "Liste de tarifs"
 
 #. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_specs_value_search
 #: model:ir.model,name:myfab_octopart_connector.model_specs_value_search
 msgid "List of value associated to a spec for the wizard"
-msgstr "Liste de valeur de la caractéristique
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "Liste de prix fournisseur"
-msgstr "Liste de prix fournisseur"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "Liste de prix fournisseur avec EOQ"
-msgstr "Liste de prix fournisseur avec EOQ"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,inventory_valuation:0
-msgid "Lot"
-msgstr "Lot"
+msgstr "Liste de valeurs pour la caractéristique recherchée"
 
 #. module: myfab_octopart_connector
 #: model:res.groups,name:myfab_octopart_connector.myfab_octopart_connector_security_manager
@@ -691,13 +547,8 @@ msgid "Manager"
 msgstr "Manager"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "Manuel"
-msgstr "Manuel"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_manufacturer_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_product_product_manufacturer_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_res_partner_octopart_uid_manufacturer
 #: model:ir.ui.menu,name:myfab_octopart_connector.menu_octopart_manufacturer
 msgid "Manufacturer"
 msgstr "Fabricant"
@@ -708,73 +559,52 @@ msgid "Manufacturer Octopart"
 msgstr "Fabricant Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_manufacturer_uid
 msgid "Manufacturer Octopart id"
 msgstr "Id Octopart du fabricant"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_code
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_mpn
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_product_product_manufacturer_code
 msgid "Manufacturer code"
 msgstr "Code fabricant"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_manufacturer_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_manufacturer_name
 msgid "Manufacturer name"
 msgstr "Nom fabricant"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_manufacturer_uid_octopart
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
-msgid "Manufacturer uid octopart"
-msgstr "id Octopart du fabricant"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_manufacturer_url
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_url
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_manufacturer_url
 msgid "Manufacturer url"
 msgstr "Url fabricant"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_spec_max_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_max_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_max_value_choose
 msgid "Max value"
 msgstr "Valeur maximum"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_max_value
-msgid "Maximum value"
-msgstr "Valeur Maximum"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_max_value_choose
+msgid "Max value choose"
+msgstr "Valeur max choisie"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_spec_max_value
-msgid "Maximum value choose"
-msgstr "Valeur Maximum choisie"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_spec_min_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_min_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_min_value_choose
 msgid "Min value"
 msgstr "Valeur minimum"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_number_item
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_min_value_choose
+msgid "Min value choose"
+msgstr "Valeur min choisie"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_minimum_order_quantity
 msgid "Minimum order quantity"
-msgstr "Nombre d'item minimum"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_min_value
-msgid "Minimum value"
-msgstr "Valeur Minimum"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_spec_min_value
-msgid "Minimum value choose"
-msgstr "Valeur Minimum choisie"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_mnp
-msgid "Mnp"
-msgstr "Mnp"
+msgstr "Quantité minimum de commande"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
@@ -782,210 +612,31 @@ msgid "More result"
 msgstr "Plus de résultats"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_cost_method
-msgid "Méthode de coût"
-msgstr "Méthode de coût"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_supply_method
-msgid "Méthode de fourniture par défaut "
-msgstr "Méthode de fourniture par défaut "
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_name
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_name
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_technical_data_config_settings_name
 msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_company_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_list_seller_offers_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_part_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_product_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_list_sellers_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_partner_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_seller_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_seller_id_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_result_id
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_type_octopart_category_ids
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_type_octopart_key
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_type_unit_octopart
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_unit_octopart
 #: model:ir.model.fields,help:myfab_octopart_connector.field_characteristic_value_octopart_category_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_active_connector_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_add_characteristics_type_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_category_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_is_numerical_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_list_possible_values_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_spec_max_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_spec_min_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_categ_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_code_product
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_company_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_cost_method
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_datasheet
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_directory_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_image
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_inventory_valuation
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_list_seller_offers_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_manufacturer_code
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_manufacturer_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_manufacturer_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_manufacturer_url
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_part_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_product_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_property_account_expense_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_supply_method
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_code_product
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_company_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_datasheet
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_directory_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_image
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_list_seller_offers_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_code
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_manufacturer_url
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_part_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_product_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_product_template_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_trigger_supply
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_type_valuation_purchase
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_uom_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_brand_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_category_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_count_response
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_description
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_list_result_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_list_specs_search_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_manufacturer_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_result_number
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_sample
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_seller_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_product_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_brand_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_is_in_openprod
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_mnp
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_octopart_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_octopart_url
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_search_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_short_description
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_value_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_result_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_display_flag
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_has_ecommerce
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_homepage_url
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_octopart_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_explaination
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_category_wizard_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_explaination
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_characteristics_wizard_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_explaination
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_manufacturer_wizard_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_apiKey
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_explaination
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_import_seller_wizard_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_api_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_ancestor_uids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_apiKey
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_characteristics_type_ids
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_characteristics_value_ids
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_complete_path
@@ -993,107 +644,231 @@ msgstr "Nom"
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_create_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_display_name
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_explaination
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_import_wizard_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_num_parts
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_number_of_products
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_octopart_parent_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_octopart_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_parent_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_parent_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_sample_size
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_write_date
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_category_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_category_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_characteristic_type_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_is_numerical_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_possible_values_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_research_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_explaination
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_import_wizard_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_characteristic_filter_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_characteristic_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_research_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_string_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_unit_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_use_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_value_filter_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_characteristic_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_max_value_choose
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_metadata_key
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_min_value_choose
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_search_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_string_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristics_research_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_code_product
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_company_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_datasheet
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_directory_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_image
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_manufacturer_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_manufacturer_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_manufacturer_url
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_product_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_product_octopart_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_product_template_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_sellers_offers_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer___last_update
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_create_date
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_create_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_display_name
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_homepage_url
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_explaination
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_import_wizard_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_is_product_in_openprod
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_name
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_octopart_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_part_in_openprod
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_write_date
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_add_octopart_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_uid_octopart
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_add_id_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_currency
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_number_item
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_offer_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_price
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_price_offer_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_product_product_api_key
-#: model:ir.model.fields,help:myfab_octopart_connector.field_product_product_description
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_company_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_product_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_product_octopart_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_sellers_offers_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_category_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_characteristics_filter_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_description
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_manufacturer_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_number_of_results
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_number_of_results_readed
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_result_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_sample
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_seller_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_product_research_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_brand_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_is_in_openprod
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_mpn
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_octopart_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_octopart_url
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_search_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_short_description
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_value_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_research_result_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_display_flag
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_has_ecommerce
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_homepage_url
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_explaination
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_import_wizard_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_octopart_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_add_price_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_eligible_region
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_import_wizard_template_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_order_delay
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_currency
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_ids
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_minimum_order_quantity
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_price
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_seller_offer_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_price_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_seller_octopart_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_sku
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_offer_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate___last_update
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_create_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_create_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_display_name
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_is_seller_set
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_partner_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_seller_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_partner_associate_write_uid
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_write_date
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_product_product_manufacturer_code
 #: model:ir.model.fields,help:myfab_octopart_connector.field_product_product_manufacturer_id
 #: model:ir.model.fields,help:myfab_octopart_connector.field_product_product_octopart_uid_product
 #: model:ir.model.fields,help:myfab_octopart_connector.field_res_partner_octopart_uid_manufacturer
 #: model:ir.model.fields,help:myfab_octopart_connector.field_res_partner_octopart_uid_seller
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_add_price_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_eligible_region
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_import_wizard_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_import_wizard_template_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_list_price_ids
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_octopart_currency
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_oder_delay
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_seller_identifier
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_sku
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_sellers_offers_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_metedata_key
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_search_connector_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_spec_max_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_spec_min_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_spec_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_string_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_search_write_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search___last_update
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_connector_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_create_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_create_uid
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_display_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_name
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_search_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_spec_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_string_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_unit_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_use_value
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_write_date
-#: model:ir.model.fields,help:myfab_octopart_connector.field_specs_value_search_write_uid
 #: model:ir.model.fields,help:myfab_octopart_connector.field_technical_data_config_settings_name
 #: model:ir.model.fields,help:myfab_octopart_connector.field_technical_data_config_settings_octopart_api_key
 msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_parent_uid
-msgid "Ocotpart Parent id"
-msgstr "Id Octopart du parent"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_number_of_products
+msgid "Number of products"
+msgstr "Nombre de produits"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_number_of_results
+msgid "Number of results"
+msgstr "Nombre de résultats"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_number_of_results_readed
+msgid "Number of results readed"
+msgstr "Nombre de résultats lus"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.menu,name:myfab_octopart_connector.menu_octopart_conf
@@ -1101,9 +876,24 @@ msgid "Octopart"
 msgstr "Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_metedata_key
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_category_id
+msgid "Octopart Category"
+msgstr "Catégorie Octopart"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_metadata_key
 msgid "Octopart Key"
 msgstr "Clé Octopart"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_manufacturer_id
+msgid "Octopart Manufacturer"
+msgstr "Fabricant Octopart"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_seller_id
+msgid "Octopart Seller"
+msgstr "Vendeur Octopart"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_technical_data_config_settings_octopart_api_key
@@ -1113,14 +903,14 @@ msgstr "Clé d'api Octopart"
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_characteristic_type_octopart_category_ids
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_characteristic_value_octopart_category_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_category_id
 msgid "Octopart category"
 msgstr "Catégorie octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_add_id_uid_octopart
-msgid "Octopart id"
-msgstr "Id Octopart"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_characteristics_research
+msgid "Octopart characteristics research"
+msgstr "Caractéristiques Octopart recherchées"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_characteristic_type_octopart_key
@@ -1134,14 +924,14 @@ msgid "Octopart manufacturer"
 msgstr "Fabricant Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_res_partner_octopart_uid_manufacturer
-msgid "Octopart manufacturer id"
-msgstr "Id fabricant Octopart"
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_result
+msgid "Octopart characteristics"
+msgstr "Caractéristiques Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_octopart_result
-msgid "Octopart options"
-msgstr "Option Octopart"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_octopart_parent_uid
+msgid "Octopart parent uid"
+msgstr "Octopart idparent"
 
 #. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.action_see_octopart_seller
@@ -1150,46 +940,26 @@ msgid "Octopart seller"
 msgstr "Vendeur Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_res_partner_octopart_uid_seller
-msgid "Octopart seller id"
-msgstr "Vendeur Octopart"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_list_sellers_ids
-msgid "Octopart sellers list"
-msgstr "Liste vendeurs Octopart"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_octopart_uid
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_seller_octopart_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_octopart_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_octopart_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_octopart_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_octopart_uid
 msgid "Octopart uid"
-msgstr "id Octopart"
+msgstr "idOctopart"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_product_product_octopart_uid_product
 msgid "Octopart uid product"
-msgstr "id produit Octopart"
+msgstr "Id Octopart produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_octopart_url
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_octopart_url
 msgid "Octopart url"
 msgstr "Url Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_oder_delay
-msgid "Oder delay"
-msgstr "Délai de livraison"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_offer_id
-msgid "Offer id"
-msgstr "Offres"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_list_seller_offers_ids
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_list_seller_offers_ids
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_list_seller_offers_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_sellers_offers_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_sellers_offers_ids
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard_template
 msgid "Offers"
@@ -1197,11 +967,11 @@ msgstr "Offres"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
-msgid "Open sellers offers"
-msgstr "Ouvrir les offres vendeurs"
+msgid "Open octopart sellers offers web page"
+msgstr "Ouvrir la page Web des offres de vendeurs octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_oder_delay
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_order_delay
 msgid "Order delay"
 msgstr "Délai de livraison"
 
@@ -1211,65 +981,61 @@ msgid "Parent"
 msgstr "Parent"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_part_uid_octopart
-msgid "Part Octopart id"
-msgstr "Part Octopart id"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_manufacturer_part_in_openprod
-msgid "Part in openprod"
-msgstr "Composant dans openprod"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_part_uid_octopart
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_part_uid_octopart
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_part_uid_octopart
-msgid "Part uid octopart"
-msgstr "Composant Octopart"
-
-#. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_res_partner
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_partner_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_partner_id
 msgid "Partner"
 msgstr "Partenaire"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_advanced_search_list_possible_values_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_possible_values_ids
 msgid "Possible values"
 msgstr "Valeurs possibles"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_price_offer_price
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_price
 msgid "Price"
-msgstr "Prix"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,inventory_valuation:0
-msgid "Prix moyen pondéré"
-msgstr "Prix moyen pondéré"
+msgstr "Tarif"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_product_product
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_product_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_product_id
 msgid "Product"
 msgstr "Produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_product_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_product_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_product_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_product_octopart_uid
+msgid "Product Octopart id"
+msgstr "Id Octopart produit"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_product_id
 msgid "Product id"
-msgstr "Produit"
+msgstr "Id produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_product_template_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_product_octopart_uid
+msgid "Product octopart uid"
+msgstr "Id Octopart produit"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_product_template_id
 msgid "Product template"
-msgstr "Template produit"
+msgstr "Produit modèle"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,supply_method:0
-msgid "Produire"
-msgstr "Produire"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_filter_research_id
+msgid "Research"
+msgstr "Recherche"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_research_id
+msgid "Research id"
+msgstr "Id recherche"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_name
+msgid "Research name"
+msgstr "Nom recherche"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.openprod_view_partner_form_octopart
@@ -1282,20 +1048,20 @@ msgid "Reset octopart seller id"
 msgstr "Réinitialiser id vendeur Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_list_result_ids
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_result_ids
 msgid "Result"
 msgstr "Résultat"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_result
-msgid "Result from search product"
-msgstr "Résultat de la recherche de produit"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_research_result
+msgid "Result Octopart product search"
+msgstr "Résultat de recherche de produit Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_result_number
-msgid "Result number"
-msgstr "Nombre de résultat"
+#: model:ir.model,name:myfab_octopart_connector.model_connector_result
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_search_result
+msgid "Result from search product"
+msgstr "Résultat de la recherche de produit"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_characteristic_result_id
@@ -1308,86 +1074,62 @@ msgid "Results"
 msgstr "Résultats"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,type_valuation_purchase:0
-msgid "Réel"
-msgstr "Réel"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_sample_size
-msgid "Sample size"
-msgstr "Taille de l'échantillon"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_sample
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_sample
 msgid "Sample"
 msgstr "Échantillon"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_search_connector_id
-msgid "Search connector id"
-msgstr "Recherche id connecteur"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_list_specs_search_ids
-msgid "Search filters"
-msgstr "Filtre de recherche"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_search_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_search_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_search_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_search_id
 msgid "Search id"
 msgstr "Id recherche"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
-msgid "Search parts"
-msgstr "Recherche de composant"
 
 #. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.action_see_import_product
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
 msgid "Search product"
-msgstr "Recherche de produit"
+msgstr "Recherche de produits"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_product
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_product
 msgid "Search product connector"
 msgstr "Connecteur de recherche de produit"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
-msgid "Search seller"
-msgstr "Recherche de vendeur"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_product_research
+msgid "Search product on Octopart"
+msgstr "Recherche de produits sur Octopart"
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/import_category.py:18
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
+msgid "Search products"
+msgstr "Recherche de produits"
+
+#. module: myfab_octopart_connector
+#: code:addons/myfab_octopart_connector/wizard/data/import_category.py:11
 #, python-format
 msgid "Select import categories to import all available categories from Octopart to Openprod."
-msgstr "Importe toutes les catégories Octopart."
+msgstr "Sélectionnez import des catégories pour importer dans Openprod de toutes les catégories disponible depuis Octopart."
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/import_manufacturer.py:18
+#: code:addons/myfab_octopart_connector/wizard/data/import_manufacturer.py:11
 #, python-format
 msgid "Select import manufacturer to import all available manufacturer from Octopart to Openprod."
-msgstr "Importe tous les fabricant d'Octopart."
+msgstr "Sélectionnez import des fabricants pour importer dans Openprod de tous les fabricants disponible depuis Octopart."
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/import_sellers.py:18
+#: code:addons/myfab_octopart_connector/wizard/data/import_seller.py:11
 #, python-format
 msgid "Select import sellers to import all available sellers from Octopart to Openprod."
-msgstr "Importe tous les vendeur d'Octopart."
+msgstr "Sélectionnez import des vendeurs pour importer dans Openprod de tous les vendeurs disponible depuis Octopart."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_seller_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_product_seller_name
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_seller_identifier
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_seller_octopart_uid
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_seller_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_res_partner_octopart_uid_seller
 msgid "Seller"
 msgstr "Vendeur"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_seller_identifier
-msgid "Seller identifier"
-msgstr "Identifiant vendeur"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_seller_id
@@ -1395,9 +1137,9 @@ msgid "Seller infomation"
 msgstr "Information vendeur."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_seller_id_seller_name
-msgid "Seller name"
-msgstr "Nom vendeur"
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_seller_offer_id
+msgid "Seller offer id"
+msgstr "Id offre vendeur"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.menu,name:myfab_octopart_connector.menu_octopart_seller
@@ -1410,9 +1152,9 @@ msgid "Sellers Octopart"
 msgstr "Vendeur Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_short_description
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_short_description
 msgid "Short description"
-msgstr "Description"
+msgstr "Description courte"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
@@ -1420,30 +1162,14 @@ msgid "Show offer"
 msgstr "Afficher offres"
 
 #. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_advanced_search
-msgid "Show possible value for the spec"
-msgstr "Afficher valeurs possibles pour la spec"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_sellers_offers_sku
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_sku
 msgid "Sku"
-msgstr "Sku"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_characteristics_type_ids
-msgid "Spec type"
-msgstr "Type charactéristique"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_category_characteristics_value_ids
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_spec_value
-msgid "Spec value"
-msgstr "Valeur de la caratéristique"
+msgstr "Unité de stockage"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_categorie
 msgid "Specification"
-msgstr "Specification"
+msgstr "Spécification"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_product
@@ -1452,59 +1178,66 @@ msgstr "Spécifications"
 
 #. module: myfab_octopart_connector
 #: model:ir.actions.act_window,name:myfab_octopart_connector.action_see_specs_search
-msgid "Specs Search"
-msgstr "recherche charatéristique"
+msgid "Characteristics search"
+msgstr "Recherche de caratéristiques"
 
 #. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_product_research_characteristics_filter_ids
+msgid "Characteristics filters"
+msgstr "Filtres de caractéristiques"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_specs_search
 #: model:ir.model,name:myfab_octopart_connector.model_specs_search
 msgid "Specs from Octopart"
-msgstr "Caratéristique d'Octopart"
+msgstr "Caratéristiques d'Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_string_value
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_string_value
+#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_specs_search
+msgid "Characteristics search"
+msgstr "Recherche de caractéristiques"
+
+#. module: myfab_octopart_connector
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_string_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_string_value
 msgid "String value"
-msgstr "String value"
+msgstr "Valeur alphanumérique"
 
 #. module: myfab_octopart_connector
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_add_octopart_price
 #: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_connector_import_wizard_template
 msgid "Supplier reference informations"
-msgstr "Information de référencement fournisseur"
+msgstr "Information de référence fournisseur"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,trigger_supply:0
-msgid "Sur planificateur"
-msgstr "Sur planificateur"
-
-#. module: myfab_octopart_connector
-#: selection:connector.import.wizard,type_valuation_purchase:0
-msgid "Théorique"
-msgstr "Théorique"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_spec_max_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_max_value_choose
 msgid "The maximum value chosen for this attribute."
 msgstr "La valeur maximale choisie pour cet attribut."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_max_value
-msgid "The maximum value of this attribute"
-msgstr "La valeur maximale de cet attribut"
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_max_value
+msgid "The maximum value of this attribute."
+msgstr "The maximum value of this attribute."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_spec_min_value
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_min_value_choose
 msgid "The minimum value chosen for this attribute."
 msgstr "La valeur minimum choisie pour cet attribut."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_advanced_search_min_value
-msgid "The minimum value of this attribute"
-msgstr "La valeur minimum de cet attribut"
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_characteristic_filter_min_value
+msgid "The minimum value of this attribute."
+msgstr "The minimum value of this attribute."
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_is_verified
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_is_distributorapi
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_is_distributorapi
+msgid "True if a distributor is integrated into the Octopart API feedback to provide the latest price and stock data."
+msgstr "Vrai si un distributeur est intégré dans le retour API d'Octopart pour fournir les dernières données de tarif et de stock."
+
+#. module: myfab_octopart_connector
 #: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_is_verified
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_seller_is_verified
 msgid "True if a manufacturer participates in Octopart's Verified Manufacturer program."
 msgstr "Vrai si un fabricant participe au programme de vérification d’Octopart."
 
@@ -1514,9 +1247,9 @@ msgid "Type of characteristic"
 msgstr "Type de caractéristique"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_unit_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_unit_value
 msgid "Unit"
-msgstr "Unit"
+msgstr "Unité"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_characteristic_type_unit_octopart
@@ -1525,39 +1258,26 @@ msgid "Unit octopart"
 msgstr "Unité octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_uoi_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_uoi_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_uoi_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_uoi_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_uoi_id
 msgid "Unit of Invoice"
 msgstr "Unité de facturation"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_add_octopart_price_uop_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_template_uop_id
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_import_wizard_uop_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_import_product_uop_id
+#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_price_add_uop_id
 msgid "Unit of Purchase"
 msgstr "Unité d'achat"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_uom_id
-msgid "Unit of measure"
-msgstr Unité de mesure
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_unit_value
-msgid "Unit value"
-msgstr Unité de valeur
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_uoi_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_uoi_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_uoi_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_uoi_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_uoi_id
 msgid "UoI"
 msgstr "UdF"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_add_octopart_price_uop_id
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_template_uop_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_import_product_uop_id
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_price_add_uop_id
 msgid "UoP"
 msgstr "UdA"
 
@@ -1567,7 +1287,7 @@ msgid "Update octopart price"
 msgstr "Mettre à jour les prix Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_use_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_use_value
 msgid "Use value"
 msgstr "Utiliser la valeur"
 
@@ -1577,71 +1297,45 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: myfab_octopart_connector
-#: selection:connector.import.wizard,cost_method:0
-msgid "Valorisation"
-msgstr "Valorisation"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_import_wizard_inventory_valuation
-msgid "Valorisation de l'inventaire"
-msgstr "Valorisation de l'inventaire"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_search_spec_value
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_specs_value_search_spec_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristic_value_filter_characteristic_value
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_characteristics_research_characteristic_value
 msgid "Value"
 msgstr "Valeur"
 
 #. module: myfab_octopart_connector
-#: model:ir.model.fields,field_description:myfab_octopart_connector.field_connector_result_value_ids
+#: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_research_result_value_ids
 msgid "Value ids"
 msgstr "Ids valeur"
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:33
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:43
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:109
+#: code:addons/myfab_octopart_connector/wizard/advanced_search/advanced_search.py:31
+#: code:addons/myfab_octopart_connector/wizard/advanced_search/advanced_search.py:41
 #, python-format
 msgid "Warning"
 msgstr "Attention"
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/category_connector.py:78
-#: code:addons/myfab_octopart_connector/myfab_octopart_connector.py:117
-#: code:addons/myfab_octopart_connector/myfab_octopart_connector.py:183
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:104
-#: code:addons/myfab_octopart_connector/wizard/import_category.py:35
-#: code:addons/myfab_octopart_connector/wizard/import_characteristics.py:48
-#: code:addons/myfab_octopart_connector/wizard/import_manufacturer.py:34
-#: code:addons/myfab_octopart_connector/wizard/import_sellers.py:33
-#: code:addons/myfab_octopart_connector/wizard/import_wizard.py:212
+#: code:addons/myfab_octopart_connector/classes/octopart_api.py:41
 #, python-format
-msgid "You do not have a key to connect to Octopart."
-msgstr "Vous n'avez pas de clé pour vous connecter a Octopart."
+msgid "You do not have an API key to connect to Octopart."
+msgstr "Vous n'avez pas de clé API pour vous connecter à Octopart."
 
 #. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:33
-#: code:addons/myfab_octopart_connector/wizard/advanced_search.py:43
+#: code:addons/myfab_octopart_connector/wizard/advanced_search/advanced_search.py:31
+#: code:addons/myfab_octopart_connector/wizard/advanced_search/advanced_search.py:41
 #, python-format
-msgid "You must first select a category in Octopart connector"
-msgstr "Vous devez d’abord sélectionner une catégorie dans le connecteur Octopart"
-
-#. module: myfab_octopart_connector
-#: code:addons/myfab_octopart_connector/product.py:29
-#: code:addons/myfab_octopart_connector/wizard/add_octopart_price.py:38
-#, python-format
-msgid "You must have an Octopart key to use this action."
-msgstr "Vous devez avoir une clé Octopart pour utiliser cette action."
+msgid "You must first select a least one Octopart category"
+msgstr "Vous devez d'abord sélectionner au moins une catégorie Octopart"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_add_octopart_price
-msgid "octopart.price.add"
-msgstr "octopart.price.add"
+msgid "add.octopart.price"
+msgstr "add.octopart.price"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_add_octopart_seller_id
-msgid "octopart.seller.partner.connect"
-msgstr "octopart.seller.partner.connect"
+msgid "add.octopart.seller.id"
+msgstr "add.octopart.seller.id"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_characteristic
@@ -1650,43 +1344,73 @@ msgstr "caractéristique"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_connector_advanced_search
+msgid "connector.advanced.search"
+msgstr "connector.advanced.search"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard_template
+msgid "connector.import.wizard.template"
+msgstr "connector.import.wizard.template"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_connector_seller
+msgid "connector.seller"
+msgstr "connector.seller"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_import_category_wizard
+msgid "import.category.wizard"
+msgstr "import.category.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_import_characteristics_wizard
+msgid "import.characteristics.wizard"
+msgstr "import.characteristics.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_import_manufacturer_wizard
+msgid "import.manufacturer.wizard"
+msgstr "import.manufacturer.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_import_seller_wizard
+msgid "import.seller.wizard"
+msgstr "import.seller.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_advanced_search
 msgid "octopart.advanced.search"
 msgstr "octopart.advanced.search"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard
-msgid "connector.import.wizard"
-msgstr "connector.import.wizard"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_api
+msgid "octopart.api"
+msgstr "octopart.api"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_import_wizard_template
-msgid "octopart.import.product"
-msgstr "octopart.import.product"
-
-#. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_seller
-msgid "octopart.seller"
-msgstr "octopart.seller"
-
-#. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_import_category_wizard
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_category_import_wizard
 msgid "octopart.category.import.wizard"
 msgstr "octopart.category.import.wizard"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_import_characteristics_wizard
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_characteristic_filter
+msgid "octopart.characteristic.filter"
+msgstr "octopart.characteristic.filter"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_characteristic_import_wizard
 msgid "octopart.characteristic.import.wizard"
 msgstr "octopart.characteristic.import.wizard"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_import_manufacturer_wizard
-msgid "octopart.manufacturer.import.wizard"
-msgstr "octopart.manufacturer.import.wizard"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_import_product
+msgid "octopart.import.product"
+msgstr "octopart.import.product"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_import_seller_wizard
-msgid "octopart.seller.import.wizard"
-msgstr "octopart.seller.import.wizard"
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_import_wizard_template
+msgid "octopart.import.wizard.template"
+msgstr "octopart.import.wizard.template"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_manufacturer
@@ -1694,7 +1418,62 @@ msgid "octopart.manufacturer"
 msgstr "octopart.manufacturer"
 
 #. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_manufacturer_import_wizard
+msgid "octopart.manufacturer.import.wizard"
+msgstr "octopart.manufacturer.import.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_price_add
+msgid "octopart.price.add"
+msgstr "octopart.price.add"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_price_offer
+msgid "octopart.price.offer"
+msgstr "octopart.price.offer"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller
+msgid "octopart.seller"
+msgstr "octopart.seller"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_add
+msgid "octopart.seller.add"
+msgstr "octopart.seller.add"
+
+#. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_add_id
+msgid "octopart.seller.add.id"
+msgstr "octopart.seller.add.id"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_import_wizard
+msgid "octopart.seller.import.wizard"
+msgstr "octopart.seller.import.wizard"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_offer
+msgid "octopart.seller.offer"
+msgstr "octopart.seller.offer"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_offer_price
+msgid "octopart.seller.offer.price"
+msgstr "octopart.seller.offer.price"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_partner_associate
+msgid "octopart.seller.partner.associate"
+msgstr "octopart.seller.partner.associate"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_partner_connect
+msgid "octopart.seller.partner.connect"
+msgstr "octopart.seller.partner.connect"
+
+#. module: myfab_octopart_connector
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller_partner_connect_ids
 msgid "octopart.seller.partner.connect.ids"
 msgstr "octopart.seller.partner.connect.ids"
 
@@ -1711,26 +1490,16 @@ msgstr "ou"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_price_offer
-msgid "octopart.seller.offer.price"
-msgstr "octopart.seller.offer.price"
-
-#. module: myfab_octopart_connector
-#: model:ir.model.fields,help:myfab_octopart_connector.field_connector_seller_is_distributorapi
-#: model:ir.model.fields,help:myfab_octopart_connector.field_octopart_manufacturer_is_distributorapi
-msgid "rue if a distributor has an API integration with Octopart to provide latest pricing and stock data."
-msgstr "Vrai si un distributeur a une intégration API avec Octopart pour fournir les derniers prix et les données de stock."
+msgid "price.offer"
+msgstr "price.offer"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_sellers_offers
-msgid "octopart.seller.offer"
-msgstr "octopart.seller.offer"
-
-#. module: myfab_octopart_connector
-#: model:ir.ui.view,arch_db:myfab_octopart_connector.view_form_specs_search
-msgid "specs_search"
-msgstr "Recherche de caractéristique."
+msgid "sellers.offers"
+msgstr "sellers.offers"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_technical_data_config_settings
 msgid "technical.data.config.settings"
 msgstr "technical.data.config.settings"
+

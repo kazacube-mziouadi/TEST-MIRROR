@@ -7,7 +7,7 @@ class octopart_characteristic_import_wizard(models.TransientModel):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    explaination = fields.Text(default=(_('Import characteristics of all select octopart category')))   
+    explaination = fields.Text(default=(_('Import characteristics of all selected octopart categories')))   
     
     @api.multi
     def import_characteristics(self):

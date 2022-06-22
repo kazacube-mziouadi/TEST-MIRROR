@@ -16,10 +16,10 @@
                         </group>
                         <button name="show_offer" string="Show offer" type="object" class="oe_inline oe_stat_button" icon="fa-search"/> 
                          <group colspan="4" col="1" string="Offers">
-                            <field name="list_seller_offers_ids" colspan="4" nolabel="1">
+                            <field name="sellers_offers_ids" colspan="4" nolabel="1">
                                 <tree editable="bottom">
                                     <field name="name" />  
-                                    <field name="seller_identifier" />
+                                    <field name="seller_octopart_uid" />
                                     <field name="sku" />
                                     <button name="add_price" string="Add offer" type="object" class="oe_inline oe_stat_button" icon="fa-plus" confirm="Do you want to add this price ?"/>  
                                 </tree>

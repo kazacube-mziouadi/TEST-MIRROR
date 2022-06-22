@@ -28,13 +28,13 @@ class octopart_category_import_wizard(models.TransientModel):
                 'name' : current_category['name'],
                 'octopart_uid' : current_category['id'],
                 'octopart_parent_uid' : current_category['parent_id'],
-                'num_parts' : current_category['num_parts']
+                'number_of_products' : current_category['number_of_products']
             })
         elif len(test_category) == 1:
             test_category.write({
                 'name' : current_category['name'],
                 'octopart_parent_uid' : current_category['parent_id'],
-                'num_parts' : current_category['num_parts']
+                'number_of_products' : current_category['number_of_products']
             })
         else:
             raise
@@ -58,38 +58,38 @@ class octopart_category_import_wizard(models.TransientModel):
             id
             name
             path
-            num_parts
+            number_of_products
             parent_id
             children{
               id
               name
               path
               parent_id
-              num_parts
+              number_of_products
               children{
                 id
                 name
                 path
                 parent_id
-                num_parts
+                number_of_products
                 children{
                   id
                   name
                   path
                   parent_id
-                  num_parts
+                  number_of_products
                   children{
                     id
                     name
                     path
                     parent_id
-                    num_parts
+                    number_of_products
                     children{
                       id
                       name
                       path
                       parent_id
-                      num_parts
+                      number_of_products
                     }
                   }
                 }

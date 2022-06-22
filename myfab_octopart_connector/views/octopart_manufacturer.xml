@@ -15,11 +15,18 @@
                             </h1>
                         </div>
                         <group colspan="4" col="4" string="Details">
-                            <field name="part_in_openprod" readonly="1"/>
-                            <field name="is_verified"/>
                             <field name="homepage_url"/>
                             <field name="is_distributorapi"/>
                             <field name="octopart_uid" readonly="1"/>
+                            <field name="is_verified"/>
+                        </group>
+                        <group colspan="4" col="1" string="Products" attrs="{'invisible': [('products_in_openprod', '=', 0)]}">
+                            <field name="products_in_openprod" readonly="1" invisible="1"/>
+                            <field name="products_ids" readonly="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>                            
                         </group>
                     </group>
                 </form>
