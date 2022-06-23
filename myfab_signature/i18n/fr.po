@@ -103,7 +103,6 @@ msgstr "Nom du modèle"
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_create_uid
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_display_name
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_id
-#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_signature_base_action_rules_ids
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_signature_fields_ids
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_signature_view_id
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_target_model_id
@@ -113,11 +112,6 @@ msgstr "Nom du modèle"
 #: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_write_uid
 msgid "Not defined"
 msgstr "Non défini"
-
-#. module: myfab_signature
-#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_signature_base_action_rules_ids
-msgid "Signature base action rules"
-msgstr "Actions automatisées de la signature"
 
 #. module: myfab_signature
 #: code:addons/myfab_signature/models/MFSignatureConfig.py:81

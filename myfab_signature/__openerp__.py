@@ -6,12 +6,11 @@
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
-        'my_fab',
-        'sav'
+        'my_fab'
     ],
     'category': 'advanced',
     'description': """
-        Permet également de créer un champ signature sur n'importe quel modèle (sur l'exemple du SAV). 
+        Permet de créer un champ signature sur n'importe quel modèle. 
     """,
     'summary': """
         Création d'un champ signature sur n'importe quel modèle

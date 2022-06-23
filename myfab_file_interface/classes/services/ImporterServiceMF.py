@@ -27,22 +27,7 @@ class ImporterServiceMF(models.TransientModel):
                 if "callback" in record_to_process_dict:
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
-                    for record_returned in records_returned:
-                        callback_method = record_to_process_dict["callback"]
-                        callback_method_params = []
-                        if '(' in callback_method:
-                            callback_method_split = callback_method.split('(')
-                            callback_method = callback_method_split[0]
-                            callback_method_params = callback_method_split[1][0:-1]
-                            callback_method_params = callback_method_params.split(',')
-                            for param_index, param_value in enumerate(callback_method_params):
-                                if type(param_value) is str and param_value.startswith('\''):
-                                    callback_method_params[param_index] = param_value[1:-1]
-                        callback_method_on_model = getattr(record_returned, callback_method)
-                        if callback_method_params:
-                            callback_method_on_model(*callback_method_params)
-                        else:
-                            callback_method_on_model()
+                    self.launch_method_on_records(record_to_process_dict["callback"], records_returned)
                 record_to_process_dict["status"] = status
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
@@ -207,3 +192,29 @@ class ImporterServiceMF(models.TransientModel):
             return ir_model_data.res_id
         else:
             raise MissingError("No record found for id string " + id_string)
+
+    # TODO : methode a ranger dans les Tools
+    def launch_method_on_records(self, method_name, record_ids):
+        for record_id in record_ids:
+            self.launch_method_on_record(method_name, record_id)
+
+    """
+        Launch a method at format (for example) 'method_name(param01, param02)' on a record 
+    """
+    @staticmethod
+    def launch_method_on_record(method_name, record_id):
+        # TODO : methode a ranger dans les Tools
+        method_params = []
+        if '(' in method_name:
+            method_split = method_name.split('(')
+            method_name = method_split[0]
+            method_params = method_split[1][0:-1]
+            method_params = method_params.split(',')
+            for param_index, param_value in enumerate(method_params):
+                if str(param_value).startswith('\''):
+                    method_params[param_index] = param_value[1:-1]
+        method_on_record = getattr(record_id, method_name)
+        if method_params:
+            method_on_record(*method_params)
+        else:
+            return method_on_record()
