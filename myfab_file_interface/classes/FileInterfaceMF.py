@@ -81,6 +81,17 @@ class FileInterfaceMF(models.AbstractModel):
         return [("id", "in", directories_with_no_interface_ids_list)]
 
     # ===========================================================================
+    # METHODS - ONCHANGE
+    # ===========================================================================
+
+    @api.onchange("file_extension_mf")
+    def onchange_file_extension_mf(self):
+        if self.file_extension_mf == "txt":
+            self.file_separator_mf = "Tab"
+        elif self.file_separator_mf == "Tab":
+            self.file_separator_mf = ','
+
+    # ===========================================================================
     # METHODS - STATIC
     # ===========================================================================
 
