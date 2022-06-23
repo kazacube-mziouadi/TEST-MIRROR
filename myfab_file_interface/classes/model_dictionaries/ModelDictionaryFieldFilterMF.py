@@ -54,7 +54,7 @@ class ModelDictionaryFieldFilterMF(models.Model):
     @api.one
     @api.depends("field_to_export_mf")
     def compute_hide_filters_datetime_view(self):
-        self.hide_filters_datetime_view = (not self.field_to_export_mf.ttype == "datetime")
+        self.hide_filters_datetime_view = self.field_to_export_mf.ttype not in ["date", "datetime"]
 
     @api.one
     @api.depends("value_comparisons_mf", "datetime_delta_min_mf", "datetime_delta_max_mf")

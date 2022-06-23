@@ -193,28 +193,11 @@ class ImporterServiceMF(models.TransientModel):
         else:
             raise MissingError("No record found for id string " + id_string)
 
+    """
+       Launch a method at format (for example) "method_name(paramInt, 'paramString')" on a list of records.
+       It's not a static method as "self" is used through the exec() method
+    """
     # TODO : methode a ranger dans les Tools
     def launch_method_on_records(self, method_name, record_ids):
-        for record_id in record_ids:
-            self.launch_method_on_record(method_name, record_id)
-
-    """
-        Launch a method at format (for example) 'method_name(param01, param02)' on a record 
-    """
-    @staticmethod
-    def launch_method_on_record(method_name, record_id):
-        # TODO : methode a ranger dans les Tools
-        method_params = []
-        if '(' in method_name:
-            method_split = method_name.split('(')
-            method_name = method_split[0]
-            method_params = method_split[1][0:-1]
-            method_params = method_params.split(',')
-            for param_index, param_value in enumerate(method_params):
-                if str(param_value).startswith('\''):
-                    method_params[param_index] = param_value[1:-1]
-        method_on_record = getattr(record_id, method_name)
-        if method_params:
-            method_on_record(*method_params)
-        else:
-            return method_on_record()
+        record_ids_str_ids_list = [str(record_id.id) for record_id in record_ids]
+        exec("self.env['" + record_ids[0]._name + "'].search([('id', 'in', " + str(record_ids_str_ids_list) + ")])." + method_name)
