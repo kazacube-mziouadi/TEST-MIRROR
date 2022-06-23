@@ -1,0 +1,5 @@
+-
+  myfab Data Initializer Trigger
+-
+  !python {model: mf.data.initializer.simulation.by.quantity}: |
+    self.launch_initialization(cr, uid, context)
