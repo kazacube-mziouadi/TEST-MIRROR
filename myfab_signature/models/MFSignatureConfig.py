@@ -83,7 +83,9 @@ class MFSignatureConfig(models.Model):
                 "ttype": "datetime",
                 "readonly": True,
             }),
-            self.env["ir.model.fields"].search([("name", '=', "x_mf_signature_filename")]),
+            self.env["ir.model.fields"].search([
+                ("name", '=', "x_mf_signature_filename"), ("model_id", '=', self.mf_target_model_id.id)
+            ]),
         ]
         return map(lambda field_id: field_id.id, fields_ids)
 
