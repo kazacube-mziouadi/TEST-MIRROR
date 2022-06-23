@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 
 class octopart_seller_import_wizard(models.TransientModel):
     _name = 'octopart.seller.import.wizard'
@@ -12,7 +11,7 @@ class octopart_seller_import_wizard(models.TransientModel):
             
     @api.multi
     def import_sellers(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result:
             sellers_res = search_result['data']['sellers']
             for seller in sellers_res: 
@@ -25,7 +24,7 @@ class octopart_seller_import_wizard(models.TransientModel):
     def _seller_management(self, current_seller):
         search_seller = self.env['octopart.seller'].search([['octopart_uid', '=', current_seller['id']], ])
         if len(search_seller) == 0:
-            result_recherche = self.env['octopart.seller'].create({
+            search_seller = self.env['octopart.seller'].create({
                 'name' : current_seller['name'],
                 'octopart_uid' : current_seller['id'],
                 'homepage_url' : current_seller['homepage_url'],
@@ -48,7 +47,7 @@ class octopart_seller_import_wizard(models.TransientModel):
 
 
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
+    def _get_request_body(self):
         data = {'query': self._query_def()}
         return data
 

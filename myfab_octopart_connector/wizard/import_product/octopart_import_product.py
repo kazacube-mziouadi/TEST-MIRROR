@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 import base64
 import requests
 from datetime import datetime
@@ -11,7 +10,7 @@ class octopart_import_product_wizard(models.TransientModel):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    product_id = fields.Many2one('octopart.research.result', string="Product")
+    octopart_product_id = fields.Many2one('octopart.research.result', string="Product")
     name = fields.Char(required=True)
     code_product = fields.Char(default=lambda self: self.env['ir.sequence'].get('product.product'), required=True)
     datasheet = fields.Char()
@@ -40,7 +39,7 @@ class octopart_import_product_wizard(models.TransientModel):
     @api.one
     def import_product_details(self):
         #API request
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result and len(search_result['data']['parts']) > 0:
             search_response = search_result['data']['parts'][0]
             
@@ -66,7 +65,7 @@ class octopart_import_product_wizard(models.TransientModel):
 
             for seller in sellers:
                 # Check if seller is in openprod
-                search_value = self.env['res.partner'].search_count([['octopart_uid_seller', '=', int(seller['company']['id'])], ])
+                search_value = self.env['res.partner'].search_count([['octopart_uid_seller_id', '=', int(seller['company']['id'])], ])
                 if search_value > 0:
                     company_value = seller['company']                 
                     for offer in seller['offers']:
@@ -102,7 +101,6 @@ class octopart_import_product_wizard(models.TransientModel):
     @api.one
     def import_product_in_openprod(self):
         search_result = self.env['octopart.research.result'].browse(self.env.context.get('active_id'))
-        
         # Convert image and datasheet to correct format
         photo = False
         if self.image:
@@ -126,7 +124,7 @@ class octopart_import_product_wizard(models.TransientModel):
                                                                                           'code': self.code_product, 
                                                                                           'octopart_uid_product': self.product_octopart_uid, 
                                                                                           'picture': photo, 
-                                                                                          'octopart_uid_manufacturer' : id_manufacturer,
+                                                                                          'octopart_uid_manufacturer_id' : id_manufacturer,
                                                                                           'manufacturer_code' : search_result.mpn,
                                                                                           })
         
@@ -147,41 +145,27 @@ class octopart_import_product_wizard(models.TransientModel):
             new_product_rc.write({'internal_plan_ids': [(4, add_datasheet.id, False)]})
 
         for offer in self.sellers_offers_ids:
-            # Check if seller is in openprod
-            partner = self.env['res.partner'].search([['octopart_uid_seller', '=', offer.seller_octopart_uid], ])
-            search_currency = self.env['res.currency'].search([['name', '=', offer.price_ids[0].currency], ])
-            if len(search_currency) > 0 and len(partner)>0:
-                # Create a seller offer for the product
-                add_seller_offer  = self.env['product.supplierinfo'].create({
-                                'product_id' : new_product_rc.id,
-                                'partner_id' : partner[0].id,
-                                'currency_id' : search_currency[0].id,
-                                'company_id' : self.company_id.id,
-                                'uop_id' : self.uop_id.id,
-                                'uoi_id' : self.uoi_id.id,
-                                'supp_product_code' : offer.sku,
-                                'delivery_delay' : offer.order_delay,
-                            })
-                for price_offer in offer.price_ids: 
-                    #  Create price for the offer
-                    add_price = self.env['pricelist.supplierinfo'].create({
-                        'sinfo_id' : add_seller_offer.id,
-                        'min_qty' : price_offer.minimum_order_quantity,
-                        'price' : price_offer.price,
-                    })
-                            
-        for characteristic in self.product_id.value_ids:
+            offer.add_price_id.write({
+                'product_id':new_product_rc.id,
+                'company_id':self.company_id.id,
+                'uop_id':self.uop_id.id,
+                'uoi_id':self.uoi_id.id,
+            })
+            offer.add_price(True)
+             
+        for characteristic in self.octopart_product_id.value_ids:
             # Add characteristic to product
-            characteristic.write({'product_id' : new_product_rc.id})
-            characteristic.write({'result_id' : None})
+            characteristic.write({
+                'product_id' : new_product_rc.id,
+                'octopart_result_id' : False,
+            })
 
-        self.write({'product_id' : False})
+        self.write({'octopart_product_id' : False})
         return True   
       
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
-        ids = [str(self.product_octopart_uid)]
-        variables = {'ids': ids}
+    def _get_request_body(self):
+        variables = {'ids': [str(self.product_octopart_uid)]}
         data = {'query': self._query_def(),
                 'variables': variables}
         return data
@@ -234,29 +218,34 @@ class octopart_seller_offer(models.TransientModel):
     # COLUMNS
     #===========================================================================
     import_wizard_template_id = fields.Many2one('octopart.import.product', ondelte='cascade')
-    add_price_id = fields.Many2one('octopart.price.add', ondelte='cascade')
     name = fields.Char()
     seller_octopart_uid = fields.Char(string="Seller")
     sku = fields.Char(String="Sku")
     eligible_region = fields.Char()
     order_delay = fields.Integer()
+    add_price_id = fields.Many2one('octopart.price.add', ondelte='cascade')
     price_ids = fields.One2many('octopart.seller.offer.price', 'seller_offer_id', string='List of prices')
     
     @api.multi
-    def add_price(self):
-        partner = self.env['res.partner'].search([['octopart_uid_seller', '=', self.seller_octopart_uid], ])
+    def add_price(self, add_complementary_infos = False):
+        partner = self.env['res.partner'].search([['octopart_uid_seller_id', '=', self.seller_octopart_uid], ])
         search_currency = self.env['res.currency'].search([['name', '=', self.price_ids[0].currency], ])
         if len(partner)>0 and len(search_currency)>0:
-            add_seller_offer  = self.env['product.supplierinfo'].create({
-                            'product_id' : self.add_price_id.product_id,
-                            'partner_id' : partner[0].id,
-                            'currency_id' : search_currency[0].id,
-                            'company_id' : self.add_price_id.company_id.id,
-                            'uop_id' : self.add_price_id.uop_id.id,
-                            'uoi_id' : self.add_price_id.uoi_id.id,
-                        })
+            vals = {
+                    'product_id' : self.add_price_id.product_id,
+                    'partner_id' : partner[0].id,
+                    'currency_id' : search_currency[0].id,
+                    'company_id' : self.add_price_id.company_id.id,
+                    'uop_id' : self.add_price_id.uop_id.id,
+                    'uoi_id' : self.add_price_id.uoi_id.id,
+                }
+            
+            if add_complementary_infos:
+                vals['supp_product_code'] = self.sku
+                vals['delivery_delay'] = self.order_delay
+
+            add_seller_offer  = self.env['product.supplierinfo'].create(vals)
             for price_offer in self.price_ids: 
-                 
                 add_price = self.env['pricelist.supplierinfo'].create({
                     'sinfo_id' : add_seller_offer.id,
                     'min_qty' : price_offer.minimum_order_quantity,

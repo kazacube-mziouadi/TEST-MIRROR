@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 
 class octopart_category_import_wizard(models.TransientModel):
     _name = 'octopart.category.import.wizard'
@@ -12,7 +11,7 @@ class octopart_category_import_wizard(models.TransientModel):
             
     @api.multi
     def import_categories(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result:
             root = search_result['data']['categories'][0]
             self._category_management(root)
@@ -24,16 +23,16 @@ class octopart_category_import_wizard(models.TransientModel):
     def _category_management(self, current_category):
         test_category = self.env['octopart.category'].search([('octopart_uid', '=', current_category['id'])])
         if len(test_category) == 0:
-            result_recherche  = self.env['octopart.category'].create({
+            test_category = self.env['octopart.category'].create({
                 'name' : current_category['name'],
                 'octopart_uid' : current_category['id'],
-                'octopart_parent_uid' : current_category['parent_id'],
+                'octopart_uid_parent' : current_category['parent_id'],
                 'number_of_products' : current_category['number_of_products']
             })
         elif len(test_category) == 1:
             test_category.write({
                 'name' : current_category['name'],
-                'octopart_parent_uid' : current_category['parent_id'],
+                'octopart_uid_parent' : current_category['parent_id'],
                 'number_of_products' : current_category['number_of_products']
             })
         else:
@@ -46,7 +45,7 @@ class octopart_category_import_wizard(models.TransientModel):
 
 
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
+    def _get_request_body(self):
         data = {'query': self._query_def()}
         return data
 

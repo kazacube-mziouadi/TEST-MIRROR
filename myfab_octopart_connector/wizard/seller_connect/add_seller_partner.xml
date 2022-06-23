@@ -7,10 +7,10 @@
             <field name="model">octopart.seller.partner.associate</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Associate to supplyer">
+                <form string="Associate to supplier">
                     <group colspan="5" col="5">
                         <group colspan="5" col="4" string="Seller infomation">
-                            <field name="seller_id" options="{'no_create': True}" attrs="{'readonly': [('is_seller_set', '=', True)]}"/>
+                            <field name="octopart_seller_id" options="{'no_create': True}" attrs="{'readonly': [('is_seller_set', '=', True)]}"/>
                             <field name="partner_id"/>
                         </group>
                         <field name="is_seller_set" invisible="1"/>
@@ -25,13 +25,12 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_add_octopart_seller_id">
-            <field name="name">Associate to supplyer</field>
+            <field name="name">Associate to supplier</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">octopart.seller.partner.associate</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
-    
     </data>
 </openerp>

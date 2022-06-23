@@ -11,6 +11,7 @@
                 <xpath expr="//field[@name='is_allow_multiple_uom']" position="before">
                     <field name="name"/>
                     <field name="octopart_api_key"/>
+                    <p style="color:red;">Be careful, changing the API key will download all manufacturers, sellers, categories and characteristics from Octopart</p>
                 </xpath>
             </field>
         </record>

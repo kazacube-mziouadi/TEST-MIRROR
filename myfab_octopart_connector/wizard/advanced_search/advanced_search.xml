@@ -12,7 +12,7 @@
                         <group colspan="4" col="4">
                             <group colspan="4" col="4" string="Detail">
                                 <field name="characteristic_type_id"/>
-                                <field name="category_id" readonly="1"/>
+                                <field name="octopart_category_id" readonly="1"/>
                                 <field name="is_numerical_value" attrs="{'invisible': 1}"/>
                             </group>
                             <group colspan="4" col="4" string="Filter">

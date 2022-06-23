@@ -23,7 +23,7 @@ class technical_data_config_settings(models.Model):
 
     @api.one
     def import_all_data(self):
-        if self.env['octopart.api'].check_api_key(False):
+        if self.env['octopart.api.service'].is_api_key_valid(False):
             if not self.env['octopart.manufacturer'].search([], None, 1):
                 self.env['octopart.manufacturer.import.wizard'].import_manufacturers()
             if not self.env['octopart.seller'].search([], None, 1):

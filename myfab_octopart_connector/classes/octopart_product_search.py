@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
-import ast
 
 class octopart_product_research(models.Model):
     _name = 'octopart.product.research'
@@ -12,22 +10,22 @@ class octopart_product_research(models.Model):
     #===========================================================================
     name = fields.Char(string="Research name", required=True, default=_('Octopart search'))
     description = fields.Char()
-    category_id = fields.Many2one('octopart.category', 'Octopart Category')
-    manufacturer_id = fields.Many2one('octopart.manufacturer', 'Octopart Manufacturer')
-    seller_id = fields.Many2one('octopart.seller', 'Octopart Seller')
+    octopart_category_id = fields.Many2one('octopart.category', 'Octopart Category')
+    octopart_manufacturer_id = fields.Many2one('octopart.manufacturer', 'Octopart Manufacturer')
+    octopart_seller_id = fields.Many2one('octopart.seller', 'Octopart Seller')
     sample = fields.Integer(default=10)  
-    characteristics_filter_ids = fields.Many2many('octopart.characteristics.research', 'search_id', string='Characteristics filters', domain = "[('search_id','=', active_id),]")
+    characteristics_filter_ids = fields.Many2many('octopart.characteristics.research', 'octopart_research_id', string='Characteristics filters', domain = "[('octopart_research_id','=', active_id),]")
     number_of_results = fields.Integer(default=0)
     number_of_results_readed = fields.Integer(default=0)
-    result_ids = fields.One2many('octopart.research.result', 'search_id', string='Result')
+    octopart_result_ids = fields.One2many('octopart.research.result', 'octopart_research_id', string='Result')
     
-    @api.onchange('category_id', 'seller_id', 'description', 'characteristics_filter_ids')
+    @api.onchange('octopart_category_id', 'octopart_seller_id', 'octopart_manufacturer_id', 'description', 'characteristics_filter_ids')
     def _onchange_stop_more_result(self): 
-        self.write({'number_of_results_readed' : 0 })
+        self.number_of_results_readed = 0
 
     @api.one
-    def search_product(self):
-        self.clear_result()
+    def new_product_search(self):
+        self.clear_result(False)
         self._search_product()       
         return True
     
@@ -38,11 +36,12 @@ class octopart_product_research(models.Model):
         return True
 
     @api.one
-    def clear_result(self):
-        self.result_ids.unlink()
-        self._set_number_of_results(0,0)    
-        filters = self.characteristics_filter_ids.search([('search_id', '=', self.id), ])
-        filters.unlink() 
+    def clear_result(self, reset_characteristics_filter = True):
+        self.octopart_result_ids.unlink()
+        self._set_number_of_results(0,0)  
+        if reset_characteristics_filter:  
+            filters = self.characteristics_filter_ids.search([('octopart_research_id', '=', self.id), ])
+            filters.unlink() 
 
     def _search_product(self):
         if self.number_of_results_readed > 0 and self.number_of_results_readed >= self.number_of_results:
@@ -58,7 +57,7 @@ class octopart_product_research(models.Model):
         variable['start'] = self.number_of_results_readed
         variable['filters'] = self._get_filter()
 
-        search_result = self.env['octopart.api'].get_api_data(self._set_data(variable))
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body(variable))
         if search_result:
             datas = search_result['data']['search']
             if self.number_of_results_readed == 0:
@@ -77,15 +76,14 @@ class octopart_product_research(models.Model):
 
     def _get_filter(self):
         filter_args = {}
-        if 'category_id' in self.env['octopart.product.research']._fields and self.category_id:
-            filter_args['category_id'] = int(self.category_id.octopart_uid)
+        if 'octopart_category_id' in self.env['octopart.product.research']._fields and self.octopart_category_id:
+            filter_args['octopart_category_id'] = int(self.octopart_category_id.octopart_uid)
             
-        if 'manufacturer_id' in self.env['octopart.product.research']._fields and self.manufacturer_id:
-            filter_args['manufacturer_id'] = int(self.manufacturer_name.octopart_uid)
+        if 'octopart_manufacturer_id' in self.env['octopart.product.research']._fields and self.octopart_manufacturer_id:
+            filter_args['octopart_manufacturer_id'] = int(self.octopart_manufacturer_id.octopart_uid)
 
-        if 'seller_id' in self.env['octopart.product.research']._fields and self.seller_id:
-            seller_id = self.seller_id.name.replace('-', ' ')
-            filter_args['sellers_id'] = int(self.seller_id.octopart_uid)
+        if 'octopart_seller_id' in self.env['octopart.product.research']._fields and self.octopart_seller_id:
+            filter_args['sellers_id'] = int(self.octopart_seller_id.octopart_uid)
 
         # Check for advanced search filter       
         if 'characteristics_filter_ids' in self.env['octopart.product.research']._fields and self.characteristics_filter_ids:
@@ -133,66 +131,66 @@ class octopart_product_research(models.Model):
 
     def _product_management(self, parts):
         # Result from api request
-        if parts:
-            for part in parts:
-                # Check if result respect advanced filter
-                values = part['part']
-                # Create result in openprod
-                active_result_rc  = self.env['octopart.research.result'].create({
-                    'search_id' : self.id,
-                    'brand_name' : values['manufacturer']['name'],
-                    'mpn' : values['mpn'],
-                    'octopart_url' : values['octopart_url'],
-                    'short_description' : values['short_description'],
-                    'octopart_uid' : values['id']
-                })
-                    
-                # Get specs from api request response
-                self._characteristics_management(active_result_rc, values['specs'])
+        for part in parts:
+            # Check if result respect advanced filter
+            values = part['part']
+            # Create result in openprod
+            active_result_rc  = self.env['octopart.research.result'].create({
+                'octopart_research_id' : self.id,
+                'brand_name' : values['manufacturer']['name'],
+                'mpn' : values['mpn'],
+                'octopart_url' : values['octopart_url'],
+                'short_description' : values['short_description'],
+                'octopart_uid' : values['id']
+            })
+                
+            # Get specs from api request response
+            self._characteristics_management(active_result_rc, values['specs'])
 
     def _characteristics_management(self, active_result_rc, specs):
-        if specs:
-            for element in specs:
-                active_spec_category_rc = self.env['octopart.category'].characteristics_management(self.id, element['attribute'])
-                    
-                if self.id not in active_spec_category_rc.octopart_category_ids.ids:
-                    active_spec_category_rc.write({'octopart_category_ids' : [(4, self.id)],  })
-                # Get value from spec 
+        for element in specs:
+            active_spec_category_rc = self.env['octopart.category'].characteristics_management(self.id, element['attribute'])
                 
-                # Check if value is already an openprod characteristic value
-                search_characteristic_value = self.env['characteristic.value'].search([('name', '=', element['display_value'])])
-                if search_characteristic_value:
-                    active_value_rc = search_characteristic_value[0]
-                else:
-                    # Create characteristic value
-                    active_value_rc = self.env['characteristic.value'].create({
-                        'name' : element['display_value'],
-                        'type_id' : active_spec_category_rc.id,   
-                    }) 
-                
-                if self.id not in active_value_rc.octopart_category_ids.ids:  
-                    active_value_rc.write({'octopart_category_ids' : [(4, self.id)],})  
-                
-                unit_openprod = ""
-                search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_category_rc.unit_octopart), ])
-                if search_unit_openprod:
-                    unit_openprod = search_unit_openprod[0].id
+            if self.id not in active_spec_category_rc.octopart_category_ids.ids:
+                active_spec_category_rc.write({'octopart_category_ids' : [(4, self.id)],  })
+            # Get value from spec 
+            
+            # Check if value is already an openprod characteristic value
+            search_characteristic_value = self.env['characteristic.value'].search([('name', '=', element['display_value'])])
+            if search_characteristic_value:
+                active_value_rc = search_characteristic_value[0]
+            else:
+                # Create characteristic value
+                active_value_rc = self.env['characteristic.value'].create({
+                    'name' : element['display_value'],
+                    'type_id' : active_spec_category_rc.id,   
+                }) 
+            
+            if self.id not in active_value_rc.octopart_category_ids.ids:  
+                active_value_rc.write({'octopart_category_ids' : [(4, self.id)],})  
+            
+            unit_openprod = ""
+            search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_category_rc.octopart_unit), ])
+            if search_unit_openprod:
+                unit_openprod = search_unit_openprod[0].id
 
-                #Create characteristic for result
-                add_characteristic = self.env['characteristic'].create({
-                    'characteristic_type_id' : active_spec_category_rc.id,
-                    'value' : active_value_rc.id,
-                    'unit_octopart' : active_spec_category_rc.unit_octopart,
-                    'uom_id' : unit_openprod,
-                    'result_id' : active_result_rc.id,
-                })
-                active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],})
+            #Create characteristic for result
+            add_characteristic = self.env['characteristic'].create({
+                'characteristic_type_id' : active_spec_category_rc.id,
+                'value' : active_value_rc.id,
+                'octopart_unit' : active_spec_category_rc.octopart_unit,
+                'uom_id' : unit_openprod,
+                'octopart_result_id' : active_result_rc.id,
+            })
+            active_result_rc.write({'value_ids' : [(4, add_characteristic.id)],})
     
     def _set_number_of_results(self,number_of_results_readed,number_of_results):
-        self.write({'number_of_results' : number_of_results})
-        self.write({'number_of_results_readed' : number_of_results_readed })
+        self.write({
+                'number_of_results' : number_of_results,
+                'number_of_results_readed' : number_of_results_readed,
+                })
 
-    def _set_data(self, variables):
+    def _get_request_body(self, variables):
         #Test de connection serveur Octopart api V4
         data = {'query': self._query_def(),
                 'variables': variables}
@@ -236,7 +234,7 @@ class octopart_characteristics_research(models.Model):
     # COLUMNS
     #===========================================================================
     name = fields.Char(string="Filter name")
-    search_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
+    octopart_research_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
     metadata_key = fields.Char(string="Octopart Key")
     string_value = fields.Boolean(default=False)
     characteristic_value = fields.Char(string="Value")
@@ -250,7 +248,7 @@ class octopart_research_result(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    search_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
+    octopart_research_id = fields.Many2one('octopart.product.research',required=True, ondelete='cascade')
     octopart_uid = fields.Char()
     brand_name = fields.Char()
     mpn = fields.Char(string="Manufacturer code")
@@ -259,16 +257,12 @@ class octopart_research_result(models.Model):
     value_ids = fields.Many2many('characteristic')
     is_in_openprod = fields.Boolean(compute='_compute_is_in_openprod')
     
+    @api.one
     def _compute_is_in_openprod(self):
-        if self.env['product.product'].search([['octopart_uid_product', '=', self.octopart_uid], ]):
-            self.is_in_openprod = True
-        else:
-            self.is_in_openprod = False
-        
-        return True
+        self.is_in_openprod = (len(self.env['product.product'].search([['octopart_uid_product', '=', self.octopart_uid], ])) > 0)
     
     @api.multi
-    def open_sellers_offers(self):
+    def open_sellers_offers_web_page(self):
         return {
             "type": "ir.actions.act_url",
             "url": self.octopart_url,

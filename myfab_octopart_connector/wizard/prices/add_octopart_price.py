@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 
 class octopart_price_add(models.TransientModel):
     _name = 'octopart.price.add'
@@ -23,7 +22,7 @@ class octopart_price_add(models.TransientModel):
         }
 
     def _request_price(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result and len(search_result['data']['parts']) > 0:
             sellers_res = search_result['data']['parts'][0]['sellers']
             for seller in sellers_res: 
@@ -34,7 +33,7 @@ class octopart_price_add(models.TransientModel):
         
     #Méthode pour la création des offre 
     def _offer_management(self, current_seller):
-        search_value = self.env['res.partner'].search([['octopart_uid_seller', '=', current_seller['company']['id']], ])
+        search_value = self.env['res.partner'].search([['octopart_uid_seller_id', '=', current_seller['company']['id']], ])
         if len(search_value) > 0:
             company_value = current_seller['company']   
             for offer in current_seller['offers']:
@@ -57,9 +56,8 @@ class octopart_price_add(models.TransientModel):
         return True
 
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
-        ids = [str(self.product_octopart_uid)]
-        variables = {'ids': ids}
+    def _get_request_body(self):
+        variables = {'ids': [str(self.product_octopart_uid)]}
         data = {'query': self._query_def(),
                 'variables': variables}
         return data

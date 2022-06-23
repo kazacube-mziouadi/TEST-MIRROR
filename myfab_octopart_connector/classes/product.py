@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
-
 
 class product(models.Model):
     _inherit = 'product.product'
@@ -12,12 +10,12 @@ class product(models.Model):
     # Stored in a char field because the octopart product ID is stored in the research result, if it is reset we lose the link
     # in this situation it is better to store it in a char to keep it active
     octopart_uid_product = fields.Char()
-    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Octopart manufacturer')
+    octopart_uid_manufacturer_id = fields.Many2one('octopart.manufacturer', string='Octopart manufacturer')
     manufacturer_code = fields.Char()
 
     @api.multi
     def octopart_price_update(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result and len(search_result['data']['parts']) > 0:    
             sellers_res = search_result['data']['parts'][0]['sellers']
             for seller in sellers_res: 
@@ -25,28 +23,25 @@ class product(models.Model):
             return True
         return False
     
-    def _update_price(self, current_seller):        
-        offers = current_seller['offers']
-        for offer in offers:
-            for supplyer in self.sinfo_ids:
-                if supplyer.partner_id.octopart_uid_seller == current_seller['company']['id']:
-                    supplyer.pricelist_ids.unlink()
+    def _update_price(self, current_seller):  
+        for offer in current_seller['offers']:
+            for supplier in self.sinfo_ids:
+                if supplier.partner_id.octopart_uid_seller_id.octopart_uid == current_seller['company']['id']:
+                    # TODO : vérifier le fonctionnement et adapter pour ne pas effacer tous les tarifs
+                    supplier.pricelist_ids.unlink()
                     for price in offer['prices']: 
-                        if price['currency'] == supplyer.currency_id.name: 
-                            item_number = price['quantity']
-                            price_octopart = price['price']
-                            add_price_offer  = self.env['pricelist.supplierinfo'].create({ 
-                                'sinfo_id' : supplyer.id,
-                                'price' : price_octopart,
-                                'min_qty' : item_number,
+                        if price['currency'] == supplier.currency_id.name:
+                            self.env['pricelist.supplierinfo'].create({
+                              'sinfo_id' : supplier.id,
+                              'price' : price['price'],
+                              'min_qty' : price['quantity']
                             })
-        
+
         return True
     
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
-        ids = [str(self.octopart_uid_product)]
-        variables = {'ids': ids}
+    def _get_request_body(self):
+        variables = {'ids': [str(self.octopart_uid_product)]}
         data = {'query': self._query_def(),
                 'variables': variables}
         return data

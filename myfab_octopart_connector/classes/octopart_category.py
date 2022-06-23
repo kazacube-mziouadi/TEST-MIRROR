@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 
 class octopart_category(models.Model):
     _name = 'octopart.category'
@@ -12,10 +11,10 @@ class octopart_category(models.Model):
     #===========================================================================
     name = fields.Char()
     octopart_uid = fields.Char()
-    complete_path = fields.Char(compute='_compute_complete_path', string="Full path")
-    octopart_parent_uid = fields.Char()
-    number_of_products = fields.Integer(string='Number of products')
+    octopart_uid_parent = fields.Char()
+    number_of_products = fields.Integer(string='Number of products in Octopart')
     parent_id = fields.Many2one('octopart.category', compute='_compute_parent_id', string="Parent")
+    complete_path = fields.Char(compute='_compute_complete_path', string="Full path")
     characteristics_type_ids = fields.Many2many('characteristic.type', string='Characteristic type')
     characteristics_value_ids = fields.Many2many('characteristic.value', string='Characteristic value')
                
@@ -32,14 +31,14 @@ class octopart_category(models.Model):
     
     @api.one
     def _compute_parent_id(self):
-        search_category = self.env['octopart.category'].search([['octopart_uid', '=', self.octopart_parent_uid], ])
+        search_category = self.env['octopart.category'].search([['octopart_uid', '=', self.octopart_uid_parent], ])
         if search_category and self.id != search_category[0].id:
             self.parent_id = search_category[0].id
         return True
 
     @api.one
     def get_characteristics(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result and len(search_result['data']['categories']) > 0:
             attributes = search_result['data']['categories'][0]['relevant_attributes']        
             for attribute in attributes:
@@ -76,9 +75,8 @@ class octopart_category(models.Model):
 
 
 #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
-        ids = [str(self.octopart_uid)]
-        variables = {'ids': ids}
+    def _get_request_body(self):
+        variables = {'ids': [str(self.octopart_uid)]}
         data = {'query': self._query_def(),
                 'variables': variables}
         return data

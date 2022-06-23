@@ -1,4 +1,4 @@
-import octopart_api
+import octopart_api_service
 import technical_data_config
 import partner
 import product

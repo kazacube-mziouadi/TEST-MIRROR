@@ -25,7 +25,7 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button class="oe_inline oe_stat_button" type="action" string="Associate to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
+                            <button class="oe_inline oe_stat_button" type="action" string="Associate to supplier" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
                         </group>
                     </group>
                 </form>

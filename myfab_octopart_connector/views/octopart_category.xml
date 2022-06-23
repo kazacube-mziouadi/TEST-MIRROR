@@ -17,11 +17,11 @@
                             </div>
                             <group colspan="8" col="4" string="Detail">   
                                 <field name="complete_path" readonly="1"/>                   
-                                <field name="octopart_parent_uid" readonly="1"/>         
+                                <field name="octopart_uid_parent" readonly="1"/>         
                                 <field name="number_of_products" readonly="1"/>       
                                 <field name="octopart_uid" readonly="1"/>  
                             </group>
-                            <group colspan="8" string="Caracteristics">   
+                            <group colspan="8" string="Characteristics">   
                                 <field name="characteristics_type_ids"  nolabel="1" readonly="1"/>                           
                             </group>
                         </group>                                                     

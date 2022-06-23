@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
 from bs4 import element
-import json
-
 
 class octopart_characteristic_filter(models.TransientModel):
     _name = 'octopart.characteristic.filter'
@@ -10,9 +8,9 @@ class octopart_characteristic_filter(models.TransientModel):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    research_id = fields.Many2one('octopart.product.research', required=True, ondelete='cascade', string="Research")
-    category_id = fields.Many2one('octopart.category', required=True, ondelete='cascade', string="Octopart category")
-    characteristic_type_id = fields.Many2one('characteristic.type', required=True, domain="[('octopart_category_ids', 'in', [category_id])]", string="Characteristic type")
+    octopart_research_id = fields.Many2one('octopart.product.research', required=True, ondelete='cascade', string="Research")
+    octopart_category_id = fields.Many2one('octopart.category', required=True, ondelete='cascade', string="Octopart category")
+    characteristic_type_id = fields.Many2one('characteristic.type', required=True, domain="[('octopart_category_ids', 'in', [octopart_category_id])]", string="Characteristic type")
     is_numerical_value = fields.Boolean(default=True)
     min_value = fields.Float(readonly=True, help="The minimum value of this attribute.")
     max_value = fields.Float(readonly=True, help="The maximum value of this attribute.")
@@ -21,15 +19,15 @@ class octopart_characteristic_filter(models.TransientModel):
     possible_values_ids = fields.One2many('octopart.characteristic.value.filter', 'characteristic_filter_id', string='Possible values')
 
     
-    @api.onchange('category_id')
+    @api.onchange('octopart_category_id')
     def _onchange_warning_category_id(self):
         """
             Check if a categori was select in Octopart connector
         """
         res = {}
-        if not self.category_id:
+        if not self.octopart_category_id:
             res['warning'] = {'title':_('Warning'), 'message':_('You must first select a least one Octopart category')}
-            self.category_id = False
+            self.octopart_category_id = False
         
         return res
 
@@ -37,9 +35,9 @@ class octopart_characteristic_filter(models.TransientModel):
     @api.onchange('characteristic_type_id')
     def _onchange_characteristics(self):
         res = {}
-        if self.research_id and not self.research_id.category_id:
+        if self.octopart_research_id and not self.octopart_research_id.octopart_category_id:
             res['warning'] = {'title':_('Warning'), 'message':_('You must first select a least one Octopart category')}
-            self.category_id = False
+            self.octopart_category_id = False
         
         if self.characteristic_type_id:
             return self._show_characteristic_values()
@@ -59,7 +57,6 @@ class octopart_characteristic_filter(models.TransientModel):
                 return datas
             
             res = datas['buckets']
-            value_added = []
             # Create a octopart.characteristic.value.filter for each value associated to the given characteristic type
             result = []
             for value in res:
@@ -70,8 +67,8 @@ class octopart_characteristic_filter(models.TransientModel):
                     result_value = {
                         'characteristic_filter_id' : self.id, 
                         'characteristic_value' : value['float_value'],
-                        'unit_value' : self.characteristic_type_id.unit_octopart,
-                        'research_id' : self.research_id.id,
+                        'unit_value' : self.characteristic_type_id.octopart_unit,
+                        'octopart_research_id' : self.octopart_research_id.id,
                     }
                 else:
                     self.is_numerical_value = False
@@ -79,8 +76,8 @@ class octopart_characteristic_filter(models.TransientModel):
                         'characteristic_filter_id' : self.id, 
                         'characteristic_value': value['display_value'],
                         'string_value' : True,
-                        'unit_value' : self.characteristic_type_id.unit_octopart,
-                        'research_id' : self.research_id.id,
+                        'unit_value' : self.characteristic_type_id.octopart_unit,
+                        'octopart_research_id' : self.octopart_research_id.id,
                     }
                 result.append((0, 0, result_value))
                 
@@ -91,19 +88,18 @@ class octopart_characteristic_filter(models.TransientModel):
         
     #Méthode pour l'envoie de requète
     def _request_characteristic_values(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result:
-            aggs = search_result['data']['search']['spec_aggs'][0]
-            return aggs
+            return search_result['data']['search']['spec_aggs'][0]
         return False           
     
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
-        ids = [str(self.category_id.octopart_uid)]
+    def _get_request_body(self):
         attrs = []
         for attr in self.characteristic_type_id:
             attrs.append(str(attr.octopart_key))
-        variables = {'ids': ids, 'attrs': attrs}
+        variables = {'ids': [str(self.octopart_category_id.octopart_uid)],
+                     'attrs': attrs}
         data = {'query': self._query_def(),
                 'variables': variables}
         return data
@@ -112,7 +108,7 @@ class octopart_characteristic_filter(models.TransientModel):
     def _query_def(self):
         query ='''
         query Query_values($ids: [String!]!, $attrs: [String!]!){
-          search(filters:{category_id: $ids}, in_stock_only:true) {
+          search(filters:{octopart_category_id: $ids}, in_stock_only:true) {
             spec_aggs(attribute_names: $attrs){
               attribute{
                 id
@@ -153,7 +149,7 @@ class octopart_characteristic_filter(models.TransientModel):
                 values =  {
                             'name' : name_filter,
                             'metadata_key' : self.characteristic_type_id.octopart_key,
-                            'search_id' : search_result.id,
+                            'octopart_research_id' : search_result.id,
                             'characteristic_value' : element.characteristic_value,
                             'string_value' : value_type,
                         }
@@ -177,7 +173,7 @@ class octopart_characteristic_filter(models.TransientModel):
                     values =  {
                         'name' : name_filter,
                         'metadata_key' : self.characteristic_type_id.octopart_key,
-                        'search_id' : search_result.id,
+                        'octopart_research_id' : search_result.id,
                         'min_value_choose' : self.min_value_choose,
                         'max_value_choose' : self.max_value_choose
                     }
@@ -185,7 +181,7 @@ class octopart_characteristic_filter(models.TransientModel):
                     filter_list.append(self.env['octopart.characteristics.research'].create(values).id)
             
         for filter_id in filter_list:
-            self.research_id.write({'characteristics_filter_ids': [(4, filter_id, 0)]})
+            self.octopart_research_id.write({'characteristics_filter_ids': [(4, filter_id, 0)]})
             
         self.possible_values_ids.unlink()
         
@@ -198,7 +194,7 @@ class octopart_characteristic_value_filter(models.TransientModel):
     # COLUMNS
     #===========================================================================
     name = fields.Char()
-    research_id = fields.Many2one('octopart.product.research', ondelete='cascade')
+    octopart_research_id = fields.Many2one('octopart.product.research', ondelete='cascade')
     characteristic_filter_id = fields.Many2one('octopart.characteristic.filter', required=True, ondelete='cascade')
     string_value = fields.Boolean(default = False)
     characteristic_value = fields.Char(string="Value")

@@ -16,27 +16,27 @@
                             </div>
                             <group colspan="8" col="4" string="Detail">
             					<field name="description" />
-        						<field name="manufacturer_id" options="{'no_create': True}" />
-                                <field name="category_id" options="{'no_create': True}" />
-                				<field name="seller_id" options="{'no_create': True}" />
+        						<field name="octopart_manufacturer_id" options="{'no_create': True}" />
+                                <field name="octopart_category_id" options="{'no_create': True}" />
+                				<field name="octopart_seller_id" options="{'no_create': True}" />
             					<field name="sample"/>
             				</group>
-                            <group colspan="8" col="8" string="Characteristics filter" attrs="{'invisible': [('category_id', '=', False)]}">
+                            <group colspan="8" col="8" string="Characteristics filter" attrs="{'invisible': [('octopart_category_id', '=', False)]}">
                                 <group colspan="7" col="1">
                                     <field name="characteristics_filter_ids" widget="many2many_tags" colspan="2" nolabel="1" options="{'no_create': True}" />
                                 </group>
                                 <group colspan="1" col="1">                             
                                     <button class="oe_icon_button" type="action" string="" style="font-size: 25px; margin-top: -10px;"
-                                        context="{'default_active_connector_id': active_id, 'default_category_id': category_id}"
+                                        context="{'default_active_connector_id': active_id, 'default_category_id': octopart_category_id}"
                                         name="%(action_create_advanced_search_filter)d" icon="fa-plus" />
                                 </group>
                             </group>                          
                             <group colspan="8" col="4" string="Results">                                
                                 <field name="number_of_results" readonly="True" />
                                 <field name="number_of_results_readed" readonly="True"/>
-                                <field name="result_ids" colspan="4" nolabel="1" readonly="1">
+                                <field name="octopart_result_ids" colspan="4" nolabel="1" readonly="1">
                                     <tree editable="bottom">
-                                        <button name="open_sellers_offers" string="Open octopart sellers offers web page" type="object" class="oe_inline oe_stat_button" />  
+                                        <button name="open_sellers_offers_web_page" string="Open octopart sellers offers web page" type="object" class="oe_inline oe_stat_button" />  
                                         <field name="brand_name" readonly="True"/>
                                         <field name="mpn" readonly="True"/>
                                         <field name="short_description" readonly="True"/>
@@ -52,11 +52,12 @@
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
-                            <button name="search_product" string="Search products" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
+                            <button name="new_product_search" string="New product search" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
                             <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('number_of_results', '=', 0)]}" /> 
                             <button name="clear_result" string="Clear product list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('number_of_results', '=', 0),('number_of_results', '=', 'number_of_results_readed')]}"/>  
                             <separator string="" colspan="1" name="separator_connector_menu_4" /> 
-                            <button class="oe_inline oe_stat_button" type="action" string="Associate to supplyer" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
+                            <button class="oe_inline oe_stat_button" type="action" string="Associate manufacturer to supplier" name="%(action_add_octopart_manufacturer_id)d" icon="fa-plus" />
+                            <button class="oe_inline oe_stat_button" type="action" string="Associate seller to supplier" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />
                         </group>
                     </group>
 				</form>
@@ -129,7 +130,7 @@
                                 <tree editable="bottom">
                                     <field name="characteristic_type_id" />
                                     <field name="value" />
-                                    <field name="unit_octopart" />
+                                    <field name="octopart_unit" />
                                     <field name="uom_id" />
                                 </tree>
                             </field>

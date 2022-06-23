@@ -1,1 +1,1 @@
-import add_octopart_id
+import add_seller_partner

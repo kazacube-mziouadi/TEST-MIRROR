@@ -10,24 +10,24 @@
     
         <record model="res.groups" id="myfab_octopart_connector_security_user">
             <field name="name">User</field>
-            <field name="category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
         </record>
         
         <record model="res.groups" id="myfab_octopart_connector_security_fonctionnal">
             <field name="name">Fonctionnal</field>
-            <field name="category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
             <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_user'))]"/>
         </record>
         
         <record model="res.groups" id="myfab_octopart_connector_security_manager">
             <field name="name">Manager</field>
-            <field name="category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
             <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_fonctionnal'))]"/>
         </record>
         
         <record model="res.groups" id="myfab_octopart_connector_security_responsible">
             <field name="name">Administrator</field>
-            <field name="category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
             <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_manager'))]"/>
         </record>
     

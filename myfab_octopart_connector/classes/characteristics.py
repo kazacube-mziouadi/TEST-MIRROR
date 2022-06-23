@@ -7,8 +7,8 @@ class characteristic(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    unit_octopart = fields.Char()
-    result_id = fields.Many2one('octopart.research.result', string='Result search', required=False, ondelete='cascade')
+    octopart_unit = fields.Char()
+    octopart_result_id = fields.Many2one('octopart.research.result', string='Result search', required=False, ondelete='cascade')
     
 class characteristic_type(models.Model):
     _inherit = 'characteristic.type'
@@ -17,7 +17,7 @@ class characteristic_type(models.Model):
     # COLUMNS
     #===========================================================================
     octopart_category_ids = fields.Many2many('octopart.category', string='Octopart category')
-    unit_octopart = fields.Char()
+    octopart_unit = fields.Char()
     octopart_key = fields.Char()
     
 class characteristic_value(models.Model):

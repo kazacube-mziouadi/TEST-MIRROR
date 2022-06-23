@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
-import json
 
 class octopart_manufacturer_import_wizard(models.TransientModel):
     _name = 'octopart.manufacturer.import.wizard'
@@ -12,7 +11,7 @@ class octopart_manufacturer_import_wizard(models.TransientModel):
         
     @api.multi
     def import_manufacturers(self):
-        search_result = self.env['octopart.api'].get_api_data(self._set_data())
+        search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result:
             manufacturers_res = search_result['data']['manufacturers']
             for manufacturer in manufacturers_res: 
@@ -25,7 +24,7 @@ class octopart_manufacturer_import_wizard(models.TransientModel):
     def _manufacturer_management(self, current_manufacturer):
         search_manufacturer = self.env['octopart.manufacturer'].search([['octopart_uid', '=', current_manufacturer['id']], ])
         if len(search_manufacturer) == 0:
-            result_recherche = self.env['octopart.manufacturer'].create({
+            search_manufacturer = self.env['octopart.manufacturer'].create({
                 'name' : current_manufacturer['name'],
                 'octopart_uid' : current_manufacturer['id'],
                 'homepage_url' : current_manufacturer['homepage_url'],
@@ -46,7 +45,7 @@ class octopart_manufacturer_import_wizard(models.TransientModel):
 
 
     #méthode envoie et récupération de donnée serveur
-    def _set_data(self):
+    def _get_request_body(self):
         data = {'query': self._query_def()}
         return data
 

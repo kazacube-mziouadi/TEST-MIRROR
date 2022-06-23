@@ -12,10 +12,11 @@ class octopart_characteristic_import_wizard(models.TransientModel):
     @api.multi
     def import_characteristics(self):
         ids = self.env.context.get('active_ids')
-        if self.env['octopart.api'].check_api_key():
+        if self.env['octopart.api.service'].is_api_key_valid():
             for id in ids:
                 category_rc = self.env['octopart.category'].search([('id', '=', id)])
-                category_rc.get_characteristics()
+                if category_rc:
+                    category_rc.get_characteristics()
 
             return True
         return False

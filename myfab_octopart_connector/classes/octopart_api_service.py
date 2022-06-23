@@ -5,9 +5,13 @@ from openerp.exceptions import ValidationError
 import json
 import urllib
 import urllib2
+import logging
 
-class octopart_api(models.TransientModel):
-    _name = 'octopart.api'
+logger = logging.getLogger(__name__)
+API_VERSION = 4
+
+class octopart_api_service(models.TransientModel):
+    _name = 'octopart.api.service'
     
     #===========================================================================
     # COLUMNS
@@ -18,14 +22,13 @@ class octopart_api(models.TransientModel):
             return search_api_key[0].octopart_api_key
         return False
 
-    def check_api_key(self,raise_error=True):
-        return self._check_api_key(self._get_api_key(),raise_error)
+    def is_api_key_valid(self,raise_error=True):
+        return self._is_api_key_valid(self._get_api_key(),raise_error)
  
-    def get_api_data(self,data_to_send):
-        api_version = 4
+    def get_api_data(self,request_body):
         api_key = self._get_api_key()
-        if self._check_api_key(api_key):
-            res = self._send_request(api_version,api_key,data_to_send)
+        if self._is_api_key_valid(api_key):
+            res = self._send_request(API_VERSION,api_key,request_body)
             if res:
                 search_result = json.loads(res)      
                 #On vérifie si octopart a renvoyer une erreur et dans ce cas on l'affiche
@@ -35,33 +38,32 @@ class octopart_api(models.TransientModel):
         
         return False
 
-    def _check_api_key(self,api_key,raise_error=True):
+    def _is_api_key_valid(self,api_key,raise_error=True):
         if not api_key:
             if raise_error:
                 raise ValidationError(_("You do not have an API key to connect to Octopart.")) 
             return False
         return True
 
-    def _send_request(self, api_version, api_key, data_to_send):
-        if self._check_api_key(api_key):
+    def _send_request(self, api_version, api_key, request_body):
+        if self._is_api_key_valid(api_key):
             if api_version == 4:
-                return self._send_request_V4(api_key,data_to_send)
+                return self._send_request_V4(api_key,request_body)
 
         return False
 
-    def _send_request_V4(self, api_key, data_to_send):
-        if not self._check_api_key(api_key):
+    def _send_request_V4(self, api_key, request_body):
+        if not self._is_api_key_valid(api_key):
             return False
 
         url = 'https://octopart.com/api/v4/endpoint'
         headers = {'Accept': 'application/json',
                 'Content-Type': 'application/json'}
         headers['token'] = '{}'.format(api_key)
-        req = urllib2.Request(url, json.dumps(data_to_send).encode('utf-8'), headers)
+        req = urllib2.Request(url, json.dumps(request_body).encode('utf-8'), headers)
         try:
             response = urllib2.urlopen(req)
             return response.read().decode('utf-8')
         except urllib2.HTTPError as e:
-            print((e.read()))
-            print('')
-            raise e
+            logger.error("Octopart query " + str(e.read()))
+            raise ValidationError(_("Error on Octopart api requesting.")) 
