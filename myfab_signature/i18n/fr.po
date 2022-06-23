@@ -23,6 +23,12 @@ msgid "Clear"
 msgstr "Effacer"
 
 #. module: myfab_signature
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:112
+#, python-format
+msgid "Contact signature"
+msgstr "Signature du contact"
+
+#. module: myfab_signature
 #. openerp-web
 #: code:addons/myfab_signature/static/src/js/digital_sign.js:80
 #: code:addons/myfab_signature/static/src/js/digital_sign.js:117

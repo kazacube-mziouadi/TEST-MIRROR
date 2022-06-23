@@ -40,6 +40,7 @@
 							<field name="mf_signature_view_id"/>
 						</group>
 						<field name="mf_signature_fields_ids"/>
+						<field name="mf_signature_base_action_rules_ids"/>
 					</group>
 				</form>
 			</field>

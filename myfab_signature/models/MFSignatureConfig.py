@@ -14,6 +14,10 @@ class MFSignatureConfig(models.Model):
                                                "mf_signature_config_id", "model_field_id", string="Signature fields",
                                                readonly=True)
     mf_signature_view_id = fields.Many2one("ir.ui.view", string="Signature view", readonly=True)
+    mf_signature_base_action_rules_ids = fields.Many2many("base.action.rule",
+                                                          "mf_signature_base_action_rules_ids_manual_onchange_rel",
+                                                          "mf_signature_config_id", "manual_onchange_id", readonly=True,
+                                                          string="Signature base action rules")
     mf_target_model_name = fields.Char(string="Model name", compute="_compute_mf_target_model_name")
 
     # ===========================================================================
@@ -39,11 +43,15 @@ class MFSignatureConfig(models.Model):
         signature_config_id.mf_signature_fields_ids = [(6, 0, signature_config_id.create_fields())]
         self.env.cr.commit()
         signature_config_id.mf_signature_view_id = signature_config_id.create_fields_view()
+        signature_config_id.mf_signature_base_action_rules_ids = [(6, 0, signature_config_id.create_base_action_rule())]
         return signature_config_id
 
     @api.one
     def unlink(self):
         self.mf_signature_view_id.unlink()
+        for base_action_rule_id in self.mf_signature_base_action_rules_ids:
+            base_action_rule_id.server_action_ids.unlink()
+            base_action_rule_id.unlink()
         self.mf_signature_fields_ids.unlink()
         super(MFSignatureConfig, self).unlink()
 
@@ -76,7 +84,7 @@ class MFSignatureConfig(models.Model):
                 "readonly": True,
                 "compute": """
 for record in self:
-    if record.x_mf_signature:
+    if record.x_mf_signature and record.x_mf_signature_contact_id:
         record['x_mf_signature_datetime'] = datetime.datetime.now()
                 """,
                 "depends": "x_mf_signature",
@@ -90,7 +98,7 @@ for record in self:
 
     def create_fields_view(self):
         view_id = self.env["ir.ui.view"].create({
-            "name": "x_mf_signature_" + self.mf_target_model_id.model,
+            "name": "x_mf_signature_" + self.mf_target_model_id.model.replace('.', '_'),
             "type": "form",
             "model": self.mf_target_model_id.model,
             "inherit_id": self.mf_target_view_id.id,
@@ -104,11 +112,14 @@ for record in self:
                         """ + _("Electronic signature") + """
                         ">
                             <group col="4">
-                                <field name="x_mf_signature_contact_id"/>
+                                <field name="x_mf_signature_contact_id"  
+                                       attrs="{'readonly': [('x_mf_signature', '!=', False), ('x_mf_signature_datetime', '!=', False)]}"/>
                                 <field name="x_mf_signature_datetime"/>
                             </group>
                             <group col="2">
-                                <label for="x_mf_signature" string="Client signature" />
+                                <label for="x_mf_signature" string="
+                                    """ + _("Contact signature") + """
+                                "/>
                                 <h2>
                                     <field name="x_mf_signature" widget="signature"/>
                                 </h2>
@@ -119,3 +130,21 @@ for record in self:
             """,
         })
         return view_id.id
+
+    def create_base_action_rule(self):
+        base_action_rules_ids = [self.env["base.action.rule"].create({
+            "name": _("Signature contact base action rule for model ") + self.mf_target_model_id.model,
+            "model_id": self.mf_target_model_id.id,
+            "active": True,
+            "kind": "on_create_or_write",
+            "server_action_ids": [(0, 0, {
+                "name": _("Signature contact action server for model ") + self.mf_target_model_id.model,
+                "model_id": self.mf_target_model_id.id,
+                "state": "code",
+                "code": """
+if object.x_mf_signature and not object.x_mf_signature_contact_id:
+    raise Warning('""" + _("Please specify the signing contact.") + """')
+                """
+            })]
+        })]
+        return map(lambda base_action_rule_id: base_action_rule_id.id, base_action_rules_ids)
