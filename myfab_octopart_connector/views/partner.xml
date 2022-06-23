@@ -8,20 +8,18 @@
             <field name="priority" eval="4000" />
             <field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='purchase_price_compute_date']" position="after">
-                    <field name="octopart_uid_seller" readonly="1"/>
-                </xpath>
-                <xpath expr="//field[@name='fax']" position="after">
-                    <field name="octopart_uid_manufacturer" readonly="1"/>
+                <xpath expr="//field[@name='parent_company_id']" position="after">
+                    <field name="octopart_uid_seller" readonly="1" attrs="{'invisible': [('octopart_uid_seller', '=', False)]}"/>
+                    <field name="octopart_uid_manufacturer" readonly="1" attrs="{'invisible': [('octopart_uid_manufacturer', '=', False)]}"/>
                 </xpath>
                 <xpath expr="//separator[@name='separator_analysis_menu']" position="before">
                     <button name="reset_octopart_seller_uid" string="Reset octopart seller id"
                         type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
-                        attrs="{'invisible': [('octopart_uid_seller', '=', '0')]}"
-                        confirm="o you want to reset octopart seller link ?"/>
+                        attrs="{'invisible': [('octopart_uid_seller', '=', False)]}"
+                        confirm="Do you want to reset octopart seller link ?"/>
                     <button name="reset_octopart_manufacturer_uid" string="Reset octopart manufacturer id"
                         type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
-                        attrs="{'invisible': [('octopart_uid_manufacturer', '=', '0')]}"
+                        attrs="{'invisible': [('octopart_uid_manufacturer', '=', False)]}"
                         confirm="Do you want to reset octopart manufacturer link ?"/>
                 </xpath>
             </field>

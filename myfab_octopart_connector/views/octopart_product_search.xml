@@ -21,7 +21,7 @@
                 				<field name="seller_id" options="{'no_create': True}" />
             					<field name="sample"/>
             				</group>
-                            <group colspan="8" col="8" string="Specifications" attrs="{'invisible': [('category_id', '=', False)]}">
+                            <group colspan="8" col="8" string="Characteristics filter" attrs="{'invisible': [('category_id', '=', False)]}">
                                 <group colspan="7" col="1">
                                     <field name="characteristics_filter_ids" widget="many2many_tags" colspan="2" nolabel="1" options="{'no_create': True}" />
                                 </group>

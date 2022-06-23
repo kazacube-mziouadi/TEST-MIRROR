@@ -12,7 +12,7 @@ class product(models.Model):
     # Stored in a char field because the octopart product ID is stored in the research result, if it is reset we lose the link
     # in this situation it is better to store it in a char to keep it active
     octopart_uid_product = fields.Char()
-    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Manufacturer')
+    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Octopart manufacturer')
     manufacturer_code = fields.Char()
 
     @api.multi

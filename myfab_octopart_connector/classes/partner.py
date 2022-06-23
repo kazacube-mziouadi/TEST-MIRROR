@@ -7,8 +7,8 @@ class res_partner(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    octopart_uid_seller = fields.Many2one('octopart.seller', string='Seller')
-    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Manufacturer')
+    octopart_uid_seller = fields.Many2one('octopart.seller', string='Octopart seller')
+    octopart_uid_manufacturer = fields.Many2one('octopart.manufacturer', string='Octopart manufacturer')
     
     @api.multi
     def reset_octopart_seller_uid(self):
