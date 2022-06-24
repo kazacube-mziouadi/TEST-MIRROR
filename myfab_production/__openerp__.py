@@ -1,7 +1,7 @@
 # See LICENSE file for full copyright and licensing details.
 {
     'name': 'myfab Production',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'category': 'base',
@@ -13,6 +13,7 @@
     """,
     'images': [],
     'depends': [
+        'my_fab',
         'mrp',
     ],
     'data': [

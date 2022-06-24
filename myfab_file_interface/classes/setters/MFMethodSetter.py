@@ -16,5 +16,4 @@ class MFMethodSetter(models.Model):
     # METHODS
     # ===========================================================================
     def apply_method_on_record(self, record_id):
-        # TODO : methode a appeler depuis les Tools quand elle y sera factorisee
-        self.env["importer.service.mf"].launch_method_on_records(self.name, record_id)
+        self.env["tools.mf"].mf_launch_method_on_records(self.name, record_id)
