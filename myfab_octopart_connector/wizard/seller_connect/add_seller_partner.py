@@ -66,7 +66,7 @@ class octopart_seller_partner_associate(models.TransientModel):
     def _clear_all_associated_partners(self):
         partner_rcs = self._get_partner_ids(self.octopart_seller_id.id)
         for partner_id in partner_rcs:
-            # Writing False in the octopart_uid_seller_id is like doing "unlink" but this permits to reuse the same method
+            # Writing False in the octopart_uid_seller_id is like doing "unlink" but it doesn't delete the record
             self._update_partner(partner_id,False)
 
     def _update_partner(self, partner_id, octopart_seller_id):

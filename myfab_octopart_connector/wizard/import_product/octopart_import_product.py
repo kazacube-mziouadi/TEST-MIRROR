@@ -155,11 +155,13 @@ class octopart_import_product_wizard(models.TransientModel):
              
         for characteristic in self.octopart_product_id.value_ids:
             # Add characteristic to product
+            # Writing False in the octopart_result_id is like doing "unlink" but it doesn't delete the record
             characteristic.write({
                 'product_id' : new_product_rc.id,
                 'octopart_result_id' : False,
             })
 
+        # Writing False in the octopart_product_id is like doing "unlink" but it doesn't delete the record
         self.write({'octopart_product_id' : False})
         return True   
       
