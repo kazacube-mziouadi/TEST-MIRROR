@@ -13,7 +13,6 @@
     """,
     'images': [],
     'depends': [
-        'my_fab',
         'mrp',
     ],
     'data': [

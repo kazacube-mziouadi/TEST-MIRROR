@@ -11,6 +11,7 @@
     'module_type': 'base',
     'images': [],
     'depends': [
+        'myfab_tools',
         'base_openprod',
         'base',
         'web_kanban',
@@ -92,8 +93,7 @@
         'web_charts',
         'web',
         'web_mail_autocomplete',
-        'planning'
-        'myfab_tools',
+        'planning',
     ],
     'data': [
         'security/myfab_file_interface_security.xml',
