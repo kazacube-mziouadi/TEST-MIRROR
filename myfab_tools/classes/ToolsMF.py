@@ -5,7 +5,7 @@ from datetime import datetime, date, timedelta
 import pytz
 
 class ToolsMF(models.Model):
-    _name = "tools.mf"
+    _name = "mf.tools"
 
     ####################################################################
     # DATE & TIME conversion tools

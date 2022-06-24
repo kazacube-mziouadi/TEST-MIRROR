@@ -20,9 +20,9 @@ class WizardCreateTimetracking(models.Model):
         config_default_end_time = mf_production_config_id.mf_default_end_time
         today_str = datetime.today().strftime("%Y-%m-%d")
         end_datetime_at_user_timezone = datetime.strptime(
-            today_str + ' ' + self.env['tools.mf'].mf_get_time_str_from_time_float(config_default_end_time), "%Y-%m-%d %H:%M"
+            today_str + ' ' + self.env['mf.tools'].mf_get_time_str_from_time_float(config_default_end_time), "%Y-%m-%d %H:%M"
         )
         # TODO : In Odoo, the timezone for datetime display is taken from the browser timezone.
         #  So if the user's timezone is != from it's browser timezone, the end_datetime default setting will not be ok
-        end_datetime_utc = self.env['tools.mf'].mf_convert_from_tz_to_UTC(str(end_datetime_at_user_timezone), self.env.user.tz)
+        end_datetime_utc = self.env['mf.tools'].mf_convert_from_tz_to_UTC(str(end_datetime_at_user_timezone), self.env.user.tz)
         return end_datetime_utc.strftime("%Y-%m-%d %H:%M:%S")

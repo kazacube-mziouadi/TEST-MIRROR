@@ -16,4 +16,4 @@ class MFMethodSetter(models.Model):
     # METHODS
     # ===========================================================================
     def apply_method_on_record(self, record_id):
-        self.env["tools.mf"].mf_launch_method_on_records(self.name, record_id)
+        self.env["mf.tools"].mf_launch_method_on_records(self.name, record_id)
