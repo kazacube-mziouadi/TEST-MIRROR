@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- FORM VIEW PARTNER -->
+        <record id='openprod_view_partner_form_octopart' model='ir.ui.view'>
+            <field name="name">view_form_partner_octopart</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="4000" />
+            <field name="inherit_id" ref="partner_openprod.openprod_view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_company_id']" position="after">
+                    <field name="octopart_uid_manufacturer_id" readonly="1" attrs="{'invisible': [('octopart_uid_manufacturer_id', '=', False)]}"/>
+                    <field name="octopart_uid_seller_id" readonly="1" attrs="{'invisible': [('octopart_uid_seller_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//separator[@name='separator_analysis_menu']" position="before">
+                    <button name="reset_octopart_manufacturer_uid" string="Reset octopart manufacturer id"
+                        type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
+                        attrs="{'invisible': [('octopart_uid_manufacturer_id', '=', False)]}"
+                        confirm="Do you want to reset octopart manufacturer link ?"/>
+                    <button name="reset_octopart_seller_uid" string="Reset octopart seller id"
+                        type="object" class="oe_inline oe_stat_button" icon="fa-cog" 
+                        attrs="{'invisible': [('octopart_uid_seller_id', '=', False)]}"
+                        confirm="Do you want to reset octopart seller link ?"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

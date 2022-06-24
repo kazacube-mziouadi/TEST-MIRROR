@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_form_import_manufacturer_wizard">
+            <field name="name">view_form_import_manufacturer_wizard</field>
+            <field name="model">octopart.manufacturer.import.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import wizard">
+                    <group colspan="4" col="4" string="Import manufacturer wizard">
+                        <field name="explaination" nolabel="1" readonly="1"/>
+                    </group>
+                    <footer>
+                        <button name="import_manufacturers" string="Import manufacturer" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_import_manufacturer">
+            <field name="name">Import manufacturer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">octopart.manufacturer.import.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</openerp>

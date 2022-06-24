@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_form_add_octopart_manufacturer_id">
+            <field name="name">view_form_add_octopart_manufacturer_id</field>
+            <field name="model">octopart.manufacturer.partner.associate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Associate to supplier">
+                    <group colspan="5" col="5">
+                        <group colspan="5" col="4" string="manufacturer infomation">
+                            <field name="octopart_manufacturer_id" options="{'no_create': True}" attrs="{'readonly': [('is_manufacturer_set', '=', True)]}"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <field name="is_manufacturer_set" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="add_manufacturer_id" string="Associate" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_add_octopart_manufacturer_id">
+            <field name="name">Associate to supplier</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">octopart.manufacturer.partner.associate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>
