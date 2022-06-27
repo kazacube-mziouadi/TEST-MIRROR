@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- FORM VIEW PARTNER -->
+        <record id='openprod_view_config_form_octopart' model='ir.ui.view'>
+            <field name="name">Technical data settings</field>
+            <field name="model">technical.data.config.settings</field>
+            <field name="priority" eval="4000" />
+            <field name="inherit_id" ref="purchase.technical_data_config_settings" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='is_allow_multiple_uom']" position="before">
+                    <field name="name"/>
+                    <field name="octopart_api_key"/>
+                    <p colspan="2" style="color:red;">Be careful, changing the API key will download all manufacturers, sellers, categories and characteristics from Octopart</p>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+

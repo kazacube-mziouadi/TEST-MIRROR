@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="view_form_advanced_search">
+            <field name="name">view_form_advanced_search</field>
+            <field name="model">octopart.characteristic.filter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import wizard">
+                    <group colspan="4" col="4" name="group_all">
+                        <group colspan="4" col="4">
+                            <group colspan="4" col="4" string="Detail">
+                                <field name="characteristic_type_id"/>
+                                <field name="octopart_category_id" readonly="1"/>
+                                <field name="is_numerical_value" attrs="{'invisible': 1}"/>
+                            </group>
+                            <group colspan="4" col="4" string="Filter">
+                                <field name="min_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
+                                <field name="max_value" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>                               
+                                <field name="min_value_choose" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
+                                <field name="max_value_choose" attrs="{'invisible': [('is_numerical_value', '=', False)]}"/>
+                                <field name="possible_values_ids" colspan="4" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="characteristic_value" />
+                                        <field name="unit_value" />                                    
+                                        <field name="use_value" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="add_characteristic_filter" string="Add Filter" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    
+        <record model="ir.actions.act_window" id="action_create_advanced_search_filter">
+            <field name="name">Advanced filter</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">octopart.characteristic.filter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

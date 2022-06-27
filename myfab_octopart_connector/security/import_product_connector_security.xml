@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+    
+        <!-- Groupe -->
+        <record model="ir.module.category" id="module_myfab_octopart_connector_security">
+            <field name="name">Import product connector security</field>
+            <field name="sequence">15</field>
+        </record>    
+    
+        <record model="res.groups" id="myfab_octopart_connector_security_user">
+            <field name="name">User</field>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
+        </record>
+        
+        <record model="res.groups" id="myfab_octopart_connector_security_fonctionnal">
+            <field name="name">Fonctionnal</field>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_user'))]"/>
+        </record>
+        
+        <record model="res.groups" id="myfab_octopart_connector_security_manager">
+            <field name="name">Manager</field>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_fonctionnal'))]"/>
+        </record>
+        
+        <record model="res.groups" id="myfab_octopart_connector_security_responsible">
+            <field name="name">Administrator</field>
+            <field name="octopart_category_id" ref="module_myfab_octopart_connector_security"/>
+            <field name="implied_ids" eval="[(4, ref('myfab_octopart_connector_security_manager'))]"/>
+        </record>
+    
+     </data>
+</openerp>
