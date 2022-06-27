@@ -15,6 +15,7 @@ class WoSimpleConsumption(models.TransientModel):
     # ===========================================================================
     @api.multi
     def action_validate(self):
+        # TODO : method forked from OPP
         for wiz in self:
             location_rc = wiz.label_id.warehouse_id.production_location_id
             if not location_rc:
