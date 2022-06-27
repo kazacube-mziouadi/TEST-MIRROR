@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_field_setter' model="ir.actions.act_window">
+        	<field name="name">myfab field setter</field>
+			<field name="res_model">mf.field.setter</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='mf_field_setter_treeview' model="ir.ui.view">
+        	<field name="name">myfab field setter</field>
+			<field name="model">mf.field.setter</field>
+            <field name="arch" type="xml">
+				<tree string="myfab Field Filters Value Comparison" editable="bottom">
+					<field name="mf_field_to_set_id"/>
+					<field name="mf_value"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_field_setter_form' model="ir.ui.view">
+        	<field name="name">mf.field.setter.form</field>
+			<field name="model">mf.field.setter</field>
+            <field name="arch" type="xml">
+				<form string="myfab field setter">
+					<group col="2">
+						<field name="mf_field_to_set_id"/>
+						<field name="mf_value"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

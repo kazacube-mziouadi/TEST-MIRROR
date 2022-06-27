@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- FORM VIEW PRODUCT -->
+        <record id='openprod_view_product_form_octopart' model='ir.ui.view'>
+            <field name="name">view_form_product_octopart</field>
+            <field name="model">product.product</field>
+            <field name="priority" eval="4000" />
+            <field name="inherit_id" ref="product.view_form_product" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_cost_price_manual']" position="after">
+                    <field name="octopart_uid_manufacturer_id" readonly="1" attrs="{'invisible':[('octopart_uid_manufacturer_id', '=', False)]}"/>
+                    <field name="manufacturer_code" readonly="1"/>
+                    <field name="octopart_uid_product" readonly="1" attrs="{'invisible':[('octopart_uid_product', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//separator[@name='separator_analysis_menu']" position="before">
+                    <button string="Add octopart price" 
+                        type="action"
+                        name="%(action_add_octopart_price)d" 
+                        context="{'default_part_uid_octopart': octopart_uid_product, 'default_product_id': context.get('active_id')}"
+                        attrs="{'invisible':[('octopart_uid_product', '=', False)]}"
+                        class="oe_inline oe_stat_button" 
+                        icon="fa-plus" />
+                    <button string="Update octopart price"
+                        type="object" 
+                        name="octopart_price_update" 
+                        attrs="{'invisible':[('octopart_uid_product', '=', False)]}"
+                        class="oe_inline oe_stat_button" 
+                        icon="fa-cog" />
+                </xpath>
+                <xpath expr="//field[@name='characteristics_ids']/tree//field[@name='value']" position="after">
+                    <field name="octopart_unit"/>                    
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

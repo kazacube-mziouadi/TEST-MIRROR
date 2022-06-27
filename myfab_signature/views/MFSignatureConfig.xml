@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_signature_config' model="ir.actions.act_window">
+        	<field name="name">myfab signature config</field>
+			<field name="res_model">mf.signature.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record id='mf_signature_config_treeview' model="ir.ui.view">
+        	<field name="name">myfab signature config configs</field>
+			<field name="model">mf.signature.config</field>
+            <field name="arch" type="xml">
+				<tree string="myfab signature configs" duplicate="0">
+					<field name="mf_target_model_id"/>
+					<field name="mf_target_view_id"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_signature_config_form' model="ir.ui.view">
+        	<field name="name">mf.signature.config.form</field>
+			<field name="model">mf.signature.config</field>
+            <field name="arch" type="xml">
+				<form string="myfab signature config" duplicate="0">
+					<field name="mf_target_model_name" invisible="1"/>
+					<field name="id" invisible="1"/>
+					<group col="2" string="Signature's target configuration">
+						<field name="mf_target_model_id"
+							   attrs="{'readonly': [('id', '!=', False)]}"/>
+						<field name="mf_target_view_id"
+							   domain="[('type', '=', 'form'), ('model', '=', mf_target_model_name)]"
+							   attrs="{'readonly': ['|', ('mf_target_model_id', '=', False), ('mf_signature_fields_ids', '!=', [])]}"/>
+					</group>
+					<group col="1"
+						   string="Technical data"
+						   attrs="{'invisible': [('mf_signature_fields_ids', '=', [])]}">
+						<group col="2">
+							<field name="mf_signature_view_id"/>
+						</group>
+						<field name="mf_signature_fields_ids"/>
+						<field name="mf_signature_base_action_rules_ids"/>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-10 14:22+0000\n"
-"PO-Revision-Date: 2022-05-10 14:22+0000\n"
+"POT-Creation-Date: 2022-06-14 13:46+0000\n"
+"PO-Revision-Date: 2022-06-14 13:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,10 +23,10 @@ msgid "Clear"
 msgstr "Effacer"
 
 #. module: myfab_signature
-#: model:ir.model.fields,field_description:myfab_signature.field_intervention_client_signature
-#: model:ir.ui.view,arch_db:myfab_signature.inherited_intervention_form
-msgid "Client signature"
-msgstr "Signature client"
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:112
+#, python-format
+msgid "Contact signature"
+msgstr "Signature du contact"
 
 #. module: myfab_signature
 #. openerp-web
@@ -37,6 +37,21 @@ msgid "Could not display the selected image."
 msgstr "Impossible d'afficher l'image sélectionnée."
 
 #. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: myfab_signature
 #. openerp-web
 #: code:addons/myfab_signature/static/src/xml/digital_sign.xml:7
 #, python-format
@@ -44,9 +59,16 @@ msgid "Draw your signature"
 msgstr "Dessiner la signature ci-dessous"
 
 #. module: myfab_signature
-#: model:ir.ui.view,arch_db:myfab_signature.inherited_intervention_form
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:99
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:102
+#, python-format
 msgid "Electronic signature"
 msgstr "Signature électronique"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_id
+msgid "ID"
+msgstr "ID"
 
 #. module: myfab_signature
 #. openerp-web
@@ -62,24 +84,128 @@ msgid "Intervention"
 msgstr "Intervention"
 
 #. module: myfab_signature
-#: model:ir.model.fields,help:myfab_signature.field_intervention_client_signature
-#: model:ir.model.fields,help:myfab_signature.field_intervention_mf_signature_contact_id
-#: model:ir.model.fields,help:myfab_signature.field_intervention_mf_signature_date
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_target_model_name
+msgid "Model name"
+msgstr "Nom du modèle"
+
+#. module: myfab_signature
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config___last_update
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_create_date
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_create_uid
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_display_name
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_id
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_signature_fields_ids
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_signature_view_id
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_target_model_id
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_target_model_name
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_mf_target_view_id
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_write_date
+#: model:ir.model.fields,help:myfab_signature.field_mf_signature_config_write_uid
 msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_signature
-#: model:ir.model.fields,field_description:myfab_signature.field_intervention_mf_signature_date
-msgid "Signature date"
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:81
+#, python-format
+msgid "Signature datetime"
 msgstr "Date de signature"
 
 #. module: myfab_signature
-#: model:ir.model.fields,field_description:myfab_signature.field_intervention_mf_signature_contact_id
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:128
+#, python-format
+msgid "Signature datetime action server for model "
+msgstr "Action serveur de la date de signature pour le modèle "
+
+#. module: myfab_signature
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:123
+#, python-format
+msgid "Signature datetime base action rule for model "
+msgstr "Action automatisée de la date de signature pour le modèle "
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_signature_fields_ids
+msgid "Signature fields"
+msgstr "Champs de la signature"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_signature_view_id
+msgid "Signature view"
+msgstr "Vue de la signature"
+
+#. module: myfab_signature
+#: model:ir.ui.view,arch_db:myfab_signature.mf_signature_config_form
+msgid "Signature's target configuration"
+msgstr "Configuration de la cible de la signature"
+
+#. module: myfab_signature
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:74
+#, python-format
 msgid "Signing contact"
 msgstr "Contact signataire"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_target_model_id
+msgid "Target model"
+msgstr "Modèle cible"
+
+#. module: myfab_signature
+#: model:ir.model.fields,field_description:myfab_signature.field_mf_signature_config_mf_target_view_id
+msgid "Target view"
+msgstr "Vue cible"
+
+#. module: myfab_signature
+#: model:ir.ui.view,arch_db:myfab_signature.mf_signature_config_form
+msgid "Technical data"
+msgstr "Données techniques"
+
+#. module: myfab_signature
+#: code:addons/myfab_signature/models/MFSignatureConfig.py:40
+#, python-format
+msgid "There is already a signature field in the chosen model."
+msgstr "Il y a déjà un champ signature pour le modèle choisi."
 
 #. module: myfab_signature
 #: model:ir.model,name:myfab_signature.model_res_users
 msgid "Users"
 msgstr "Utilisateurs"
 
+#. module: myfab_signature
+#: model:ir.model,name:myfab_signature.model_mf_create_signature
+msgid "mf.create.signature"
+msgstr "mf.create.signature"
+
+#. module: myfab_signature
+#: model:ir.model,name:myfab_signature.model_mf_signature_config
+msgid "mf.signature.config"
+msgstr "mf.signature.config"
+
+#. module: myfab_signature
+#: model:ir.actions.act_window,name:myfab_signature.mf_signature_config
+#: model:ir.ui.view,arch_db:myfab_signature.mf_signature_config_form
+msgid "myfab signature config"
+msgstr "Signature myfab"
+
+#. module: myfab_signature
+#: model:ir.ui.view,arch_db:myfab_signature.mf_signature_config_treeview
+msgid "myfab signature configs"
+msgstr "Signatures myfab"
+
+#. module: myfab_signature
+#: model:ir.ui.menu,name:myfab_signature.menu_mf_signature_config
+msgid "myfab signature configurations"
+msgstr "Signatures myfab"

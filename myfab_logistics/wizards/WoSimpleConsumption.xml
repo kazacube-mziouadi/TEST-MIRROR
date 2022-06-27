@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_wo_simple_consumption' model="ir.ui.view">
+			<field name="name">mf_view_form_wo_simple_consumption</field>
+			<field name="inherit_id" ref="mrp.view_form_wo_simple_consumption" />
+			<field name="model">wo.simple.consumption</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='is_print']" position="after">
+					<field name="mf_note" colspan="4"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

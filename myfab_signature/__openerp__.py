@@ -2,29 +2,28 @@
 
 {
     'name': 'myfab Signature',
-    'version': '1.1.0',
+    'version': '2.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'depends': [
-        'my_fab',
-        'sav'
+        'my_fab'
     ],
     'category': 'advanced',
     'description': """
-        Intègre un champ signature client (signature à main levée) à la fiche d'intervention SAV.
-        Permet également de créer un champ signature sur n'importe quel modèle (sur l'exemple du SAV). 
+        Permet de créer un champ signature sur n'importe quel modèle. 
     """,
     'summary': """
-        Champ signature client pour fiche SAV
+        Création d'un champ signature sur n'importe quel modèle
     """,
     'images': [
         'static/description/icon.jpg'
     ],
     'data': [
         'views/web_digital_sign_view.xml',
-        'views/Intervention.xml'
+        'views/MFSignatureConfig.xml',
+        'views/BaseMenus.xml',
     ],
-    'website': 'http://www.serpentcs.com',
+    'website': '',
     'qweb': [
         'static/src/xml/digital_sign.xml'
     ],

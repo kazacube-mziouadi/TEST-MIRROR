@@ -14,6 +14,7 @@
         'myfab_file_interface',
         'myfab_purchase',
         'myfab_production',
+        'myfab_logistics',
     ],
     'data': [
         'classes/DataInitializerMyFabTriggerMF.yml',

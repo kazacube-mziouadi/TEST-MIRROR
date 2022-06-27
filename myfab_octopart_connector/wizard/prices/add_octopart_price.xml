@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_form_add_octopart_price">
+            <field name="name">view_form_add_octopart_price</field>
+            <field name="model">octopart.price.add</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Add octopart price">
+                    <group colspan="4" col="4" string="Add octopart price">
+                        <group colspan="4" col="2" string="Supplier reference informations">
+                            <field name="company_id"/>
+                            <field name="uop_id"/>
+                            <field name="uoi_id"/>
+                        </group>
+                        <button name="show_offer" string="Show offer" type="object" class="oe_inline oe_stat_button" icon="fa-search"/> 
+                         <group colspan="4" col="1" string="Offers">
+                            <field name="sellers_offers_ids" colspan="4" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="name" />  
+                                    <field name="seller_octopart_uid" />
+                                    <field name="sku" />
+                                    <button name="add_price" string="Add offer" type="object" class="oe_inline oe_stat_button" icon="fa-plus" confirm="Do you want to add this price ?"/>  
+                                </tree>
+                            </field> 
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_add_octopart_price">
+            <field name="name">Add octopart price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">octopart.price.add</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
+
