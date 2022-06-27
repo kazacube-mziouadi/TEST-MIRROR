@@ -1,6 +1,5 @@
 from openerp import models, fields, api, _, modules
 from datetime import datetime
-import pytz
 
 
 class WizardCreateTimetracking(models.TransientModel):
