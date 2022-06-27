@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+		<record model="jasper.document" id="mf_jasper_document_intervention">
+            <field name="name">Intervention</field>
+            <field name="depth">2</field>
+            <field name="jasper_file">intervention</field>
+            <field name="format_choice">mono</field>
+            <field name="model_id" ref="base_gmao_sav.model_intervention"/>
+            <field name="enabled" eval="1"/>
+            <field name="report_unit">Intervention</field>
+            <field name="mode">sql</field>
+            <field name="format">PDF</field>
+        </record>
+    </data>
+</openerp>

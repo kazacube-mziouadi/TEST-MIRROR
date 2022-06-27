@@ -10,11 +10,13 @@ class ExporterServiceMF(models.TransientModel):
     # ===========================================================================
 
     def get_records_to_export_list_from_model_dictionary(self, model_dictionary, method_to_apply):
-        records_list = []
-        records_to_export_list = model_dictionary.get_list_of_records_to_export()
-        for record_to_export in records_to_export_list:
-            records_list.append(self.get_record_to_export_dict(record_to_export, model_dictionary, method_to_apply))
-        return records_list
+        records_dict_list = []
+        records_to_export_ids = model_dictionary.get_list_of_records_dict_to_export()
+        for record_to_export_id in records_to_export_ids:
+            records_dict_list.append(
+                self.get_record_to_export_dict(record_to_export_id, model_dictionary, method_to_apply)
+            )
+        return records_dict_list
 
     def get_record_to_export_dict(self, record_to_export, model_dictionary, method_to_apply):
         model_name = model_dictionary.model_to_export_mf.model
@@ -66,3 +68,10 @@ class ExporterServiceMF(models.TransientModel):
                 record_to_export, child_model_dictionary
             )
         return child_fields_to_search
+
+    @staticmethod
+    def launch_post_export_processes_on_model_dictionary_records(model_dictionary):
+        exported_records_ids = model_dictionary.get_list_of_records_to_export()
+        for exported_record_id in exported_records_ids:
+            exported_record_id.write(model_dictionary.get_dict_of_values_to_set_at_export())
+            model_dictionary.apply_methods_at_export_on_record(exported_record_id)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem name="myfab signature configurations"
+				  action="mf_signature_config"
+				  id="menu_mf_signature_config"
+				  parent="base.next_id_2"
+				  sequence="100"/>
+	</data>
+</openerp>

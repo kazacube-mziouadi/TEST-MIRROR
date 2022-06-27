@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- Main menu	 -->
+		<menuitem name="Octopart" 
+            id="menu_octopart_conf" 
+            parent="product.menu_technical_data_configuration" 
+            sequence="700" />
+	</data>
+</openerp>
