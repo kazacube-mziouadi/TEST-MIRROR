@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab File Interface',
-    'version': '1.2.0',
+    'version': '1.2.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Interface myfab pour échanger avec des logiciels externes via fichiers à plat.',
@@ -11,6 +11,7 @@
     'module_type': 'base',
     'images': [],
     'depends': [
+        'myfab_tools',
         'base_openprod',
         'base',
         'web_kanban',
@@ -92,7 +93,7 @@
         'web_charts',
         'web',
         'web_mail_autocomplete',
-        'planning'
+        'planning',
     ],
     'data': [
         'security/myfab_file_interface_security.xml',
