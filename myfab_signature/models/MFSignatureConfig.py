@@ -75,6 +75,7 @@ class MFSignatureConfig(models.Model):
                 "field_description": _("Signing contact"),
                 "ttype": "many2one",
                 "relation": "res.partner",
+                "is_onchange": True,
             }),
             self.env["ir.model.fields"].create({
                 "name": "x_mf_signature_datetime",
@@ -87,8 +88,23 @@ for record in self:
     if record.x_mf_signature and record.x_mf_signature_contact_id:
         record['x_mf_signature_datetime'] = datetime.datetime.now()
                 """,
-                "depends": "x_mf_signature",
-                "is_stored_compute": True
+                "depends": "x_mf_signature,x_mf_signature_contact_id",
+                "is_stored_compute": True,
+            }),
+            self.env["ir.model.fields"].create({
+                "name": "x_mf_is_signature_contact_id_readonly",
+                "model_id": self.mf_target_model_id.id,
+                "field_description": _("Is signing contact readonly"),
+                "ttype": "boolean",
+                "readonly": True,
+                "compute": """
+for record in self:
+    if not record.x_mf_signature:
+        record['x_mf_is_signature_contact_id_readonly'] = False
+                """,
+                "depends": "x_mf_signature,x_mf_signature_contact_id",
+                "is_onchange": True,
+                "is_stored_compute": True,
             }),
             self.env["ir.model.fields"].search([
                 ("name", '=', "x_mf_signature_filename"), ("model_id", '=', self.mf_target_model_id.id)
@@ -113,8 +129,12 @@ for record in self:
                         ">
                             <group col="4">
                                 <field name="x_mf_signature_contact_id"  
-                                       attrs="{'readonly': [('x_mf_signature', '!=', False), ('x_mf_signature_datetime', '!=', False)]}"/>
+                                       attrs="{
+                                           'required': [('x_mf_signature', '!=', False)],
+                                           'readonly': [('x_mf_is_signature_contact_id_readonly', '=', True)],
+                                       }"/>
                                 <field name="x_mf_signature_datetime"/>
+                                <field name="x_mf_is_signature_contact_id_readonly" invisible="1"/>
                             </group>
                             <group col="2">
                                 <label for="x_mf_signature" string="
@@ -142,8 +162,8 @@ for record in self:
                 "model_id": self.mf_target_model_id.id,
                 "state": "code",
                 "code": """
-if object.x_mf_signature and not object.x_mf_signature_contact_id:
-    raise Warning('""" + _("Please specify the signing contact.") + """')
+if object.x_mf_signature and object.x_mf_signature_contact_id:
+    object.write({'x_mf_is_signature_contact_id_readonly': True})
                 """
             })]
         })]

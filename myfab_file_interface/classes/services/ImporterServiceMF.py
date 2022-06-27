@@ -27,7 +27,7 @@ class ImporterServiceMF(models.TransientModel):
                 if "callback" in record_to_process_dict:
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
-                    self.launch_method_on_records(record_to_process_dict["callback"], records_returned)
+                    self.env['mf.tools'].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
                 record_to_process_dict["status"] = status
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
@@ -192,12 +192,3 @@ class ImporterServiceMF(models.TransientModel):
             return ir_model_data.res_id
         else:
             raise MissingError("No record found for id string " + id_string)
-
-    """
-       Launch a method at format (for example) "method_name(paramInt, 'paramString')" on a list of records.
-       It's not a static method as "self" is used through the exec() method
-    """
-    # TODO : methode a ranger dans les Tools
-    def launch_method_on_records(self, method_name, record_ids):
-        record_ids_str_ids_list = [str(record_id.id) for record_id in record_ids]
-        exec("self.env['" + record_ids[0]._name + "'].search([('id', 'in', " + str(record_ids_str_ids_list) + ")])." + method_name)
