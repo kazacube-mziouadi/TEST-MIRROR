@@ -1,8 +1,9 @@
 from openerp import models, fields, api, _, modules
-from datetime import datetime, date, timedelta
+from datetime import datetime
+import pytz
 
 
-class WizardCreateTimetracking(models.Model):
+class WizardCreateTimetracking(models.TransientModel):
     _inherit = "wizard.create.timetracking"
 
     # ===========================================================================
