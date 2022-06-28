@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab Base',
-    'version': '1.2.0',
+    'version': '1.2.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Initialisation modules et données pour myfab',
@@ -12,9 +12,11 @@
     'images': [],
     'depends': [
         'myfab_file_interface',
-        'myfab_purchase',
-        'myfab_production',
-        'myfab_logistics',
+        'stock',
+        'mrp',
+        'calendar',
+        'excel_import',
+        'printers',
     ],
     'data': [
         'classes/DataInitializerMyFabTriggerMF.yml',
