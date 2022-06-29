@@ -13,4 +13,4 @@ class mf_sale_order_line_kit(models.Model):
     mf_bom_id = fields.Many2one('mrp.bom', string='Bom', readonly=True, ondelete='cascade')
     mf_sec_uom_qty = fields.Float(string='Quantity in sale unity', default=0.0, digits=dp.get_precision('Product quantity'), 
                                readonly=True)
-    mf_sale_order_line_ids = fields.One2many('sale.order.line', 'mf_sale_order_kit_id',  string='sale order kit', copy=False)
+    mf_sale_order_line_ids = fields.One2many('sale.order.line', 'mf_sale_order_kit_id',  string='sale order line', copy=False)

@@ -7,6 +7,11 @@ class purchase_order(models.Model):
 
     mf_purchase_order_line_kit_ids = fields.One2many('mf.purchase.order.line.kit', 'mf_purchase_id',  string='Purchase order line kit', copy=False)
 
+    @api.onchange('mf_purchase_order_line_kit_ids')
+    def _onchange_refresh_dependancies(self):
+        self.purchase_order_line_ids.refresh()
+        self._onchange_purchase_order_line_ids()
+
     @api.multi
     def action_progress_purchase_state(self):
         res = super(purchase_order, self).action_progress_purchase_state()
