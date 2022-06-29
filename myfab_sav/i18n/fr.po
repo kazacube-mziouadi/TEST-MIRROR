@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* myfab_sav
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-29 10:06+0000\n"
+"PO-Revision-Date: 2022-06-29 10:06+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: myfab_sav
+#: model:ir.model.fields,field_description:myfab_sav.field_intervention_client_signature
+#: model:ir.ui.view,arch_db:myfab_sav.inherited_intervention_form
+msgid "Client signature"
+msgstr "Signature client"
+
+#. module: myfab_sav
+#: model:ir.ui.view,arch_db:myfab_sav.inherited_intervention_form
+msgid "Electronic signature"
+msgstr "Signature électronique"
+
+#. module: myfab_sav
+#: model:ir.model,name:myfab_sav.model_intervention
+#: model:jasper.document,name:myfab_sav.mf_jasper_document_intervention
+msgid "Intervention"
+msgstr "Intervention"
+
+#. module: myfab_sav
+#: model:ir.model.fields,field_description:myfab_sav.field_intervention_mf_is_signature_contact_id_readonly
+msgid "Mf is signature contact id readonly"
+msgstr "Contact signataire readonly"
+
+#. module: myfab_sav
+#: model:ir.model.fields,help:myfab_sav.field_intervention_client_signature
+#: model:ir.model.fields,help:myfab_sav.field_intervention_mf_is_signature_contact_id_readonly
+#: model:ir.model.fields,help:myfab_sav.field_intervention_mf_signature_contact_id
+#: model:ir.model.fields,help:myfab_sav.field_intervention_mf_signature_date
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: myfab_sav
+#: model:ir.model.fields,field_description:myfab_sav.field_intervention_mf_signature_date
+msgid "Signature date"
+msgstr "Date de signature"
+
+#. module: myfab_sav
+#: model:ir.model.fields,field_description:myfab_sav.field_intervention_mf_signature_contact_id
+msgid "Signing contact"
+msgstr "Contact signataire"
+
