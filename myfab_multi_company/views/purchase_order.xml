@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ============== -->
+		<!-- PURCHASE ORDER -->
+		<!-- ============== -->
+
+		<!-- FORM VIEW Purchase order -->
+        <record id='mf_view_form_purchase_order_line_kit' model='ir.ui.view'>
+			<field name="name">mf_view_form_purchase_order_line_kit</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.view_form_purchase_order"/>
+			<field name="priority" eval="1500" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_order_line_ids']/.." position="after">
+                    <group colspan="4" col="4" string="Purchase order lines kit" attrs="{'invisible': [('mf_purchase_order_line_kit_ids', '=', False)]}" >
+                	    <field name="mf_purchase_order_line_kit_ids" nolabel="1" colspan="4" 
+									attrs="{'readonly': [('state', 'in', ['progress', 'done', 'cancel'])]}" 
+									context="{'default_sequence': max_sequence, 'default_confirmed_date': confirmation_date, 'default_expected_date': default_expected_date, 'default_currency_id': currency_id, 'default_company_id': company_id, 'default_purchase_type': purchase_type}">
+							<tree string="Purchase order line kit">
+								<field name="mf_product_id" />
+								<field name="mf_bom_id" />
+								<field name="mf_sec_uom_qty" />
+							</tree>
+							<form string="Purchase order line kit">
+								<group colspan="2" col="2">
+									<field name="mf_product_id" />
+									<field name="mf_bom_id" />
+									<field name="mf_sec_uom_qty" />
+								</group>
+							</form>
+						</field>
+                    </group>
+                </xpath>
+        	</field>
+        </record>						
+	</data>
+</openerp>

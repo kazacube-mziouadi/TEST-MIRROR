@@ -14,8 +14,13 @@
     'depends' : [
         'my_fab',
         'multi_company_auto',
+        'kit_purchase',
+        'kit_sale',
+        'purchase',
     ],
     'data': [
+        'views/purchase_order.xml',
+        'views/sale_order.xml',
     ],
     'installable': True,
     'auto_install': False,
