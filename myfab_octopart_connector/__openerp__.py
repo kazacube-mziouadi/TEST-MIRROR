@@ -19,7 +19,7 @@
         'characteristics',
     ],
     'data': [
-            'security/import_product_connector_security.xml',
+            'security/myfab_octopart_connector_security.xml',
             'security/ir.model.access.csv',
             'views/technical_data_config.xml',
             'views/octopart_menu.xml',
