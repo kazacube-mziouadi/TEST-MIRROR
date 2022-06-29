@@ -1153,7 +1153,7 @@ msgid "Result Octopart product search"
 msgstr "Résultat de recherche de produit Octopart"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_result
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_research_result
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_search_result
 msgid "Result from search product"
 msgstr "Résultat de la recherche de produit"
@@ -1251,7 +1251,7 @@ msgstr "Unité stockage"
 
 #. module: myfab_octopart_connector
 #: model:ir.model,name:myfab_octopart_connector.model_octopart_specs_search
-#: model:ir.model,name:myfab_octopart_connector.model_specs_search
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_characteristics_research
 msgid "Specs from Octopart"
 msgstr "Caratéristiques d'Octopart"
 
@@ -1405,7 +1405,7 @@ msgid "connector.import.wizard.template"
 msgstr "connector.import.wizard.template"
 
 #. module: myfab_octopart_connector
-#: model:ir.model,name:myfab_octopart_connector.model_connector_seller
+#: model:ir.model,name:myfab_octopart_connector.model_octopart_seller
 msgid "connector.seller"
 msgstr "connector.seller"
 
