@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_mf_wizard_simulation_generic_creation" model="ir.ui.view">
+            <field name="name">mf.wizard.simulation.generic.creation.form</field>
+            <field name="model">mf.wizard.simulation.generic.creation</field>
+            <field name="arch" type="xml">
+                <form string="Simulation by quantity - Lines export">
+                    <group col="1">
+                        <field name="mf_model_to_create_id" />
+                        <field name="mf_simulation_lines_ids" readonly="1"/>
+                    </group>
+                    <p>
+                        Choose the creation type below. You can use mouse hover on the buttons to know more about their actions.
+                    </p>
+                    <footer>
+                        <button name="action_single_creation"
+                                type="object"
+                                string="Single creation"
+                                class="oe_highlight"
+                                help="Create a single record with all the selected simulation lines" />
+                        <button name="action_multi_creation"
+                                type="object"
+                                string="Multi creation"
+                                class="oe_highlight"
+                                help="Create a different record for each of the selected simulation lines" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -16,8 +16,7 @@ class FilterValueComparisonMF(models.Model, FilterInterfaceMF):
         ("in", "in"), ("not in", "not in"), ("child_of", "child_of"), ("parent_of", "parent_of"), ("~", "~")
     ], "Operator", required=True)
     value_mf = fields.Char(string="Value", required=True, help='')
-    model_dictionary_field_mf = fields.Many2one("model.dictionary.field.mf", string="Model dictionary field",
-                                                required=False)
+    model_dictionary_field_mf = fields.Many2one(string="Model dictionary field", required=False, ondelete="cascade")
 
     def get_filter_tuple(self, field_name):
         return field_name, self.operator_mf, self.value_mf

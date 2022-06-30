@@ -9,6 +9,7 @@ class RecordImportRowMF(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, help='')
-    record_import_mf = fields.Many2one("file.interface.import.attempt.record.import.mf", string="Record import")
+    record_import_mf = fields.Many2one("file.interface.import.attempt.record.import.mf", string="Record import",
+                                       ondelete="cascade")
     row_number_mf = fields.Integer(string="Row number")
     row_content_mf = fields.Char(string="Row content")

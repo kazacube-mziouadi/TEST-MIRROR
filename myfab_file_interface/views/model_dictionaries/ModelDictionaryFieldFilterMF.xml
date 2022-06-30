@@ -29,6 +29,7 @@
 						<field name="field_to_export_mf"/>
 						<group col="1" attrs="{'invisible': [('hide_filters_view', '=', True)]}">
 							<field name="hide_filters_datetime_view" invisible="1"/>
+							<field name="mf_hide_child_model_field_filters_view" invisible="1"/>
 							<field name="value_comparisons_mf"/>
 							<group col="2" attrs="{'invisible': [('hide_filters_datetime_view', '=', True)]}">
 								<group col="1">
@@ -38,6 +39,11 @@
 									<field name="datetime_delta_max_mf"/>
 								</group>
 							</group>
+						</group>
+						<group col="1" attrs="{'invisible': [('mf_hide_child_model_field_filters_view', '=', True)]}">
+							<field name="mf_field_relation_model_id" />
+							<field name="mf_child_model_fields_filters"
+								   context="{'model_dictionary_mf': active_id, 'model_to_filter_id': mf_field_relation_model_id}"/>
 						</group>
 					</group>
 				</form>

@@ -14,7 +14,7 @@ class FileInterfaceImportMF(models.Model):
     # COLUMNS
     # ===========================================================================
     import_attempts_mf = fields.One2many("file.interface.import.attempt.mf", "file_interface_import_mf",
-                                         string="Import attempts", ondelete="cascade", readonly=True)
+                                         string="Import attempts", readonly=True)
     file_encoding_mf = fields.Selection(
         [("utf-8", "UTF-8"), ("cp1252", "CP1252")], "File encoding", default="utf-8", required=True
     )

@@ -14,10 +14,10 @@ class FileInterfaceExportMF(models.Model):
     # ===========================================================================
     model_dictionaries_to_export_mf = fields.One2many("file.interface.export.model.dictionary.mf",
                                                       "file_interface_export_mf", copy=True,
-                                                      string="Models to Export", ondelete="cascade")
+                                                      string="Models to Export")
     activate_file_generation_mf = fields.Boolean(string="Activate file generation", default=True)
     export_attempts_mf = fields.One2many("file.interface.export.attempt.mf", "file_interface_export_mf",
-                                         string="Export attempts", ondelete="cascade", readonly=True)
+                                         string="Export attempts", readonly=True)
     use_custom_extension = fields.Boolean(string="Name files with a custom extension", default=False)
     custom_extension = fields.Char(string="Custom extension")
     mf_method_to_apply = fields.Selection("_mf_method_to_apply_get", "Method to apply at import", default="create", required=True,
@@ -40,13 +40,13 @@ class FileInterfaceExportMF(models.Model):
     @api.one
     def launch(self):
         if not self.model_dictionaries_to_export_mf:
-            raise MissingError("You must configure the models to export before being able to launch the export.")
+            raise MissingError(_("You must configure the models to export before being able to launch the export."))
         for model_dictionary in self.model_dictionaries_to_export_mf:
             self.export_model_dictionary(model_dictionary)
 
     def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()
-        file_name = self.get_file_name()
+        file_name = self.get_file_name(model_dictionary)
         records_to_export_list = self.env["exporter.service.mf"].get_records_to_export_list_from_model_dictionary(
             model_dictionary, self.mf_method_to_apply
         )
@@ -78,12 +78,13 @@ class FileInterfaceExportMF(models.Model):
                 "file_mf": export_attempt_file.id
             })]
         })
+        self.env["exporter.service.mf"].launch_post_export_processes_on_model_dictionary_records(model_dictionary)
 
-    def get_file_name(self):
+    def get_file_name(self, model_dictionary_id):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
         now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")
         if self.use_custom_extension:
             extension = ('.' if not self.custom_extension.startswith('.') else '') + self.custom_extension
         else:
             extension = '.' + self.file_extension_mf
-        return "MFFI-Export-" + now_formatted + extension
+        return model_dictionary_id.model_to_export_mf.model.replace('.', '_') + '-' + now_formatted + extension

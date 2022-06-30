@@ -1,0 +1,4 @@
+import import_seller
+import import_category
+import import_manufacturer
+import import_characteristics
