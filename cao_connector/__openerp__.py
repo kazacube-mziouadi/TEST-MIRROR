@@ -8,7 +8,7 @@
     'category': 'Base',
     'description': """
         Permet lors de l\'import XML, de comparer les produits et nomenclatures aux éléments existants similaires.
-        Ainsi les éléments importés ne vont pas simplement écraser les données. Cela permet une mise à jour plus fine des desriptions.
+        Ainsi les éléments importés ne vont pas simplement écraser les données. Cela permet une mise à jour plus fine des descriptions.
     """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
@@ -19,6 +19,7 @@
     ],
     'data': [
         'wizards/bom_comparator/xml_import_bom_comparator.xml',
+        'views/xml_import_processing_sim_action.xml',
     ],
     'qweb': [],
     'demo': [],
