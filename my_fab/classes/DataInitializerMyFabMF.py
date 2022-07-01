@@ -16,13 +16,20 @@ class DataInitializerMyFabMF(models.Model):
     launch_base_init = fields.Boolean(string="Launch base initialization", default=False)
     launch_data_recovery_templates_init = fields.Boolean(string="Launch data recovery templates initialization",
                                                          default=False)
-    launch_modules_init = fields.Boolean(string="Launch Open-Prod modules initialization", default=True, readonly=True)
+    launch_modules_init = fields.Boolean(string="Launch Open-Prod modules initialization", default=False)
     launch_dev_tools_init = fields.Boolean(string="Launch advanced development tools initialization", default=True,
                                            readonly=True)
+    is_myfab_dependencies_installed = fields.Boolean(string="Is myfab dependencies module installed",
+                                                     compute="_compute_is_myfab_dependencies_installed")
 
     # ===========================================================================
-    # GENERAL METHODS
+    # METHODS
     # ===========================================================================
+    @api.one
+    def _compute_is_myfab_dependencies_installed(self):
+        myfab_dependencies_module_id = self.env["ir.module.module"].search([("name", '=', "myfab_dependencies")], None, 1)
+        self.is_myfab_dependencies_installed = myfab_dependencies_module_id.state == "installed"
+
     @api.multi
     def display_wizard(self):
         logger.info("Displaying myfab Base Initialization wizard")
@@ -44,6 +51,9 @@ class DataInitializerMyFabMF(models.Model):
         return models_to_avoid_names_list
 
     def set_configurations(self):
+        if self.launch_modules_init:
+            logger.info("Installing myfab dependencies")
+            self.env["ir.module.module"].search([("name", '=', "myfab_dependencies")], None, 1).button_immediate_install()
         if self.launch_base_init:
             self.configure_admin_user()
             self.configure_companies()

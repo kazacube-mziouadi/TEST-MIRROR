@@ -12,8 +12,9 @@
                     <group col="2">
                         <field name="launch_base_init"/>
                         <field name="launch_data_recovery_templates_init"/>
-                        <field name="launch_modules_init"/>
+                        <field name="launch_modules_init" attrs="{'invisible': [('is_myfab_dependencies_installed', '=', True)]}"/>
                         <field name="launch_dev_tools_init"/>
+                        <field name="is_myfab_dependencies_installed" invisible="1"/>
                     </group>
                     <p style="color:red" attrs="{'invisible': [('launch_base_init', '=', False)]}">
                         Warning : Launching the base initialization may overwrite your current configurations.
