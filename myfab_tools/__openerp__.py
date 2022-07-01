@@ -10,9 +10,7 @@
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
-    'depends': [
-        'base_openprod'
-    ],
+    'depends': [],
     'data': [],
     'qweb': [],
     'demo': [],
