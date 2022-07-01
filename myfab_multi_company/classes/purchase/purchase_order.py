@@ -14,16 +14,20 @@ class purchase_order(models.Model):
 
     @api.multi
     def action_progress_purchase_state(self):
-        res = super(purchase_order, self).action_progress_purchase_state()
+        if not self.multi_company_sale_order_id:
+            res = super(purchase_order, self).action_progress_purchase_state()
 
-        if self.multi_company_sale_order_id:
-            mf_sale_order_line_kit_ids = []
-            for kit_id in self.mf_purchase_order_line_kit_ids:
-                mf_sale_order_line_kit_ids.create((0,0,{
-                    'mf_sale_id':self.multi_company_sale_order_id.id,
-                    'mf_product_id':kit_id.mf_product_id.id,
-                    'mf_bom_id':kit_id.mf_bom_id.id,
-                    'mf_sec_uom_qty':kit_id.mf_sec_uom_qty,
-                }))
+            if self.multi_company_sale_order_id:
+                mf_sale_order_line_kit_ids = []
+                for kit_id in self.mf_purchase_order_line_kit_ids:
+                    mf_sale_order_line_kit_ids.create((0,0,{
+                        'mf_sale_id':self.multi_company_sale_order_id.id,
+                        'mf_product_id':kit_id.mf_product_id.id,
+                        'mf_bom_id':kit_id.mf_bom_id.id,
+                        'mf_sec_uom_qty':kit_id.mf_sec_uom_qty,
+                    }))
+        else:
+            res = True
+
 
         return res

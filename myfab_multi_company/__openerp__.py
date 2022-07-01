@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'myfab Multi société',
+    'name' : 'myfab kits multi société',
     'version' : '1.0.0',
     'author' : 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Multi société par myfab',
+    'summary': 'kits multi société par myfab',
     'category' : 'Third party management',
     'description' : """
-        Gestion plus complète de la fonctionnalité de multi société
+        Gestion plus complète des kits en multi société
     """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'advanced',
@@ -16,6 +16,7 @@
         'multi_company_auto',
         'kit_purchase',
         'kit_sale',
+        'stock_kit_product',
         'purchase',
     ],
     'data': [

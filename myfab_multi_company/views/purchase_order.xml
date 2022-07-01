@@ -14,7 +14,7 @@
 			<field name="priority" eval="1500" />
 			<field name="arch" type="xml">
                 <xpath expr="//field[@name='purchase_order_line_ids']/.." position="after">
-                    <group colspan="4" col="4" string="Purchase order lines kit" attrs="{'invisible': [('mf_purchase_order_line_kit_ids', '=', False)]}" >
+                    <group colspan="4" col="4" string="Purchase order lines kit" attrs="{'invisible': [('mf_purchase_order_line_kit_ids', '=', [])]}" >
                 	    <field name="mf_purchase_order_line_kit_ids" nolabel="1" colspan="4" 
 									attrs="{'readonly': [('state', 'in', ['progress', 'done', 'cancel'])]}" 
 									context="{'default_sequence': max_sequence, 'default_confirmed_date': confirmation_date, 'default_expected_date': default_expected_date, 'default_currency_id': currency_id, 'default_company_id': company_id, 'default_purchase_type': purchase_type}">
