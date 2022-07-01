@@ -8,7 +8,7 @@
             <field name="format_choice">mono</field>
             <field name="model_id" ref="base_gmao_sav.model_intervention"/>
             <field name="enabled" eval="1"/>
-            <field name="report_unit">Intervention</field>
+            <field name="report_unit">intervention</field>
             <field name="mode">sql</field>
             <field name="format">PDF</field>
         </record>
