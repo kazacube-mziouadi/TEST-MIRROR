@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Connecteur Octopart',
-    'version': '1.0.1',
+    'name': 'myfab Connecteur Octopart',
+    'version': '1.0.2',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Connecteur Octopart par myfab',

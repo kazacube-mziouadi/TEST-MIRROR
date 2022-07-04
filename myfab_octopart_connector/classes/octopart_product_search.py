@@ -145,6 +145,7 @@ class octopart_product_research(models.Model):
             })
                 
             # Get specs from api request response
+            # TODO : erreur
             self._characteristics_management(active_result_rc, values['specs'])
 
     def _characteristics_management(self, active_result_rc, specs):

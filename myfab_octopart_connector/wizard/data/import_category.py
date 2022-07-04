@@ -27,13 +27,13 @@ class octopart_category_import_wizard(models.TransientModel):
                 'name' : current_category['name'],
                 'octopart_uid' : current_category['id'],
                 'octopart_uid_parent' : current_category['parent_id'],
-                'number_of_products' : current_category['number_of_products']
+                'number_of_products' : current_category['num_parts']
             })
         elif len(test_category) == 1:
             test_category.write({
                 'name' : current_category['name'],
                 'octopart_uid_parent' : current_category['parent_id'],
-                'number_of_products' : current_category['number_of_products']
+                'number_of_products' : current_category['num_parts']
             })
         else:
             raise
@@ -57,38 +57,38 @@ class octopart_category_import_wizard(models.TransientModel):
             id
             name
             path
-            number_of_products
+            num_parts
             parent_id
             children{
               id
               name
               path
               parent_id
-              number_of_products
+              num_parts
               children{
                 id
                 name
                 path
                 parent_id
-                number_of_products
+                num_parts
                 children{
                   id
                   name
                   path
                   parent_id
-                  number_of_products
+                  num_parts
                   children{
                     id
                     name
                     path
                     parent_id
-                    number_of_products
+                    num_parts
                     children{
                       id
                       name
                       path
                       parent_id
-                      number_of_products
+                      num_parts
                     }
                   }
                 }
