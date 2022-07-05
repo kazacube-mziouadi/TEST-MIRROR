@@ -15,15 +15,13 @@ class xml_import_configuration_table(models.Model):
         OVERWRITE OPP
         Simulate import of xml file.
         """
-        print("PROBLEM 0")
         self.set_history_list_for_data_list(data_dicts_list, data_elements_ids_list, history_list)
 
     def set_history_list_for_data_list(self, data_dicts_list, data_elements_ids_list, history_list, parent_id=False):
-        print("PROBLEM 1")
         data_elements_to_process_ids = filter(
             lambda data_elem_id: not data_dicts_list[data_elem_id]["object_relation"].is_root_beacon_relation(),
             data_elements_ids_list
-        ) if parent_id else filter(
+        ) if parent_id is not False else filter(
             lambda data_elem_id: data_dicts_list[data_elem_id]["object_relation"].is_root_beacon_relation(),
             data_elements_ids_list
         )
@@ -40,7 +38,8 @@ class xml_import_configuration_table(models.Model):
                 research_domain = self.research_domain_converter(
                     beacon_rc.domain, data_dict, beacon_rc, data_dicts_list, parent_id
                 )
-                existing_object = self.env[beacon_rc.relation_openprod_id.model].search(research_domain)
+                # TODO : raise error if more than one existing object
+                existing_object = self.env[beacon_rc.relation_openprod_id.model].search(research_domain, None, 1)
 
             for key in data_dict:
                 if key == "Childrens_list" and data_dict["Childrens_list"]:
@@ -127,7 +126,6 @@ class xml_import_configuration_table(models.Model):
         if not data_dicts_list:
             # OPP original processing (for not simulated import)
             return super(xml_import_configuration_table, self).research_domain_converter(domain, vals, field_rc)
-        print("PROBLEM")
         new_domain = []
         eval_domain = json.loads(domain)
         model_id = vals["object_relation"].relation_openprod_id
@@ -135,6 +133,8 @@ class xml_import_configuration_table(models.Model):
             field_id = self.env["ir.model.fields"].search([("model_id", "=", model_id.id), ("name", "=", cond[0])])
             value = cond[2]
             if field_id.relation and not value:
+                print("###")
+                print(parent_id)
                 children_record_ids = getattr(parent_id, field_id.name).ids if parent_id else []
                 if len(children_record_ids) == 1:
                     value = children_record_ids[0]
@@ -147,7 +147,7 @@ class xml_import_configuration_table(models.Model):
                     new_domain.append((cond[0], cond[1], vals['fields'][cond[0]][0]))
                 elif cond[0] in vals:
                     new_domain.append((cond[0], cond[1], vals[cond[0]][0]))
-                else:
+                elif value is not None:
                     new_domain.append((cond[0], cond[1], value))
         return new_domain
 
