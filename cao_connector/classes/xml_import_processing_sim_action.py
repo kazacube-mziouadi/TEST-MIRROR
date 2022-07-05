@@ -20,8 +20,7 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
 
     def get_creation_dict_from_tuple(self, creation_tuple):
-        values = {}
-        values["type"] = creation_tuple[0]
+        values = {"type": creation_tuple[0  ]}
         if creation_tuple[2]:
             values["reference"] = creation_tuple[1] + ',' + str(creation_tuple[2])
         model_rc = self.env["ir.model"].search([("model", "=", creation_tuple[1])])

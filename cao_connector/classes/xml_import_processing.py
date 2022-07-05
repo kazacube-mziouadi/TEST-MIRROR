@@ -18,4 +18,6 @@ class xml_import_processing(models.Model):
             sim_actions_to_create_list.append(
                 self.env["xml.import.processing.sim.action"].get_creation_dict_from_tuple(creation_tuple)
             )
+        print("*******")
+        print(sim_actions_to_create_list)
         self.write({"processing_simulate_action_ids": sim_actions_to_create_list})
