@@ -6,7 +6,13 @@
 			<field name="inherit_id" ref="xml_import.view_form_xml_import_processing_sim_action" />
 			<field name="model">xml.import.processing.sim.action</field>
 			<field name="arch" type="xml">
+				<xpath expr="//field[@name='reference']" position="inside">
+					<field name="mf_beacon_id" colspan="4"/>
+				</xpath>
 				<xpath expr="//form//group" position="inside">
+					<group string="Fields to set" colspan="4">
+						<field name="mf_field_setter_ids" nolabel="1" />
+					</group>
 					<group string="Children records"
 						   colspan="4"
 						   attrs="{'invisible': [('mf_sim_action_children', '=', [])]}">

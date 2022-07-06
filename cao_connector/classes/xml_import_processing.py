@@ -13,11 +13,4 @@ class xml_import_processing(models.Model):
         """
         Create list of simulate action of import.
         """
-        sim_actions_to_create_list = []
-        for creation_tuple in history:
-            sim_actions_to_create_list.append(
-                self.env["xml.import.processing.sim.action"].get_creation_dict_from_tuple(creation_tuple)
-            )
-        print("*******")
-        print(sim_actions_to_create_list)
-        self.write({"processing_simulate_action_ids": sim_actions_to_create_list})
+        self.write({"processing_simulate_action_ids": history})
