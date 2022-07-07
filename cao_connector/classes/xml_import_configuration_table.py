@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
 import json
+from openerp.exceptions import ValidationError
 
 
 class xml_import_configuration_table(models.Model):
@@ -31,6 +32,9 @@ class xml_import_configuration_table(models.Model):
             existing_object = False
             data_dict = data_dicts_list[data_element_id]
             beacon_rc = data_dict["object_relation"]
+            if beacon_rc.id in [516, 513]:
+                print("*********")
+                print(data_dict)
             children_list = []
             values_dict = {}
 
@@ -39,8 +43,12 @@ class xml_import_configuration_table(models.Model):
                 research_domain = self.research_domain_converter(
                     beacon_rc.domain, data_dict, beacon_rc, data_dicts_list, parent_id
                 )
-                # TODO : raise error if more than one existing object
-                existing_object = self.env[beacon_rc.relation_openprod_id.model].search(research_domain, None, 1)
+                model_name = beacon_rc.relation_openprod_id.model
+                existing_object = self.env[model_name].search(research_domain)
+                if len(existing_object) > 1:
+                    raise ValidationError(
+                        _("More than one record have been found : ") + str(existing_object) + _(". You must reduce the search domain ") + beacon_rc.domain
+                    )
 
             for key in data_dict:
                 if key == "Childrens_list" and data_dict["Childrens_list"]:
@@ -82,7 +90,7 @@ class xml_import_configuration_table(models.Model):
                         "error", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_list
                     ))
 
-            if beacon_rc.beacon_type != "neutral" and beacon_rc.create_object and not existing_object:
+            if beacon_rc.beacon_type != "neutral" and beacon_rc.create_object and not existing_object and (values_dict or children_list):
                 history_list.append(self.get_sim_action_creation_dict(
                     "create", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_list, values_dict
                 ))
@@ -97,7 +105,7 @@ class xml_import_configuration_table(models.Model):
         creation_dict = {
             "type": process_type,
             "mf_beacon_id": beacon_id.id,
-            "mf_sim_action_children": children_list
+            "mf_sim_action_children_ids": children_list
         }
         if model_name:
             creation_dict["object_model"] = self.env["ir.model"].search([("model", "=", model_name)]).id
@@ -107,6 +115,9 @@ class xml_import_configuration_table(models.Model):
                 creation_dict["mf_field_setter_ids"] = self.env["mf.field.setter"].get_creation_tuples_list_from_field_value_couples_dict(
                     values_dict, model_name
                 )
+        if beacon_id.id in [516, 513]:
+            print("-------creation_dict")
+            print(creation_dict)
         return (0, 0, creation_dict)
 
     def research_domain_converter(self, domain, vals, field_rc, data_dicts_list=[], parent_id=False):

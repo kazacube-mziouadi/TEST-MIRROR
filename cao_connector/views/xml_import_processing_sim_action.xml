@@ -15,8 +15,8 @@
 					</group>
 					<group string="Children records"
 						   colspan="4"
-						   attrs="{'invisible': [('mf_sim_action_children', '=', [])]}">
-						<field name="mf_sim_action_children" nolabel="1" />
+						   attrs="{'invisible': [('mf_sim_action_children_ids', '=', [])]}">
+						<field name="mf_sim_action_children_ids" nolabel="1" />
 					</group>
 				</xpath>
 			</field>
