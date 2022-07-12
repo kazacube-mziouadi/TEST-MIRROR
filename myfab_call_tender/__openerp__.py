@@ -18,6 +18,7 @@
     ],
     'data': [
         'views/product.xml',
+        'views/call_tender.xml',
     ],
     'qweb': [],
     'demo': [],
