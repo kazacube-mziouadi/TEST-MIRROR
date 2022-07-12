@@ -32,7 +32,7 @@ class mail_message(models.Model):
         #Récupération ids des produits des lignes d'achat ou de vente
         if model == 'call.tender':
             call_tender_rs = self.env['call.tender'].browse(object_id)
-            product_id_list = call_tender_rs and [line.product_id.id for line in call_tender_rs.purchase_order_line_ids] or []
+            product_id_list = call_tender_rs and [line.product_id.id for line in call_tender_rs.product_ids] or []
             pdf_type = 'mf_pdf_call_tender_mail'
             res['context']['default_model'] = model
         
