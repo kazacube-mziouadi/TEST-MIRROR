@@ -42,6 +42,12 @@ class xml_import_configuration_table(models.Model):
                 )
                 model_name = beacon_rc.relation_openprod_id.model
                 existing_object = self.env[model_name].search(research_domain)
+                # print("**/**")
+                # print(model_name)
+                # print(beacon_rc.domain)
+                # print(data_dict)
+                # print(research_domain)
+                # print(existing_object)
                 if len(existing_object) > 1:
                     raise ValidationError(
                         _("More than one record have been found : ") + str(existing_object) + _(". You must reduce the search domain ") + beacon_rc.domain
@@ -168,13 +174,21 @@ class xml_import_configuration_table(models.Model):
         for cond in eval_domain:
             field_id = self.env["ir.model.fields"].search([("model_id", "=", model_id.id), ("name", "=", cond[0])])
             value = cond[2]
-            if field_id.relation and not value:
-                children_record_ids = getattr(parent_id, field_id.name).ids if parent_id else []
+            if field_id.relation and not value and value is not False:
+                children_record_ids = getattr(parent_id, data_dict["object_relation"].relation_openprod_field_id.name).ids if parent_id else []
+                print("***")
+                print(model_id.model)
+                print(field_id.name)
+                print(value)
+                print(parent_id)
+                print(children_record_ids)
+                # print(parent_id)
+                # print()
                 if len(children_record_ids) == 1:
                     value = children_record_ids[0]
                 else:
                     value = self.get_child_record_id_value_for_relation_field_condition(
-                        field_id, data_dict, data_dicts_dict, children_record_ids
+                        field_id, data_dict, data_dicts_dict, children_record_ids,
                     )
             if cond == '|':
                 new_domain.append('|')
@@ -188,9 +202,9 @@ class xml_import_configuration_table(models.Model):
         return new_domain
 
     def get_child_record_id_value_for_relation_field_condition(self, field_id, data_dict, data_dicts_dict, children_record_ids=[]):
-        for key in data_dict["Childrens_list"]:
-            if data_dict["Childrens_list"][key][0].relation_openprod_field_id == field_id:
-                child_data_dict = data_dicts_dict[key]
+        for child_data_id in data_dict["Childrens_list"]:
+            if data_dict["Childrens_list"][child_data_id][0].relation_openprod_field_id == field_id:
+                child_data_dict = data_dicts_dict[child_data_id]
                 child_data_beacon_relation_id = child_data_dict["object_relation"]
                 search_domains_list = self.research_domain_converter(
                     child_data_beacon_relation_id.domain,
@@ -203,6 +217,12 @@ class xml_import_configuration_table(models.Model):
                 child_record_id = self.env[child_data_beacon_relation_id.relation_openprod_id.model].search(
                     search_domains_list
                 )
+                # print("***")
+                # print(field_id)
+                # print(data_dict)
+                # print(child_data_beacon_relation_id.relation_openprod_id.model)
+                # print(search_domains_list)
+                # print(child_record_id)
                 return child_record_id.id
 
     @staticmethod

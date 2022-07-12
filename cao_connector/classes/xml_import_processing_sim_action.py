@@ -8,7 +8,7 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    mf_beacon_id = fields.Many2one("xml.import.beacon.relation", string="Beacon relation")
+    mf_beacon_id = fields.Many2one("xml.import.beacon.relation", string="Beacon relation", readonly=True)
     mf_field_setter_ids = fields.One2many("mf.field.setter", "mf_model_dictionary_id", string="Field setters",
                                           help="Values to set non-relational fields with at simulation's validation.")
     mf_sim_action_parent_id = fields.Many2one("xml.import.processing.sim.action", string="Parent simulation element",

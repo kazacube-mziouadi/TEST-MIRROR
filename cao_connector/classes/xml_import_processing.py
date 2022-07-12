@@ -12,7 +12,6 @@ class xml_import_processing(models.Model):
         """
         Create list of simulate action of import.
         """
-        print(history)
         self.write({"processing_simulate_action_ids": history})
 
     @api.multi
