@@ -30,7 +30,12 @@ class xml_import_processing_sim_action(models.Model):
                     beacon_id = sim_action_child_id.mf_beacon_id
                     field_name = beacon_id.relation_openprod_field_id.name
                     field_type = beacon_id.relation_openprod_field_id.ttype
-                    fields_dict[field_name] = self.get_relation_field_id_link_by_field_type(child_record_id.id, field_type)
+                    field_value = self.get_relation_field_id_link_by_field_type(child_record_id.id, field_type)
+                    if field_name in fields_dict and type(fields_dict[field_name]) is list:
+                        fields_dict[field_name] += field_value
+                    else:
+                        fields_dict[field_name] = field_value
+
             if self.type == "create":
                 print("**CREATE**")
                 print(self.mf_beacon_id.relation_openprod_id.model)
