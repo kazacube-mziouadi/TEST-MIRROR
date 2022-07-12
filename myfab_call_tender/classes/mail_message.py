@@ -29,12 +29,15 @@ class mail_message(models.Model):
         if not res.get('context'):
             res['context'] = {}
         
-        #Récupération ids des produits des lignes d'achat ou de vente
-        if model == 'call.tender':
-            call_tender_rs = self.env['call.tender'].browse(object_id)
-            product_id_list = call_tender_rs and [line.product_id.id for line in call_tender_rs.product_ids] or []
-            pdf_type = 'mf_pdf_call_tender_mail'
-            res['context']['default_model'] = model
+        #Récupération ids des produits de l'appel d'offre
+        if model == 'supplier.call.tender':
+            supplier_call_tender_rs = self.env['supplier.call.tender'].browse(object_id)
+            if supplier_call_tender_rs:
+                call_tender_rs = supplier_call_tender_rs.tender_id
+                product_id_list = call_tender_rs and [product_ids.product_id.id for product_ids in call_tender_rs.product_ids] or []
+                pdf_type = 'mf_pdf_call_tender_mail'
+                res['context']['default_model'] = model
+
         
         for product_id in product_id_list:
             #Recherche des plans et controles
