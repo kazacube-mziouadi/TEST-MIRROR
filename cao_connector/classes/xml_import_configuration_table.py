@@ -18,15 +18,12 @@ class xml_import_configuration_table(models.Model):
         """
         self.set_history_list_for_data_list(data_dicts_dict, history_list)
 
-    def set_history_list_for_data_list(self, data_dicts_dict, history_list, all_data_dicts_dict={}, parent_id=False, ids_processed_list=[]):
+    def set_history_list_for_data_list(self, data_dicts_dict, history_list, all_data_dicts_dict={}, parent_id=False):
         if not all_data_dicts_dict:
             all_data_dicts_dict = data_dicts_dict
         data_dicts_to_process_dict = self.filter_data_dicts_by_parent_id(data_dicts_dict, parent_id)
         temp_history_list = []
-        for data_dict_id in data_dicts_to_process_dict:
-            if data_dict_id in ids_processed_list:
-                continue
-            ids_processed_list.append(data_dict_id)
+        for data_dict_id in data_dicts_to_process_dict.keys():
             # Object is internal number of data
             update_tag = False
             existing_object = False
@@ -37,20 +34,15 @@ class xml_import_configuration_table(models.Model):
 
             if beacon_rc.domain and beacon_rc.domain != "[]":
                 # Update processing case
-                research_domain = self.research_domain_converter(
-                    beacon_rc.domain, data_dict, beacon_rc, all_data_dicts_dict, parent_id
+                research_domain_list = self.research_domain_converter(
+                    beacon_rc.domain, data_dict, beacon_rc, all_data_dicts_dict
                 )
+                self.add_parent_id_filter_domain_if_necessary(research_domain_list, beacon_rc, parent_id)
                 model_name = beacon_rc.relation_openprod_id.model
-                existing_object = self.env[model_name].search(research_domain)
-                # print("**/**")
-                # print(model_name)
-                # print(beacon_rc.domain)
-                # print(data_dict)
-                # print(research_domain)
-                # print(existing_object)
+                existing_object = self.env[model_name].search(research_domain_list)
                 if len(existing_object) > 1:
                     raise ValidationError(
-                        _("More than one record have been found : ") + str(existing_object) + _(". You must reduce the search domain ") + beacon_rc.domain
+                        _("More than one record have been found : ") + str(existing_object) + _(". You must reduce the search domain ") + str(research_domain_list)
                     )
 
             for key in data_dict:
@@ -59,7 +51,7 @@ class xml_import_configuration_table(models.Model):
                     children_data_ids_list = data_dict["Childrens_list"].keys()
                     self.set_history_list_for_data_list(
                         self.filter_data_dicts_by_ids(all_data_dicts_dict, children_data_ids_list),
-                        children_sim_action_list, all_data_dicts_dict, existing_object, ids_processed_list
+                        children_sim_action_list, all_data_dicts_dict, existing_object
                     )
                 elif key not in ["Childrens_list", "object_relation"]:
                     # Value processing case
@@ -103,7 +95,6 @@ class xml_import_configuration_table(models.Model):
 
         if not history_list and temp_history_list:
             history_list += temp_history_list
-        return ids_processed_list
 
     def filter_data_dicts_by_parent_id(self, data_dicts_dict, parent_id):
         filtered_data_dicts_dict = {}
@@ -157,7 +148,7 @@ class xml_import_configuration_table(models.Model):
                 )
         return (0, 0, creation_dict)
 
-    def research_domain_converter(self, domain, data_dict, field_rc, data_dicts_dict=[], parent_id=False):
+    def research_domain_converter(self, domain, data_dict, field_rc, data_dicts_dict=[]):
         """
         OVERWRITE OPP
         Convertie le domain en domain de recherche utilisable par l'objet "xml_import_configuration_table"
@@ -175,21 +166,9 @@ class xml_import_configuration_table(models.Model):
             field_id = self.env["ir.model.fields"].search([("model_id", "=", model_id.id), ("name", "=", cond[0])])
             value = cond[2]
             if field_id.relation and not value and value is not False:
-                children_record_ids = getattr(parent_id, data_dict["object_relation"].relation_openprod_field_id.name).ids if parent_id else []
-                print("***")
-                print(model_id.model)
-                print(field_id.name)
-                print(value)
-                print(parent_id)
-                print(children_record_ids)
-                # print(parent_id)
-                # print()
-                if len(children_record_ids) == 1:
-                    value = children_record_ids[0]
-                else:
-                    value = self.get_child_record_id_value_for_relation_field_condition(
-                        field_id, data_dict, data_dicts_dict, children_record_ids,
-                    )
+                value = self.get_child_record_id_value_for_relation_field_condition(
+                    field_id, data_dict, data_dicts_dict
+                )
             if cond == '|':
                 new_domain.append('|')
             else:
@@ -201,7 +180,14 @@ class xml_import_configuration_table(models.Model):
                     new_domain.append((cond[0], cond[1], value))
         return new_domain
 
-    def get_child_record_id_value_for_relation_field_condition(self, field_id, data_dict, data_dicts_dict, children_record_ids=[]):
+    def add_parent_id_filter_domain_if_necessary(self, domains_list, record_sim_action_id, parent_id):
+        parent_id_relation_field_id = self.env["mf.tools"].mf_get_reverse_field_id(
+            record_sim_action_id.relation_openprod_field_id
+        )
+        if parent_id_relation_field_id:
+            domains_list.append((parent_id_relation_field_id.name, '=', parent_id.id if parent_id else False))
+
+    def get_child_record_id_value_for_relation_field_condition(self, field_id, data_dict, data_dicts_dict):
         for child_data_id in data_dict["Childrens_list"]:
             if data_dict["Childrens_list"][child_data_id][0].relation_openprod_field_id == field_id:
                 child_data_dict = data_dicts_dict[child_data_id]
@@ -212,17 +198,9 @@ class xml_import_configuration_table(models.Model):
                     child_data_beacon_relation_id,
                     data_dicts_dict
                 )
-                if children_record_ids:
-                    search_domains_list += [("id", "in", children_record_ids)]
                 child_record_id = self.env[child_data_beacon_relation_id.relation_openprod_id.model].search(
                     search_domains_list
                 )
-                # print("***")
-                # print(field_id)
-                # print(data_dict)
-                # print(child_data_beacon_relation_id.relation_openprod_id.model)
-                # print(search_domains_list)
-                # print(child_record_id)
                 return child_record_id.id
 
     @staticmethod

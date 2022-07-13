@@ -18,7 +18,7 @@
         'xml_import',
     ],
     'data': [
-        'wizards/bom_comparator/xml_import_bom_comparator.xml',
+        'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
     ],
     'qweb': [],

@@ -37,18 +37,12 @@ class xml_import_processing_sim_action(models.Model):
                         fields_dict[field_name] = field_value
 
             if self.type == "create":
-                print("**CREATE**")
-                print(self.mf_beacon_id.relation_openprod_id.model)
-                print(fields_dict)
                 if self.mf_beacon_id.use_onchange:
                     record_id = self.env[self.mf_beacon_id.relation_openprod_id.model].create_with_onchange(fields_dict)
                 else:
                     record_id = self.env[self.mf_beacon_id.relation_openprod_id.model].create(fields_dict)
                 return record_id
             elif self.type == "update":
-                print("**UPDATE**")
-                print(self.mf_beacon_id.relation_openprod_id.model)
-                print(fields_dict)
                 has_written = self.write_different_fields_only(self.reference, fields_dict)
                 if has_written and self.mf_beacon_id.use_onchange:
                     self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
@@ -68,19 +62,25 @@ class xml_import_processing_sim_action(models.Model):
     def write_different_fields_only(self, record_id, fields_dict):
         different_fields_dict = {}
         for field_name in fields_dict.keys():
-            field_value = fields_dict[field_name]
+            update_field_value = fields_dict[field_name]
             field_id = self.env["ir.model.fields"].search(
                 [("model_id", "=", record_id._name), ("name", "=", field_name)]
             )
             record_field_value = getattr(record_id, field_name)
-            if field_id.relation and record_field_value:
+            if field_id.ttype == "many2one" and record_field_value:
                 record_field_value = record_field_value.id
-            if record_field_value != field_value:
-                different_fields_dict[field_name] = field_value
+            if field_id.ttype in ["one2many", "many2many"]:
+                update_field_value_ids_list = [update_tuple[1] for update_tuple in update_field_value]
+                record_field_value_ids_list = record_field_value.ids
+                if not self.env["mf.tools"].are_lists_equal(update_field_value_ids_list, record_field_value_ids_list):
+                    relation_field_values_to_add_list = []
+                    for update_tuple in update_field_value:
+                        if update_tuple[1] not in record_field_value_ids_list:
+                            relation_field_values_to_add_list.append(update_tuple)
+                    different_fields_dict[field_name] = relation_field_values_to_add_list
+            elif record_field_value != update_field_value:
+                different_fields_dict[field_name] = update_field_value
         if different_fields_dict:
-            print("***WRITING***")
-            print(record_id)
-            print(different_fields_dict)
             record_id.write(different_fields_dict)
             return True
         return False

@@ -61,8 +61,21 @@ class MFTools(models.Model):
     def mf_get_reverse_field_id(self, field_id):
         model_id = self.env["ir.model"].search([("model", '=', field_id.relation)])
         if field_id.relation_field:
+            # relation_field is only the string name of the reverse relation field ; we have to return the field record
             return self.env["ir.model.fields"].search([("model_id", '=', model_id.id), ("name", '=', field_id.relation_field)])
         else:
             return self.env["ir.model.fields"].search([
                 ("model_id", '=', model_id.id), ("relation", '=', field_id.model_id.model), ("relation_field", '=', field_id.name)
             ])
+
+    ####################################################################
+    # Lists tools
+    ####################################################################
+    """
+        Compare 2 lists : return True if equals, else False
+    """
+    @staticmethod
+    def are_lists_equal(list1, list2):
+        list1.sort()
+        list2.sort()
+        return list1 == list2
