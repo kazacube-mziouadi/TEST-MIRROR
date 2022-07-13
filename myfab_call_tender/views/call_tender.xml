@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW Product (Stock) -->
+		<record model="ir.ui.view" id="mf_view_form_call_for_tender">
+			<field name="name">mf_view_form_call_for_tender</field>
+			<field name="inherit_id" ref="call_tender.view_form_call_for_tender" />
+			<field name="priority" eval="1000" />
+			<field name="model">call.tender</field>
+			<field name="arch" type="xml">
+				<xpath expr="//page[last()]" position="before">
+					<page string="Documents">
+                        <group colspan="4" col="4" string="Documents">
+                            <field name="mf_document_ids" nolabel="1"/>
+                        </group>
+                    </page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
