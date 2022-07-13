@@ -38,6 +38,7 @@ class octopart_import_product_wizard(models.TransientModel):
 
     @api.one
     def import_product_details(self):
+        # TODO : erreur
         #API request
         search_result = self.env['octopart.api.service'].get_api_data(self._get_request_body())
         if search_result and len(search_result['data']['parts']) > 0:

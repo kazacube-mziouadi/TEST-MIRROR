@@ -77,10 +77,10 @@ class octopart_product_research(models.Model):
     def _get_filter(self):
         filter_args = {}
         if 'octopart_category_id' in self.env['octopart.product.research']._fields and self.octopart_category_id:
-            filter_args['octopart_category_id'] = int(self.octopart_category_id.octopart_uid)
+            filter_args['category_id'] = int(self.octopart_category_id.octopart_uid)
             
         if 'octopart_manufacturer_id' in self.env['octopart.product.research']._fields and self.octopart_manufacturer_id:
-            filter_args['octopart_manufacturer_id'] = int(self.octopart_manufacturer_id.octopart_uid)
+            filter_args['manufacturer_id'] = int(self.octopart_manufacturer_id.octopart_uid)
 
         if 'octopart_seller_id' in self.env['octopart.product.research']._fields and self.octopart_seller_id:
             filter_args['sellers_id'] = int(self.octopart_seller_id.octopart_uid)
@@ -149,10 +149,10 @@ class octopart_product_research(models.Model):
 
     def _characteristics_management(self, active_result_rc, specs):
         for element in specs:
-            active_spec_category_rc = self.env['octopart.category'].characteristics_management(self.id, element['attribute'])
-                
-            if self.id not in active_spec_category_rc.octopart_category_ids.ids:
-                active_spec_category_rc.write({'octopart_category_ids' : [(4, self.id)],  })
+            octopart_category_rc = self
+            # TODO : erreur, trouver comment lui passer le bon ID
+            #Get the octopart characteristic (create if not exists)
+            active_spec_category_rc = self.env['octopart.category'].characteristics_management(octopart_category_rc.id, element['attribute'])
             # Get value from spec 
             
             # Check if value is already an openprod characteristic value
@@ -166,8 +166,8 @@ class octopart_product_research(models.Model):
                     'type_id' : active_spec_category_rc.id,   
                 }) 
             
-            if self.id not in active_value_rc.octopart_category_ids.ids:  
-                active_value_rc.write({'octopart_category_ids' : [(4, self.id)],})  
+            if octopart_category_rc.id not in active_value_rc.octopart_category_ids.ids:  
+                active_value_rc.write({'octopart_category_ids' : [(4, octopart_category_rc.id)],})  
             
             unit_openprod = ""
             search_unit_openprod = self.env['product.uom'].search([('name', '=', active_spec_category_rc.octopart_unit), ])
