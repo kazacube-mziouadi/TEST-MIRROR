@@ -9,7 +9,7 @@ class supplier_call_tender(models.Model):
     @api.multi
     def action_send_mail(self):
         call_tender_rc = self.tender_id
-        if len(call_tender_rc.mf_document_ids) <= 0:
+        if not call_tender_rc.mf_document_ids:
             return super(supplier_call_tender, self).action_send_mail()
 
         attachment_ids = []
