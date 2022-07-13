@@ -14,10 +14,11 @@
         'my_fab',
         'call_tender',
         'mrp',
-        'sale_purchase'
+        'sale_purchase',
+        'stock',
     ],
     'data': [
-        'views/product.xml',
+        'views/plan_control.xml',
         'views/call_tender.xml',
     ],
     'qweb': [],

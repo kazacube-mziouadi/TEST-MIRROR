@@ -12,19 +12,20 @@ class supplier_call_tender(models.Model):
         if len(call_tender_rc.mf_document_ids) <= 0:
             return super(supplier_call_tender, self).action_send_mail()
 
+        attachment_ids = []
         # Copy of the original code because we add the document attachment to the list
         name, binary = self.generate_binary()
-        attachment_rcs = self.env['ir.attachment'].create({
+        data_attach = {
             'type': 'binary',
             'res_model': 'supplier.call.tender', 
             'res_id': self.id, 
             'name': name , 
             'datas': binary, 
             'datas_fname': name
-        })
+        }
+        attachment_ids.append(self.env['ir.attachment'].create(data_attach).id)
 
         # new code to add the documents to the mail attachment
-        attachment_rc = self.env['ir.attachment']
         for mf_document_id in call_tender_rc.mf_document_ids:
             #Création des PJ
             #Pas de res_id parce qu'on ne veut pas lier la PJ à l'achat/la vente
@@ -36,13 +37,13 @@ class supplier_call_tender(models.Model):
                 'datas': mf_document_id.attachment, 
                 'datas_fname': mf_document_id.name
             }
-            attachment_rcs.append(attachment_rc.create(data_attach).id)
+            attachment_ids.append(self.env['ir.attachment'].create(data_attach).id)
 
         # copy of the original code next lines
         context = self.env.context.copy()
         if context.get('default_attachment_ids', False):
-            context['default_attachment_ids'].append(attachment_rcs.ids)
+            context['default_attachment_ids'].append(attachment_ids)
         else:
-            context.update({'default_attachment_ids': attachment_rcs.ids})
+            context.update({'default_attachment_ids': attachment_ids})
             
         return self.env['mail.message'].with_context(context).action_send_mail(self.supplier_id, 'supplier.call.tender', '',self.id)
