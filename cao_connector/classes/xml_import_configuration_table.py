@@ -25,7 +25,6 @@ class xml_import_configuration_table(models.Model):
         temp_history_list = []
         for data_dict_id in data_dicts_to_process_dict.keys():
             # Object is internal number of data
-            update_tag = False
             existing_object = False
             data_dict = data_dicts_to_process_dict[data_dict_id]
             beacon_rc = data_dict["object_relation"]
@@ -57,25 +56,16 @@ class xml_import_configuration_table(models.Model):
                     # Value processing case
                     current_value = data_dict[key][0]
                     values_dict[key] = current_value
-                    if type(current_value) not in [str, unicode]:
-                        field_rc = self.env["ir.model.fields"].search(
-                            [("model_id", "=", beacon_rc.relation_openprod_id.id), ("name", "=", key)]
-                        )
-                        history_list.append(self.get_sim_action_creation_dict(
-                            "unmodified", field_rc.relation, data_dict[key][0], beacon_rc, children_sim_action_list
-                        ))
 
             if beacon_rc.update_object and existing_object:
                 if len(existing_object) == 1:
-                    for key in data_dict:
-                        if key not in ["Childrens_list", "object_relation"] and not update_tag and (
-                                data_dict[key] != existing_object[key]
-                        ):
-                            history_list.append(self.get_sim_action_creation_dict(
-                                "update", beacon_rc.relation_openprod_id.model, existing_object.id, beacon_rc, children_sim_action_list, values_dict
-                            ))
-                            update_tag = True
-                    if not update_tag:
+                    # Checking if the import set new values on the existing records
+                    if self.is_data_dict_different_from_record(data_dict, existing_object, children_sim_action_list):
+                        history_list.append(self.get_sim_action_creation_dict(
+                            "update", beacon_rc.relation_openprod_id.model, existing_object.id, beacon_rc,
+                            children_sim_action_list, values_dict
+                        ))
+                    else:
                         history_list.append(self.get_sim_action_creation_dict(
                             "unmodified", beacon_rc.relation_openprod_id.model, existing_object.id, beacon_rc, children_sim_action_list
                         ))
@@ -95,6 +85,21 @@ class xml_import_configuration_table(models.Model):
 
         if not history_list and temp_history_list:
             history_list += temp_history_list
+
+    def is_data_dict_different_from_record(self, data_dict, existing_object, children_sim_action_list):
+        for key in data_dict:
+            if key not in ["Childrens_list", "object_relation"] and (data_dict[key][0] != existing_object[key]):
+                return True
+        return self.is_at_least_one_child_modified(children_sim_action_list)
+
+    def is_at_least_one_child_modified(self, children_sim_action_list):
+        for child_sim_action_creation_tuple in children_sim_action_list:
+            child_sim_action_values_dict = child_sim_action_creation_tuple[2]
+            if child_sim_action_values_dict["type"] != "unmodified" or self.is_at_least_one_child_modified(
+                child_sim_action_values_dict["mf_sim_action_children_ids"]
+            ):
+                return True
+        return False
 
     def filter_data_dicts_by_parent_id(self, data_dicts_dict, parent_id):
         filtered_data_dicts_dict = {}

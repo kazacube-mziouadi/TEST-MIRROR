@@ -59,6 +59,8 @@ class xml_import_processing_sim_action(models.Model):
                 if has_written and self.mf_beacon_id.use_onchange:
                     self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
                 return self.reference
+        if self.type == "unmodified":
+            return self.reference
 
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):

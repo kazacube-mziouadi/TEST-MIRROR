@@ -49,7 +49,6 @@
 			<field name="arch" type="xml">
 				<tree string="Simulation structure"
 					  create="false"
-					  edit="false"
 					  colors="green:type == 'create';orange:type == 'update';">
 					<field name="object_model"/>
 					<field name="mf_first_value_to_write"/>

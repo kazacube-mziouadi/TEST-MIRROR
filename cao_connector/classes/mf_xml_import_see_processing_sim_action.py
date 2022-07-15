@@ -19,6 +19,5 @@ class mf_xml_import_see_processing_sim_action(models.Model):
     def default_get(self, fields_list):
         res = super(mf_xml_import_see_processing_sim_action, self).default_get(fields_list=fields_list)
         processing_sim_action_id = self.env[self._name].browse(self._context.get('active_id'))
-        print(processing_sim_action_id)
         res["mf_processing_sim_action_id"] = processing_sim_action_id.id
         return res
