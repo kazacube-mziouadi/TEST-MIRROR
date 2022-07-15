@@ -14,6 +14,9 @@ class MFFieldSetter(models.Model):
     mf_value = fields.Char(string="Value to set", required=True, help="Value to set the field with at export.")
     mf_model_dictionary_id = fields.Many2one(string="Model dictionary", required=False, ondelete="cascade")
 
+    # ===========================================================================
+    # METHODS
+    # ===========================================================================
     @api.model
     def _get_mf_field_to_set_id_domain(self):
         if "model_to_export_id" in self.env.context:
@@ -32,3 +35,6 @@ class MFFieldSetter(models.Model):
                     })
                 )
         return creation_tuples_list
+
+    def get_field_value_couple_string(self):
+        return self.mf_field_to_set_id.display_name + ": " + self.mf_value

@@ -48,3 +48,16 @@ class xml_import_processing(models.Model):
     def clear_history(self, history):
         self.processing_simulate_action_ids.unlink()
         super(xml_import_processing, self).clear_history(history)
+
+    @api.multi
+    def analyse_simulation(self):
+        return {
+            "name": _("Analyse simulation"),
+            "view_type": "tree",
+            "view_mode": "tree",
+            "search_view_id": self.env.ref("cao_connector.mf_view_tree_xml_import_processing_sim_action").id,
+            "res_model": "xml.import.processing.sim.action",
+            "type": "ir.actions.act_window",
+            "target": "current",
+            "domain": "[('processing_id', '=', " + str(self.id) + ")]",
+        }

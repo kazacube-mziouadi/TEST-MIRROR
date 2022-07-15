@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+
 		<record id='mf_view_form_xml_import_processing_sim_action' model="ir.ui.view">
 			<field name="name">mf_view_form_xml_import_processing_sim_action</field>
 			<field name="inherit_id" ref="xml_import.view_form_xml_import_processing_sim_action" />
 			<field name="model">xml.import.processing.sim.action</field>
 			<field name="arch" type="xml">
+				<xpath expr="//form" position="attributes">
+					<attribute name="create">false</attribute>
+					<attribute name="edit">false</attribute>
+				</xpath>
 				<xpath expr="//field[@name='reference']" position="before">
 					<field name="mf_beacon_id"/>
 				</xpath>
@@ -20,6 +25,54 @@
 					</group>
 				</xpath>
 			</field>
+		</record>
+
+		<record id='mf_view_tree_xml_import_processing_sim_action' model="ir.ui.view">
+			<field name="name">mf_view_tree_xml_import_processing_sim_action</field>
+			<field name="inherit_id" ref="xml_import.view_tree_xml_import_processing_sim_action" />
+			<field name="model">xml.import.processing.sim.action</field>
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="attributes">
+					<attribute name="colors">green:type == 'create';orange:type == 'update';</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- STRUCTURE TREE VIEW -->
+
+		<record id="mf_view_structure_tree_xml_import_processing_sim_action" model="ir.ui.view">
+			<field name="name">mf_view_structure_tree_xml_import_processing_sim_action</field>
+			<field name="model">xml.import.processing.sim.action</field>
+			<field name="type">tree</field>
+			<field name="field_parent">mf_sim_action_children_ids</field>
+			<field name="priority">10</field>
+			<field name="arch" type="xml">
+				<tree string="Simulation structure"
+					  create="false"
+					  edit="false"
+					  colors="green:type == 'create';orange:type == 'update';">
+					<field name="object_model"/>
+					<field name="mf_first_value_to_write"/>
+					<field name="type"/>
+					<field name="mf_reference_name"/>
+				</tree>
+			</field>
+		</record>
+
+		<act_window name="Simulation element"
+					res_model="mf.xml.import.see.processing.sim.action"
+					src_model="xml.import.processing.sim.action"
+					view_mode="form"
+					target="new"
+					key2="tree_but_open"
+					id="mf_action_view_structure_tree_xml_import_processing_sim_action" />
+
+		<record id="ir_act_mrp_bom_open" model="ir.values">
+			<field name="key2">tree_but_open</field>
+			<field name="model">xml.import.processing.sim.action</field>
+			<field name="name">Open simulation element</field>
+			<field eval="'ir.actions.act_window,%d'%mf_action_view_structure_tree_xml_import_processing_sim_action"
+				   name="value" />
 		</record>
 	</data>
 </openerp>

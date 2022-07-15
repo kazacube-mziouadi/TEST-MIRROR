@@ -15,10 +15,22 @@ class xml_import_processing_sim_action(models.Model):
                                               ondelete="cascade")
     mf_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action", "mf_sim_action_parent_id",
                                                  string="Children simulation elements")
+    mf_first_value_to_write = fields.Char(string="First value to write", compute="_compute_mf_first_value_to_write")
+    mf_reference_name = fields.Char(string="Reference name", compute="_compute_mf_reference_name")
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.one
+    def _compute_mf_first_value_to_write(self):
+        if self.mf_field_setter_ids:
+            self.mf_first_value_to_write = self.mf_field_setter_ids[0].get_field_value_couple_string()
+
+    @api.one
+    def _compute_mf_reference_name(self):
+        if self.reference:
+            self.mf_reference_name = self.reference.display_name
+
     def process_data_import(self):
         if self.type in ["create", "update"]:
             fields_dict = {
