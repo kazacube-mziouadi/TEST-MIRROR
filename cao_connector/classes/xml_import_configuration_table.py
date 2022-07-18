@@ -88,7 +88,9 @@ class xml_import_configuration_table(models.Model):
 
     def is_data_dict_different_from_record(self, data_dict, existing_object, children_sim_action_list):
         for key in data_dict:
-            if key not in ["Childrens_list", "object_relation"] and (data_dict[key][0] != existing_object[key]):
+            if key not in ["Childrens_list", "object_relation"] and not self.env["mf.tools"].are_values_equal_in_same_type(
+                existing_object[key], data_dict[key][0]
+            ):
                 return True
         return self.is_at_least_one_child_modified(children_sim_action_list)
 

@@ -69,7 +69,7 @@ class MFTools(models.Model):
             ])
 
     ####################################################################
-    # Lists tools
+    # Comparison tools
     ####################################################################
     """
         Compare 2 lists : return True if equals, else False
@@ -79,3 +79,11 @@ class MFTools(models.Model):
         list1.sort()
         list2.sort()
         return list1 == list2
+
+    """
+        Compare 2 values, with the second one casted to the type of the first.
+        Return True if equals, else False.
+    """
+    @staticmethod
+    def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
+        return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
