@@ -33,7 +33,7 @@
 			<field name="model">xml.import.processing.sim.action</field>
 			<field name="arch" type="xml">
 				<xpath expr="//tree" position="attributes">
-					<attribute name="colors">green:type == 'create';orange:type == 'update';</attribute>
+					<attribute name="colors">green:type == 'create';orange:type == 'update';red:type == 'delete'</attribute>
 				</xpath>
 			</field>
 		</record>
@@ -49,7 +49,7 @@
 			<field name="arch" type="xml">
 				<tree string="Simulation structure"
 					  create="false"
-					  colors="green:type == 'create';orange:type == 'update';">
+					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'">
 					<field name="object_model"/>
 					<field name="mf_first_value_to_write"/>
 					<field name="type"/>

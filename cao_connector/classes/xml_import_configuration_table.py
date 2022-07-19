@@ -52,6 +52,8 @@ class xml_import_configuration_table(models.Model):
                         self.filter_data_dicts_by_ids(all_data_dicts_dict, children_data_ids_list),
                         children_sim_action_list, all_data_dicts_dict, existing_object
                     )
+                    if children_sim_action_list and existing_object:
+                        self.add_elements_to_delete_to_children_history_list(children_sim_action_list, existing_object)
                 elif key not in ["Childrens_list", "object_relation"]:
                     # Value processing case
                     current_value = data_dict[key][0]
@@ -85,6 +87,44 @@ class xml_import_configuration_table(models.Model):
 
         if not history_list and temp_history_list:
             history_list += temp_history_list
+
+    def add_elements_to_delete_to_children_history_list(self, children_history_list, existing_object):
+        children_history_sorted_list = sorted(children_history_list, key=lambda child_create_tuple: child_create_tuple[2]["mf_beacon_id"])
+        children_history_sorted_list_last_index = len(children_history_sorted_list) - 1
+        child_beacon_id = None
+        model_existing_ids_list = []
+        for child_creation_tuple in children_history_sorted_list:
+            child_creation_dict = child_creation_tuple[2]
+            if not child_beacon_id or child_beacon_id.id != child_creation_dict["mf_beacon_id"]:
+                if child_beacon_id and child_beacon_id.relation_openprod_field_id.ttype != "many2one":
+                    self.append_delete_element_to_history_list_if_not_checked(
+                        children_history_list,
+                        getattr(existing_object, child_beacon_id.relation_openprod_field_id.name),
+                        model_existing_ids_list,
+                        child_beacon_id
+                    )
+                child_beacon_id = self.env["xml.import.beacon.relation"].search([
+                    ("id", '=', child_creation_dict["mf_beacon_id"])
+                ])
+                model_existing_ids_list = []
+            if "reference" in child_creation_dict.keys():
+                model_existing_ids_list.append(child_creation_dict["reference"].split(',')[1])
+            if children_history_sorted_list.index(child_creation_tuple) == children_history_sorted_list_last_index and (
+                    child_beacon_id and child_beacon_id.relation_openprod_field_id.ttype != "many2one"
+            ):
+                self.append_delete_element_to_history_list_if_not_checked(
+                    children_history_list,
+                    getattr(existing_object, child_beacon_id.relation_openprod_field_id.name),
+                    model_existing_ids_list,
+                    child_beacon_id
+                )
+
+    def append_delete_element_to_history_list_if_not_checked(self, history_list, one2many_list, checked_ids_list, beacon_id):
+        for child_id in one2many_list:
+            if str(child_id.id) not in checked_ids_list:
+                history_list.append(self.get_sim_action_creation_dict(
+                    "delete", beacon_id.relation_openprod_id.model, child_id.id, beacon_id, []
+                ))
 
     def is_data_dict_different_from_record(self, data_dict, existing_object, children_sim_action_list):
         for key in data_dict:

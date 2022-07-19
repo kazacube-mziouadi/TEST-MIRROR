@@ -19,8 +19,14 @@ class xml_import_processing_sim_action(models.Model):
     mf_reference_name = fields.Char(string="Reference name", compute="_compute_mf_reference_name")
 
     # ===========================================================================
-    # METHODS
+    # METHODS - MODEL
     # ===========================================================================
+    @api.model
+    def _processing_type_get(self):
+        return super(xml_import_processing_sim_action, self)._processing_type_get() + [
+            ('delete', _('Delete')),
+        ]
+
     @api.one
     def _compute_mf_first_value_to_write(self):
         if self.mf_field_setter_ids:
@@ -31,6 +37,9 @@ class xml_import_processing_sim_action(models.Model):
         if self.reference:
             self.mf_reference_name = self.reference.display_name
 
+    # ===========================================================================
+    # METHODS - CONTROLLER
+    # ===========================================================================
     def process_data_import(self):
         if self.type in ["create", "update"]:
             fields_dict = {
@@ -61,6 +70,8 @@ class xml_import_processing_sim_action(models.Model):
                 return self.reference
         if self.type == "unmodified":
             return self.reference
+        if self.type == "delete":
+            self.reference.unlink()
 
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):

@@ -11,7 +11,23 @@ class xml_import_processing(models.Model):
     mf_imported_from_simulation = fields.Boolean(string="Imported from simulation", default=False)
 
     # ===========================================================================
-    # METHODS
+    # METHODS - WORKFLOW
+    # ===========================================================================
+    @api.multi
+    def wkf_processing_wait(self):
+        self.write({"mf_imported_from_simulation": False})
+        return super(xml_import_processing, self).wkf_processing_wait()
+
+    @api.multi
+    def wkf_processing_done(self):
+        if self.state == "sim":
+            self.write({"state": "done", "error_message": '', "mf_imported_from_simulation": True})
+            return True
+        else:
+            return super(xml_import_processing, self).wkf_processing_done()
+
+    # ===========================================================================
+    # METHODS - CONTROLLER
     # ===========================================================================
     def create_simulate_import(self, history):
         """
@@ -30,19 +46,6 @@ class xml_import_processing(models.Model):
     def import_simulation_lines(self):
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import()
-
-    @api.multi
-    def wkf_processing_wait(self):
-        self.write({"mf_imported_from_simulation": False})
-        return super(xml_import_processing, self).wkf_processing_wait()
-
-    @api.multi
-    def wkf_processing_done(self):
-        if self.state == "sim":
-            self.write({"state": "done", "error_message": "", "mf_imported_from_simulation": True})
-            return True
-        else:
-            return super(xml_import_processing, self).wkf_processing_done()
 
     @api.multi
     def clear_history(self, history):
