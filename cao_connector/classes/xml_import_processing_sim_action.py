@@ -17,6 +17,8 @@ class xml_import_processing_sim_action(models.Model):
                                                  string="Children simulation elements")
     mf_first_value_to_write = fields.Char(string="First value to write", compute="_compute_mf_first_value_to_write")
     mf_reference_name = fields.Char(string="Reference name", compute="_compute_mf_reference_name")
+    mf_tree_view_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action", "mf_sim_action_parent_id",
+                                                           string="Treeview children simulation elements")
 
     # ===========================================================================
     # METHODS - MODEL
@@ -40,6 +42,23 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # METHODS - CONTROLLER
     # ===========================================================================
+    def set_tree_view_sim_action_children(self, root_sim_actions_list):
+        tree_view_sim_action_children_ids_list = []
+        for sim_action_child_id in self.mf_sim_action_children_ids:
+            tree_view_sim_action_children_ids_list.append(
+                sim_action_child_id.get_tree_view_sim_action_child_creation_dict(root_sim_actions_list)
+            )
+            sim_action_child_id.set_tree_view_sim_action_children(root_sim_actions_list)
+
+    def get_tree_view_sim_action_child_creation_dict(self, root_sim_actions_list):
+        if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
+            self.set_bom_tree_view_sim_action_children(root_sim_actions_list)
+        else:
+            pass
+
+    def set_bom_tree_view_sim_action_children(self, root_sim_actions_list):
+        pass
+
     def process_data_import(self):
         if self.type in ["create", "update"]:
             fields_dict = {
