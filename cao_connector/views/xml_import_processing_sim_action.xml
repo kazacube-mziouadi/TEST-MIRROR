@@ -44,16 +44,16 @@
 			<field name="name">mf_view_structure_tree_xml_import_processing_sim_action</field>
 			<field name="model">xml.import.processing.sim.action</field>
 			<field name="type">tree</field>
-			<field name="field_parent">mf_sim_action_children_ids</field>
+			<field name="field_parent">mf_tree_view_sim_action_children_ids</field>
 			<field name="priority">10</field>
 			<field name="arch" type="xml">
 				<tree string="Simulation structure"
 					  create="false"
 					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'">
-					<field name="object_model"/>
-					<field name="mf_first_value_to_write"/>
+					<field name="mf_node_name"/>
+					<field name="mf_record_name"/>
 					<field name="type"/>
-					<field name="mf_reference_name"/>
+					<field name="object_model"/>
 				</tree>
 			</field>
 		</record>

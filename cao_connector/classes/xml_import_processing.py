@@ -33,9 +33,9 @@ class xml_import_processing(models.Model):
         """
         Create list of simulate action of import.
         """
-        self.processing_simulate_action_ids = history
-        # root_sim_actions_list = self.processing_simulate_action_ids
-        # self.set_tree_view_sim_action_children(root_sim_actions_list)
+        self.write({"processing_simulate_action_ids": history})
+        root_sim_actions_list = self.processing_simulate_action_ids
+        self.set_tree_view_sim_action_children(root_sim_actions_list)
 
     def set_tree_view_sim_action_children(self, root_sim_actions_list):
         for sim_action_id in self.processing_simulate_action_ids:
@@ -68,5 +68,5 @@ class xml_import_processing(models.Model):
             "res_model": "xml.import.processing.sim.action",
             "type": "ir.actions.act_window",
             "target": "current",
-            "domain": "[('processing_id', '=', " + str(self.id) + ")]",
+            "domain": "[('processing_id', '=', " + str(self.id) + "),('mf_tree_view_sim_action_parent_id', '=', False)]"
         }
