@@ -53,8 +53,8 @@
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
                             <separator string="Actions" colspan="1" name="separator_action_menu" />
                             <button name="new_product_search" string="New product search" type="object" class="oe_inline oe_stat_button" icon="fa-search" />
-                            <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': [('number_of_results', '=', 0)]}" /> 
-                            <button name="clear_result" string="Clear product list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': ['|',('number_of_results', '=', 0),('number_of_results', '=', 'number_of_results_readed')]}"/>  
+                            <button name="more_product_results" string="More result" type="object" class="oe_inline oe_stat_button" icon="fa-search" attrs="{'invisible': ['|',('number_of_results', '=', 0),('number_of_results', '=', 'number_of_results_readed')]}" /> 
+                            <button name="clear_result" string="Clear product list" type="object" class="oe_inline oe_stat_button" icon="fa-eraser" attrs="{'invisible': [('number_of_results', '=', 0)]}"/>  
                             <separator string="" colspan="1" name="separator_connector_menu_4" /> 
                             <button class="oe_inline oe_stat_button" type="action" string="Associate manufacturer to supplier" name="%(action_add_octopart_manufacturer_id)d" icon="fa-plus" />
                             <button class="oe_inline oe_stat_button" type="action" string="Associate seller to supplier" name="%(action_add_octopart_seller_id)d" icon="fa-plus" />

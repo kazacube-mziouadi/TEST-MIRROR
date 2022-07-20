@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 {
-    'name' : 'Connecteur Octopart',
-    'version' : '1.0.0',
-    'author' : 'myfab',
+    'name': 'myfab Connecteur Octopart',
+    'version': '1.0.2',
+    'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Connecteur Octopart par myfab',
-    'category' : 'Product',
-    'description' : """
+    'category': 'Product',
+    'description': """
         Connecteur OCTOPART importation produit électronique
     """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'optional',
-    'depends' : [
+    'depends': [
         'my_fab',
         'product', 
         'partner_openprod', 
@@ -19,7 +19,7 @@
         'characteristics',
     ],
     'data': [
-            'security/import_product_connector_security.xml',
+            'security/myfab_octopart_connector_security.xml',
             'security/ir.model.access.csv',
             'views/technical_data_config.xml',
             'views/octopart_menu.xml',

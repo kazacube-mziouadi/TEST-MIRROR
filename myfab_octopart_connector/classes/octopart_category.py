@@ -48,29 +48,30 @@ class octopart_category(models.Model):
     
 
 #Méthode pour le création ou la modification des characteristic
-    def characteristics_management(self, current_id, current_attributs):
+    def characteristics_management(self, current_octopart_category_id, current_attributs):
         active_spec_rc = False
         spec_octopart = self.env['characteristic.type'].search([('name', '=', current_attributs['name'])])
         if spec_octopart:
             active_spec_rc = spec_octopart[0]
-            
+
         format_characteristic = 'string'
-        
+ 
         if active_spec_rc:
             active_spec_rc.write({
                 'format' : format_characteristic,
                 'octopart_key' : current_attributs['shortname'],
             })
-        else:    
-            active_spec_rc  = self.env['characteristic.type'].create({
+        else: 
+            active_spec_rc = self.env['characteristic.type'].create({
                 'name' : current_attributs['name'],
                 'format' : format_characteristic,
                 'octopart_key' : current_attributs['shortname'],
             })
-            
-        if current_id not in active_spec_rc.octopart_category_ids.ids:
-            active_spec_rc.write({'octopart_category_ids' : [(4, current_id)],  })
-                
+
+
+        if current_octopart_category_id not in active_spec_rc.octopart_category_ids.ids:
+            active_spec_rc.write({'octopart_category_ids' : [(4, current_octopart_category_id)],})
+               
         return active_spec_rc
 
 
