@@ -18,8 +18,10 @@
         'xml_import',
     ],
     'data': [
+        'views/cao_connector_web.xml',
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
+        'wizards/MFWizardXMLImportSeeSimAction.xml',
     ],
     'qweb': [],
     'demo': [],

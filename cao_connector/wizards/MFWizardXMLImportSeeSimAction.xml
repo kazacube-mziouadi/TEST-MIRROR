@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Wizard displayed when clicking on a XML import tree view element -->
+		<record id='view_form_mf_wizard_xml_import_see_sim_action' model='ir.ui.view'>
+            <field name="name">myfab xml import tree view wizard</field>
+            <field name="model">mf.wizard.xml.import.see.sim.action</field>
+            <field name="arch" type="xml">
+                <form string="myfab xml import tree view wizard" version="8.0">
+					<group col="2">
+						<field name="mf_processing_sim_action_id"/>
+						<field name="mf_selected_for_import"/>
+					</group>
+                    <footer>
+                        <button name="action_validate" string="Save" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

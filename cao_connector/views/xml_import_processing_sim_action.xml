@@ -11,6 +11,9 @@
 					<attribute name="create">false</attribute>
 					<attribute name="edit">false</attribute>
 				</xpath>
+				<xpath expr="//field[@name='processing_id']" position="after">
+					<field name="mf_selected_for_import"/>
+				</xpath>
 				<xpath expr="//field[@name='reference']" position="before">
 					<field name="mf_beacon_id"/>
 				</xpath>
@@ -51,15 +54,16 @@
 					  create="false"
 					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'">
 					<field name="mf_node_name"/>
-					<field name="mf_record_name"/>
+					<field name="name"/>
 					<field name="type"/>
 					<field name="object_model"/>
+					<field name="mf_selected_for_import"/>
 				</tree>
 			</field>
 		</record>
 
 		<act_window name="Simulation element"
-					res_model="mf.xml.import.see.processing.sim.action"
+					res_model="mf.wizard.xml.import.see.sim.action"
 					src_model="xml.import.processing.sim.action"
 					view_mode="form"
 					target="new"

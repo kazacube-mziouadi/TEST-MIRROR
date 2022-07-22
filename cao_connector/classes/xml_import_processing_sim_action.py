@@ -8,6 +8,7 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
+    name = fields.Char(string="Record name", compute="_compute_mf_record_name")
     mf_beacon_id = fields.Many2one("xml.import.beacon.relation", string="Beacon relation", readonly=True)
     mf_field_setter_ids = fields.One2many("mf.field.setter", "mf_model_dictionary_id", string="Field setters",
                                           help="Values to set non-relational fields with at simulation's validation.")
@@ -15,27 +16,25 @@ class xml_import_processing_sim_action(models.Model):
                                               ondelete="cascade")
     mf_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action", "mf_sim_action_parent_id",
                                                  string="Children simulation elements")
-    mf_node_name = fields.Char(string="Reference name", compute="_compute_mf_node_name")
-    mf_record_name = fields.Char(string="Record name", compute="_compute_mf_record_name")
+    mf_node_name = fields.Char(string="Node name", compute="_compute_mf_node_name")
     mf_tree_view_sim_action_parent_id = fields.Many2one("xml.import.processing.sim.action",
                                                         string="Parent simulation element", ondelete="cascade")
     mf_tree_view_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action",
                                                            "mf_tree_view_sim_action_parent_id",
                                                            string="Treeview children simulation elements")
+    mf_selected_for_import = fields.Boolean(string="To import", default=True)
 
     # ===========================================================================
     # METHODS - MODEL
     # ===========================================================================
     @api.model
     def _processing_type_get(self):
-        return super(xml_import_processing_sim_action, self)._processing_type_get() + [
-            ('delete', _('Delete')),
-        ]
+        return super(xml_import_processing_sim_action, self)._processing_type_get() + [("delete", _("Delete"))]
 
     @api.one
     def _compute_mf_record_name(self):
         record_name = self.get_node_record_name()
-        self.mf_record_name = record_name if record_name else _("(unnamed)")
+        self.name = record_name if record_name else _("(unnamed)")
 
     @api.one
     def _compute_mf_node_name(self):
@@ -55,6 +54,16 @@ class xml_import_processing_sim_action(models.Model):
             if child_sim_action_id.mf_beacon_id.relation_openprod_id.model == "product.product":
                 return child_sim_action_id.get_node_record_name()
         return False
+
+    @api.onchange("mf_selected_for_import")
+    def onchange_mf_selected_for_import(self):
+        self.toggle_mf_selected_for_import(triggered_by_onchange=True)
+
+    def toggle_mf_selected_for_import(self, triggered_by_onchange=False):
+        if not triggered_by_onchange:
+            self.mf_selected_for_import = not self.mf_selected_for_import
+        for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
+            sim_action_child_id.write({"mf_selected_for_import": self.mf_selected_for_import})
 
     # ===========================================================================
     # METHODS - CONTROLLER
