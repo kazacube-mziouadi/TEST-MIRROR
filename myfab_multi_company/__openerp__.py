@@ -16,7 +16,6 @@
         'multi_company_auto',
     ],
     'data': [
-        'views/purchase_order.xml',
         'views/sale_order.xml',
     ],
     'installable': True,
