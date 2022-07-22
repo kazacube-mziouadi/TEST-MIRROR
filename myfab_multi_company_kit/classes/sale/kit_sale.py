@@ -12,20 +12,22 @@ class kit_sale(models.TransientModel):
         for line_id in self.sale_id.order_line_ids:
             memo_sale_id_order_line_ids.append(line_id.id)
         
-        res = super(kit_sale, self).create_kit_sale()   
-
-        new_sale_id_order_line_ids = []
-        for line_id in self.sale_id.order_line_ids:
-            if line_id.id not in memo_sale_id_order_line_ids:
-                new_sale_id_order_line_ids.append((0,0,{'id' : line_id.id}))      
+        res = super(kit_sale, self).create_kit_sale()       
 
         #Add the new kit to the list
-        self.sale_id.mf_sale_id_order_line_kit_ids = [(0,0,{
-                            'mf_sale_id_id' :self.sale_id.id, 
+        mf_sale_order_kit_id = self.sale_id.mf_sale_order_line_kit_ids.create({
+                            'mf_sale_id' :self.sale_id.id, 
                             'mf_product_id' : self.product_id.id, 
                             'mf_bom_id' : self.bom_id.id,
                             'mf_sec_uom_qty' : self.sec_uom_qty,
-                            'mf_sale_id_order_line_ids' : new_sale_id_order_line_ids,
-                        })]
+                        })
+
+        for line_id in self.sale_id.order_line_ids:
+            if line_id.id not in memo_sale_id_order_line_ids:
+                line_id.mf_sale_order_kit_id = mf_sale_order_kit_id.id
 
         return res
+
+
+
+        

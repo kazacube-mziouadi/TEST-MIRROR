@@ -5,7 +5,7 @@ import openerp.addons.decimal_precision as dp
 
 class mf_sale_order_line_kit(models.Model):
     _name = "mf.sale.order.line.kit"
-    _description = "sale order line kit"
+    _description = "Sale order line kit"
 
     mf_sale_id = fields.Many2one('sale.order', string='Sale', readonly=True, ondelete='cascade')
     mf_product_id = fields.Many2one('product.product', string='Product', readonly=True, ondelete='cascade', 
