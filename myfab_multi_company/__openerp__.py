@@ -14,8 +14,11 @@
     'depends' : [
         'my_fab',
         'multi_company_auto',
+        'purchase',
+        'sale',
     ],
     'data': [
+        'views/purchase_order.xml',
         'views/sale_order.xml',
     ],
     'installable': True,

@@ -1,0 +1,3 @@
+import stock_picking
+import stock_move
+import stock_move_line
