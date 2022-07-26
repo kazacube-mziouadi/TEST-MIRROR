@@ -86,4 +86,6 @@ class MFTools(models.Model):
     """
     @staticmethod
     def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
+        if value_to_compare_with == "False":
+            value_to_compare_with = False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)

@@ -25,7 +25,7 @@ class xml_import_configuration_table(models.Model):
         temp_history_list = []
         for data_dict_id in data_dicts_to_process_dict.keys():
             # Object is internal number of data
-            existing_object = False
+            existing_record = False
             data_dict = data_dicts_to_process_dict[data_dict_id]
             beacon_rc = data_dict["object_relation"]
             children_sim_action_list = []
@@ -38,10 +38,10 @@ class xml_import_configuration_table(models.Model):
                 )
                 self.add_parent_id_filter_domain_if_necessary(research_domain_list, beacon_rc, parent_id)
                 model_name = beacon_rc.relation_openprod_id.model
-                existing_object = self.env[model_name].search(research_domain_list)
-                if len(existing_object) > 1:
+                existing_record = self.env[model_name].search(research_domain_list)
+                if len(existing_record) > 1:
                     raise ValidationError(
-                        _("More than one record have been found : ") + str(existing_object) + _(". You must reduce the search domain ") + str(research_domain_list)
+                        _("More than one record have been found : ") + str(existing_record) + _(". You must reduce the search domain ") + str(research_domain_list)
                     )
 
             for key in data_dict:
@@ -50,37 +50,38 @@ class xml_import_configuration_table(models.Model):
                     children_data_ids_list = data_dict["Childrens_list"].keys()
                     self.set_history_list_for_data_list(
                         self.filter_data_dicts_by_ids(all_data_dicts_dict, children_data_ids_list),
-                        children_sim_action_list, all_data_dicts_dict, existing_object
+                        children_sim_action_list, all_data_dicts_dict, existing_record
                     )
-                    if children_sim_action_list and existing_object:
-                        self.add_elements_to_delete_to_children_history_list(children_sim_action_list, existing_object)
+                    if children_sim_action_list and existing_record:
+                        self.add_elements_to_delete_to_children_history_list(children_sim_action_list, existing_record)
                 elif key not in ["Childrens_list", "object_relation"]:
                     # Value processing case
-                    current_value = data_dict[key][0]
-                    values_dict[key] = current_value
+                    children_sim_action_list.append(self.get_non_relational_field_sim_action_id(
+                        data_dict, key, existing_record, beacon_rc
+                    ))
 
-            if beacon_rc.update_object and existing_object:
-                if len(existing_object) == 1:
+            if beacon_rc.update_object and existing_record:
+                if len(existing_record) == 1:
                     # Checking if the import set new values on the existing records
-                    if self.is_data_dict_different_from_record(data_dict, existing_object, children_sim_action_list):
-                        history_list.append(self.get_sim_action_creation_dict(
-                            "update", beacon_rc.relation_openprod_id.model, existing_object.id, beacon_rc,
-                            children_sim_action_list, values_dict
+                    if self.is_record_to_update(children_sim_action_list):
+                        history_list.append(self.get_sim_action_creation_tuple(
+                            "update", beacon_rc.relation_openprod_id.model, existing_record.id, beacon_rc,
+                            children_sim_action_list
                         ))
                     else:
-                        history_list.append(self.get_sim_action_creation_dict(
-                            "unmodified", beacon_rc.relation_openprod_id.model, existing_object.id, beacon_rc, children_sim_action_list
+                        history_list.append(self.get_sim_action_creation_tuple(
+                            "unmodified", beacon_rc.relation_openprod_id.model, existing_record.id, beacon_rc, children_sim_action_list
                         ))
                 else:
-                    history_list.append(self.get_sim_action_creation_dict(
+                    history_list.append(self.get_sim_action_creation_tuple(
                         "error", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_sim_action_list
                     ))
 
-            if beacon_rc.beacon_type != "neutral" and beacon_rc.create_object and not existing_object and (
+            if beacon_rc.beacon_type != "neutral" and beacon_rc.create_object and not existing_record and (
                     not self.is_values_dict_empty(values_dict) or children_sim_action_list
             ):
-                history_list.append(self.get_sim_action_creation_dict(
-                    "create", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_sim_action_list, values_dict
+                history_list.append(self.get_sim_action_creation_tuple(
+                    "create", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_sim_action_list
                 ))
             if not history_list and children_sim_action_list:
                 temp_history_list += children_sim_action_list
@@ -88,7 +89,7 @@ class xml_import_configuration_table(models.Model):
         if not history_list and temp_history_list:
             history_list += temp_history_list
 
-    def add_elements_to_delete_to_children_history_list(self, children_history_list, existing_object):
+    def add_elements_to_delete_to_children_history_list(self, children_history_list, existing_record):
         children_history_sorted_list = sorted(children_history_list, key=lambda child_create_tuple: child_create_tuple[2]["mf_beacon_id"])
         children_history_sorted_list_last_index = len(children_history_sorted_list) - 1
         child_beacon_id = None
@@ -99,7 +100,7 @@ class xml_import_configuration_table(models.Model):
                 if child_beacon_id and child_beacon_id.relation_openprod_field_id.ttype != "many2one":
                     self.append_delete_element_to_history_list_if_not_checked(
                         children_history_list,
-                        getattr(existing_object, child_beacon_id.relation_openprod_field_id.name),
+                        getattr(existing_record, child_beacon_id.relation_openprod_field_id.name),
                         model_existing_ids_list,
                         child_beacon_id
                     )
@@ -114,7 +115,7 @@ class xml_import_configuration_table(models.Model):
             ):
                 self.append_delete_element_to_history_list_if_not_checked(
                     children_history_list,
-                    getattr(existing_object, child_beacon_id.relation_openprod_field_id.name),
+                    getattr(existing_record, child_beacon_id.relation_openprod_field_id.name),
                     model_existing_ids_list,
                     child_beacon_id
                 )
@@ -122,16 +123,37 @@ class xml_import_configuration_table(models.Model):
     def append_delete_element_to_history_list_if_not_checked(self, history_list, one2many_list, checked_ids_list, beacon_id):
         for child_id in one2many_list:
             if str(child_id.id) not in checked_ids_list:
-                history_list.append(self.get_sim_action_creation_dict(
+                history_list.append(self.get_sim_action_creation_tuple(
                     "delete", beacon_id.relation_openprod_id.model, child_id.id, beacon_id, []
                 ))
 
-    def is_data_dict_different_from_record(self, data_dict, existing_object, children_sim_action_list):
-        for key in data_dict:
-            if key not in ["Childrens_list", "object_relation"] and not self.env["mf.tools"].are_values_equal_in_same_type(
-                existing_object[key], data_dict[key][0]
-            ):
-                return True
+    def get_non_relational_field_sim_action_id(self, data_dict, field_name, existing_record, beacon_id):
+        model_id = self.env["ir.model"].search([("model", '=', existing_record._name)], None, 1)
+        field_id = self.env["ir.model.fields"].search([
+            ("name", '=', field_name),
+            ("model_id", '=', model_id.id)
+        ], None, 1)
+        value = data_dict[field_name][0]
+        if type(value) is not str and not isinstance(value, unicode):
+            value = str(value)
+        field_setter_id = self.env["mf.field.setter"].create({
+            "mf_field_to_set_id": field_id.id,
+            "mf_value": value
+        })
+        field_process_type = self.get_non_relational_field_process_type(existing_record, field_setter_id)
+        return self.get_sim_action_creation_tuple(
+            field_process_type, model_id.model, existing_record.id, beacon_id, [], field_setter_id
+        )
+
+    def get_non_relational_field_process_type(self, existing_record, field_setter_id):
+        if self.env["mf.tools"].are_values_equal_in_same_type(
+                getattr(existing_record, field_setter_id.mf_field_to_set_id.name), field_setter_id.mf_value
+        ):
+            return "unmodified"
+        else:
+            return "update"
+
+    def is_record_to_update(self, children_sim_action_list):
         return self.is_at_least_one_child_modified(children_sim_action_list)
 
     def is_at_least_one_child_modified(self, children_sim_action_list):
@@ -179,21 +201,10 @@ class xml_import_configuration_table(models.Model):
                 return True
         return False
 
-    def get_sim_action_creation_dict(self, process_type, model_name, record_id, beacon_id, children_list, values_dict={}):
-        creation_dict = {
-            "type": process_type,
-            "mf_beacon_id": beacon_id.id,
-            "mf_sim_action_children_ids": children_list
-        }
-        if model_name:
-            creation_dict["object_model"] = self.env["ir.model"].search([("model", "=", model_name)]).id
-            if record_id:
-                creation_dict["reference"] = model_name + ',' + str(record_id)
-            if values_dict:
-                creation_dict["mf_field_setter_ids"] = self.env["mf.field.setter"].get_creation_tuples_list_from_field_value_couples_dict(
-                    values_dict, model_name
-                )
-        return (0, 0, creation_dict)
+    def get_sim_action_creation_tuple(self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False):
+        return self.env["xml.import.processing.sim.action"].get_sim_action_creation_tuple(
+            process_type, model_name, record_id, beacon_id, children_list, field_setter_id
+        )
 
     def research_domain_converter(self, domain, data_dict, field_rc, data_dicts_dict=[]):
         """

@@ -8,10 +8,10 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Record name", compute="_compute_mf_record_name")
+    name = fields.Char(string="Node value", compute="_compute_mf_node_value")
     mf_beacon_id = fields.Many2one("xml.import.beacon.relation", string="Beacon relation", readonly=True)
-    mf_field_setter_ids = fields.One2many("mf.field.setter", "mf_model_dictionary_id", string="Field setters",
-                                          help="Values to set non-relational fields with at simulation's validation.")
+    mf_field_setter_id = fields.Many2one("mf.field.setter", string="Field setter",
+                                         help="Value to set non-relational field with at simulation's validation.")
     mf_sim_action_parent_id = fields.Many2one("xml.import.processing.sim.action", string="Parent simulation element",
                                               ondelete="cascade")
     mf_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action", "mf_sim_action_parent_id",
@@ -32,14 +32,20 @@ class xml_import_processing_sim_action(models.Model):
         return super(xml_import_processing_sim_action, self)._processing_type_get() + [("delete", _("Delete"))]
 
     @api.one
-    def _compute_mf_record_name(self):
-        record_name = self.get_node_record_name()
-        self.name = record_name if record_name else _("(unnamed)")
+    def _compute_mf_node_value(self):
+        if self.mf_field_setter_id:
+            self.name = self.mf_field_setter_id.mf_value
+        else:
+            record_name = self.get_node_record_name()
+            self.name = record_name if record_name else _("(unnamed)")
 
     @api.one
     def _compute_mf_node_name(self):
-        relation_field_id = self.mf_beacon_id.relation_openprod_field_id
-        self.mf_node_name = relation_field_id.field_description if relation_field_id else self.object_model.name
+        if self.mf_field_setter_id:
+            self.mf_node_name = self.mf_field_setter_id.mf_field_to_set_id.field_description
+        else:
+            relation_field_id = self.mf_beacon_id.relation_openprod_field_id
+            self.mf_node_name = relation_field_id.field_description if relation_field_id else self.object_model.name
 
     def get_node_record_name(self):
         if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
@@ -62,6 +68,7 @@ class xml_import_processing_sim_action(models.Model):
     def toggle_mf_selected_for_import(self, triggered_by_onchange=False):
         if not triggered_by_onchange:
             self.mf_selected_for_import = not self.mf_selected_for_import
+        self.mf_field_setter_id.write({"mf_selected_for_import": self.mf_selected_for_import})
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
             sim_action_child_id.write({"mf_selected_for_import": self.mf_selected_for_import})
 
@@ -96,9 +103,8 @@ class xml_import_processing_sim_action(models.Model):
                     self_product_id = product_reference
                 else:
                     self_product_name = child_sim_action_id.get_field_setter_value_by_field_name("name")
-                    for field_setter_id in child_sim_action_id.mf_field_setter_ids:
-                        if field_setter_id.mf_field_to_set_id.name == "name":
-                            self_product_name = field_setter_id.mf_value
+                    if child_sim_action_id.mf_field_setter_id.mf_field_to_set_id.name == "name":
+                        self_product_name = child_sim_action_id.mf_field_setter_id.mf_value
                 break
         # If a root sim_action has the same product, then we return the root one id (manufactured product) ;
         # Else the current one id
@@ -115,30 +121,27 @@ class xml_import_processing_sim_action(models.Model):
         return (4, self.id)
 
     def get_field_setter_value_by_field_name(self, field_name):
-        for field_setter_id in self.mf_field_setter_ids:
-            if field_setter_id.mf_field_to_set_id.name == field_name:
-                return field_setter_id.mf_value
+        for sim_action_child_id in self.mf_sim_action_children_ids:
+            child_field_setter_id = sim_action_child_id.mf_field_setter_id
+            if child_field_setter_id and child_field_setter_id.mf_field_to_set_id.name == field_name:
+                return child_field_setter_id.mf_value
         return False
 
     def process_data_import(self):
         if self.type in ["create", "update"]:
-            fields_dict = {
-                field_setter_id.mf_field_to_set_id.name: field_setter_id.mf_value for field_setter_id in self.mf_field_setter_ids
-            }
+            fields_dict = {}
             for sim_action_child_id in self.mf_sim_action_children_ids:
-                child_record_id = sim_action_child_id.process_data_import()
-                if child_record_id:
-                    beacon_id = sim_action_child_id.mf_beacon_id
-                    field_name = beacon_id.relation_openprod_field_id.name
-                    field_type = beacon_id.relation_openprod_field_id.ttype
-                    field_value = self.get_relation_field_id_link_by_field_type(child_record_id.id, field_type)
-                    if field_name in fields_dict and type(fields_dict[field_name]) is list:
-                        fields_dict[field_name] += field_value
-                    else:
-                        fields_dict[field_name] = field_value
-
+                if sim_action_child_id.mf_field_setter_id:
+                    fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
+                else:
+                    child_record_id = sim_action_child_id.process_data_import()
+                    if child_record_id:
+                        self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
             if self.type == "create":
                 model_name = self.mf_beacon_id.relation_openprod_id.model
+                print("CREATE")
+                print(model_name)
+                print(fields_dict)
                 if self.mf_beacon_id.use_onchange:
                     record_id = self.env[model_name].create_with_onchange(fields_dict)
                 else:
@@ -154,6 +157,15 @@ class xml_import_processing_sim_action(models.Model):
             return self.reference
         if self.type == "delete":
             self.reference.unlink()
+
+    def append_relation_field_child_to_fields_dict(self, fields_dict, child_record_id, beacon_id):
+        field_name = beacon_id.relation_openprod_field_id.name
+        field_type = beacon_id.relation_openprod_field_id.ttype
+        field_value = self.get_relation_field_id_link_by_field_type(child_record_id.id, field_type)
+        if field_name in fields_dict and type(fields_dict[field_name]) is list:
+            fields_dict[field_name] += field_value
+        else:
+            fields_dict[field_name] = field_value
 
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):
@@ -191,3 +203,26 @@ class xml_import_processing_sim_action(models.Model):
             record_id.write(different_fields_dict)
             return True
         return False
+
+    def get_sim_action_creation_tuple(
+            self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False
+    ):
+        return (0, 0, self.get_sim_action_creation_dict(
+                process_type, model_name, record_id, beacon_id, children_list, field_setter_id
+        ))
+
+    def get_sim_action_creation_dict(
+            self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False
+    ):
+        creation_dict = {
+            "type": process_type,
+            "mf_beacon_id": beacon_id.id,
+            "mf_sim_action_children_ids": children_list
+        }
+        if model_name:
+            creation_dict["object_model"] = self.env["ir.model"].search([("model", "=", model_name)]).id
+            if record_id:
+                creation_dict["reference"] = model_name + ',' + str(record_id)
+            if field_setter_id:
+                creation_dict["mf_field_setter_id"] = field_setter_id.id
+        return creation_dict

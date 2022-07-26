@@ -18,8 +18,10 @@
 					<field name="mf_beacon_id"/>
 				</xpath>
 				<xpath expr="//form//group" position="inside">
-					<group string="Fields to set" colspan="4">
-						<field name="mf_field_setter_ids" nolabel="1" />
+					<group string="Field to set"
+						   colspan="4"
+						   attrs="{'invisible': [('mf_field_setter_id', '=', False)]}">
+						<field name="mf_field_setter_id" nolabel="1" />
 					</group>
 					<group string="Children records"
 						   colspan="4"

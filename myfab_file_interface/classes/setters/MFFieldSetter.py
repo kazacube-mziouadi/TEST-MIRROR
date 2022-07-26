@@ -8,7 +8,7 @@ class MFFieldSetter(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", size=64, required=False, help='')
+    name = fields.Char(string="Name", compute="_compute_name", help='')
     mf_field_to_set_id = fields.Many2one("ir.model.fields", string="Field to set", required=True,
                                          domain=lambda self: self._get_mf_field_to_set_id_domain())
     mf_value = fields.Char(string="Value to set", required=True, help="Value to set the field with at export.")
@@ -17,24 +17,15 @@ class MFFieldSetter(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.one
+    def _compute_name(self):
+        self.name = self.mf_field_to_set_id.field_description + " = " + self.mf_value
+
     @api.model
     def _get_mf_field_to_set_id_domain(self):
         if "model_to_export_id" in self.env.context:
             return [("model_id", "=", self.env.context["model_to_export_id"])]
         return []
 
-    def get_creation_tuples_list_from_field_value_couples_dict(self, field_value_couples_dict, model_name):
-        creation_tuples_list = []
-        for field_name in field_value_couples_dict.keys():
-            if field_value_couples_dict[field_name]:
-                creation_tuples_list.append(
-                    (0, 0, {
-                        "mf_field_to_set_id": self.env["ir.model.fields"].search(
-                            [("model", "=", model_name), ("name", "=", field_name)]).id,
-                        "mf_value": field_value_couples_dict[field_name]
-                    })
-                )
-        return creation_tuples_list
-
-    def get_field_value_couple_string(self):
-        return self.mf_field_to_set_id.display_name + ": " + self.mf_value
+    def get_field_setter_dict(self):
+        return {self.mf_field_to_set_id.name: self.mf_value}
