@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id='mf_view_form_stock_move_labels' model='ir.ui.view'>
+            <field name="name">mf_view_form_stock_move_labels</field>
+            <field name="model">stock.move</field>
+            <field name="priority" eval="3000" />
+            <field name="inherit_id" ref="stock.view_form_move" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_label_ids']/tree//field[@name='sec_uom_id']" position="after">
+                    <field name="mf_label_supplier" 
+                            column_invisible_list="[('mf_label_supplier', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>	
+
+        <record id='mf_view_form_stock_move_labels' model='ir.ui.view'>
+            <field name="name">mf_view_form_stock_move_labels</field>
+            <field name="model">stock.move</field>
+            <field name="priority" eval="3000" />
+            <field name="inherit_id" ref="stock.view_form_move" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_label_ids']/tree//field[@name='sec_uom_id']" position="after">
+                    <field name="mf_label_supplier" 
+                            column_invisible_list="[('mf_label_supplier', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>	
+
+        <record id='mf_view_tree_stock_label' model='ir.ui.view'>
+			<field name="name">mf_view_tree_stock_label</field>
+			<field name="model">stock.label</field>
+			<field name="inherit_id" ref="stock.view_tree_label" />
+			<field name="priority" eval="3000" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="mf_label_supplier" 
+                            column_invisible_list="[('mf_label_supplier', '=', False)]"/>
+				</xpath>
+			</field>
+		</record>	
+
+        <record id='mf_view_form_stock_label' model='ir.ui.view'>
+			<field name="name">mf_view_form_stock_label</field>
+			<field name="model">stock.label</field>
+			<field name="inherit_id" ref="stock.view_form_label" />
+			<field name="priority" eval="1600" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="mf_label_supplier" 
+                            attrs="{('invisible':[('mf_label_supplier', '=', False)])}"/>
+				</xpath>
+			</field>
+		</record>			
+	</data>
+</openerp>

@@ -20,6 +20,7 @@
     'data': [
         'views/purchase_order.xml',
         'views/sale_order.xml',
+        'views/stock.xml',
     ],
     'installable': True,
     'auto_install': False,
