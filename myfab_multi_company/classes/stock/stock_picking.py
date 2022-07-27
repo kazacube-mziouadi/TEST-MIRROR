@@ -21,4 +21,4 @@ class stock_picking(models.Model):
                 for move_so_rc in self.move_ids:
                     for move_po_rc in po_picking_available_rc.move_ids:
                         if move_so_rc.product_id.track_label and move_so_rc.product_id == move_po_rc.product_id:
-                            move_po_rc.generate_labels(move_so_rc.move_label_ids)
+                            move_po_rc.mf_generate_labels(move_so_rc.move_label_ids)

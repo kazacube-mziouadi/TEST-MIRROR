@@ -6,7 +6,7 @@ from math import *
 class stock_move(models.Model):
     _inherit = 'stock.move'
 
-    def generate_labels(self,move_label_to_use_ids = False):
+    def mf_generate_labels(self,move_label_to_use_ids = False):
         if len(self.move_label_ids) == 0 or (len(move_label_to_use_ids) > 0 and len(self.move_label_ids) != len(move_label_to_use_ids)):
             create_label_wizard_rc = self.env['create.label.wizard']
 
