@@ -41,5 +41,3 @@ class stock_move(models.Model):
                 for move_label_id in self.move_label_ids:
                     ind += 1
                     move_label_id.mf_label_supplier = move_label_to_use_ids[ind].label_id.name
-
-            self.unprepare()
