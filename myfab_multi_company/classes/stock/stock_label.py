@@ -5,4 +5,4 @@ from openerp.exceptions import ValidationError, CancelError
 class stock_label(models.Model):
     _inherit = 'stock.label'
 
-    mf_label_supplier = fields.Char(string = "Label supplier", readonly=True)
+    mf_label_supplier = fields.Char(string = "Supplier label", readonly=True, default=False)
