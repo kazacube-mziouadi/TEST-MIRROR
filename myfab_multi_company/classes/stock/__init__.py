@@ -1,0 +1,4 @@
+import stock_label
+import stock_move_label
+import stock_move
+import stock_picking
