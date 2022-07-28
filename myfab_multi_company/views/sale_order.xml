@@ -14,7 +14,8 @@
 			<field name="priority" eval="1500" />
 			<field name="arch" type="xml">
                 <xpath expr="//field[@name='ref_order']" position="after">
-					<field name="mf_multi_company_purchase_order_id" attrs="{'invisible': [('mf_multi_company_purchase_order_id', '=', False)]}"/>
+					<field name="mf_multi_company_purchase_order_id" invisible="1"/>
+					<field name="mf_multi_company_purchase_order_name" attrs="{'invisible': [('mf_multi_company_purchase_order_id', '=', False)]}"/>
                 </xpath>
         	</field>
         </record>						

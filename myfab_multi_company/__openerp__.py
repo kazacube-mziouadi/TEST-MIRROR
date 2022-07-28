@@ -16,6 +16,7 @@
         'multi_company_auto',
         'purchase',
         'sale',
+        'stock',
     ],
     'data': [
         'views/purchase_order.xml',

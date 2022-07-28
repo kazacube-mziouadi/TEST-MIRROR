@@ -13,8 +13,9 @@
 			<field name="inherit_id" ref="purchase.view_form_purchase_order"/>
 			<field name="priority" eval="1500" />
 			<field name="arch" type="xml">
-                <xpath expr="//field[@name='source_document']/.." position="after">
-                    <field name="multi_company_sale_order_id" attrs="{'invisible': [('multi_company_sale_order_id', '=', False)]}"/>
+                <xpath expr="//field[@name='source_document']" position="after">
+                    <field name="multi_company_sale_order_id" invisible="1"/>
+                    <field name="mf_multi_company_sale_order_name" attrs="{'invisible': [('multi_company_sale_order_id', '=', False)]}"/>
                 </xpath>
         	</field>
         </record>						

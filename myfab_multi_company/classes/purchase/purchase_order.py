@@ -5,6 +5,12 @@ from openerp.exceptions import ValidationError, CancelError
 class purchase_order(models.Model):
     _inherit = 'purchase.order'
 
+    mf_multi_company_sale_order_name = fields.Char(string="Supplier sale order", compute="_mf_compute_get_name")
+
+    @api.one
+    def _mf_compute_get_name(self):
+        self.mf_multi_company_sale_order_name = self.mf_get_sale_order_multi_company().name
+
     @api.multi
     def action_progress_purchase_state(self):
         res = super(purchase_order, self).action_progress_purchase_state()
