@@ -151,7 +151,7 @@ class xml_import_configuration_table(models.Model):
         ):
             return "unmodified"
         else:
-            return "update"
+            return "update" if existing_record else "create"
 
     def is_record_to_update(self, children_sim_action_list):
         return self.is_at_least_one_child_modified(children_sim_action_list)

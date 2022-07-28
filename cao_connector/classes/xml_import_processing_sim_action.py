@@ -139,9 +139,8 @@ class xml_import_processing_sim_action(models.Model):
                         self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
             if self.type == "create":
                 model_name = self.mf_beacon_id.relation_openprod_id.model
-                print("CREATE")
-                print(model_name)
-                print(fields_dict)
+                if self.is_fields_dict_empty(fields_dict):
+                    return False
                 if self.mf_beacon_id.use_onchange:
                     record_id = self.env[model_name].create_with_onchange(fields_dict)
                 else:
@@ -170,6 +169,13 @@ class xml_import_processing_sim_action(models.Model):
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
+
+    @staticmethod
+    def is_fields_dict_empty(fields_dict):
+        for field_name in fields_dict.keys():
+            if fields_dict[field_name]:
+                return False
+        return True
 
     def apply_onchanges_on_record_id(self, record_id, model_id=None):
         if not model_id:
