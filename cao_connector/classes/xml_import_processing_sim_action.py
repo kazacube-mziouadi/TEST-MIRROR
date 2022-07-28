@@ -140,13 +140,17 @@ class xml_import_processing_sim_action(models.Model):
             if self.type in ["create", "update"]:
                 fields_dict = {}
                 for sim_action_child_id in self.mf_sim_action_children_ids:
+                    if not sim_action_child_id.mf_selected_for_import:
+                        continue
                     field_setter_id = sim_action_child_id.mf_field_setter_id
                     if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
                         fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
                     elif not field_setter_id:
                         child_record_id = sim_action_child_id.process_data_import()
                         if child_record_id:
-                            self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
+                            self.append_relation_field_child_to_fields_dict(
+                                fields_dict, child_record_id, sim_action_child_id.mf_beacon_id
+                            )
                 if self.type == "create":
                     model_name = self.mf_beacon_id.relation_openprod_id.model
                     if not fields_dict:
