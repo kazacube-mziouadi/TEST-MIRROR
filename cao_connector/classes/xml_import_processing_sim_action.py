@@ -71,12 +71,14 @@ class xml_import_processing_sim_action(models.Model):
     def onchange_mf_selected_for_import(self):
         self.toggle_mf_selected_for_import(triggered_by_onchange=True)
 
-    def toggle_mf_selected_for_import(self, triggered_by_onchange=False):
-        if not triggered_by_onchange:
+    def toggle_mf_selected_for_import(self, triggered_by_onchange=False, is_child=False):
+        if not triggered_by_onchange and not is_child:
             self.mf_selected_for_import = not self.mf_selected_for_import
+        elif is_child:
+            self.mf_selected_for_import = self.mf_tree_view_sim_action_parent_id.mf_selected_for_import
         self.mf_field_setter_id.write({"mf_selected_for_import": self.mf_selected_for_import})
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
-            sim_action_child_id.write({"mf_selected_for_import": self.mf_selected_for_import})
+            sim_action_child_id.toggle_mf_selected_for_import(is_child=True)
 
     # ===========================================================================
     # METHODS - CONTROLLER
@@ -134,35 +136,36 @@ class xml_import_processing_sim_action(models.Model):
         return False
 
     def process_data_import(self):
-        if self.type in ["create", "update"]:
-            fields_dict = {}
-            for sim_action_child_id in self.mf_sim_action_children_ids:
-                field_setter_id = sim_action_child_id.mf_field_setter_id
-                if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
-                    fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
-                elif not field_setter_id:
-                    child_record_id = sim_action_child_id.process_data_import()
-                    if child_record_id:
-                        self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
-            if self.type == "create":
-                model_name = self.mf_beacon_id.relation_openprod_id.model
-                if not fields_dict:
-                    return False
-                if self.mf_beacon_id.use_onchange:
-                    record_id = self.env[model_name].create_with_onchange(fields_dict)
-                else:
-                    record_id = self.env[model_name].create(fields_dict)
-                self.reference = model_name + ',' + str(record_id.id)
-                return record_id
-            elif self.type == "update":
-                has_written = self.write_different_fields_only(self.reference, fields_dict)
-                if has_written and self.mf_beacon_id.use_onchange:
-                    self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
+        if self.mf_selected_for_import:
+            if self.type in ["create", "update"]:
+                fields_dict = {}
+                for sim_action_child_id in self.mf_sim_action_children_ids:
+                    field_setter_id = sim_action_child_id.mf_field_setter_id
+                    if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
+                        fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
+                    elif not field_setter_id:
+                        child_record_id = sim_action_child_id.process_data_import()
+                        if child_record_id:
+                            self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
+                if self.type == "create":
+                    model_name = self.mf_beacon_id.relation_openprod_id.model
+                    if not fields_dict:
+                        return False
+                    if self.mf_beacon_id.use_onchange:
+                        record_id = self.env[model_name].create_with_onchange(fields_dict)
+                    else:
+                        record_id = self.env[model_name].create(fields_dict)
+                    self.reference = model_name + ',' + str(record_id.id)
+                    return record_id
+                elif self.type == "update":
+                    has_written = self.write_different_fields_only(self.reference, fields_dict)
+                    if has_written and self.mf_beacon_id.use_onchange:
+                        self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
+                    return self.reference
+            if self.type == "unmodified":
                 return self.reference
-        if self.type == "unmodified":
-            return self.reference
-        if self.type == "delete":
-            self.reference.unlink()
+            if self.type == "delete":
+                self.reference.unlink()
 
     def append_relation_field_child_to_fields_dict(self, fields_dict, child_record_id, beacon_id):
         field_name = beacon_id.relation_openprod_field_id.name
