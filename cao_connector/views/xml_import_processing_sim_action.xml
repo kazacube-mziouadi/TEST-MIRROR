@@ -54,7 +54,9 @@
 			<field name="arch" type="xml">
 				<tree string="Simulation structure"
 					  create="false"
+					  default_order="mf_sequence asc"
 					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'">
+					<field name="mf_sequence" invisible="1"/>
 					<field name="mf_node_name"/>
 					<field name="name"/>
 					<field name="type"/>

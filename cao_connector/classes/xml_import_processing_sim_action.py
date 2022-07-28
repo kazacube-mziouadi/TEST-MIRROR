@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
 
+FIELD_SEQUENCES_DICT = {
+    "product_id": 1,
+    "quantity": 2,
+}
+
 
 class xml_import_processing_sim_action(models.Model):
     _inherit = "xml.import.processing.sim.action"
@@ -9,6 +14,7 @@ class xml_import_processing_sim_action(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Node value", compute="_compute_mf_node_value")
+    mf_sequence = fields.Integer(string="Sequence", required=True, default=10)
     mf_beacon_id = fields.Many2one("xml.import.beacon.relation", string="Beacon relation", readonly=True)
     mf_field_setter_id = fields.Many2one("mf.field.setter", string="Field setter",
                                          help="Value to set non-relational field with at simulation's validation.")
@@ -225,4 +231,8 @@ class xml_import_processing_sim_action(models.Model):
                 creation_dict["reference"] = model_name + ',' + str(record_id)
             if field_setter_id:
                 creation_dict["mf_field_setter_id"] = field_setter_id.id
+        if field_setter_id and field_setter_id.mf_field_to_set_id.name in FIELD_SEQUENCES_DICT:
+            creation_dict["mf_sequence"] = FIELD_SEQUENCES_DICT[field_setter_id.mf_field_to_set_id.name]
+        elif beacon_id.relation_openprod_field_id.name in FIELD_SEQUENCES_DICT:
+            creation_dict["mf_sequence"] = FIELD_SEQUENCES_DICT[beacon_id.relation_openprod_field_id.name]
         return creation_dict
