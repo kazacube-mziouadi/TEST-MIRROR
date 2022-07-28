@@ -8,8 +8,8 @@ class stock_picking(models.Model):
     def do_partial(self, lines, make_done=True, transfer_origin_move_rc=False):
         new_picking = super(stock_picking, self).do_partial(lines, make_done=make_done, transfer_origin_move_rc=transfer_origin_move_rc)
 
-        if new_picking:
-            new_picking._mf_copy_so_picking_label_to_po_picking()
+        if make_done and self.state == 'done':
+            self._mf_copy_so_picking_label_to_po_picking()
         
         return new_picking
 

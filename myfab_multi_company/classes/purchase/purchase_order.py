@@ -19,9 +19,10 @@ class purchase_order(models.Model):
         return res
 
     def mf_get_sale_order_multi_company(self):
-        company_rc = self.env['res.company'].sudo().search([('partner_id', '=', self.partner_id.id)])
-        user_rc = company_rc.default_company_user_id
-        return self.multi_company_sale_order_id.sudo(user_rc).with_context(active_company_id=company_rc.id)
+        seller_company_rc = self.env['res.company'].sudo().search([('partner_id', '=', self.partner_id.id)])
+        seller_user_rc = seller_company_rc.default_company_user_id
+        
+        return self.multi_company_sale_order_id.sudo(seller_user_rc).with_context(active_company_id=seller_company_rc.id)
 
     def mf_get_po_picking_available(self):
         picking_available_rc = False
