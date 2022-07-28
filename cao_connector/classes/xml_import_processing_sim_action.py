@@ -131,15 +131,16 @@ class xml_import_processing_sim_action(models.Model):
         if self.type in ["create", "update"]:
             fields_dict = {}
             for sim_action_child_id in self.mf_sim_action_children_ids:
-                if sim_action_child_id.mf_field_setter_id:
+                field_setter_id = sim_action_child_id.mf_field_setter_id
+                if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
                     fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
-                else:
+                elif not field_setter_id:
                     child_record_id = sim_action_child_id.process_data_import()
                     if child_record_id:
                         self.append_relation_field_child_to_fields_dict(fields_dict, child_record_id, sim_action_child_id.mf_beacon_id)
             if self.type == "create":
                 model_name = self.mf_beacon_id.relation_openprod_id.model
-                if self.is_fields_dict_empty(fields_dict):
+                if not fields_dict:
                     return False
                 if self.mf_beacon_id.use_onchange:
                     record_id = self.env[model_name].create_with_onchange(fields_dict)
@@ -169,13 +170,6 @@ class xml_import_processing_sim_action(models.Model):
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
-
-    @staticmethod
-    def is_fields_dict_empty(fields_dict):
-        for field_name in fields_dict.keys():
-            if fields_dict[field_name]:
-                return False
-        return True
 
     def apply_onchanges_on_record_id(self, record_id, model_id=None):
         if not model_id:
