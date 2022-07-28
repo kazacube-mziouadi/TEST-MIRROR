@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- ============== -->
+		<!-- PURCHASE ORDER -->
+		<!-- ============== -->
+
+		<!-- FORM VIEW Purchase order -->
+        <record id='mf_view_form_purchase_order_sale_link' model='ir.ui.view'>
+			<field name="name">mf_view_form_purchase_order_sale_link</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.view_form_purchase_order"/>
+			<field name="priority" eval="1500" />
+			<field name="arch" type="xml">
+                <xpath expr="//field[@name='source_document']" position="after">
+                    <field name="multi_company_sale_order_id" invisible="1"/>
+                    <field name="mf_multi_company_sale_order_name" attrs="{'invisible': [('multi_company_sale_order_id', '=', False)]}"/>
+                </xpath>
+        	</field>
+        </record>						
+	</data>
+</openerp>
