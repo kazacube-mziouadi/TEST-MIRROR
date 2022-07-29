@@ -4,7 +4,7 @@ odoo.define("cao_connector.tree_view_reload", function(require) {
 
     TreeView.include({
         get_additionnal_datas: function(records, parent_id) {
-            if (records.length > 1) {
+            if (records.length > 1 && this.fields_view.arch.attrs.default_order) {
                 this.order_records(records);
             }
             return this._super(records, parent_id);
@@ -21,15 +21,13 @@ odoo.define("cao_connector.tree_view_reload", function(require) {
                     order_direction = default_order_split[1];
                 }
             }
-            if (records.length > 1) {
-                records.sort(function(a, b) {
-                    if (order_direction === "desc") {
-                        return b[ordering_field] - a[ordering_field];
-                    } else {
-                        return a[ordering_field] - b[ordering_field];
-                    }
-                })
-            }
+            records.sort(function(a, b) {
+                if (order_direction === "desc") {
+                    return b[ordering_field] - a[ordering_field];
+                } else {
+                    return a[ordering_field] - b[ordering_field];
+                }
+            })
         },
         reload: function() {
             _(this.fields_view.arch.children).each(function (field) {
