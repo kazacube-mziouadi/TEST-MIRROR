@@ -107,25 +107,30 @@ class ModelDictionaryMF(models.AbstractModel):
         return object_dict
 
     def get_value_of_field_to_export(self, field_to_export, record_to_export):
-        object_field_value = getattr(record_to_export, field_to_export.name)
+        record_field_value = getattr(record_to_export, field_to_export.name)
         if field_to_export.ttype in ["many2many", "one2many"]:
             # List of records
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
+            if self == child_model_dictionary and not record_field_value:
+                return []
             return child_model_dictionary.get_list_of_records_dict_to_export(
-                [sub_object.id for sub_object in object_field_value] if object_field_value else []
+                [sub_object.id for sub_object in record_field_value] if record_field_value else []
             )
         elif field_to_export.ttype == "many2one":
             # Record
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
-            return child_model_dictionary.get_dict_of_record_to_export(object_field_value, apply_filters=True)
+            return child_model_dictionary.get_dict_of_record_to_export(record_field_value, apply_filters=True)
         else:
             # String, boolean, integer...
-            return "" if object_field_value is False and field_to_export.ttype != "boolean" else object_field_value
+            return "" if record_field_value is False and field_to_export.ttype != "boolean" else record_field_value
 
     def get_child_model_dictionary_for_field(self, field_to_export, raise_error_if_not_found=True):
         for child_model_dictionary in self.children_model_dictionaries_mf:
             if child_model_dictionary.model_to_export_mf.model == field_to_export.relation:
                 return child_model_dictionary
+        # Recursive models case
+        if field_to_export.relation == self.model_to_export_mf.model:
+            return self
         if raise_error_if_not_found:
             raise MissingError("No model dictionary found for model " + field_to_export.relation)
         else:
