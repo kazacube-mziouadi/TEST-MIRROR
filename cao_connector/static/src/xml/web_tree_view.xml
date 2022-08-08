@@ -1,0 +1,14 @@
+<template>
+
+    <t t-name="TreeView.buttons">
+        <t t-if="display">
+            <div>
+                <button type="button" class="btn btn-primary btn-sm o-tree-button-new" accesskey="C">
+                    <i class="fa fa-list-ul" />
+                    <t t-esc="widget.options.create_text || _t('Déplier')"/>
+                </button>
+            </div>
+        </t>
+    </t>
+
+</template>

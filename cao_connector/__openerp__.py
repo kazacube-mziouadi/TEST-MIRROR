@@ -23,7 +23,9 @@
         'views/xml_import_processing_sim_action.xml',
         'wizards/MFWizardXMLImportSeeSimAction.xml',
     ],
-    'qweb': [],
+    'qweb': [
+        'static/src/xml/*.xml',
+],
     'demo': [],
     'test': [],
     'installable': True,
