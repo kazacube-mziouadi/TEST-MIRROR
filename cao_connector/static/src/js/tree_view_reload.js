@@ -39,13 +39,16 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                 this.records[id].is_open = true
                 localStorage.setItem("tree_view_records",JSON.stringify(this.records))
             }else{
-                var old_records = JSON.parse(localStorage.getItem('tree_view_records'))
-                console.log(old_records)
-                self.test(old_records[Object.keys(old_records)[0]],0,old_records).then((records) => {
-                    console.log("GREAT SUCCESS")
-                }).fail(err=>{
-                    console.error("BUG")
-                })
+                var old_records = localStorage.getItem('tree_view_records')
+                if (old_records != null && old_records !=  undefined){
+                    var old_records = JSON.parse(old_records)
+                    console.log(old_records)
+                    self.test(old_records[Object.keys(old_records)[0]],0,old_records).then((records) => {
+                        console.log("GREAT SUCCESS")
+                    }).fail(err=>{
+                        console.error("BUG")
+                    })
+                }
             }
             this._super(id, children_ids, $node);
 
