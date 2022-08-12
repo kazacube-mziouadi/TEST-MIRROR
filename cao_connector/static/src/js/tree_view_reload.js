@@ -13,12 +13,56 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
             $node = $node || this.options.$buttons;
             this.$buttons.appendTo($node);
         },
+        test:function(current_record,i,records){
+            var deferred = $.Deferred();
+            var self = this;
+            var element = $("[data-id=" + current_record.id + "]tr")
+            self.getdataasync(current_record.id, current_record.mf_tree_view_sim_action_children_ids, element).then((res=>{
+                if(records[Object.keys(records).length-1]==current_record){
+                    deferred.resolve()
+                }else{
+                    i++;
+                    self.test(records[Object.keys(records)[i]],i,records).then(res=>{
+
+                    }).fail(err=>{
+                        deferred.reject()
+                    })
+                }
+            })).fail(err=>{
+                deferred.reject()
+            })
+            return deferred.promise();
+        },
+        getdata: function (id, children_ids, $node) {
+            var self = this;
+            if(Object.keys(this.records).length>0 && id != null){
+                this.records[id].is_open = true
+                localStorage.setItem("tree_view_records",JSON.stringify(this.records))
+            }else{
+                var old_records = JSON.parse(localStorage.getItem('tree_view_records'))
+                console.log(old_records)
+                self.test(old_records[Object.keys(old_records)[0]],0,old_records).then((records) => {
+                    console.log("GREAT SUCCESS")
+                }).fail(err=>{
+                    console.error("BUG")
+                })
+            }
+            this._super(id, children_ids, $node);
+
+        },
+        showcontent: function (curnode, record_id, show) {
+            this._super(curnode, record_id, show);
+            this.records[record_id].is_open = show
+            localStorage.setItem("tree_view_records",JSON.stringify(this.records))
+        },
+
         get_additionnal_datas: function (records, parent_id) {
             if (records.length > 1 && this.fields_view.arch.attrs.default_order) {
                 this.order_records(records);
             }
             return this._super(records, parent_id);
         },
+
         show_all: function () {
             var self = this
             $.each(this.records, function (i, record) {
@@ -27,9 +71,10 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     if (!element[0].classList.contains("oe_open") && !record.is_open) {
                         record.is_open = true
                         self.getdataasync(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
+                            localStorage.setItem("tree_view_records",JSON.stringify(this.records))
                             self.show_all()
                         }).fail(() => {
-                            console.error("BUG")
+                            console.error("Error show all records")
                         })
                     }else if(element[0].getAttribute("class")==""){
                         self.showcontent(element[0].firstChild,record.id,true)

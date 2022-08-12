@@ -61,7 +61,6 @@
 					<field name="name"/>
 					<field name="type"/>
 					<field name="object_model"/>
-					<field name="mf_selected_for_import"/>
 				</tree>
 			</field>
 		</record>
