@@ -17,7 +17,7 @@ class ImporterServiceMF(models.TransientModel):
     def import_records_list(self, records_to_process_list):
         records_processed_counter = 0
         for record_to_process_dict in records_to_process_list:
-            try:
+            # try:
                 records_returned, status = self.apply_orm_method_to_model(
                     record_to_process_dict["model"],
                     record_to_process_dict["fields"],
@@ -41,8 +41,8 @@ class ImporterServiceMF(models.TransientModel):
                     for record_processed_dict in records_processed_since_last_commit_list:
                         record_processed_dict["committed"] = True
                     records_processed_counter = 0
-            except Exception as e:
-                raise Exception(e, record_to_process_dict)
+            # except Exception as e:
+            #     raise Exception(e, record_to_process_dict)
         if records_processed_counter < COMMIT_BATCH_QUANTITY:
             for record_processed_dict in records_to_process_list:
                 record_processed_dict["committed"] = True
@@ -51,7 +51,7 @@ class ImporterServiceMF(models.TransientModel):
     #     - record_fields for the fields of the record we are looking for
     #     - record_fields_to_write for the fields we want to update for the searched record (write method only)
     def apply_orm_method_to_model(self, model_name, record_fields_dict, record_to_write_fields_dict, orm_method_name):
-        # Retrieving the ID of each field which is an object recursively
+        # Retrieving the ID of each relational field recursively
         self.set_relation_fields_to_ids_in_dict(model_name, record_fields_dict)
         if record_to_write_fields_dict:
             self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict)
@@ -88,6 +88,8 @@ class ImporterServiceMF(models.TransientModel):
     def set_relation_fields_to_ids_in_dict(self, record_model_name, record_fields_dict):
         for field_name in record_fields_dict:
             if type(record_fields_dict[field_name]) is dict:
+                if not record_fields_dict[field_name]:
+                    continue
                 # Many2one case : we get the id of the related record
                 relation_field_id = self.set_relation_field_to_id_in_dict(
                     record_model_name,
@@ -116,7 +118,7 @@ class ImporterServiceMF(models.TransientModel):
             # Getting booleans out of strings (else it may block at create)
             elif record_fields_dict[field_name] == "True":
                 record_fields_dict[field_name] = True
-            elif record_fields_dict[field_name] == "False":
+            elif record_fields_dict[field_name] == "False" and record_model_name != "xml.preprocessing.table.rule":
                 record_fields_dict[field_name] = False
 
     """

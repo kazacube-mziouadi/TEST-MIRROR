@@ -113,9 +113,12 @@ class ModelDictionaryMF(models.AbstractModel):
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
             if self == child_model_dictionary and not record_field_value:
                 return []
-            return child_model_dictionary.get_list_of_records_dict_to_export(
-                [sub_object.id for sub_object in record_field_value] if record_field_value else []
-            )
+            if record_field_value:
+                return child_model_dictionary.get_list_of_records_dict_to_export(
+                    [child_record.id for child_record in record_field_value]
+                )
+            else:
+                return []
         elif field_to_export.ttype == "many2one":
             # Record
             child_model_dictionary = self.get_child_model_dictionary_for_field(field_to_export)
