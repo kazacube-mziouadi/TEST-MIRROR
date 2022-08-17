@@ -1,0 +1,5 @@
+-
+  myfab Data Initializer Trigger
+-
+  !python {model: mf.data.initializer.cao.connnector}: |
+    self.launch_initialization(cr, uid, context)

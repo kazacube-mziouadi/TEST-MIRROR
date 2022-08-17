@@ -18,6 +18,7 @@
         'xml_import',
     ],
     'data': [
+        'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
         'views/cao_connector_web.xml',
         'views/xml_import_preprocessing_table_rule.xml',
         'views/xml_import_processing.xml',
