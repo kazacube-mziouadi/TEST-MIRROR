@@ -4,10 +4,12 @@ from openerp import models, api, fields, _
 class xml_import_preprocessing(models.Model):
     _inherit = "xml.preprocessing"
 
+    #Overwriting the method
     def action_write(self, parent, element, rule_rc):
-        
+        #We don't do super, because we replace the existing method
         #res = super(xml_import_preprocessing, self).action_write(parent, element, rule_rc)
 
+        #Copy and optimization of the existing code
         value = ''
         dict_value = {}
         attrib_list = rule_rc.modif_attrib.split(';;')
@@ -20,6 +22,7 @@ class xml_import_preprocessing(models.Model):
             res = eval(rule_rc.modif_new_value[4:])
             for attrib in attrib_list:
                 value = element.get(attrib)
+                # No old value defined or corresponding to the current value
                 if len(rule_rc.mf_modif_old_value) <= 0 or value == old_value_list[cpt]:
                     ele_value = value
                     cur = res[cpt]
@@ -37,6 +40,7 @@ class xml_import_preprocessing(models.Model):
         else:
             for attrib in attrib_list:
                 value = element.get(attrib)
+                # No old value defined or corresponding to the current value
                 if len(rule_rc.mf_modif_old_value) <= 0 or element.get(attrib) == old_value_list[cpt]:
                     value = new_value_list[cpt]
                 dict_value[attrib] = value
