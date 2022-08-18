@@ -8,4 +8,5 @@ class xml_preprocessing_table_rule(models.Model):
     # COLUMN
     #===========================================================================
     #Modification parameter
+    mf_use_old_value = fields.Boolean(string="Compare to old value", default=True)
     mf_modif_old_value = fields.Char(string="Old value")

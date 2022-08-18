@@ -7,7 +7,8 @@
 			<field name="model">xml.preprocessing.table.rule</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='modif_new_value']" position="after">
-					<field name="mf_modif_old_value" attrs="{'invisible': [('action', '!=', 'modification')]}" />
+					<field name="mf_use_old_value" attrs="{'invisible': [('action', '!=', 'modification')]}" />
+					<field name="mf_modif_old_value" attrs="{'invisible': ['|',('action', '!=', 'modification'),('mf_use_old_value', '=', False)]}" />
 				</xpath>
 			</field>
 		</record>
