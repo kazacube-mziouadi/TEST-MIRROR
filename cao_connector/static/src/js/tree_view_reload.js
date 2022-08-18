@@ -7,56 +7,10 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
     TreeView.include({
         render_buttons: function ($node) {
             var self = this;
-            console.log(self)
             this.$buttons = $(QWeb.render("TreeView.buttons", { 'widget': this, display: true }));
             this.$buttons.on('click', 'button.o-tree-button-new', this.show_all.bind(this))
             $node = $node || this.options.$buttons;
             this.$buttons.appendTo($node);
-        },
-        test:function(current_record,i,records){
-            var deferred = $.Deferred();
-            var self = this;
-            var element = $("[data-id=" + current_record.id + "]tr")
-            self.getdataasync(current_record.id, current_record.mf_tree_view_sim_action_children_ids, element).then((res=>{
-                if(records[Object.keys(records).length-1]==current_record){
-                    deferred.resolve()
-                }else{
-                    i++;
-                    self.test(records[Object.keys(records)[i]],i,records).then(res=>{
-
-                    }).fail(err=>{
-                        deferred.reject()
-                    })
-                }
-            })).fail(err=>{
-                deferred.reject()
-            })
-            return deferred.promise();
-        },
-        getdata: function (id, children_ids, $node) {
-            var self = this;
-            if(Object.keys(this.records).length>0 && id != null){
-                this.records[id].is_open = true
-                localStorage.setItem("tree_view_records",JSON.stringify(this.records))
-            }else{
-                var old_records = localStorage.getItem('tree_view_records')
-                if (old_records != null && old_records !=  undefined){
-                    var old_records = JSON.parse(old_records)
-                    console.log(old_records)
-                    self.test(old_records[Object.keys(old_records)[0]],0,old_records).then((records) => {
-                        console.log("GREAT SUCCESS")
-                    }).fail(err=>{
-                        console.error("BUG")
-                    })
-                }
-            }
-            this._super(id, children_ids, $node);
-
-        },
-        showcontent: function (curnode, record_id, show) {
-            this._super(curnode, record_id, show);
-            this.records[record_id].is_open = show
-            localStorage.setItem("tree_view_records",JSON.stringify(this.records))
         },
 
         get_additionnal_datas: function (records, parent_id) {
@@ -73,8 +27,7 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     var element = $("[data-id=" + record.id + "]tr")
                     if (!element[0].classList.contains("oe_open") && !record.is_open) {
                         record.is_open = true
-                        self.getdataasync(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
-                            localStorage.setItem("tree_view_records",JSON.stringify(this.records))
+                        self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
                             self.show_all()
                         }).fail(() => {
                             console.error("Error show all records")
@@ -86,8 +39,8 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                 }
             })
         },
-        //Need async version of getdata or the recursive call of will be executed before getdata fills records with the new lines
-        getdataasync: function (id, children_ids, $node) {
+        // Need async version of getdata or the recursive call will be executed before getdata fills records with the new lines
+        get_data_async: function (id, children_ids, $node) {
             var deferred = $.Deferred();
             var self = this;
             self.dataset.read_ids(children_ids, this.fields_list())
@@ -133,6 +86,7 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     if (self.__processing_tree_click) {
                         self.__processing_tree_click[id] = false;
                     }
+                    self.set_checkbox_editable();
                     deferred.resolve();
                 }).fail(() => {
                     if (self.__processing_tree_click) {
@@ -142,8 +96,6 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                 });
             return deferred.promise();
         },
-
-
 
         order_records: function (records, ordering_field = null, order_direction = null) {
             if (ordering_field === null || order_direction === null) {
@@ -173,5 +125,62 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
             });
             return this.load_tree(this.fields_view);
         },
+        getdata: function (id, children_ids, $node) {
+            var self = this;
+            self.dataset.read_ids(children_ids, this.fields_list())
+                .then((records) => {
+                    return self.get_additionnal_datas(records, id);
+                }, err => {
+                    if (self.__processing_tree_click) {
+                        self.__processing_tree_click[id] = false;
+                    }
+                })
+                .then(function(records) {
+                    _(records).each(function (record) {
+                        record.has_children = false;
+                        for (var c of self.children_field) {
+                            if (record[c] && record[c].length) {
+                                record.has_children = true;
+                            }
+                        }
+                        self.records[record.id] = record;
+                    });
+                    var $curr_node
+                    if (!$node && id != null) {
+                        $curr_node = $('#treerow_' + id)
+                    } else {
+                        $curr_node = $node || $();
+                    }
+                    var children_rows = QWeb.render('TreeView.rows', {
+                        'records': records,
+                        'fields_view': self.fields_view.arch.children,
+                        'fields': self.fields,
+                        'level': $curr_node.data('level') || 0,
+                        'render': self.format_tree_value,
+                        'color_for': self.color_for,
+                        'row_parent_id': id,
+                        'self': self
+                    });
+                    if ($curr_node.length) {
+                        $curr_node.addClass('oe_open');
+                        $curr_node.after(children_rows);
+                    } else {
+                        self.$el.find('tbody').html(children_rows);
+                    }
+                    if (self.__processing_tree_click) {
+                        self.__processing_tree_click[id] = false;
+                    }
+                    self.set_checkbox_editable();
+                }).fail(() => {
+                    if (self.__processing_tree_click) {
+                        self.__processing_tree_click[id] = false;
+                    }
+                });
+        },
+        set_checkbox_editable: function () {
+            console.log("HERE")
+            console.log($(".mf_tree_view_editable .treeview-td input").length)
+            $(".mf_tree_view_editable input[type='checkbox']").removeAttr("disabled");
+        }
     })
 });

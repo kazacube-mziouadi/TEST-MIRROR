@@ -55,12 +55,14 @@
 				<tree string="Simulation structure"
 					  create="false"
 					  default_order="mf_sequence asc"
-					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'">
+					  colors="green:type == 'create';orange:type == 'update';red:type == 'delete'"
+					  class="mf_tree_view_editable">
 					<field name="mf_sequence" invisible="1"/>
 					<field name="mf_node_name"/>
 					<field name="name"/>
 					<field name="type"/>
 					<field name="object_model"/>
+					<field name="mf_selected_for_import"/>
 				</tree>
 			</field>
 		</record>
