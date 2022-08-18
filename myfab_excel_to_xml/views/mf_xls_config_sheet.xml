@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_xls_config_sheet' model='ir.ui.view'>
+            <field name="name">mf_view_form_xls_config_sheet</field>
+            <field name="model">mf.xls.config.sheet</field>
+            <field name="arch" type="xml">
+                <form string="Excel to XMl configuration" version="8.0">
+                    <group colspan="8" col="9" name="group_all"> 
+                        <group colspan="8" col="4" name="group_infos"> 
+                            <field name="sequence"/>
+                            <field name="sheet_name"/>
+                            <field name="starting_line"/>
+                            <field name="ending_line"/>
+                            <field name="beacon_for_sheet_in_parent"/>
+                            <field name="beacon_per_row_in_parent"/>
+                            <field name="level_field_id"/>
+                        </group>
+                        <group colspan="8" col="1" name="group_fields" string="Fields"> 
+                            <field name="field_ids" nolabel="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_xls_config_sheet' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xls_config_sheet</field>
+            <field name="model">mf.xls.config.sheet</field>
+            <field name="arch" type="xml">
+                <tree string="Excel to XMl - Sheet configuration">
+                    <field name="sequence" />
+                    <field name="sheet_name" />
+                    <field name="starting_line" />
+                    <field name="beacon_for_sheet_in_parent" />
+                    <field name="beacon_per_row_in_parent" />
+                </tree>
+            </field>
+        </record>
+	</data>
+</openerp>

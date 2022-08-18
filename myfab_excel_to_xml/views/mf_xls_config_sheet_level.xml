@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_xls_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_form_xls_config_sheet_level</field>
+            <field name="model">mf.xls.config.sheet.level</field>
+            <field name="arch" type="xml">
+                <form string="Excel to XMl configuration" version="8.0">
+                    <group colspan="4" col="4" name="group_infos"> 
+                        <field name="column"/>
+                        <field name="is_numerical_level"/>
+                        <field name="level_separator" attrs="{'invisible': [('is_numerical_level', '=', False)]}"/>
+                        <field name="parent_column" attrs="{'invisible': [('is_numerical_level', '=', True)]}"/>
+                        <field name="beacon_per_level_in_parent"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_xls_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xls_config_sheet_level</field>
+            <field name="model">mf.xls.config.sheet.level</field>
+            <field name="arch" type="xml">
+                <tree string="Excel to XMl - Level configuration">
+                    <field name="column" />
+                    <field name="beacon_per_level_in_parent" />
+                </tree>
+            </field>
+        </record>
+	</data>
+</openerp>
