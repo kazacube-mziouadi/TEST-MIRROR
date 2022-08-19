@@ -31,5 +31,5 @@ class MFWizardXMLImportSeeSimAction(models.Model):
     def action_validate(self):
         if self.mf_selected_for_import != self.mf_processing_sim_action_id.mf_selected_for_import:
             self.mf_processing_sim_action_id.toggle_mf_selected_for_import()
-        # Reload view to update files list
+        # Reload view to update tree view
         return {'type': 'ir.actions.act_window_view_reload'}
