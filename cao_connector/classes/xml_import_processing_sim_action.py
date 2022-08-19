@@ -33,6 +33,12 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # METHODS - MODEL
     # ===========================================================================
+    @api.multi
+    def write(self, vals):
+        res = super(xml_import_processing_sim_action, self).write(vals)
+        self.toggle_mf_selected_for_import(triggered_by_write=True)
+        return res
+
     @api.model
     def _processing_type_get(self):
         return super(xml_import_processing_sim_action, self)._processing_type_get() + [("delete", _("Delete"))]
@@ -67,18 +73,23 @@ class xml_import_processing_sim_action(models.Model):
                 return child_sim_action_id.get_node_record_name()
         return False
 
-    @api.onchange("mf_selected_for_import")
-    def onchange_mf_selected_for_import(self):
-        self.toggle_mf_selected_for_import(triggered_by_onchange=True)
-
-    def toggle_mf_selected_for_import(self, triggered_by_onchange=False, is_child=False):
-        if not triggered_by_onchange and not is_child:
+    def toggle_mf_selected_for_import(self, triggered_by_write=False, is_child=False):
+        sim_action_parent_id = self.mf_tree_view_sim_action_parent_id
+        if not triggered_by_write and not is_child:
             self.mf_selected_for_import = not self.mf_selected_for_import
         elif is_child:
-            self.mf_selected_for_import = self.mf_tree_view_sim_action_parent_id.mf_selected_for_import
-        self.mf_field_setter_id.write({"mf_selected_for_import": self.mf_selected_for_import})
+            self.mf_selected_for_import = sim_action_parent_id.mf_selected_for_import
+        # TODO : handle the case below + when all children get unchecked, uncheck the parent
+        # if self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.mf_selected_for_import:
+        #     self.check_parent_mf_selected_for_import_recursively()
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
             sim_action_child_id.toggle_mf_selected_for_import(is_child=True)
+
+    def check_parent_mf_selected_for_import_recursively(self):
+        sim_action_parent_id = self.mf_tree_view_sim_action_parent_id
+        if sim_action_parent_id:
+            sim_action_parent_id.mf_selected_for_import = True
+            sim_action_parent_id.check_parent_mf_selected_for_import_recursively()
 
     # ===========================================================================
     # METHODS - CONTROLLER

@@ -177,10 +177,52 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     }
                 });
         },
-        set_checkbox_editable: function () {
-            console.log("HERE")
-            console.log($(".mf_tree_view_editable .treeview-td input").length)
-            $(".mf_tree_view_editable input[type='checkbox']").removeAttr("disabled");
+        set_checkbox_editable: function() {
+            var self = this;
+            var $checkboxes = $(".mf_tree_view_editable .treeview-td input[type='checkbox']:not(.mf_tree_view_checkbox_listener)");
+            if ($checkboxes.length > 0) {
+                $checkboxes.removeAttr("disabled");
+                $checkboxes.addClass("mf_tree_view_checkbox_listener");
+                $checkboxes.on("click", (event) => this.click_checkbox())
+            }
+        },
+        click_checkbox: function() {
+            var self = this;
+            var $clicked_checkbox = $(event.target);
+            var clicked_record_dataset = $clicked_checkbox.parents("td")[0].dataset;
+            var clicked_record_id = clicked_record_dataset.id;
+            var clicked_field_name = clicked_record_dataset.name;
+            var clicked_checkbox_is_checked = $clicked_checkbox.prop("checked");
+            this.set_checkbox($clicked_checkbox, clicked_checkbox_is_checked);
+            var values_to_write = {
+                [clicked_field_name]: clicked_checkbox_is_checked
+            };
+            self.dataset.write(parseInt(clicked_record_id), values_to_write).then(result => {
+                self.reload_checkboxes(clicked_field_name);
+            })
+        },
+        set_checkbox: function($checkbox_to_toggle, value_to_set) {
+            if ($checkbox_to_toggle.prop("checked") != value_to_set) {
+                $checkbox_to_toggle.prop("checked", value_to_set);
+            }
+        },
+        reload_checkboxes: function(clicked_field_name) {
+            var self = this;
+            var $tree_view_lines = $(".mf_tree_view_editable tr");
+            var record_ids = [];
+            $tree_view_lines.each(function() {
+                var line_record_id = $(this).attr("data-id");
+                if (line_record_id !== undefined) {
+                    record_ids.push(parseInt(line_record_id));
+                }
+            })
+            self.dataset.read_ids(record_ids, [clicked_field_name]).then(record_values_array => {
+                for (var record_value_index in record_values_array) {
+                    var record_value_dict = record_values_array[record_value_index]
+                    var $record_checkbox = $(".mf_tree_view_editable .treeview-td[data-id='" + record_value_dict["id"] + "'] input[type='checkbox']");
+                    self.set_checkbox($record_checkbox, record_value_dict[clicked_field_name]);
+                }
+            })
         }
     })
 });
