@@ -2,9 +2,9 @@
 <openerp>
 	<data>
         <!-- FORM VIEW -->
-        <record id='mf_view_form_xls_configuration' model='ir.ui.view'>
-            <field name="name">mf_view_form_xls_configuration</field>
-            <field name="model">mf.xls.configuration</field>
+        <record id='mf_view_form_xlsx_configuration' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_configuration</field>
+            <field name="model">mf.xlsx.configuration</field>
             <field name="arch" type="xml">
                 <form string="Excel to XMl configuration" version="8.0">
                     <group colspan="8" col="9" name="group_all"> 
@@ -27,9 +27,9 @@
         </record>
         
         <!-- TREE VIEW -->
-        <record id='mf_view_tree_xls_configuration' model='ir.ui.view'>
-            <field name="name">mf_view_tree_xls_configuration</field>
-            <field name="model">mf.xls.configuration</field>
+        <record id='mf_view_tree_xlsx_configuration' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_configuration</field>
+            <field name="model">mf.xlsx.configuration</field>
             <field name="arch" type="xml">
                 <tree string="Excel to XMl configuration">
                     <field name="name" />
@@ -37,19 +37,21 @@
             </field>
         </record>
         
-        <!-- action -->
+
+
+        <!-- TODO : add action to cao -->
         <record model="ir.actions.act_window"
-            id="mf_action_see_xls_configuration">
+            id="mf_action_see_xlsx_configuration">
             <field name="name">Excel to XMl configuration</field>
-            <field name="res_model">mf.xls.configuration</field>
+            <field name="res_model">mf.xlsx.configuration</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
         
-        <!-- menu -->
+        <!-- TODO : add menu to cao -->
         <menuitem name="Excel to XMl configuration"
-            action="mf_action_see_xls_configuration" 
-            id="mf_menu_xls_configuration"
+            action="mf_action_see_xlsx_configuration" 
+            id="mf_menu_xlsx_configuration"
             parent="base.menu_tracability_export_import"/>
 	</data>
 </openerp>
