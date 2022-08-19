@@ -10,8 +10,9 @@
                     <group colspan="4" col="4" name="group_infos"> 
                         <field name="sequence"/>
                         <field name="writing_mode"/>
-                        <field name="value"/>
-                        <field name="beacon_in_parent"/>
+                        <field name="column" attrs="{'invisible': [('writing_mode', '!=', 'column_value')], 'required': [('writing_mode', '=', 'column_value')]}"/>
+                        <field name="fixed_value" attrs="{'invisible': [('writing_mode', '!=', 'constant_value')], 'required': [('writing_mode', '=', 'constant_value')]}"/>
+                        <field name="beacon"/>
                         <field name="attribute"/>
                         <field name="is_merge_attributes" attrs="{'invisible': ['|',('attribute', '=', ''),('attribute', '=', False)]}"/>
                     </group>
@@ -26,7 +27,7 @@
             <field name="arch" type="xml">
                 <tree string="Excel to XMl - Field configuration">
                     <field name="sequence" />
-                    <field name="beacon_in_parent" />
+                    <field name="beacon" />
                     <field name="writing_mode" />
                     <field name="value" />
                     <field name="attribute" />

@@ -13,8 +13,8 @@
                             <field name="sheet_name"/>
                             <field name="starting_line"/>
                             <field name="ending_line"/>
-                            <field name="beacon_for_sheet_in_parent"/>
-                            <field name="beacon_per_row_in_parent"/>
+                            <field name="beacon_for_sheet"/>
+                            <field name="beacon_per_row"/>
                             <field name="level_field_id"/>
                         </group>
                         <group colspan="8" col="1" name="group_fields" string="Fields"> 
@@ -34,8 +34,8 @@
                     <field name="sequence" />
                     <field name="sheet_name" />
                     <field name="starting_line" />
-                    <field name="beacon_for_sheet_in_parent" />
-                    <field name="beacon_per_row_in_parent" />
+                    <field name="beacon_for_sheet" />
+                    <field name="beacon_per_row" />
                 </tree>
             </field>
         </record>

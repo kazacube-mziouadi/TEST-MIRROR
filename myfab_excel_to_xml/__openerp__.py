@@ -17,6 +17,8 @@
     'data': [
         'views/mf_xls_configuration.xml',
         'views/mf_xls_config_sheet.xml',
+        'views/mf_xls_config_sheet_level.xml',
+        'views/mf_xls_config_sheet_field.xml',
     ],
     'qweb': [],
     'demo': [],
