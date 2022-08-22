@@ -38,11 +38,11 @@ class xml_import_processing_sim_action(models.Model):
         if self.type == "unmodified":
             vals["mf_selected_for_import"] = False
         if self.type == "unmodified" or "mf_selected_for_import" not in vals or (
-                not self.mf_selected_for_import and self.at_least_one_child_is_checked()
+            not self.mf_selected_for_import and self.at_least_one_child_is_checked()
         ):
             return super(xml_import_processing_sim_action, self).write(vals)
         else:
-            if self.type == "unmodified" or (self.mf_selected_for_import and not self.at_least_one_child_is_checked()):
+            if self.mf_selected_for_import and not self.at_least_one_child_is_checked():
                 vals["mf_selected_for_import"] = False
             res = super(xml_import_processing_sim_action, self).write(vals)
             self.toggle_mf_selected_for_import(triggered_by_write=True)
@@ -166,12 +166,10 @@ class xml_import_processing_sim_action(models.Model):
         return False
 
     def process_data_import(self):
-        if self.mf_selected_for_import:
+        if self.mf_selected_for_import or self.type == "unmodified":
             if self.type in ["create", "update"]:
                 fields_dict = {}
                 for sim_action_child_id in self.mf_sim_action_children_ids:
-                    if not sim_action_child_id.mf_selected_for_import:
-                        continue
                     field_setter_id = sim_action_child_id.mf_field_setter_id
                     if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
                         fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
