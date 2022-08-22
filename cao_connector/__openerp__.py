@@ -23,7 +23,6 @@
         'views/xml_import_preprocessing_table_rule.xml',
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
-        'wizards/MFWizardXMLImportSeeSimAction.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',

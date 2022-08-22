@@ -35,9 +35,24 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     @api.multi
     def write(self, vals):
-        res = super(xml_import_processing_sim_action, self).write(vals)
-        self.toggle_mf_selected_for_import(triggered_by_write=True)
-        return res
+        if self.type == "unmodified":
+            vals["mf_selected_for_import"] = False
+        if self.type == "unmodified" or "mf_selected_for_import" not in vals or (
+                not self.mf_selected_for_import and self.at_least_one_child_is_checked()
+        ):
+            return super(xml_import_processing_sim_action, self).write(vals)
+        else:
+            if self.type == "unmodified" or (self.mf_selected_for_import and not self.at_least_one_child_is_checked()):
+                vals["mf_selected_for_import"] = False
+            res = super(xml_import_processing_sim_action, self).write(vals)
+            self.toggle_mf_selected_for_import(triggered_by_write=True)
+            return res
+
+    def at_least_one_child_is_checked(self):
+        for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
+            if sim_action_child_id.mf_selected_for_import:
+                return True
+        return False
 
     @api.model
     def _processing_type_get(self):
@@ -79,17 +94,21 @@ class xml_import_processing_sim_action(models.Model):
             self.mf_selected_for_import = not self.mf_selected_for_import
         elif is_child:
             self.mf_selected_for_import = sim_action_parent_id.mf_selected_for_import
-        # TODO : handle the case below + when all children get unchecked, uncheck the parent
-        # if self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.mf_selected_for_import:
-        #     self.check_parent_mf_selected_for_import_recursively()
+        if (self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.mf_selected_for_import) or (
+            not self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.at_least_one_child_is_checked()
+        ):
+            self.check_parent_mf_selected_for_import_recursively(self.mf_selected_for_import)
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
-            sim_action_child_id.toggle_mf_selected_for_import(is_child=True)
+            if sim_action_child_id.mf_selected_for_import != self.mf_selected_for_import:
+                sim_action_child_id.toggle_mf_selected_for_import(is_child=True)
 
-    def check_parent_mf_selected_for_import_recursively(self):
+    def check_parent_mf_selected_for_import_recursively(self, is_selected):
         sim_action_parent_id = self.mf_tree_view_sim_action_parent_id
-        if sim_action_parent_id:
-            sim_action_parent_id.mf_selected_for_import = True
-            sim_action_parent_id.check_parent_mf_selected_for_import_recursively()
+        if sim_action_parent_id and (
+            is_selected or (not is_selected and not sim_action_parent_id.at_least_one_child_is_checked())
+        ):
+            sim_action_parent_id.mf_selected_for_import = is_selected
+            sim_action_parent_id.check_parent_mf_selected_for_import_recursively(is_selected)
 
     # ===========================================================================
     # METHODS - CONTROLLER

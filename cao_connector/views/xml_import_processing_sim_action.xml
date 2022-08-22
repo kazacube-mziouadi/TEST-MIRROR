@@ -67,20 +67,10 @@
 			</field>
 		</record>
 
-		<act_window name="Simulation element"
-					res_model="mf.wizard.xml.import.see.sim.action"
-					src_model="xml.import.processing.sim.action"
-					view_mode="form"
-					target="new"
-					key2="tree_but_open"
-					id="mf_action_view_structure_tree_xml_import_processing_sim_action" />
-
 		<record id="ir_act_mrp_bom_open" model="ir.values">
 			<field name="key2">tree_but_open</field>
 			<field name="model">xml.import.processing.sim.action</field>
 			<field name="name">Open simulation element</field>
-			<field eval="'ir.actions.act_window,%d'%mf_action_view_structure_tree_xml_import_processing_sim_action"
-				   name="value" />
 		</record>
 	</data>
 </openerp>
