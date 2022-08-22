@@ -23,7 +23,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     configuration_id = fields.Many2one('mf.xlsx.configuration', string='Configuration', ondelete='restrict')
     xlsx_file = fields.Binary(string="XLSX file to convert", required=True)
     xlsx_file_name =  fields.Char()
-    xml_file = fields.Binary(string="XML file converted", readonly=True)
+    xml_file = fields.Binary(string="XML file converted")#, readonly=True)
     xml_file_name = fields.Char()
     execution_message = fields.Char(readonly=True)
 
@@ -32,15 +32,23 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     @api.one
     def mf_convert(self):
-        if self._is_parameters_valide():
-            (self.execution_message,self.xml_file) = self._mf_convert_XLSX_to_XML(self.xlsx_file, self.configuration_id)
+        xml_file = False
+        execution_message = ''
 
+        if self._are_parameters_ok():
+            (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(self.xlsx_file, self.configuration_id)
+            self.write({
+                        'execution_message' : execution_message,
+                        'xml_file' : xml_file,
+                        'xml_file_name' : self.xlsx_file_name[:-5]+'.xml' if xml_file else False,
+                        })
+        
     #===========================================================================
     # XLSX TO XML METHODS
     #===========================================================================
     def _mf_convert_XLSX_to_XML(self, xlsx_file, configuration_id):
         conversion_message = []
-        xml_file = StringIO('')
+        xml_file = False
 
         # Load XLSX file
         try:
@@ -63,7 +71,7 @@ class mf_xlsx_convert_to_xml(models.Model):
             try:
                 xml_file_content = ET.tostring(ET_root, encoding="UTF-8", method="xml")     
                 #print(xml_file_content)
-                xml_file = StringIO(xml_file_content)       
+                xml_file = base64.b64encode(xml_file_content)
             except:
                 conversion_message.append(_('Error on writing XML file'))
 
@@ -152,7 +160,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # CHECK METHODS
     #===========================================================================
-    def _is_parameters_valide(self):
+    def _are_parameters_ok(self):
         if not self.xlsx_file : raise ValidationError(_('No XLSX file to convert.'))
         if len(self.xlsx_file_name) <= 5 or self.xlsx_file_name[-5:].upper() != '.XLSX' : raise ValidationError(_('Conversion only works with XLSX files'))
         if not self.configuration_id: raise ValidationError(_('Choose a configuration.'))
