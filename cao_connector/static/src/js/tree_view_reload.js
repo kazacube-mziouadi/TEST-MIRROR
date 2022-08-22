@@ -86,7 +86,7 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     if (self.__processing_tree_click) {
                         self.__processing_tree_click[id] = false;
                     }
-                    self.set_checkbox_editable();
+                    self.init_checkboxes_editable();
                     deferred.resolve();
                 }).fail(() => {
                     if (self.__processing_tree_click) {
@@ -170,23 +170,40 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     if (self.__processing_tree_click) {
                         self.__processing_tree_click[id] = false;
                     }
-                    self.set_checkbox_editable();
+                    self.init_checkboxes_editable();
                 }).fail(() => {
                     if (self.__processing_tree_click) {
                         self.__processing_tree_click[id] = false;
                     }
                 });
         },
-        set_checkbox_editable: function() {
+        init_checkboxes_editable: function() {
             var self = this;
             var $checkboxes = $(".mf_tree_view_editable .treeview-td input[type='checkbox']:not(.mf_tree_view_checkbox_listener)");
+            $checkboxes = $checkboxes.filter(function() {
+                return $($(this).parents("td")[0]).attr("style").length > 0;
+            })
             if ($checkboxes.length > 0) {
                 $checkboxes.removeAttr("disabled");
                 $checkboxes.addClass("mf_tree_view_checkbox_listener");
                 $checkboxes.on("click", (event) => this.click_checkbox())
             }
         },
+        set_checkboxes_editable: function() {
+            var self = this;
+            var $checkboxes = $(".mf_tree_view_editable .treeview-td .mf_tree_view_checkbox_listener[type='checkbox']");
+            if ($checkboxes.length > 0) {
+                $checkboxes.removeAttr("disabled");
+            }
+        },
+        set_checkboxes_disabled: function() {
+            var $checkboxes = $(".mf_tree_view_editable .treeview-td .mf_tree_view_checkbox_listener[type='checkbox']");
+            if ($checkboxes.length > 0) {
+                $checkboxes.attr("disabled", "true");
+            }
+        },
         click_checkbox: function() {
+            this.set_checkboxes_disabled();
             var self = this;
             var $clicked_checkbox = $(event.target);
             var clicked_record_dataset = $clicked_checkbox.parents("td")[0].dataset;
@@ -222,6 +239,7 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
                     var $record_checkbox = $(".mf_tree_view_editable .treeview-td[data-id='" + record_value_dict["id"] + "'] input[type='checkbox']");
                     self.set_checkbox($record_checkbox, record_value_dict[clicked_field_name]);
                 }
+                this.set_checkboxes_editable();
             })
         }
     })
