@@ -26,6 +26,9 @@
 							icon="fa-search"
 							attrs="{'invisible': [('state','!=', 'sim')]}" />
 				</xpath>
+				<xpath expr="//field[@name='preprocessing_file']" position="after">
+					<field name="mf_documents_directory_id" />
+				</xpath>
 			</field>
 		</record>
 	</data>
