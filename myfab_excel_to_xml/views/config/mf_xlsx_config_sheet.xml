@@ -2,9 +2,9 @@
 <openerp>
 	<data>
         <!-- FORM VIEW -->
-        <record id='mf_view_form_xls_config_sheet' model='ir.ui.view'>
-            <field name="name">mf_view_form_xls_config_sheet</field>
-            <field name="model">mf.xls.config.sheet</field>
+        <record id='mf_view_form_xlsx_config_sheet' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_config_sheet</field>
+            <field name="model">mf.xlsx.config.sheet</field>
             <field name="arch" type="xml">
                 <form string="Excel to XMl configuration" version="8.0">
                     <group colspan="8" col="9" name="group_all"> 
@@ -26,9 +26,9 @@
         </record>
         
         <!-- TREE VIEW -->
-        <record id='mf_view_tree_xls_config_sheet' model='ir.ui.view'>
-            <field name="name">mf_view_tree_xls_config_sheet</field>
-            <field name="model">mf.xls.config.sheet</field>
+        <record id='mf_view_tree_xlsx_config_sheet' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_config_sheet</field>
+            <field name="model">mf.xlsx.config.sheet</field>
             <field name="arch" type="xml">
                 <tree string="Excel to XMl - Sheet configuration">
                     <field name="sequence" />

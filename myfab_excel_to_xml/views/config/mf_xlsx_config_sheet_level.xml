@@ -2,12 +2,12 @@
 <openerp>
 	<data>
         <!-- FORM VIEW -->
-        <record id='mf_view_form_xls_config_sheet_level' model='ir.ui.view'>
-            <field name="name">mf_view_form_xls_config_sheet_level</field>
-            <field name="model">mf.xls.config.sheet.level</field>
+        <record id='mf_view_form_xlsx_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_config_sheet_level</field>
+            <field name="model">mf.xlsx.config.sheet.level</field>
             <field name="arch" type="xml">
                 <form string="Excel to XMl configuration" version="8.0">
-                    <group colspan="4" col="4" name="group_infos"> 
+                    <group colspan="2" col="2" name="group_infos"> 
                         <field name="column"/>
                         <field name="is_numerical_level"/>
                         <field name="level_separator" attrs="{'invisible': [('is_numerical_level', '=', False)], 'required': [('is_numerical_level', '!=', False)]}"/>
@@ -19,9 +19,9 @@
         </record>
         
         <!-- TREE VIEW -->
-        <record id='mf_view_tree_xls_config_sheet_level' model='ir.ui.view'>
-            <field name="name">mf_view_tree_xls_config_sheet_level</field>
-            <field name="model">mf.xls.config.sheet.level</field>
+        <record id='mf_view_tree_xlsx_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_config_sheet_level</field>
+            <field name="model">mf.xlsx.config.sheet.level</field>
             <field name="arch" type="xml">
                 <tree string="Excel to XMl - Level configuration">
                     <field name="column" />
