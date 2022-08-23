@@ -204,7 +204,7 @@ msgstr "Société"
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_create_uid
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_create_uid
 msgid "Created by"
-msgstr "Crée par"
+msgstr "Créé par"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_api_service_create_date
@@ -227,7 +227,7 @@ msgstr "Crée par"
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_create_date
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_partner_associate_create_date
 msgid "Created on"
-msgstr "Crée le"
+msgstr "Créé le"
 
 #. module: myfab_octopart_connector
 #: model:ir.model.fields,field_description:myfab_octopart_connector.field_octopart_seller_offer_price_currency

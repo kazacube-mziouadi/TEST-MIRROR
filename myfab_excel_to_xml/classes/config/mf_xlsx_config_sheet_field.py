@@ -11,7 +11,7 @@ class mf_xlsx_config_sheet_field(models.Model):
     sequence = fields.Integer(default=0, required=True)
     excel_sheet_id = fields.Many2one('mf.xlsx.config.sheet', string='Sheet', required=True, ondelete='cascade')
     writing_mode = fields.Selection('_type_get', string='Writing mode', required=True, default='column_value')
-    column = fields.Char(help='Data column in xlsxX file')
+    column = fields.Char(help='Data column in XLSX file')
     fixed_value = fields.Char(help='Fixed value')
     beacon = fields.Char(required=True)
     attribute = fields.Char()

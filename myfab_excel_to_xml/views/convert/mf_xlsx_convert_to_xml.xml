@@ -6,7 +6,7 @@
             <field name="name">mf_view_form_xlsx_convert</field>
             <field name="model">mf.xlsx.convert.xml</field>
             <field name="arch" type="xml">
-                <form string="Excel to XMl Conversion" version="8.0">
+                <form string="XLSX to XML Conversion" version="8.0">
                     <group colspan="8" col="9" name="group_all"> 
                         <group colspan="8" col="8" name="group_name"> 
                             <div>
@@ -37,7 +37,7 @@
             <field name="name">mf_view_tree_xlsx_convert</field>
             <field name="model">mf.xlsx.convert.xml</field>
             <field name="arch" type="xml">
-                <tree string="Excel to XMl Conversion">
+                <tree string="XLSX to XML Conversion">
                     <field name="name" />
                     <field name="configuration_id" />
                 </tree>
@@ -46,7 +46,7 @@
 
         <record model="ir.actions.act_window"
             id="mf_action_see_xlsx_conversion">
-            <field name="name">Excel to XMl Conversion</field>
+            <field name="name">XLSX to XML Conversion</field>
             <field name="res_model">mf.xlsx.convert.xml</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

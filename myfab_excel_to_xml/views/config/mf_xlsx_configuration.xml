@@ -6,7 +6,7 @@
             <field name="name">mf_view_form_xlsx_configuration</field>
             <field name="model">mf.xlsx.configuration</field>
             <field name="arch" type="xml">
-                <form string="Excel to XMl configuration" version="8.0">
+                <form string="XLSX to XML Configuration" version="8.0">
                     <group colspan="8" col="9" name="group_all"> 
                         <group colspan="8" col="8" name="group_name"> 
                             <div>
@@ -31,7 +31,7 @@
             <field name="name">mf_view_tree_xlsx_configuration</field>
             <field name="model">mf.xlsx.configuration</field>
             <field name="arch" type="xml">
-                <tree string="Excel to XMl configuration">
+                <tree string="XLSX to XML Configuration">
                     <field name="name" />
                 </tree>
             </field>
@@ -39,7 +39,7 @@
 
         <record model="ir.actions.act_window"
             id="mf_action_see_xlsx_configuration">
-            <field name="name">Excel to XMl configuration</field>
+            <field name="name">XLSX to XML Configuration</field>
             <field name="res_model">mf.xlsx.configuration</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

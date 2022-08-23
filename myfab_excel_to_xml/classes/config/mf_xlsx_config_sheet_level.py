@@ -9,10 +9,10 @@ class mf_xlsx_config_sheet_level(models.Model):
     #===========================================================================
     sheet_ids = fields.One2many('mf.xlsx.config.sheet', 'level_field_id', string='Sheets')
     name = fields.Char(compute="_mf_compute_name", readonly=True)
-    column = fields.Char(required=True, help='Data column in xlsxX file')
+    column = fields.Char(required=True, help='Data column in XLSX file')
     is_numerical_level = fields.Boolean(default=True)
     level_separator = fields.Char()
-    parent_reference_column = fields.Char(help='Data column where to search current value in xlsxX file')
+    parent_reference_column = fields.Char(help='Data column where to search current value in XLSX file')
     beacon_per_level = fields.Char(required=True)
 
     @api.one

@@ -9,7 +9,7 @@ class mf_xlsx_config_sheet(models.Model):
     # COLUMNS
     #===========================================================================
     sequence = fields.Integer(default=0, required=True)
-    excel_configuration_id = fields.Many2one('mf.xlsx.configuration', string='Excel configuration', required=True, ondelete='cascade')
+    excel_configuration_id = fields.Many2one('mf.xlsx.configuration', string='XLSX Configuration', required=True, ondelete='cascade')
     sheet_name_or_index = fields.Char(required=True, help='Sheet name or index in XLSX file')
     starting_line = fields.Integer(default=2, help='Row from which data will be read', required=True)
     ending_line = fields.Char(help='Last row from which data will be inserted.', required=False)
