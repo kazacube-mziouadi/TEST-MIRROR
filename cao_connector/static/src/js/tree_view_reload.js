@@ -25,9 +25,6 @@ odoo.define("cao_connector.tree_view_reload", function (require) {
             $.each(this.records, function (i, record) {
                 if (record.has_children) {
                     var element = $("[data-id=" + record.id + "]tr")
-                    console.log(record)
-                    console.log(element[0].classList.contains("oe_open"))
-                    console.log(element[0].getAttribute("class")=="")
                     if (!element[0].classList.contains("oe_open") && element[0].getAttribute("class")==undefined && record.is_open != true) {
                         record.is_open = true
                         self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
