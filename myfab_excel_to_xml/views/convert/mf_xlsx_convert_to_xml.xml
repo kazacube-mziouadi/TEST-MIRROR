@@ -17,8 +17,8 @@
                             <group colspan="8" col="4" name="group_infos"> 
                                 <field name="configuration_id"/>
                                 <field name="xlsx_file" filename="xlsx_file_name"/>
-                                <field name="xml_file" filename="xml_file_name"/>
                                 <field name="execution_message"/>
+                                <field name="xml_file" filename="xml_file_name"/>
                                 <field name="xlsx_file_name" invisible="1" />
                                 <field name="xml_file_name" invisible="1" />
                             </group>
@@ -43,22 +43,13 @@
                 </tree>
             </field>
         </record>
-        
 
-
-        <!-- TODO : add action to cao -->
         <record model="ir.actions.act_window"
-            id="mf_action_see_xlsx_convert">
+            id="mf_action_see_xlsx_conversion">
             <field name="name">Excel to XMl Conversion</field>
             <field name="res_model">mf.xlsx.convert.xml</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        <!-- TODO : add menu to cao -->
-        <menuitem name="Excel to XMl Conversion"
-            action="mf_action_see_xlsx_convert" 
-            id="mf_menu_xlsx_convert"
-            parent="base.menu_tracability_export_import"/>
 	</data>
 </openerp>

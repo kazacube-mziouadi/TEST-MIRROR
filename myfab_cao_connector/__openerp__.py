@@ -14,15 +14,18 @@
     'module_type': 'advanced',
     'images': [],
     'depends': [
+        'myfab_excel_to_xml',
         'my_fab',
         'xml_import',
     ],
     'data': [
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
         'views/cao_connector_web.xml',
-        'views/xml_import_preprocessing_table_rule.xml',
+        'views/xml_preprocessing_table_rule.xml',
+        'views/xml_preprocessing.xml',
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
+        'views/cao_xlsx_menu.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',

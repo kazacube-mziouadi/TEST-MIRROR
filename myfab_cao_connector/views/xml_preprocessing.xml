@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_xml_processing' model="ir.ui.view">
+			<field name="name">mf_view_form_xml_processing</field>
+			<field name="inherit_id" ref="xml_import.view_form_xml_preprocessing" />
+			<field name="model">xml.preprocessing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='table_id']/.." position="after">
+					<group colspan="8" col="4" string="XLSX Conversion" name="group_xlsx_conversion">
+						<field name="mf_preprocess_xlsx_conversion_id" />
+					<field name="mf_preprocess_xlsx_file" filename="mf_preprocess_xlsx_file_name"/>
+					<field name="mf_preprocess_xlsx_file_name" invisible="1"/>
+					</group>
+				</xpath>
+				<xpath expr="//button[@name='pre_processing_xml_file']" position="after">
+					<separator string="XLSX Conversion" colspan="1" name="mf_separator_action_menu_xlsx" 
+								attrs="{'invisible': [('mf_preprocess_xlsx_file', '=', False), ('mf_preprocess_xlsx_conversion_id', '=', False)]}"/>
+					<button class="oe_inline oe_stat_button"
+							type="object"
+							string="Convert"
+							name="mf_xlsx_conversion"
+							icon="fa-plus-square" 
+							attrs="{'invisible': [('mf_preprocess_xlsx_file', '=', False), ('mf_preprocess_xlsx_conversion_id', '=', False)]}"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

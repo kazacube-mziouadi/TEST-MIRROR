@@ -27,5 +27,5 @@
     'installable': True,
     'auto_install': False,
     'application': True,
-    'not_show': False,
+    'not_show': True,
 }

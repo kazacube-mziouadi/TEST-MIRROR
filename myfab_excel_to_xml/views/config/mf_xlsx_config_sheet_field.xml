@@ -15,6 +15,7 @@
                         <field name="beacon"/>
                         <field name="attribute"/>
                         <field name="is_merge"/>
+                        <field name="value" invisible="1"/>
                     </group>
                 </form>
             </field>

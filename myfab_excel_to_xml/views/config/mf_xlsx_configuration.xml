@@ -36,10 +36,7 @@
                 </tree>
             </field>
         </record>
-        
 
-
-        <!-- TODO : add action to cao -->
         <record model="ir.actions.act_window"
             id="mf_action_see_xlsx_configuration">
             <field name="name">Excel to XMl configuration</field>
@@ -47,11 +44,5 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        
-        <!-- TODO : add menu to cao -->
-        <menuitem name="Excel to XMl configuration"
-            action="mf_action_see_xlsx_configuration" 
-            id="mf_menu_xlsx_configuration"
-            parent="base.menu_tracability_export_import"/>
 	</data>
 </openerp>

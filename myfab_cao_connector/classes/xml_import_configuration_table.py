@@ -10,7 +10,6 @@ class xml_import_configuration_table(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
-
     def simulation_manager(self, data_dicts_dict, data_elements_ids_list, history_list):
         """
         OVERWRITE OPP

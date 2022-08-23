@@ -9,15 +9,17 @@
                 <form string="Excel to XMl configuration" version="8.0">
                     <group colspan="8" col="9" name="group_all"> 
                         <group colspan="8" col="4" name="group_infos"> 
-                            <field name="sequence"/>
-                            <field name="sheet_name"/>
+                            <field name="sheet_name_or_index"/>
+                            <field name="beacon_for_sheet"/>
                             <field name="starting_line"/>
                             <field name="ending_line"/>
-                            <field name="beacon_for_sheet"/>
-                            <field name="beacon_per_row"/>
-                            <field name="level_field_id"/>
+                            <field name="sequence"/>
                         </group>
                         <group colspan="8" col="1" name="group_fields" string="Fields"> 
+                            <group colspan="2" col="2" name="group_fields_infos"> 
+                                <field name="level_field_id"/>
+                                <field name="beacon_grouping_fields"/>
+                            </group>
                             <field name="field_ids" nolabel="1"/>
                         </group>
                     </group>
@@ -32,10 +34,11 @@
             <field name="arch" type="xml">
                 <tree string="Excel to XMl - Sheet configuration">
                     <field name="sequence" />
-                    <field name="sheet_name" />
+                    <field name="sheet_name_or_index" />
                     <field name="starting_line" />
                     <field name="beacon_for_sheet" />
-                    <field name="beacon_per_row" />
+                    <field name="level_field_id" />
+                    <field name="beacon_grouping_fields" />
                 </tree>
             </field>
         </record>
