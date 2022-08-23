@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_xml_processing' model="ir.ui.view">
+			<field name="name">mf_view_form_xml_processing</field>
+			<field name="inherit_id" ref="xml_import.view_form_xml_preprocessing" />
+			<field name="model">xml.preprocessing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='table_id']" position="before">
+					<field name="mf_preprocess_xlsx_conversion_id" />
+					<field name="mf_preprocess_xlsx_file" filename="mf_preprocess_xlsx_file_name"/>
+					<field name="mf_preprocess_xlsx_file_name" invisible="1"/>
+				</xpath>
+				<xpath expr="//button[@name='pre_processing_xml_file']" position="after">
+					<separator string="XLSX Conversion" colspan="1" name="mf_separator_action_menu_xlsx" />
+					<button class="oe_inline oe_stat_button"
+							type="object"
+							string="XLSX Conversion"
+							name="mf_xlsx_conversion"
+							icon="fa-plus-square" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

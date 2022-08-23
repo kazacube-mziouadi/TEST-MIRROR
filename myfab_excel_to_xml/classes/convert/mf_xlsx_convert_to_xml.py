@@ -10,6 +10,7 @@ from openpyxl import load_workbook
 from openpyxl.workbook import Workbook
 
 # some help https://docs.python.org/2.7/library/xml.etree.elementtree.html
+import lxml
 import xml
 import xml.etree.ElementTree as ET
 
@@ -22,8 +23,8 @@ class mf_xlsx_convert_to_xml(models.Model):
     name = fields.Char(required=True)
     configuration_id = fields.Many2one('mf.xlsx.configuration', string='Configuration', ondelete='restrict')
     xlsx_file = fields.Binary(string="XLSX file to convert", required=True)
-    xlsx_file_name =  fields.Char()
-    xml_file = fields.Binary(string="XML file converted")#, readonly=True)
+    xlsx_file_name = fields.Char()
+    xml_file = fields.Binary(string="XML file converted", readonly=True)
     xml_file_name = fields.Char()
     execution_message = fields.Char(readonly=True)
 
@@ -66,18 +67,23 @@ class mf_xlsx_convert_to_xml(models.Model):
                     conversion_message.append(_('No XLSX sheet "%s"')%(sheet_rc.sheet_name_or_index))
 
         # Write XML file
+        xml_file_content = False
         if len(conversion_message) == 0:
             #print(ET.dump(ET_root)) # Activate it only for test 
             try:
-                xml_file_content = ET.tostring(ET_root, encoding="UTF-8", method="xml")     
-                #print(xml_file_content)
-                xml_file = base64.b64encode(xml_file_content)
+                xml_file_content = ET.tostring(ET_root, encoding="UTF-8", method="xml")    
+                xml_file_content = self._mf_XML_pretty_print(xml_file_content) 
             except:
-                conversion_message.append(_('Error on writing XML file'))
+                xml_file_content = False
+                conversion_message.append(_('Error when writing XLSX converted XML file'))
 
+            if xml_file_content:
+                xml_file = base64.b64encode(xml_file_content)
+            else:
+                conversion_message.append(_('Empty XML file after XLSX conversion'))
         # Manage conversion messages
         if len(conversion_message) == 0:
-            conversion_message = _('Conversion finished with success')
+            conversion_message = _('Conversion from XLSX to XML finished with success')
         else:
             conversion_message = '\n'.join(conversion_message)
 
@@ -224,6 +230,17 @@ class mf_xlsx_convert_to_xml(models.Model):
                 ET_root = ET_Temp
 
         return ET_root
+    
+    def _mf_XML_pretty_print(self, xml_in_string):
+        #print(xml_file_content)
+        xml_file_content = xml_in_string
+        if xml_in_string:
+            root = lxml.etree.fromstring(xml_in_string)
+            tree = lxml.etree.ElementTree()
+            tree._setroot(root)
+            xml_file_content = lxml.etree.tostring(tree, encoding="UTF-8", method="xml", pretty_print=True)
+        #print(xml_file_content)  
+        return xml_file_content
 
     #===========================================================================
     # XLSX METHODS

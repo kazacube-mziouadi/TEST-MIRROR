@@ -12,7 +12,50 @@ class xml_import_processing(models.Model):
     mf_imported_from_simulation = fields.Boolean(string="Imported from simulation", default=False)
     mf_documents_directory_id = fields.Many2one("physical.directory.mf", string="Documents directory", ondelete="cascade",
                                                 help="Directory from which the documents will be scanned and attached to the imported records")
-
+    
+    mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
+    mf_process_xlsx_file = fields.Binary(string="XLSX file to convert", compute='_mf_get_xlsx_conversion_binary_filesystem', inverse='_mf_set_xlsx_conversion_binary_filesystem')
+    mf_process_xlsx_file_name = fields.Char()
+    
+    #===========================================================================
+    # GET/SET  Conversion File
+    #===========================================================================       
+    @api.one
+    def _mf_get_xlsx_conversion_binary_filesystem(self):
+        attachment_obj = self.env['ir.attachment']
+        attachment_rs = attachment_obj.search([
+            ('res_model','=',self._name),
+            ('res_id','=',self.id),
+            ('binary_field','=','mf_preprocess_xlsx_file')
+        ])
+        if attachment_rs:
+            self['mf_preprocess_xlsx_file'] = attachment_rs[0].datas
+    
+    
+    @api.one
+    def _mf_set_xlsx_conversion_binary_filesystem(self):
+        attachment_obj = self.env['ir.attachment']
+        attachment_rs = attachment_obj.search([
+            ('res_model','=',self._name),
+            ('res_id','=',self.id),
+            ('binary_field','=','mf_preprocess_xlsx_file'),
+            ('is_binary_field','=',True)
+        ])
+        if self.mf_preprocess_xlsx_file:
+            if attachment_rs:
+                attachment_rs.datas = self.mf_preprocess_xlsx_file
+            else:
+                attachment_obj.create({
+                    'res_model': self._name, 
+                    'res_id': self.id, 
+                    'name': 'file datas' , 
+                    'is_binary_field': True, 
+                    'binary_field': 'mf_preprocess_xlsx_file', 
+                    'datas': self.mf_preprocess_xlsx_file, 
+                })
+        else:
+            attachment_rs.unlink()
+    
     # ===========================================================================
     # METHODS - WORKFLOW
     # ===========================================================================
@@ -32,6 +75,21 @@ class xml_import_processing(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.one
+    def mf_xlsx_conversion(self):
+        """
+        Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
+        """ 
+        self.mf_process_xlsx_conversion_id.write({'xlsx_file':self.mf_process_xlsx_file, 
+                                            'xlsx_file_name':self.mf_process_xlsx_file_name,
+                                        })
+        self.mf_process_xlsx_conversion_id.mf_convert()
+        self.write({'file': self.mf_process_xlsx_conversion_id.xml_file, 
+                    'fname': self.mf_process_xlsx_conversion_id.xml_file_name,
+                    #'error_message': self.mf_process_xlsx_conversion_id.execution_message,
+                    })
+
+
     def create_simulate_import(self, history):
         """
         Create list of simulate action of import.
