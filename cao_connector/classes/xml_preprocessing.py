@@ -8,73 +8,37 @@ class xml_import_preprocessing(models.Model):
     _inherit = "xml.preprocessing"
 
     mf_preprocess_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
-    mf_preprocess_xlsx_file = fields.Binary(string="XLSX file to convert", compute='_mf_get_xlsx_conversion_binary_filesystem', inverse='_mf_set_xlsx_conversion_binary_filesystem')
+    mf_preprocess_xlsx_file = fields.Binary(string="XLSX file to convert")
     mf_preprocess_xlsx_file_name = fields.Char()
 
-    #===========================================================================
-    # GET/SET  Conversion File
-    #===========================================================================       
-    @api.one
-    def _mf_get_xlsx_conversion_binary_filesystem(self):
-        attachment_obj = self.env['ir.attachment']
-        attachment_rs = attachment_obj.search([
-            ('res_model','=',self._name),
-            ('res_id','=',self.id),
-            ('binary_field','=','mf_preprocess_xlsx_file')
-        ])
-        if attachment_rs:
-            self['mf_preprocess_xlsx_file'] = attachment_rs[0].datas
-    
-    
-    @api.one
-    def _mf_set_xlsx_conversion_binary_filesystem(self):
-        attachment_obj = self.env['ir.attachment']
-        attachment_rs = attachment_obj.search([
-            ('res_model','=',self._name),
-            ('res_id','=',self.id),
-            ('binary_field','=','mf_preprocess_xlsx_file'),
-            ('is_binary_field','=',True)
-        ])
-        if self.mf_preprocess_xlsx_file:
-            if attachment_rs:
-                attachment_rs.datas = self.mf_preprocess_xlsx_file
-            else:
-                attachment_obj.create({
-                    'res_model': self._name, 
-                    'res_id': self.id, 
-                    'name': 'file datas' , 
-                    'is_binary_field': True, 
-                    'binary_field': 'mf_preprocess_xlsx_file', 
-                    'datas': self.mf_preprocess_xlsx_file, 
-                })
-        else:
-            attachment_rs.unlink()
-
+    # ===========================================================================
+    # METHODS
+    # ===========================================================================
     @api.one
     def mf_xlsx_conversion(self):
         """
         Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
         """ 
-        self.mf_preprocess_xlsx_conversion_id.write({'xlsx_file':self.mf_preprocess_xlsx_file, 
-                                            'xlsx_file_name':self.mf_preprocess_xlsx_file_name,
-                                        })
-        self.mf_preprocess_xlsx_conversion_id.mf_convert()
-        self.write({'file': self.mf_preprocess_xlsx_conversion_id.xml_file, 
-                    'fname': self.mf_preprocess_xlsx_conversion_id.xml_file_name,
-                    'message': self.mf_preprocess_xlsx_conversion_id.execution_message,
-                    })
+        if self.mf_preprocess_xlsx_file:
+            self.mf_preprocess_xlsx_conversion_id.write({'xlsx_file':self.mf_preprocess_xlsx_file, 
+                                                        'xlsx_file_name':self.mf_preprocess_xlsx_file_name,
+                                                        })
+                        
+        conversion_ok = self.mf_preprocess_xlsx_conversion_id.mf_convert()
+        conversion_ok = conversion_ok[0]
+
+        if conversion_ok:
+            self.write({'file': self.mf_preprocess_xlsx_conversion_id.xml_file, 
+                        'fname': self.mf_preprocess_xlsx_conversion_id.xml_file_name,
+                        'message': self.mf_preprocess_xlsx_conversion_id.execution_message,
+                        })
+        else:
+            self.message = self.mf_preprocess_xlsx_conversion_id.execution_message
+        return conversion_ok
 
     @api.one
     def pre_processing_xml_file(self):
-        do_preprocessing = True
-        if not self.file and self.mf_preprocess_xlsx_file and self.mf_preprocess_xlsx_conversion_id:
-            if self.preprocessing_file:
-                self.write({'preprocessing_file':False})
-            self.mf_xlsx_conversion()
-            if not self.file:
-                do_preprocessing = False
-
-        if do_preprocessing:
+        if self.file or (self.mf_preprocess_xlsx_conversion_id and self.mf_xlsx_conversion()):
             super(xml_import_preprocessing, self).pre_processing_xml_file()
 
     #Overwriting the method

@@ -43,6 +43,7 @@ class mf_xlsx_convert_to_xml(models.Model):
                         'xml_file' : xml_file,
                         'xml_file_name' : self.xlsx_file_name[:-5]+'.xml' if xml_file else False,
                         })
+        return True if xml_file else False
         
     #===========================================================================
     # XLSX TO XML METHODS
