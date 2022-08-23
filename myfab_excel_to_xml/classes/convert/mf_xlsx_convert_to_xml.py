@@ -97,7 +97,7 @@ class mf_xlsx_convert_to_xml(models.Model):
         xlsx_rows_in_xml = []
         for xlsx_row_index in range(len(xlsx_rows)):
             self._mf_add_XLSX_row_to_XML(ET_sheet, xlsx_sheet, xlsx_rows, xlsx_row_index, 
-                                        sheet_id.beacon_per_row, sheet_id.field_ids, sheet_id.level_field_id, 
+                                        sheet_id.beacon_grouping_fields, sheet_id.field_ids, sheet_id.level_field_id, 
                                         xlsx_rows_in_xml)
 
         return True        
@@ -120,16 +120,15 @@ class mf_xlsx_convert_to_xml(models.Model):
                                                     xlsx_rows_in_xml)
         
     def _mf_set_XML_field_value(self, ET_row, xlsx_sheet, xlsx_row, field_id):
-        old_Value = ''
         new_value = self._mf_get_cell_value(xlsx_sheet, xlsx_row, field_id)
         if new_value:
             ET_field = self._mf_add_XML_last_sub_element(ET_row, field_id.beacon, False)
             if field_id.attribute:
-                if field_id.is_merge: old_Value = ET_field.get(field_id.attribute, '')
-                ET_field.set(field_id.attribute, old_Value + new_value)
+                if field_id.is_merge: new_value = self._mf_merge_values(ET_field.get(field_id.attribute, ''),new_value)
+                ET_field.set(field_id.attribute, new_value)
             else:
-                if field_id.is_merge: old_Value = ET_field.text
-                ET_field.text = old_Value + new_value
+                if field_id.is_merge: new_value = self._mf_merge_values(ET_field.text,new_value)
+                ET_field.text = new_value
     
     def _mf_convert_children_rows_to_xml(self, ET_row, xlsx_sheet, xlsx_rows, xlsx_row_index, row_beacon, field_ids, level_id, xlsx_rows_in_xml):
         if xlsx_row_index < len(xlsx_rows):
@@ -270,3 +269,17 @@ class mf_xlsx_convert_to_xml(models.Model):
         cell_value = cell_value.strip()
         return cell_value
 
+    #===========================================================================
+    # GENERIC METHODS
+    #===========================================================================
+    def _mf_merge_values(self, value_1, value_2):
+        final_value = ''
+
+        if value_1 and value_2: 
+            final_value = value_1 + ' ' + value_2
+        elif value_1 and not value_2: 
+            final_value = value_1
+        elif not value_1 and value_2: 
+            final_value = value_2
+
+        return final_value

@@ -17,10 +17,10 @@ class mf_xlsx_config_sheet_level(models.Model):
 
     @api.one
     def _mf_compute_name(self):
-        temp_name = self.beacon_per_level + " = " + self.column
+        temp_name = self.column
         if self.is_numerical_level:
             temp_name += " (Num)"
         else:
             temp_name += " -> " + self.parent_reference_column
-
+        temp_name += " = " + self.beacon_per_level
         self.name = temp_name
