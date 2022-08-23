@@ -14,7 +14,7 @@
     'module_type': 'advanced',
     'images': [],
     'depends': [
-        'myfab_excel_to_xml',
+        'myfab_xlsx_to_xml',
         'my_fab',
         'xml_import',
     ],

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Convertisseur Excel vers XML',
+    'name': 'Convertisseur XLSX vers XML',
     'version': '1.0.0',
     'author': 'myfab',
     'license': 'Open-prod license',
-    'summary': 'Convertis un Excel vers XML',
+    'summary': 'Convertis un XLSX vers XML',
     'category': 'Base',
     'description': """
-        Permet de convertir un fichier Excel vers un fichier XML.
+        Permet de convertir un fichier XLSX vers un fichier XML.
     """,
     'website': 'https://www.myfab.fr/',
     'images': [],
