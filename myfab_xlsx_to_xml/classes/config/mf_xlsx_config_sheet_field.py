@@ -10,7 +10,7 @@ class mf_xlsx_config_sheet_field(models.Model):
     #===========================================================================
     sequence = fields.Integer(default=0, required=True)
     excel_sheet_id = fields.Many2one('mf.xlsx.config.sheet', string='Sheet', required=True, ondelete='cascade')
-    writing_mode = fields.Selection('_type_get', string='Writing mode', required=True, default='column_value')
+    writing_mode = fields.Selection('_mf_type_get', string='Writing mode', required=True, default='column_value')
     column = fields.Char(help='Data column in XLSX file')
     fixed_value = fields.Char(help='Fixed value')
     beacon = fields.Char(required=True)
@@ -18,7 +18,7 @@ class mf_xlsx_config_sheet_field(models.Model):
     is_merge = fields.Boolean(string='Merge values in same attributes/beacon', default=True)
     value = fields.Char(compute='_mf_compute_value', readonly=True)
 
-    def _type_get(self):
+    def _mf_type_get(self):
         return [
             ('column_value', _('Column value')),
             ('constant_value', _('Constant value')),

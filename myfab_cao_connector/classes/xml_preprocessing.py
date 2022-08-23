@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from operator import truediv
 from openerp import models, api, fields, _
 
 MF_ATTRIB_SEP = ';;'
@@ -10,7 +11,6 @@ class xml_import_preprocessing(models.Model):
     mf_preprocess_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
     mf_preprocess_xlsx_file = fields.Binary(string="XLSX file to convert")
     mf_preprocess_xlsx_file_name = fields.Char()
-
     # ===========================================================================
     # METHODS
     # ===========================================================================
@@ -19,10 +19,14 @@ class xml_import_preprocessing(models.Model):
         """
         Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
         """ 
-        if self.mf_preprocess_xlsx_file:
-            self.mf_preprocess_xlsx_conversion_id.write({'xlsx_file':self.mf_preprocess_xlsx_file, 
-                                                        'xlsx_file_name':self.mf_preprocess_xlsx_file_name,
-                                                        })
+        if not self.mf_preprocess_xlsx_conversion_id:
+            return True
+        if not self.mf_preprocess_xlsx_file:
+            return False
+
+        self.mf_preprocess_xlsx_conversion_id.write({'xlsx_file':self.mf_preprocess_xlsx_file, 
+                                                    'xlsx_file_name':self.mf_preprocess_xlsx_file_name,
+                                                    })
                         
         conversion_ok = self.mf_preprocess_xlsx_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
@@ -34,11 +38,15 @@ class xml_import_preprocessing(models.Model):
                         })
         else:
             self.message = self.mf_preprocess_xlsx_conversion_id.execution_message
+
         return conversion_ok
 
     @api.one
     def pre_processing_xml_file(self):
-        if self.file or (self.mf_preprocess_xlsx_conversion_id and self.mf_xlsx_conversion()):
+        if self.mf_preprocess_xlsx_conversion_id and self.mf_preprocess_xlsx_file:
+            self.mf_xlsx_conversion()
+
+        if self.file:
             super(xml_import_preprocessing, self).pre_processing_xml_file()
 
     #Overwriting the method

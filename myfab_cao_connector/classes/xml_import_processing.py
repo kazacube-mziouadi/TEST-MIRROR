@@ -42,10 +42,14 @@ class xml_import_processing(models.Model):
         """
         Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
         """ 
-        if self.mf_process_xlsx_file:
-            self.mf_process_xlsx_conversion_id.write({'xlsx_file':self.mf_process_xlsx_file, 
-                                                    'xlsx_file_name':self.mf_process_xlsx_file_name,
-                                                    })
+        if not self.mf_process_xlsx_conversion_id:
+            return True
+        if not self.mf_process_xlsx_file:
+            return False
+            
+        self.mf_process_xlsx_conversion_id.write({'xlsx_file':self.mf_process_xlsx_file, 
+                                                'xlsx_file_name':self.mf_process_xlsx_file_name,
+                                                })
         
         conversion_ok = self.mf_process_xlsx_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
@@ -67,7 +71,8 @@ class xml_import_processing(models.Model):
                                         'mf_preprocess_xlsx_file_name':self.mf_process_xlsx_file_name,
                                         'file':False,
                                         'preprocessing_file':False,
-                                        })                
+                                        })  
+                                                      
         super(xml_import_processing, self).preprocessing_xml_file()
 
         # After preprocessing, we get the information from object
