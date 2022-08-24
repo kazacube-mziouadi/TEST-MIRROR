@@ -63,6 +63,7 @@ class xml_import_processing(models.Model):
     def preprocessing_xml_file(self):
         if self.mf_process_xlsx_conversion_id:
             # Don't use the current object conversion method, because it also exists in the preprocessing object 
+            # Change all preprocessing parameters else the preprocessing will use it's own paramters
             self.preprocessing_id.write({'mf_preprocess_xlsx_conversion_id':self.mf_process_xlsx_conversion_id.id, 
                                         'mf_preprocess_xlsx_file':self.mf_process_xlsx_file,
                                         'mf_preprocess_xlsx_file_name':self.mf_process_xlsx_file_name,
@@ -74,7 +75,7 @@ class xml_import_processing(models.Model):
 
         # After preprocessing, we get the information from object
         if self.mf_process_xlsx_conversion_id:
-            self.mf_conversion_message = self.mf_process_xlsx_conversion_id.execution_message
+            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_xlsx_conversion_id.execution_message
 
 
     def create_simulate_import(self, history):
