@@ -65,5 +65,6 @@ class octopart_api_service(models.TransientModel):
             response = urllib2.urlopen(req)
             return response.read().decode('utf-8')
         except urllib2.HTTPError as e:
-            logger.error("Octopart query " + str(e.read()))
+            logger.error("Octopart query " + str(request_body))
+            logger.error("Octopart respons " + str(e.read()))
             raise ValidationError(_("Error on Octopart api requesting.")) 

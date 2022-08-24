@@ -11,10 +11,16 @@
     'module_type': 'base',
     'images': [],
     'depends': [
-        'myfab_file_interface',
         'myfab_purchase',
         'myfab_production',
         'myfab_logistics',
+        'myfab_tools',
+        'myfab_file_interface',
+        'stock',
+        'mrp',
+        'calendar',
+        'excel_import',
+        'printers',
     ],
     'data': [
         'classes/DataInitializerMyFabTriggerMF.yml',
