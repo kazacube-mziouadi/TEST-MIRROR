@@ -156,7 +156,7 @@ class xml_import_processing(models.Model):
             "name": _("Analyse simulation"),
             "view_type": "tree",
             "view_mode": "tree",
-            "search_view_id": self.env.ref("cao_connector.mf_view_tree_xml_import_processing_sim_action").id,
+            "search_view_id": self.env.ref("myfab_cao_connector.mf_view_tree_xml_import_processing_sim_action").id,
             "res_model": "xml.import.processing.sim.action",
             "type": "ir.actions.act_window",
             "target": "current",

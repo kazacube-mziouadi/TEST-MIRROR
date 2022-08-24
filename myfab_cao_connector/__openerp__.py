@@ -20,12 +20,12 @@
     ],
     'data': [
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
-        'views/cao_connector_web.xml',
+        'views/myfab_cao_connector_web.xml',
         'views/xml_preprocessing_table_rule.xml',
         'views/xml_preprocessing.xml',
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
-        'views/cao_xlsx_menu.xml',
+        'views/myfab_cao_xlsx_menu.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',

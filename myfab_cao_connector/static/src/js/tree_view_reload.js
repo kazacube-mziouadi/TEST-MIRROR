@@ -1,4 +1,4 @@
-odoo.define("cao_connector.tree_view_reload", function (require) {
+odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
     "use strict";
     var core = require('web.core');
     var QWeb = core.qweb;
