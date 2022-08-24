@@ -372,7 +372,7 @@ msgstr "Ligne à partir de laquelle les données seront lues"
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_field_sequence
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_sequence
 msgid "Sequence"
-msgstr "Sequence"
+msgstr "Séquence"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_field_excel_sheet_id
