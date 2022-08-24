@@ -10,9 +10,6 @@ class xml_import_processing(models.Model):
     # FIELDS
     # ===========================================================================
     mf_imported_from_simulation = fields.Boolean(string="Imported from simulation", default=False)
-    mf_documents_directory_id = fields.Many2one("physical.directory.mf", string="Documents directory", ondelete="cascade",
-                                                help="Directory from which the documents will be scanned and attached to the imported records")
-    
     mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
     mf_process_xlsx_file = fields.Binary(string="XLSX file to convert")
     mf_process_xlsx_file_name = fields.Char()
@@ -96,9 +93,9 @@ class xml_import_processing(models.Model):
     def file_analyse(self):
         if self.state == "sim":
             self.import_simulation_lines()
-            if self.mf_documents_directory_id:
-                if self.mf_documents_directory_id.directory_scan_is_needed_mf:
-                    self.mf_documents_directory_id.scan_directory()
+            if self.model_id.mf_documents_directory_id:
+                if self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf:
+                    self.model_id.mf_documents_directory_id.scan_directory()
                 self.import_documents_from_directory()
             self.wkf_processing_done()
         else:
@@ -109,7 +106,7 @@ class xml_import_processing(models.Model):
             simulation_line_id.process_data_import()
 
     def import_documents_from_directory(self):
-        for file_to_import in self.mf_documents_directory_id.files_mf:
+        for file_to_import in self.model_id.mf_documents_directory_id.files_mf:
             self.import_document_to_product_internal_plans(file_to_import)
 
     def import_document_to_product_internal_plans(self, file_to_import):

@@ -21,7 +21,6 @@
 						<field name="model_id" />
 						<field name="file" filename="fname"/>
 						<field name="preprocessing_file" filename="prefname" attrs="{'invisible': [('preprocessing_id', '=', False)]}"/>
-						<field name="mf_documents_directory_id" />
 						<field name="fname" invisible="1" />
 						<field name="prefname" invisible="1"/>
 						<field name="mf_process_xlsx_file_name" invisible="1"/>

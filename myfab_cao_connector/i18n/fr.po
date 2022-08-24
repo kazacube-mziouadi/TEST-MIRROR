@@ -97,7 +97,7 @@ msgid "Details"
 msgstr "Détails"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_documents_directory_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_configuration_table_mf_documents_directory_id
 msgid "Directory from which the documents will be scanned and attached to the imported records"
 msgstr "Répertoire qui sera scanné pour récupérer les documents à associer aux données importées"
 
@@ -107,7 +107,7 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_documents_directory_id
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_configuration_table_mf_documents_directory_id
 msgid "Documents directory"
 msgstr "Répertoire des documents"
 

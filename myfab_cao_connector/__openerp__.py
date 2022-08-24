@@ -23,6 +23,7 @@
         'views/myfab_cao_connector_web.xml',
         'views/xml_preprocessing_table_rule.xml',
         'views/xml_preprocessing.xml',
+        'views/xml_import_configuration_table.xml',
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
         'views/myfab_cao_xlsx_menu.xml',

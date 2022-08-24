@@ -8,6 +8,12 @@ class xml_import_configuration_table(models.Model):
     _inherit = "xml.import.configuration.table"
 
     # ===========================================================================
+    # FIELDS
+    # ===========================================================================
+    mf_documents_directory_id = fields.Many2one("physical.directory.mf", string="Documents directory", ondelete="cascade",
+                                                help="Directory from which the documents will be scanned and attached to the imported records")
+
+    # ===========================================================================
     # METHODS
     # ===========================================================================
     def simulation_manager(self, data_dicts_dict, data_elements_ids_list, history_list):
