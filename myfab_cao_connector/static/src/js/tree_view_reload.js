@@ -27,7 +27,7 @@ odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
                     var element = $("[data-id=" + record.id + "]tr")
                     if (!element[0].classList.contains("oe_open") && element[0].getAttribute("class")==undefined && record.is_open != true) {
                         record.is_open = true
-                        self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
+                        self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids || record.child_structure_ids, element).then((res)=>{
                             self.show_all()
                         }).fail(() => {
                             console.error("Error show all records")
