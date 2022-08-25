@@ -178,7 +178,8 @@ class mf_xlsx_convert_to_xml(models.Model):
 
             if level_id.is_numerical_level:
                 level_value = self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.column)
-                return (len(level_value) > 1)
+                level_values = level_value.split(level_id.level_separator)
+                return (len(level_values) > 1)
             else:   
                 return self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.parent_reference_column)
 
@@ -271,7 +272,7 @@ class mf_xlsx_convert_to_xml(models.Model):
         if cell_value == None: return False
     
         #Convert value readed in cell to be used by the rest of the functions
-        """"
+        """
         try:
             if ',' in cell_value:
                 cell_value = float(cell_value)
