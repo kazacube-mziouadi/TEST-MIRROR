@@ -166,7 +166,9 @@ class xml_import_processing_sim_action(models.Model):
         return False
 
     def process_data_import(self):
-        if self.mf_selected_for_import or self.type == "unmodified":
+        if self.type == "unmodified":
+            return self.reference
+        elif self.mf_selected_for_import:
             if self.type in ["create", "update"]:
                 fields_dict = {}
                 for sim_action_child_id in self.mf_sim_action_children_ids:
@@ -179,8 +181,8 @@ class xml_import_processing_sim_action(models.Model):
                             self.append_relation_field_child_to_fields_dict(
                                 fields_dict, child_record_id, sim_action_child_id.mf_beacon_id
                             )
+                model_name = self.mf_beacon_id.relation_openprod_id.model
                 if self.type == "create":
-                    model_name = self.mf_beacon_id.relation_openprod_id.model
                     if not fields_dict:
                         return False
                     if self.mf_beacon_id.use_onchange:
@@ -188,13 +190,13 @@ class xml_import_processing_sim_action(models.Model):
                     else:
                         record_id = self.env[model_name].create(fields_dict)
                     self.reference = model_name + ',' + str(record_id.id)
-                    return record_id
                 elif self.type == "update":
                     has_written = self.write_different_fields_only(self.reference, fields_dict)
                     if has_written and self.mf_beacon_id.use_onchange:
                         self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
-                    return self.reference
-            if self.type == "unmodified":
+                if model_name == "mrp.bom" and self.processing_id.model_id.mf_documents_directory_id:
+                    product_code = self.reference.product_id.code
+                    self.processing_id.mf_import_product_document(product_code)
                 return self.reference
             if self.type == "delete":
                 self.reference.unlink()

@@ -43,7 +43,7 @@ msgstr "Balise regroupant les champs"
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_beacon_per_level
 msgid "Beacon per level"
-msgstr "Beacon par niveau"
+msgstr "Balise par niveau"
 
 #. module: myfab_xlsx_to_xml
 #: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:172
@@ -382,12 +382,12 @@ msgstr "Feuille"
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_sheet_name_or_index
 msgid "Sheet name or index"
-msgstr "Nom ou idnice de la feuille"
+msgstr "Nom ou indice de la feuille"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_sheet_name_or_index
 msgid "Sheet name or index in XLSX file"
-msgstr "Nom ou idnice de la feuille dans le fichier XLSX"
+msgstr "Nom ou indice de la feuille dans le fichier XLSX"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_sheet_ids
