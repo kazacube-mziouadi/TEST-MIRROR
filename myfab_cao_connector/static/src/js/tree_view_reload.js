@@ -2,10 +2,13 @@ odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
     "use strict";
     var core = require('web.core');
     var QWeb = core.qweb;
+    var _t = core._t;
+    var _lt = core._lt;
     var TreeView = require("web.TreeView");
 
     TreeView.include({
         render_buttons: function ($node) {
+            
             var self = this;
             this.$buttons = $(QWeb.render("TreeView.buttons", { 'widget': this, display: true }));
             this.$buttons.on('click', 'button.o-tree-button-new', this.show_all.bind(this))
@@ -27,7 +30,7 @@ odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
                     var element = $("[data-id=" + record.id + "]tr")
                     if (!element[0].classList.contains("oe_open") && element[0].getAttribute("class")==undefined && record.is_open != true) {
                         record.is_open = true
-                        self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids, element).then((res)=>{
+                        self.get_data_async(record.id, record.mf_tree_view_sim_action_children_ids || record.child_structure_ids, element).then((res)=>{
                             self.show_all()
                         }).fail(() => {
                             console.error("Error show all records")

@@ -215,6 +215,14 @@ msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_cao_connector
+#. openerp-web
+#: code:addons/myfab_cao_connector/static/src/js/tree_view_reload.js:13
+#: code:addons/myfab_cao_connector/static/src/xml/web_tree_view.xml:8
+#, python-format
+msgid "Unfold all"
+msgstr "Déplier tout"
+
+#. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_modif_old_value
 msgid "Old value"
 msgstr "Ancienne valeur"
