@@ -34,7 +34,6 @@ class xml_import_configuration_table(models.Model):
             data_dict = data_dicts_to_process_dict[data_dict_id]
             beacon_rc = data_dict["object_relation"]
             children_sim_action_list = []
-            values_dict = {}
 
             if beacon_rc.domain and beacon_rc.domain != "[]":
                 # Update processing case
@@ -83,7 +82,7 @@ class xml_import_configuration_table(models.Model):
                     ))
 
             if beacon_rc.beacon_type != "neutral" and beacon_rc.create_object and not existing_record and (
-                    not self.is_values_dict_empty(values_dict) or children_sim_action_list
+                    children_sim_action_list
             ):
                 history_list.append(self.get_sim_action_creation_tuple(
                     "create", beacon_rc.relation_openprod_id.model, False, beacon_rc, children_sim_action_list
@@ -265,11 +264,3 @@ class xml_import_configuration_table(models.Model):
                     search_domains_list
                 )
                 return child_record_id.id
-
-    @staticmethod
-    def is_values_dict_empty(values_dict):
-        for field_name in values_dict.keys():
-            field_value = values_dict[field_name]
-            if field_value or type(field_value) in [int, float]:
-                return False
-        return True

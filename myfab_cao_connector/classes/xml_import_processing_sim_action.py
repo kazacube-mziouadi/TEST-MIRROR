@@ -28,7 +28,7 @@ class xml_import_processing_sim_action(models.Model):
     mf_tree_view_sim_action_children_ids = fields.One2many("xml.import.processing.sim.action",
                                                            "mf_tree_view_sim_action_parent_id",
                                                            string="Treeview children simulation elements")
-    mf_selected_for_import = fields.Boolean(string="To import", default=True)
+    mf_selected_for_import = fields.Boolean(string="To import", default=True, readonly=True)
 
     # ===========================================================================
     # METHODS - MODEL
@@ -37,7 +37,7 @@ class xml_import_processing_sim_action(models.Model):
     def write(self, vals):
         if self.type == "unmodified":
             vals["mf_selected_for_import"] = False
-        if self.type == "unmodified" or "mf_selected_for_import" not in vals or (
+        if self.type == "unmodified" or "mf_selected_for_import" not in vals or "mf_sequence" in vals or (
             not self.mf_selected_for_import and self.at_least_one_child_is_checked()
         ):
             return super(xml_import_processing_sim_action, self).write(vals)
@@ -45,6 +45,8 @@ class xml_import_processing_sim_action(models.Model):
             if self.mf_selected_for_import and not self.at_least_one_child_is_checked():
                 vals["mf_selected_for_import"] = False
             res = super(xml_import_processing_sim_action, self).write(vals)
+            # if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
+            #     self.mf_check_parent_components()
             self.toggle_mf_selected_for_import(triggered_by_write=True)
             return res
 
@@ -53,6 +55,16 @@ class xml_import_processing_sim_action(models.Model):
             if sim_action_child_id.mf_selected_for_import:
                 return True
         return False
+
+    def mf_check_parent_components(self):
+        for parent_sim_action_child in self.mf_tree_view_sim_action_parent_id.mf_sim_action_children_ids:
+            if parent_sim_action_child.name:
+                print(parent_sim_action_child.mf_node_name)
+                print(parent_sim_action_child.name)
+                parent_sim_action_child.write({
+                    "mf_selected_for_import": self.mf_selected_for_import,
+                    "mf_sequence": parent_sim_action_child.mf_sequence,
+                })
 
     @api.model
     def _processing_type_get(self):
