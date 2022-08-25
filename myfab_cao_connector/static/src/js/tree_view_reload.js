@@ -214,6 +214,7 @@ odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
             var values_to_write = {
                 [clicked_field_name]: clicked_checkbox_is_checked
             };
+            // WARNING : The checkboxes may stay disabled if the write method fails
             self.dataset.write(parseInt(clicked_record_id), values_to_write).then(result => {
                 self.reload_checkboxes(clicked_field_name);
             })

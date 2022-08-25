@@ -58,7 +58,6 @@ class xml_import_processing(models.Model):
                         })
         return conversion_ok
 
-
     @api.multi
     def preprocessing_xml_file(self):
         if self.mf_process_xlsx_conversion_id:
@@ -77,7 +76,6 @@ class xml_import_processing(models.Model):
         if self.mf_process_xlsx_conversion_id:
             self.mf_conversion_message = self.preprocessing_id.mf_preprocess_xlsx_conversion_id.execution_message
 
-
     def create_simulate_import(self, history):
         """
         Create list of simulate action of import.
@@ -94,10 +92,6 @@ class xml_import_processing(models.Model):
     def file_analyse(self):
         if self.state == "sim":
             self.import_simulation_lines()
-            if self.model_id.mf_documents_directory_id:
-                if self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf:
-                    self.model_id.mf_documents_directory_id.scan_directory()
-                self.import_documents_from_directory()
             self.wkf_processing_done()
         else:
             super(xml_import_processing, self).file_analyse()
@@ -106,17 +100,18 @@ class xml_import_processing(models.Model):
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import()
 
-    def import_documents_from_directory(self):
-        for file_to_import in self.model_id.mf_documents_directory_id.files_mf:
-            self.import_document_to_product_internal_plans(file_to_import)
+    def mf_import_product_document(self, product_code):
+        directory_id = self.model_id.mf_documents_directory_id
+        if directory_id.directory_scan_is_needed_mf:
+            directory_id.scan_directory()
+        for file_to_import in directory_id.files_mf:
+            file_product_code, file_product_version, file_extension = self.mf_get_data_from_file_name(file_to_import.name)
+            if file_product_code == product_code:
+                self.mf_import_document_to_product_internal_plans(
+                    file_to_import, file_product_code, file_product_version, file_extension
+                )
 
-    def import_document_to_product_internal_plans(self, file_to_import):
-        file_name_extension_split = file_to_import.name.split('.')
-        file_name_without_extension = file_name_extension_split[0]
-        file_extension = file_name_extension_split[1]
-        file_name_split_list = file_name_without_extension.split('-')
-        product_code = file_name_split_list[0]
-        product_version = file_name_split_list[1]
+    def mf_import_document_to_product_internal_plans(self, file_to_import, product_code, product_version, file_extension):
         product_id = self.env["product.product"].search([("code", '=', product_code)], None, 1)
         if not product_id:
             return
@@ -142,6 +137,16 @@ class xml_import_processing(models.Model):
             })]
         product_id.write(product_write_dict)
         file_to_import.delete()
+
+    @staticmethod
+    def mf_get_data_from_file_name(file_name):
+        file_name_extension_split = file_name.split('.')
+        file_name_without_extension = file_name_extension_split[0]
+        file_extension = file_name_extension_split[1]
+        file_name_split_list = file_name_without_extension.split('-')
+        product_code = file_name_split_list[0]
+        product_version = file_name_split_list[1]
+        return product_code, product_version, file_extension
 
     @api.multi
     def clear_history(self, history):
