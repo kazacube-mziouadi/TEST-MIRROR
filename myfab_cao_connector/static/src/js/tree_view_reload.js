@@ -2,10 +2,13 @@ odoo.define("myfab_cao_connector.tree_view_reload", function (require) {
     "use strict";
     var core = require('web.core');
     var QWeb = core.qweb;
+    var _t = core._t;
+    var _lt = core._lt;
     var TreeView = require("web.TreeView");
 
     TreeView.include({
         render_buttons: function ($node) {
+            
             var self = this;
             this.$buttons = $(QWeb.render("TreeView.buttons", { 'widget': this, display: true }));
             this.$buttons.on('click', 'button.o-tree-button-new', this.show_all.bind(this))
