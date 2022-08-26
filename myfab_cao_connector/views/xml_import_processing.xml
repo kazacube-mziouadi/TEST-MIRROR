@@ -41,7 +41,7 @@
 					<attribute name="attrs">{'invisible': ['|', ('state', '=', 'sim'), ('mf_imported_from_simulation', '=', True)]}</attribute>
 				</xpath>
 				<xpath expr="//separator[@name='separator_action_menu_xml'][last()]" position="attributes">
-					<attribute name="attrs">{'invisible': ['|', '|', '|', ('state','not in', ('sim', 'wait')), ('file', '=', False), ('model_id', '=', False)]}</attribute>
+					<attribute name="attrs">{'invisible': ['|', '|', ('state','not in', ('sim', 'wait')), ('file', '=', False), ('model_id', '=', False)]}</attribute>
 				</xpath>
 				
 				<xpath expr="//button[@name='configuration_table_creation']" position="after">
@@ -60,7 +60,7 @@
 							string="Analyse simulation"
 							name="analyse_simulation"
 							icon="fa-search"
-							attrs="{'invisible': ['|', ('state','!=', 'sim')]}" />
+							attrs="{'invisible': [('state','!=', 'sim')]}" />
 				</xpath>
 				
 			</field>
