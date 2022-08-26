@@ -45,8 +45,6 @@ class xml_import_processing_sim_action(models.Model):
             if self.mf_selected_for_import and not self.at_least_one_child_is_checked():
                 vals["mf_selected_for_import"] = False
             res = super(xml_import_processing_sim_action, self).write(vals)
-            # if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
-            #     self.mf_check_parent_components()
             self.toggle_mf_selected_for_import(triggered_by_write=True)
             return res
 
@@ -55,16 +53,6 @@ class xml_import_processing_sim_action(models.Model):
             if sim_action_child_id.mf_selected_for_import:
                 return True
         return False
-
-    def mf_check_parent_components(self):
-        for parent_sim_action_child in self.mf_tree_view_sim_action_parent_id.mf_sim_action_children_ids:
-            if parent_sim_action_child.name:
-                print(parent_sim_action_child.mf_node_name)
-                print(parent_sim_action_child.name)
-                parent_sim_action_child.write({
-                    "mf_selected_for_import": self.mf_selected_for_import,
-                    "mf_sequence": parent_sim_action_child.mf_sequence,
-                })
 
     @api.model
     def _processing_type_get(self):
@@ -90,7 +78,7 @@ class xml_import_processing_sim_action(models.Model):
         if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
             return self.get_bom_node_record_name()
         else:
-            return self.reference.display_name if self.reference else self.get_field_setter_value_by_field_name("name")
+            return self.reference.display_name if self.reference else self.get_child_field_setter_value_by_field_name("name")
 
     def get_bom_node_record_name(self):
         if self.reference:
@@ -125,62 +113,82 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # METHODS - CONTROLLER
     # ===========================================================================
-    def set_tree_view_sim_action_children(self, root_sim_actions_list):
+    def set_tree_view_sim_action_children(self):
         tree_view_sim_action_children_ids_list = []
         for sim_action_child_id in self.mf_sim_action_children_ids:
-            tree_view_sim_action_child_link_tuple = sim_action_child_id.get_tree_view_sim_action_child_link_tuple(
-                root_sim_actions_list
-            )
+            tree_view_sim_action_child_link_tuple = sim_action_child_id.get_tree_view_sim_action_child_link_tuple()
             if tree_view_sim_action_child_link_tuple:
                 tree_view_sim_action_children_ids_list.append(tree_view_sim_action_child_link_tuple)
-            sim_action_child_id.set_tree_view_sim_action_children(root_sim_actions_list)
+            sim_action_child_id.set_tree_view_sim_action_children()
         self.mf_tree_view_sim_action_children_ids = tree_view_sim_action_children_ids_list
 
-    def get_tree_view_sim_action_child_link_tuple(self, root_sim_actions_list):
+    def get_tree_view_sim_action_child_link_tuple(self):
         if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
-            return self.get_bom_tree_view_sim_action_child_link_tuple(root_sim_actions_list)
+            return self.get_bom_tree_view_sim_action_child_link_tuple()
         else:
             return (4, self.id)
 
-    def get_bom_tree_view_sim_action_child_link_tuple(self, root_sim_actions_list):
-        self_product_id = None
-        self_product_name = None
+    def get_bom_tree_view_sim_action_child_link_tuple(self):
         # We search for the current bom sim_action product id
-        for child_sim_action_id in self.mf_sim_action_children_ids:
-            if child_sim_action_id.mf_beacon_id.relation_openprod_id.model == "product.product":
-                product_reference = child_sim_action_id.reference
-                if product_reference:
-                    self_product_id = product_reference
-                else:
-                    self_product_name = child_sim_action_id.get_field_setter_value_by_field_name("name")
-                    if child_sim_action_id.mf_field_setter_id.mf_field_to_set_id.name == "name":
-                        self_product_name = child_sim_action_id.mf_field_setter_id.mf_value
-                break
+        self_product_id, self_product_name = self.get_child_product_id_and_name()
         # If a root sim_action has the same product, then we return the root one id (manufactured product) ;
         # Else the current one id
-        for root_sim_action_id in root_sim_actions_list:
-            for root_child_sim_action_id in root_sim_action_id.mf_sim_action_children_ids:
-                if root_child_sim_action_id.mf_beacon_id.relation_openprod_id.model == "product.product" and (
-                    (self_product_id and self_product_id == root_child_sim_action_id.reference) or (
-                        self_product_name and (
-                            root_child_sim_action_id.get_field_setter_value_by_field_name("name") == self_product_name
-                        )
-                    )
-                ):
-                    return (4, root_sim_action_id.id)
-        return (4, self.id)
+        root_sim_action_with_same_product_id = self.mf_get_manufactured_product_bom(self_product_id, self_product_name)
+        return (4, root_sim_action_with_same_product_id.id if root_sim_action_with_same_product_id else self.id)
 
-    def get_field_setter_value_by_field_name(self, field_name):
+    def get_child_field_setter_value_by_field_name(self, field_name):
         for sim_action_child_id in self.mf_sim_action_children_ids:
             child_field_setter_id = sim_action_child_id.mf_field_setter_id
             if child_field_setter_id and child_field_setter_id.mf_field_to_set_id.name == field_name:
                 return child_field_setter_id.mf_value
         return False
 
+    def get_child_product_id_and_name(self):
+        self_product_id = False
+        self_product_name = False
+        for child_sim_action_id in self.mf_sim_action_children_ids:
+            if child_sim_action_id.mf_beacon_id.relation_openprod_id.model == "product.product":
+                product_reference = child_sim_action_id.reference
+                if product_reference:
+                    self_product_id = product_reference
+                else:
+                    if child_sim_action_id.mf_sim_action_children_ids:
+                        self_product_name = child_sim_action_id.get_child_field_setter_value_by_field_name("name")
+                    elif child_sim_action_id.mf_field_setter_id.mf_field_to_set_id.name == "name":
+                        self_product_name = child_sim_action_id.mf_field_setter_id.mf_value
+                return self_product_id, self_product_name
+        return self_product_id, self_product_name
+
+    def mf_get_manufactured_product_bom(self, product_id, product_name):
+        processing_id = self.get_processing_id()
+        for root_sim_action_id in processing_id.processing_simulate_action_ids:
+            for root_child_sim_action_id in root_sim_action_id.mf_sim_action_children_ids:
+                if root_child_sim_action_id.mf_beacon_id.relation_openprod_id.model == "product.product" and (
+                    (product_id and product_id == root_child_sim_action_id.reference) or (
+                        product_name and (
+                            root_child_sim_action_id.get_child_field_setter_value_by_field_name("name") == product_name
+                        )
+                    )
+                ):
+                    return root_sim_action_id
+        return False
+
+    def get_processing_id(self):
+        if self.processing_id:
+            return self.processing_id
+        else:
+            return self.mf_sim_action_parent_id.get_processing_id()
+
     def process_data_import(self):
         if self.type == "unmodified":
             return self.reference
         elif self.mf_selected_for_import:
+            # Check to not import manufactured components which bom import has been unselected
+            if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
+                product_id, product_name = self.get_child_product_id_and_name()
+                root_sim_action_with_same_product_id = self.mf_get_manufactured_product_bom(product_id, product_name)
+                if root_sim_action_with_same_product_id and not root_sim_action_with_same_product_id.mf_selected_for_import:
+                    return False
             if self.type in ["create", "update"]:
                 fields_dict = {}
                 for sim_action_child_id in self.mf_sim_action_children_ids:
