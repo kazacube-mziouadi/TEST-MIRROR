@@ -1,0 +1,3 @@
+td[data-name="mf_selected_for_import"] > span {
+    display: none !important;
+}

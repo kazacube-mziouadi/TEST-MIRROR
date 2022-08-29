@@ -23,12 +23,12 @@ msgstr "Continuer"
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_uid
 msgid "Created by"
-msgstr "Crée par"
+msgstr "Créé par"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_date
 msgid "Created on"
-msgstr "Crée le"
+msgstr "Créé le"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_display_name

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_xml_preprocessing_table_rule' model="ir.ui.view">
+			<field name="name">mf_view_form_xml_preprocessing_table_rule</field>
+			<field name="inherit_id" ref="xml_import.view_form_xml_preprocessing_table_rule" />
+			<field name="model">xml.preprocessing.table.rule</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='modif_new_value']" position="after">
+					<field name="mf_use_old_value" attrs="{'invisible': [('action', '!=', 'modification')]}" />
+					<field name="mf_modif_old_value" attrs="{'invisible': ['|',('action', '!=', 'modification'),('mf_use_old_value', '=', False)]}" />
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>
