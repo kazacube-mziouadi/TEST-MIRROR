@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_view_form_xml_import_processing' model="ir.ui.view">
+			<field name="name">mf_view_form_xml_import_processing</field>
+			<field name="inherit_id" ref="xml_import.view_form_xml_import_processing" />
+			<field name="model">xml.import.processing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']/.." position="replace">
+					<group colspan="8" col="4">
+						<div>
+							<h1>
+								<field name="name" nolabel="1" />
+							</h1>
+						</div>
+					</group>
+					<group colspan="8" col="4" string="Details">
+						<field name="mf_process_xlsx_conversion_id" />
+						<field name="mf_process_xlsx_file" filename="mf_process_xlsx_file_name" attrs="{'invisible': [('mf_process_xlsx_conversion_id', '=', False)]}"/>
+						<field name="preprocessing_id" />
+						<field name="model_id" />
+						<field name="file" filename="fname"/>
+						<field name="preprocessing_file" filename="prefname" attrs="{'invisible': [('preprocessing_id', '=', False)]}"/>
+						<field name="fname" invisible="1" />
+						<field name="prefname" invisible="1"/>
+						<field name="mf_process_xlsx_file_name" invisible="1"/>
+					</group>
+				</xpath>
+				<xpath expr="//field[@name='error_message']/.." position="before">
+					<group string="XLSX Conversion information" name="group_xlsx_error_message" attrs="{'invisible': [('mf_process_xlsx_conversion_id', '=', False)]}">
+						<field name="mf_conversion_message" nolabel="1"/>
+					</group>
+				</xpath>				
+				<xpath expr="//group[@name='group_simulate_import_ids']" position="inside">
+					<field name="mf_imported_from_simulation" invisible="1" />
+				</xpath>
+				<xpath expr="//group[@name='group_simulate_import_ids']" position="attributes">
+					<attribute name="attrs">{'invisible': [('state', '!=', 'sim'), ('mf_imported_from_simulation', '=', False)]}</attribute>
+				</xpath>
+				<xpath expr="//group[@name='group_history_ids']" position="attributes">
+					<attribute name="attrs">{'invisible': ['|', ('state', '=', 'sim'), ('mf_imported_from_simulation', '=', True)]}</attribute>
+				</xpath>
+				<xpath expr="//separator[@name='separator_action_menu_xml'][last()]" position="attributes">
+					<attribute name="attrs">{'invisible': ['|', '|', ('state','not in', ('sim', 'wait')), ('file', '=', False), ('model_id', '=', False)]}</attribute>
+				</xpath>
+				
+				<xpath expr="//button[@name='configuration_table_creation']" position="after">
+					<separator string="XLSX Conversion" colspan="1" name="mf_separator_action_menu_xlsx" 
+								attrs="{'invisible': ['|', ('mf_process_xlsx_file', '=', False), ('mf_process_xlsx_conversion_id', '=', False)]}"/>
+					<button class="oe_inline oe_stat_button"
+							type="object"
+							string="Convert"
+							name="mf_xlsx_conversion"
+							icon="fa-plus-square" 
+							attrs="{'invisible': ['|', ('mf_process_xlsx_file', '=', False), ('mf_process_xlsx_conversion_id', '=', False)]}"/>
+				</xpath>
+				<xpath expr="//button[@name='simulate_file_analyse']" position="after">
+					<button class="oe_inline oe_stat_button"
+							type="object"
+							string="Analyse simulation"
+							name="analyse_simulation"
+							icon="fa-search"
+							attrs="{'invisible': [('state','!=', 'sim')]}" />
+				</xpath>
+				
+			</field>
+		</record>
+	</data>
+</openerp>

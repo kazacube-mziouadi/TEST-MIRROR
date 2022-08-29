@@ -32,6 +32,7 @@ class FileInterfaceImportMF(models.Model):
             self.import_file(
                 base64.b64decode(file_to_import.content_mf), file_to_import.name
             )
+            self.env.cr.commit()
 
     def import_file(self, file_content, file_name):
         import_attempt_file = self.env["file.mf"].create({

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>        
+        <menuitem name="XLSX Conversion"
+            action="myfab_xlsx_to_xml.mf_action_see_xlsx_conversion" 
+            id="mf_menu_cao_xlsx_conversion"
+            parent="xml_import.base_menu_xml_import_view"
+            sequence="40" />
+
+        <menuitem name="XLSX Configuration"
+            action="myfab_xlsx_to_xml.mf_action_see_xlsx_configuration" 
+            id="mf_menu_cao_xlsx_configuration"
+            parent="xml_import.base_menu_xml_import_view"
+            sequence="50" />
+	</data>
+</openerp>
