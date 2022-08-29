@@ -51,6 +51,7 @@ class FileInterfaceExportMF(models.Model):
             model_dictionary, self.mf_method_to_apply
         )
         if self.file_extension_mf in ["csv", "txt"]:
+            # TODO : if recursive structure, the fields_names_list can not be computed (infinite loop)
             fields_names_list = model_dictionary.get_fields_names_list()
         else:
             fields_names_list = None

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_xlsx_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_config_sheet_level</field>
+            <field name="model">mf.xlsx.config.sheet.level</field>
+            <field name="arch" type="xml">
+                <form string="XLSX to XML Configuration" version="8.0">
+                    <group colspan="2" col="2" name="group_infos"> 
+                        <field name="column"/>
+                        <field name="is_numerical_level"/>
+                        <field name="level_separator" attrs="{'invisible': [('is_numerical_level', '=', False)], 'required': [('is_numerical_level', '!=', False)]}"/>
+                        <field name="parent_reference_column" attrs="{'invisible': [('is_numerical_level', '=', True)], 'required': [('is_numerical_level', '!=', True)]}"/>
+                        <field name="beacon_per_level"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_xlsx_config_sheet_level' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_config_sheet_level</field>
+            <field name="model">mf.xlsx.config.sheet.level</field>
+            <field name="arch" type="xml">
+                <tree string="XLSX to XML - Level configuration">
+                    <field name="column" />
+                    <field name="beacon_per_level" />
+                </tree>
+            </field>
+        </record>
+	</data>
+</openerp>

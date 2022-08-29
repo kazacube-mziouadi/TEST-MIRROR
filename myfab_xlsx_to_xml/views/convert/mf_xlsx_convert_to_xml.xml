@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_xlsx_convert' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_convert</field>
+            <field name="model">mf.xlsx.convert.xml</field>
+            <field name="arch" type="xml">
+                <form string="XLSX to XML Conversion" version="8.0">
+                    <group colspan="8" col="9" name="group_all"> 
+                        <group colspan="8" col="8" name="group_name"> 
+                            <div>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+                            <group colspan="8" col="4" name="group_infos"> 
+                                <field name="configuration_id"/>
+                                <field name="xlsx_file" filename="xlsx_file_name"/>
+                                <field name="execution_message"/>
+                                <field name="xml_file" filename="xml_file_name"/>
+                                <field name="xlsx_file_name" invisible="1" />
+                                <field name="xml_file_name" invisible="1" />
+                            </group>
+                        </group>
+                        <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
+                            <separator string="Actions" colspan="1" name="separator_action_menu" />
+                            <button class="oe_inline oe_stat_button" type="object" string="Convert" name="mf_convert" icon="fa-plus-square" />
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_xlsx_convert' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_convert</field>
+            <field name="model">mf.xlsx.convert.xml</field>
+            <field name="arch" type="xml">
+                <tree string="XLSX to XML Conversion">
+                    <field name="name" />
+                    <field name="configuration_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window"
+            id="mf_action_see_xlsx_conversion">
+            <field name="name">XLSX to XML Conversion</field>
+            <field name="res_model">mf.xlsx.convert.xml</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+	</data>
+</openerp>

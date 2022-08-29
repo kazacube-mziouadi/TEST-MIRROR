@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_xlsx_config_sheet_field' model='ir.ui.view'>
+            <field name="name">mf_view_form_xlsx_config_sheet_field</field>
+            <field name="model">mf.xlsx.config.sheet.field</field>
+            <field name="arch" type="xml">
+                <form string="XLSX to XML Configuration" version="8.0">
+                    <group colspan="2" col="2" name="group_infos"> 
+                        <field name="sequence"/>
+                        <field name="writing_mode"/>
+                        <field name="column" attrs="{'invisible': [('writing_mode', '!=', 'column_value')], 'required': [('writing_mode', '=', 'column_value')]}"/>
+                        <field name="fixed_value" attrs="{'invisible': [('writing_mode', '!=', 'constant_value')], 'required': [('writing_mode', '=', 'constant_value')]}"/>
+                        <field name="beacon"/>
+                        <field name="attribute"/>
+                        <field name="is_merge"/>
+                        <field name="value" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_xlsx_config_sheet_field' model='ir.ui.view'>
+            <field name="name">mf_view_tree_xlsx_config_sheet_field</field>
+            <field name="model">mf.xlsx.config.sheet.field</field>
+            <field name="arch" type="xml">
+                <tree string="XLSX to XML - Field configuration">
+                    <field name="sequence" />
+                    <field name="writing_mode" />
+                    <field name="value" />
+                    <field name="beacon" />
+                    <field name="attribute" />
+                    <field name="is_merge" />
+                </tree>
+            </field>
+        </record>
+	</data>
+</openerp>
