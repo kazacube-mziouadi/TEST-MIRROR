@@ -28,6 +28,7 @@ class supplier_call_tender(models.Model):
         # new code to add the documents to the mail attachment
         for mf_document_id in call_tender_rc.mf_document_ids:
             #Création des PJ
+            #/!\ Pas de res_id parce qu'on ne veut pas lier la PJ à l'achat/la vente /!\
             data_attach = {
                 'type': 'binary',
                 'res_model': 'call.tender', 
