@@ -2,11 +2,12 @@
 from openerp import models, api, fields, _
 import urllib2
 import json
+from openerp.exceptions import MissingError
 
 API_ICESCRUM_ENDPOINT = "https://cloud.icescrum.com/ws/project/"
 API_ICESCRUM_FEATURE_NAME = "feature"
 API_ICESCRUM_STORY_NAME = "story"
-SCRUM_TYPE_NAMES = ["Feature", "Story"]
+SCRUM_TYPE_NAMES = ["Feature"]
 
 
 class MfWizardImportIceScrum(models.TransientModel):
@@ -40,7 +41,7 @@ class MfWizardImportIceScrum(models.TransientModel):
     def get_data_from_icescrum_api(self, data_name, data_id=None):
         data_endpoint = self.get_data_endpoint(data_name)
         if data_id:
-            data_endpoint += '/' + data_id
+            data_endpoint += '/' + str(data_id)
         request = urllib2.Request(url=data_endpoint, headers=self.get_headers())
         response = urllib2.urlopen(request)
         result_json = response.read().decode("utf-8")
@@ -58,21 +59,41 @@ class MfWizardImportIceScrum(models.TransientModel):
         }
 
     def create_feature_records_from_features_api_list(self, features_api_list):
-        action_type_feature = self.env["action.type"].search([("name", '=', "Feature")])
+        action_type_feature_id = self.env["action.type"].search([("name", '=', "Feature")])
+        resource_id = self.env["mrp.resource"].search([("name", '=', "IceScrum")], None, 1)
+        if not resource_id:
+            calendar_id = self.env["calendar"].search([], None, 1)
+            if not calendar_id:
+                raise MissingError(_("Please create a calendar before importing."))
+            pause_id = self.env["resource.pause"].search([], None, 1)
+            if not calendar_id:
+                raise MissingError(_("Please create a resource.pause before importing."))
+            resource_id = self.env["mrp.resource"].create({
+                "name": "IceScrum",
+                "calendar_id": calendar_id.id,
+                "active": True,
+                "type": "human",
+                "pause_id": pause_id.id,
+                "opening_time": 9.0,
+                "offset": 1,
+                "factor": 2,
+            })
+        print(resource_id)
         for feature_api_dict in features_api_list:
             feature_creation_dict = {
                 "name": feature_api_dict["name"],
-                "display_start": self.format_api_datetime(feature_api_dict["dateCreated"]),
+                "start_datetime": self.format_api_datetime(feature_api_dict["dateCreated"]),
                 "stop_datetime": self.format_api_datetime(feature_api_dict["doneDate"]) if feature_api_dict["doneDate"] else "2999-12-31",
                 "user_id": self.env.user.id,
                 "affected_user_id": self.env.user.id,
                 "description": feature_api_dict["description"],
-                "type_id": action_type_feature.id
+                "type_id": action_type_feature_id.id
             }
             if feature_api_dict["stories_ids"]:
                 feature_creation_dict["timetracking_ids"] = []
             for story_api_id_dict in feature_api_dict["stories_ids"]:
                 story_creation_dict = self.get_story_creation_dict_from_id(story_api_id_dict["id"])
+                story_creation_dict["resource_id"] = resource_id.id
                 feature_creation_dict["timetracking_ids"].append((0, 0, story_creation_dict))
             print("****")
             print(feature_creation_dict)
@@ -85,10 +106,15 @@ class MfWizardImportIceScrum(models.TransientModel):
 
     def get_story_creation_dict_from_id(self, story_api_id):
         story_api_dict = self.get_data_from_icescrum_api(API_ICESCRUM_STORY_NAME, story_api_id)
+        start_date_formatted = self.format_api_datetime(story_api_dict["dateCreated"])
         return {
             "name": story_api_dict["name"],
             "comment": story_api_dict["description"],
             "user_id": self.env.user.id,
-            "start_date": self.format_api_datetime(story_api_dict["dateCreated"]),
-            "end_date": self.format_api_datetime(story_api_dict["doneDate"]),
+            "company_id": self.env.user.company_id.id,
+            "start_date": start_date_formatted,
+            "time": 1,
+            "time_spent": 1,
+            "hourly_cost": 0.0,
+            "end_date": self.format_api_datetime(story_api_dict["doneDate"]) if story_api_dict["doneDate"] else start_date_formatted,
         }
