@@ -1,0 +1,761 @@
+[
+    {
+        "fields": {
+            "mf_process_xlsx_conversion_id": {}, 
+            "model_id": {
+                "beacon_ids": [
+                    {
+                        "beacon_attribute_ids": [], 
+                        "beacon_ids": [
+                            {
+                                "beacon_attribute_ids": [], 
+                                "beacon_ids": [
+                                    {
+                                        "beacon_attribute_ids": [
+                                            {
+                                                "attribute_type": "field", 
+                                                "name": "purchase_ok", 
+                                                "parent_field_relation_id": {
+                                                    "model_id": {
+                                                        "model": "product.product"
+                                                    }, 
+                                                    "name": "purchase_ok"
+                                                }, 
+                                                "sequence": 40, 
+                                                "update_attribute": true, 
+                                                "use_onchange": true
+                                            }
+                                        ], 
+                                        "beacon_ids": [
+                                            {
+                                                "beacon_attribute_ids": [
+                                                    {
+                                                        "attribute_type": "field", 
+                                                        "name": "value", 
+                                                        "parent_field_relation_id": {
+                                                            "model_id": {
+                                                                "model": "product.category"
+                                                            }, 
+                                                            "name": "name"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "update_attribute": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_ids": [], 
+                                                "beacon_type": "object", 
+                                                "create_object": false, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[[\"name\",\"=\",\"\"]]", 
+                                                "full_path": "Root/Nomenclature/Produit/Cat\u00e9gorie", 
+                                                "name": "Cat\u00e9gorie", 
+                                                "parent_relation_id": {
+                                                    "model": "product.product"
+                                                }, 
+                                                "relation_openprod_field_id": {
+                                                    "model": "product.product", 
+                                                    "name": "categ_id"
+                                                }, 
+                                                "relation_openprod_id": {
+                                                    "model": "product.category"
+                                                }, 
+                                                "sequence": 21, 
+                                                "target_attribute": {}, 
+                                                "update_object": false, 
+                                                "use_onchange": true
+                                            }, 
+                                            {
+                                                "beacon_attribute_ids": [
+                                                    {
+                                                        "attribute_type": "field", 
+                                                        "name": "value", 
+                                                        "parent_field_relation_id": {
+                                                            "model_id": {
+                                                                "model": "product.product"
+                                                            }, 
+                                                            "name": "code"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "update_attribute": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_ids": [], 
+                                                "beacon_type": "field", 
+                                                "create_object": true, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[]", 
+                                                "full_path": "Root/Nomenclature/Produit/code", 
+                                                "name": "code", 
+                                                "parent_relation_id": {
+                                                    "model": "product.product"
+                                                }, 
+                                                "relation_openprod_field_id": {}, 
+                                                "relation_openprod_id": {}, 
+                                                "sequence": 20, 
+                                                "target_attribute": {
+                                                    "attribute_type": "field", 
+                                                    "name": "value", 
+                                                    "parent_field_relation_id": {
+                                                        "model_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "name": "code"
+                                                    }, 
+                                                    "sequence": 20, 
+                                                    "update_attribute": true, 
+                                                    "use_onchange": true
+                                                }, 
+                                                "update_object": true, 
+                                                "use_onchange": true
+                                            }, 
+                                            {
+                                                "beacon_attribute_ids": [
+                                                    {
+                                                        "attribute_type": "field", 
+                                                        "name": "value", 
+                                                        "parent_field_relation_id": {
+                                                            "model_id": {
+                                                                "model": "product.product"
+                                                            }, 
+                                                            "name": "name"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "update_attribute": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_ids": [], 
+                                                "beacon_type": "field", 
+                                                "create_object": true, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[]", 
+                                                "full_path": "Root/Nomenclature/Produit/Nom", 
+                                                "name": "Nom", 
+                                                "parent_relation_id": {
+                                                    "model": "product.product"
+                                                }, 
+                                                "relation_openprod_field_id": {}, 
+                                                "relation_openprod_id": {}, 
+                                                "sequence": 22, 
+                                                "target_attribute": {
+                                                    "attribute_type": "field", 
+                                                    "name": "value", 
+                                                    "parent_field_relation_id": {
+                                                        "model_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "name": "name"
+                                                    }, 
+                                                    "sequence": 20, 
+                                                    "update_attribute": true, 
+                                                    "use_onchange": true
+                                                }, 
+                                                "update_object": true, 
+                                                "use_onchange": true
+                                            }, 
+                                            {
+                                                "beacon_attribute_ids": [
+                                                    {
+                                                        "attribute_type": "field", 
+                                                        "name": "value", 
+                                                        "parent_field_relation_id": {
+                                                            "model_id": {
+                                                                "model": "product.uom"
+                                                            }, 
+                                                            "name": "name"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "update_attribute": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_ids": [], 
+                                                "beacon_type": "object", 
+                                                "create_object": true, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[[\"name\",\"=\",\"\"]]", 
+                                                "full_path": "Root/Nomenclature/Produit/unit\u00e9", 
+                                                "name": "unit\u00e9", 
+                                                "parent_relation_id": {
+                                                    "model": "product.product"
+                                                }, 
+                                                "relation_openprod_field_id": {
+                                                    "model": "product.product", 
+                                                    "name": "uom_id"
+                                                }, 
+                                                "relation_openprod_id": {
+                                                    "model": "product.uom"
+                                                }, 
+                                                "sequence": 23, 
+                                                "target_attribute": {}, 
+                                                "update_object": false, 
+                                                "use_onchange": true
+                                            }
+                                        ], 
+                                        "beacon_type": "object", 
+                                        "create_object": true, 
+                                        "date_field_relation": false, 
+                                        "date_format": "%Y-%m-%d", 
+                                        "datetime_field_relation": false, 
+                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                        "domain": "[[\"code\",\"=\",\"\"]]", 
+                                        "full_path": "Root/Nomenclature/Produit", 
+                                        "name": "Produit", 
+                                        "parent_relation_id": {
+                                            "model": "mrp.bom"
+                                        }, 
+                                        "relation_openprod_field_id": {
+                                            "model": "mrp.bom", 
+                                            "name": "product_id"
+                                        }, 
+                                        "relation_openprod_id": {
+                                            "model": "product.product"
+                                        }, 
+                                        "sequence": 20, 
+                                        "target_attribute": {}, 
+                                        "update_object": true, 
+                                        "use_onchange": true
+                                    }, 
+                                    {
+                                        "beacon_attribute_ids": [], 
+                                        "beacon_ids": [
+                                            {
+                                                "beacon_attribute_ids": [], 
+                                                "beacon_ids": [
+                                                    {
+                                                        "beacon_attribute_ids": [
+                                                            {
+                                                                "attribute_type": "field", 
+                                                                "name": "value", 
+                                                                "parent_field_relation_id": {
+                                                                    "model_id": {
+                                                                        "model": "product.category"
+                                                                    }, 
+                                                                    "name": "name"
+                                                                }, 
+                                                                "sequence": 20, 
+                                                                "update_attribute": true, 
+                                                                "use_onchange": true
+                                                            }
+                                                        ], 
+                                                        "beacon_ids": [], 
+                                                        "beacon_type": "object", 
+                                                        "create_object": true, 
+                                                        "date_field_relation": false, 
+                                                        "date_format": "%Y-%m-%d", 
+                                                        "datetime_field_relation": false, 
+                                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                        "domain": "[[\"name\",\"=\",\"\"]]", 
+                                                        "full_path": "Root/Nomenclature/Ligne/Composant/Cat\u00e9gorie", 
+                                                        "name": "Cat\u00e9gorie", 
+                                                        "parent_relation_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "relation_openprod_field_id": {
+                                                            "model": "product.product", 
+                                                            "name": "categ_id"
+                                                        }, 
+                                                        "relation_openprod_id": {
+                                                            "model": "product.category"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "target_attribute": {}, 
+                                                        "update_object": true, 
+                                                        "use_onchange": true
+                                                    }, 
+                                                    {
+                                                        "beacon_attribute_ids": [
+                                                            {
+                                                                "attribute_type": "field", 
+                                                                "name": "value", 
+                                                                "parent_field_relation_id": {
+                                                                    "model_id": {
+                                                                        "model": "product.product"
+                                                                    }, 
+                                                                    "name": "code"
+                                                                }, 
+                                                                "sequence": 20, 
+                                                                "update_attribute": true, 
+                                                                "use_onchange": true
+                                                            }
+                                                        ], 
+                                                        "beacon_ids": [], 
+                                                        "beacon_type": "field", 
+                                                        "create_object": true, 
+                                                        "date_field_relation": false, 
+                                                        "date_format": "%Y-%m-%d", 
+                                                        "datetime_field_relation": false, 
+                                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                        "domain": "[]", 
+                                                        "full_path": "Root/Nomenclature/Ligne/Composant/code", 
+                                                        "name": "code", 
+                                                        "parent_relation_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "relation_openprod_field_id": {}, 
+                                                        "relation_openprod_id": {}, 
+                                                        "sequence": 20, 
+                                                        "target_attribute": {
+                                                            "attribute_type": "field", 
+                                                            "name": "value", 
+                                                            "parent_field_relation_id": {
+                                                                "model_id": {
+                                                                    "model": "product.product"
+                                                                }, 
+                                                                "name": "code"
+                                                            }, 
+                                                            "sequence": 20, 
+                                                            "update_attribute": true, 
+                                                            "use_onchange": true
+                                                        }, 
+                                                        "update_object": true, 
+                                                        "use_onchange": true
+                                                    }, 
+                                                    {
+                                                        "beacon_attribute_ids": [
+                                                            {
+                                                                "attribute_type": "field", 
+                                                                "name": "value", 
+                                                                "parent_field_relation_id": {
+                                                                    "model_id": {
+                                                                        "model": "product.product"
+                                                                    }, 
+                                                                    "name": "name"
+                                                                }, 
+                                                                "sequence": 20, 
+                                                                "update_attribute": true, 
+                                                                "use_onchange": true
+                                                            }
+                                                        ], 
+                                                        "beacon_ids": [], 
+                                                        "beacon_type": "field", 
+                                                        "create_object": true, 
+                                                        "date_field_relation": false, 
+                                                        "date_format": "%Y-%m-%d", 
+                                                        "datetime_field_relation": false, 
+                                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                        "domain": "[]", 
+                                                        "full_path": "Root/Nomenclature/Ligne/Composant/Nom", 
+                                                        "name": "Nom", 
+                                                        "parent_relation_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "relation_openprod_field_id": {}, 
+                                                        "relation_openprod_id": {}, 
+                                                        "sequence": 20, 
+                                                        "target_attribute": {
+                                                            "attribute_type": "field", 
+                                                            "name": "value", 
+                                                            "parent_field_relation_id": {
+                                                                "model_id": {
+                                                                    "model": "product.product"
+                                                                }, 
+                                                                "name": "name"
+                                                            }, 
+                                                            "sequence": 20, 
+                                                            "update_attribute": true, 
+                                                            "use_onchange": true
+                                                        }, 
+                                                        "update_object": true, 
+                                                        "use_onchange": true
+                                                    }, 
+                                                    {
+                                                        "beacon_attribute_ids": [
+                                                            {
+                                                                "attribute_type": "field", 
+                                                                "name": "value", 
+                                                                "parent_field_relation_id": {
+                                                                    "model_id": {
+                                                                        "model": "product.uom"
+                                                                    }, 
+                                                                    "name": "name"
+                                                                }, 
+                                                                "sequence": 20, 
+                                                                "update_attribute": true, 
+                                                                "use_onchange": true
+                                                            }
+                                                        ], 
+                                                        "beacon_ids": [], 
+                                                        "beacon_type": "object", 
+                                                        "create_object": true, 
+                                                        "date_field_relation": false, 
+                                                        "date_format": "%Y-%m-%d", 
+                                                        "datetime_field_relation": false, 
+                                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                        "domain": "[[\"name\",\"=\",\"\"]]", 
+                                                        "full_path": "Root/Nomenclature/Ligne/Composant/unit\u00e9", 
+                                                        "name": "unit\u00e9", 
+                                                        "parent_relation_id": {
+                                                            "model": "product.product"
+                                                        }, 
+                                                        "relation_openprod_field_id": {
+                                                            "model": "product.product", 
+                                                            "name": "uom_id"
+                                                        }, 
+                                                        "relation_openprod_id": {
+                                                            "model": "product.uom"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "target_attribute": {}, 
+                                                        "update_object": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_type": "object", 
+                                                "create_object": true, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[[\"code\",\"=\",\"\"]]", 
+                                                "full_path": "Root/Nomenclature/Ligne/Composant", 
+                                                "name": "Composant", 
+                                                "parent_relation_id": {
+                                                    "model": "mrp.bom"
+                                                }, 
+                                                "relation_openprod_field_id": {
+                                                    "model": "mrp.bom", 
+                                                    "name": "product_id"
+                                                }, 
+                                                "relation_openprod_id": {
+                                                    "model": "product.product"
+                                                }, 
+                                                "sequence": 20, 
+                                                "target_attribute": {}, 
+                                                "update_object": true, 
+                                                "use_onchange": true
+                                            }, 
+                                            {
+                                                "beacon_attribute_ids": [
+                                                    {
+                                                        "attribute_type": "field", 
+                                                        "name": "value", 
+                                                        "parent_field_relation_id": {
+                                                            "model_id": {
+                                                                "model": "mrp.bom"
+                                                            }, 
+                                                            "name": "quantity"
+                                                        }, 
+                                                        "sequence": 20, 
+                                                        "update_attribute": true, 
+                                                        "use_onchange": true
+                                                    }
+                                                ], 
+                                                "beacon_ids": [], 
+                                                "beacon_type": "field", 
+                                                "create_object": true, 
+                                                "date_field_relation": false, 
+                                                "date_format": "%Y-%m-%d", 
+                                                "datetime_field_relation": false, 
+                                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                                "domain": "[]", 
+                                                "full_path": "Root/Nomenclature/Ligne/Quantit\u00e9", 
+                                                "name": "Quantit\u00e9", 
+                                                "parent_relation_id": {
+                                                    "model": "mrp.bom"
+                                                }, 
+                                                "relation_openprod_field_id": {}, 
+                                                "relation_openprod_id": {}, 
+                                                "sequence": 20, 
+                                                "target_attribute": {
+                                                    "attribute_type": "field", 
+                                                    "name": "value", 
+                                                    "parent_field_relation_id": {
+                                                        "model_id": {
+                                                            "model": "mrp.bom"
+                                                        }, 
+                                                        "name": "quantity"
+                                                    }, 
+                                                    "sequence": 20, 
+                                                    "update_attribute": true, 
+                                                    "use_onchange": true
+                                                }, 
+                                                "update_object": true, 
+                                                "use_onchange": true
+                                            }
+                                        ], 
+                                        "beacon_type": "object", 
+                                        "create_object": true, 
+                                        "date_field_relation": false, 
+                                        "date_format": "%Y-%m-%d", 
+                                        "datetime_field_relation": false, 
+                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                        "domain": "[[\"product_id\",\"=\",null]]", 
+                                        "full_path": "Root/Nomenclature/Ligne", 
+                                        "name": "Ligne", 
+                                        "parent_relation_id": {
+                                            "model": "mrp.bom"
+                                        }, 
+                                        "relation_openprod_field_id": {
+                                            "model": "mrp.bom", 
+                                            "name": "bom_ids"
+                                        }, 
+                                        "relation_openprod_id": {
+                                            "model": "mrp.bom"
+                                        }, 
+                                        "sequence": 20, 
+                                        "target_attribute": {}, 
+                                        "update_object": true, 
+                                        "use_onchange": true
+                                    }, 
+                                    {
+                                        "beacon_attribute_ids": [
+                                            {
+                                                "attribute_type": "field", 
+                                                "name": "value", 
+                                                "parent_field_relation_id": {
+                                                    "model_id": {
+                                                        "model": "mrp.bom"
+                                                    }, 
+                                                    "name": "quantity"
+                                                }, 
+                                                "sequence": 20, 
+                                                "update_attribute": true, 
+                                                "use_onchange": true
+                                            }
+                                        ], 
+                                        "beacon_ids": [], 
+                                        "beacon_type": "field", 
+                                        "create_object": true, 
+                                        "date_field_relation": false, 
+                                        "date_format": "%Y-%m-%d", 
+                                        "datetime_field_relation": false, 
+                                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                        "domain": "[]", 
+                                        "full_path": "Root/Nomenclature/Quantit\u00e9", 
+                                        "name": "Quantit\u00e9", 
+                                        "parent_relation_id": {
+                                            "model": "mrp.bom"
+                                        }, 
+                                        "relation_openprod_field_id": {}, 
+                                        "relation_openprod_id": {}, 
+                                        "sequence": 20, 
+                                        "target_attribute": {
+                                            "attribute_type": "field", 
+                                            "name": "value", 
+                                            "parent_field_relation_id": {
+                                                "model_id": {
+                                                    "model": "mrp.bom"
+                                                }, 
+                                                "name": "quantity"
+                                            }, 
+                                            "sequence": 20, 
+                                            "update_attribute": true, 
+                                            "use_onchange": true
+                                        }, 
+                                        "update_object": true, 
+                                        "use_onchange": true
+                                    }
+                                ], 
+                                "beacon_type": "object", 
+                                "create_object": true, 
+                                "date_field_relation": false, 
+                                "date_format": "%Y-%m-%d", 
+                                "datetime_field_relation": false, 
+                                "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                                "domain": "[[\"product_id\",\"=\",null],[\"bom_id\",\"=\",false]]", 
+                                "full_path": "Root/Nomenclature", 
+                                "name": "Nomenclature", 
+                                "parent_relation_id": {}, 
+                                "relation_openprod_field_id": {}, 
+                                "relation_openprod_id": {
+                                    "model": "mrp.bom"
+                                }, 
+                                "sequence": 20, 
+                                "target_attribute": {}, 
+                                "update_object": true, 
+                                "use_onchange": true
+                            }
+                        ], 
+                        "beacon_type": "neutral", 
+                        "create_object": true, 
+                        "date_field_relation": false, 
+                        "date_format": "%Y-%m-%d", 
+                        "datetime_field_relation": false, 
+                        "datetime_format": "%Y-%m-%d %H:%M:%S", 
+                        "domain": "[]", 
+                        "full_path": "Root", 
+                        "name": "Root", 
+                        "parent_relation_id": {}, 
+                        "relation_openprod_field_id": {}, 
+                        "relation_openprod_id": {}, 
+                        "sequence": 20, 
+                        "target_attribute": {}, 
+                        "update_object": true, 
+                        "use_onchange": true
+                    }
+                ], 
+                "name": "SMAPS", 
+                "state": "active", 
+                "use_onchange": true
+            }, 
+            "name": "SMAPS", 
+            "preprocessing_id": {
+                "name": "SMAPS", 
+                "table_id": {
+                    "name": "SMAPS", 
+                    "prefix_file_name": "", 
+                    "rules_ids": [
+                        {
+                            "action": "move", 
+                            "active_rule": true, 
+                            "add_all": false, 
+                            "add_list": "[]", 
+                            "attrib_name": "", 
+                            "attrib_value": "", 
+                            "beacon_path": "//Quantit\u00e9", 
+                            "beacon_to_concatenated": "", 
+                            "del_old_concatenate": false, 
+                            "dst_path": "/../..", 
+                            "is_use_dynamic_path": true, 
+                            "is_use_lite_path": false, 
+                            "mf_modif_old_value": "", 
+                            "mf_use_old_value": true, 
+                            "modif_attrib": "", 
+                            "modif_new_value": "", 
+                            "move_create_copy": false, 
+                            "new_attrib_name": "", 
+                            "new_name": "", 
+                            "new_name_concatenated": "", 
+                            "new_value": "", 
+                            "remove_all": false, 
+                            "separator": "", 
+                            "sequence": 30, 
+                            "target_attribute": "", 
+                            "write_create_copy": false
+                        }, 
+                        {
+                            "action": "move", 
+                            "active_rule": true, 
+                            "add_all": false, 
+                            "add_list": "[]", 
+                            "attrib_name": "", 
+                            "attrib_value": "", 
+                            "beacon_path": "//Ligne/Nomenclature/Produit", 
+                            "beacon_to_concatenated": "", 
+                            "del_old_concatenate": false, 
+                            "dst_path": "/../..", 
+                            "is_use_dynamic_path": true, 
+                            "is_use_lite_path": false, 
+                            "mf_modif_old_value": "", 
+                            "mf_use_old_value": true, 
+                            "modif_attrib": "", 
+                            "modif_new_value": "", 
+                            "move_create_copy": true, 
+                            "new_attrib_name": "", 
+                            "new_name": "", 
+                            "new_name_concatenated": "", 
+                            "new_value": "", 
+                            "remove_all": false, 
+                            "separator": "", 
+                            "sequence": 10, 
+                            "target_attribute": "", 
+                            "write_create_copy": false
+                        }, 
+                        {
+                            "action": "move", 
+                            "active_rule": true, 
+                            "add_all": false, 
+                            "add_list": "[]", 
+                            "attrib_name": "", 
+                            "attrib_value": "", 
+                            "beacon_path": ".//Nomenclature", 
+                            "beacon_to_concatenated": "", 
+                            "del_old_concatenate": false, 
+                            "dst_path": ".", 
+                            "is_use_dynamic_path": false, 
+                            "is_use_lite_path": false, 
+                            "mf_modif_old_value": "", 
+                            "mf_use_old_value": true, 
+                            "modif_attrib": "", 
+                            "modif_new_value": "", 
+                            "move_create_copy": false, 
+                            "new_attrib_name": "", 
+                            "new_name": "", 
+                            "new_name_concatenated": "", 
+                            "new_value": "", 
+                            "remove_all": false, 
+                            "separator": "", 
+                            "sequence": 20, 
+                            "target_attribute": "", 
+                            "write_create_copy": false
+                        }, 
+                        {
+                            "action": "rename", 
+                            "active_rule": true, 
+                            "add_all": false, 
+                            "add_list": "[]", 
+                            "attrib_name": "", 
+                            "attrib_value": "", 
+                            "beacon_path": "Ligne/Produit", 
+                            "beacon_to_concatenated": "", 
+                            "del_old_concatenate": false, 
+                            "dst_path": "", 
+                            "is_use_dynamic_path": false, 
+                            "is_use_lite_path": true, 
+                            "mf_modif_old_value": "", 
+                            "mf_use_old_value": true, 
+                            "modif_attrib": "", 
+                            "modif_new_value": "", 
+                            "move_create_copy": true, 
+                            "new_attrib_name": "", 
+                            "new_name": "Composant", 
+                            "new_name_concatenated": "", 
+                            "new_value": "", 
+                            "remove_all": false, 
+                            "separator": "", 
+                            "sequence": 40, 
+                            "target_attribute": "", 
+                            "write_create_copy": false
+                        }, 
+                        {
+                            "action": "add_attrib", 
+                            "active_rule": true, 
+                            "add_all": false, 
+                            "add_list": "[]", 
+                            "attrib_name": "", 
+                            "attrib_value": "", 
+                            "beacon_path": "Nomenclature/Produit", 
+                            "beacon_to_concatenated": "", 
+                            "del_old_concatenate": false, 
+                            "dst_path": "", 
+                            "is_use_dynamic_path": false, 
+                            "is_use_lite_path": true, 
+                            "mf_modif_old_value": "", 
+                            "mf_use_old_value": true, 
+                            "modif_attrib": "", 
+                            "modif_new_value": "", 
+                            "move_create_copy": true, 
+                            "new_attrib_name": "purchase_ok", 
+                            "new_name": "", 
+                            "new_name_concatenated": "", 
+                            "new_value": "False", 
+                            "remove_all": false, 
+                            "separator": "", 
+                            "sequence": 50, 
+                            "target_attribute": "", 
+                            "write_create_copy": false
+                        }
+                    ]
+                }
+            }, 
+            "state": "wait"
+        }, 
+        "method": "create", 
+        "model": "xml.import.processing"
+    }
+]
