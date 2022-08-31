@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab Appel d\'offre',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Appel d\'offre myfab pour améliorer le module existant.',
