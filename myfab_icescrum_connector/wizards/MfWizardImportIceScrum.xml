@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_wizard_import_icescrum_mf" model="ir.ui.view">
+            <field name="name">mf.wizard.import.icescrum.form</field>
+            <field name="model">mf.wizard.import.icescrum</field>
+            <field name="arch" type="xml">
+                <form string="Import from IceScrum">
+					<p>
+                        The import from IceScrum button will get the Features and Stories from the IceScrum APIs and insert them as actions in Open-Prod.
+                    </p>
+                    <group>
+                        <field name="mf_icescrum_project_name"/>
+                        <field name="mf_token"/>
+                    </group>
+                    <footer>
+                        <button name="action_import_from_icescrum" type="object" string="Import from IceScrum" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

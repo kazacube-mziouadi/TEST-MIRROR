@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- Bouton d'action "Import from Intuiz" -->
+	  	<act_window
+	  	    name="Import from IceScrum"
+	  	    res_model="mf.wizard.import.icescrum"
+	  	    src_model="calendar.event"
+	  	    view_mode="form"
+	  	    target="new"
+			key2="client_action_multi"
+			context="{'sidebar_without_id':True}"
+	  	    id="mf_act_wizard_calendat_event_import_icescrum"
+        />
+    </data>
+</openerp>
