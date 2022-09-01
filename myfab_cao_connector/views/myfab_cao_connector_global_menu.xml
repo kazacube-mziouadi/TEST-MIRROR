@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem id="mf_cao_connector_menu_base" name="CAO Connector" sequence="20" parent="base_openprod.menu_technical_data_main" groups="xml_import.xml_import_user"/>
+			<menuitem id="mf_cao_connector_menu_xml_import_processing" name="Processing" sequence="10" parent="mf_cao_connector_menu_base" action="xml_import.act_xml_import_processing" groups="xml_import.xml_import_user"/>
+			
+		<menuitem id="mf_cao_connector_menu_config" name="CAO Configuration" sequence="200" parent="product.menu_technical_data_configuration" groups="xml_import.xml_import_manager"/>
+			<menuitem id="mf_cao_connector_menu_xml_import_configuration_table" name="Processing configuration" sequence="20" parent="mf_cao_connector_menu_config" action="xml_import.act_xml_import_configuration_table" groups="xml_import.xml_import_manager"/>			
+			<menuitem id="mf_cao_connector_menu_config_preprocessing" name="PreProcessing" sequence="30" parent="mf_cao_connector_menu_config" groups="xml_import.xml_import_manager"/>
+				<menuitem id="mf_cao_connector_menu_xml_preprocessing_table" name="PreProcessing configuration" sequence="10" parent="mf_cao_connector_menu_config_preprocessing" action="xml_import.act_xml_preprocessing_table" groups="xml_import.xml_import_manager"/>
+				<menuitem id="mf_cao_connector_menu_xml_preprocessing" name="PreProcessing" sequence="20" parent="mf_cao_connector_menu_config_preprocessing" action="xml_import.act_xml_preprocessing" groups="xml_import.xml_import_manager"/>
+			<menuitem id="mf_cao_connector_menu_config_xlsx" name="XLSX" sequence="40" parent="mf_cao_connector_menu_config" groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager"/>
+				<menuitem id="mf_cao_connector_menu_xlsx_configuration" name="XLSX Configuration" sequence="10" parent="mf_cao_connector_menu_config_xlsx" action="myfab_xlsx_to_xml.mf_action_see_xlsx_configuration" groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager"/>
+				<menuitem id="mf_cao_connector_menu_xlsx_conversion" name="XLSX Conversion" sequence="20" parent="mf_cao_connector_menu_config_xlsx" action="myfab_xlsx_to_xml.mf_action_see_xlsx_conversion" groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager"/>
+    </data>
+</openerp>

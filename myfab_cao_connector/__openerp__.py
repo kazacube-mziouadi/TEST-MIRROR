@@ -19,7 +19,6 @@
         'xml_import',
     ],
     'data': [
-        'security/myfab_cao_connector_security.xml',
         'security/ir.model.access.csv',
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
         'views/myfab_cao_connector_web.xml',
@@ -29,6 +28,7 @@
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
         'views/myfab_cao_xlsx_menu.xml',
+        'views/myfab_cao_connector_global_menu.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',

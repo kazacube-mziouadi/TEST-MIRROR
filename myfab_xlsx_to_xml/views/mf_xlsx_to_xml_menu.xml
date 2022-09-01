@@ -5,12 +5,14 @@
         <menuitem name="XLSX to XML Configuration"
             action="mf_action_see_xlsx_configuration" 
             id="mf_menu_xlsx_configuration"
-            parent="base.menu_tracability_export_import"/>
+            parent="base.menu_tracability_export_import"
+            groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_user"/>
 
         <!-- TODO : add menu in the good module -->
         <menuitem name="XLSX to XML Conversion"
             action="mf_action_see_xlsx_conversion" 
             id="mf_menu_xlsx_convert"
-            parent="base.menu_tracability_export_import"/>
+            parent="base.menu_tracability_export_import"
+            groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager/>
 	</data>
 </openerp>

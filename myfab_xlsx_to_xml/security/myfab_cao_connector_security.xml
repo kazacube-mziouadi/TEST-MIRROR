@@ -4,7 +4,7 @@
     
         <!-- Groupe -->
         <record model="ir.module.category" id="module_mf_xlsx_to_xml">
-            <field name="name">CAO Connector</field>
+            <field name="name">XLSX to XML Convertor</field>
             <field name="sequence">15</field>
         </record>    
     
