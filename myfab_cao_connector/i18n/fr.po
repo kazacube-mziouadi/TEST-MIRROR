@@ -56,8 +56,8 @@ msgstr "Connecteur CAO"
 
 #. module: myfab_cao_connector
 #: model:ir.module.category,name:myfab_cao_connector.module_xml_import
-msgid "CAO import (XML import)"
-msgstr Importation CAO (Import XML)"
+msgid "CAO processing (XML import)"
+msgstr Traitement CAO (Import XML)"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_xml_import_processing_sim_action
