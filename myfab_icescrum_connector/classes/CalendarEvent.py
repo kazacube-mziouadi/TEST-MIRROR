@@ -12,15 +12,25 @@ class CalendarEvent(models.Model):
     mf_external_id = fields.Char(string="External ID", help="ID in the external app linked to this event.")
     mf_event_feature_id = fields.Many2one("calendar.event", string="Feature")
     mf_event_stories_ids = fields.One2many("calendar.event", "mf_event_feature_id", string="Stories")
+    mf_type_name = fields.Char(compute="compute_mf_type_name")
+    mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type")
+    mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time")
+    mf_scrum_duration = fields.Float(string="Scrum duration")
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
-    def _check_closing_date(self, cr, uid, ids, context=None):
-        for event in self.browse(cr, uid, ids, context=context):
-            print("AAAAAAAAAAHAHAHAHAHAHAHAHAH")
-            print(event.stop_datetime)
-            if not event.stop_datetime:
-                return True
-            else:
-                super(CalendarEvent, self)._check_closing_date()
+    @api.one
+    @api.depends("type_id")
+    def compute_mf_type_name(self):
+        self.mf_type_name = self.type_id.name
+
+    @api.one
+    @api.depends("type_id")
+    def compute_mf_is_scrum_type(self):
+        self.mf_is_scrum_type = self.type_id.name in self.env["mf.wizard.import.icescrum"].get_scrum_type_names()
+
+    @api.one
+    @api.depends("start_datetime", "stop_datetime")
+    def compute_mf_is_start_equal_to_stop_time(self):
+        self.mf_is_start_equal_to_stop_time = self.start_datetime == self.stop_datetime

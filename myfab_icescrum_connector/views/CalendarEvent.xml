@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
 	<data>
+		<!-- FORM VIEW Calendar event -->
+		<record model="ir.ui.view" id="mf_view_form_calendar_event">
+			<field name="name">mf_view_form_calendar_event</field>
+			<field name="inherit_id" ref="base_openprod.view_form_calendar_event" />
+			<field name="priority" eval="1000" />
+			<field name="model">calendar.event</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='stop_datetime']" position="after">
+					<field name="mf_scrum_duration"/>
+					<field name="mf_type_name"/>
+					<field name="mf_is_scrum_type" invisible="1"/>
+					<field name="mf_is_start_equal_to_stop_time" invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='stop_datetime']" position="attributes">
+					<attribute name="attrs">
+						{'invisible': [('mf_is_scrum_type', '=', True), ('mf_is_start_equal_to_stop_time', '=', True)]}
+					</attribute>
+				</xpath>
+				<xpath expr="//notebook" position="before">
+					<group colspan="4" col="4" string="Stories" attrs="{'invisible': [('mf_type_name', '!=', 'Feature')]}">
+						<field name="mf_event_stories_ids" nolabel="1"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- KANBAN VIEW Calendar event -->
+		<record model="ir.ui.view" id="mf_calendar_event_kanban_view">
+			<field name="name">mf_calendar_event_kanban_view</field>
+			<field name="inherit_id" ref="base_openprod.calendar_event_kanban_view" />
+			<field name="priority" eval="1000" />
+			<field name="model">calendar.event</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='stop_datetime']" position="after">
+					<field name="mf_scrum_duration"/>
+					<field name="mf_is_scrum_type" invisible="1"/>
+					<field name="mf_is_start_equal_to_stop_time" invisible="1"/>
+				</xpath>
+				<xpath expr="//li[@t-if='record.stop_datetime.raw_value']" position="after">
+					<li t-if="record.mf_scrum_duration.raw_value">
+						<b>Scrum duration : </b>
+						<field name="mf_scrum_duration" />
+					</li>
+				</xpath>
+				<xpath expr="//li[@t-if='record.stop_datetime.raw_value']" position="attributes">
+					<attribute name="t-if">
+						record.stop_datetime.raw_value and !(record.mf_is_scrum_type.raw_value and record.mf_is_start_equal_to_stop_time.raw_value)
+					</attribute>
+				</xpath>
+				<xpath expr="//li[@t-if='record.duration.raw_value']" position="attributes">
+					<attribute name="t-if">
+						record.duration.raw_value and !record.mf_is_scrum_type.raw_value
+					</attribute>
+				</xpath>
+			</field>
+		</record>
+
         <!-- Bouton d'action "Import from Intuiz" -->
 	  	<act_window
 	  	    name="Import from IceScrum"
@@ -10,7 +67,7 @@
 	  	    target="new"
 			key2="client_action_multi"
 			context="{'sidebar_without_id':True}"
-	  	    id="mf_act_wizard_calendat_event_import_icescrum"
+	  	    id="mf_act_wizard_calendar_event_import_icescrum"
         />
     </data>
 </openerp>
