@@ -9,8 +9,8 @@
 			<field name="model">calendar.event</field>
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='stop_datetime']" position="after">
-					<field name="mf_scrum_duration"/>
-					<field name="mf_type_name"/>
+					<field name="mf_scrum_duration" widget="float_time"/>
+					<field name="mf_type_name" invisible="1"/>
 					<field name="mf_is_scrum_type" invisible="1"/>
 					<field name="mf_is_start_equal_to_stop_time" invisible="1"/>
 				</xpath>
