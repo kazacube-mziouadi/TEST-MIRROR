@@ -27,7 +27,9 @@
         'views/my_fab_web.xml',
         'views/DataInitializerMyFabMF.xml'
     ],
-    'qweb': [],
+    'qweb': [
+        'static/src/xml/*.xml',
+    ],
     'demo': [],
     'test': [],
     'installable': True,

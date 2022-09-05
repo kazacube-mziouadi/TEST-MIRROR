@@ -1,0 +1,45 @@
+<template>
+
+    <!--00004349-->
+    <div t-name="UserMenu.about" class="oe_about">
+        <div>
+            <a class="oe_activate_debug_mode oe_left label label-primary" href="http://srv-bron-dkr1:8080/books">Aide en ligne</a>
+            <a class="oe_activate_debug_mode oe_right label label-primary" href="?debug" >Activate the developer mode</a>
+        </div>
+        <div>
+            <div class="user-details">
+                <div class="user-image">
+                    <img src="/web/static/src/img/logo-bleu.png" alt="Open-prod)" title="Open-prod" />
+                </div>
+                <div class="user-info-block">
+                    <div class="user-heading">
+                        <h3>
+                            Version : <t t-esc="git_info.version"/>
+                        </h3>
+                        <t t-if="db_info.expiration_date">
+                            <h5>Database expiration: <t t-esc="new moment(db_info.expiration_date).format('LL')"/></h5>
+                        </t>
+                        <h4>Last commit:
+                            <t t-esc="git_info.last_commit"/>
+                            <t t-esc="formats.format_value(git_info.commit_date.toDate(), {'widget': 'date'})"/>
+                            <t t-esc="git_info.branch"/>
+                        </h4>
+
+                    </div>
+                    <div class="user-body">
+                        <div class="tab-content">
+                            <div id="settings" class="tab-pane active">
+                                <h4>Copyright © 2010-2021 Objectif-PI</h4>
+                                <p>Open-prod is a trademark of <a target="_blank" href="https://www.open-prod.com" style="text-decoration: underline;">Objectif-PI</a></p>
+                                <p>Licenced under the terms of Open-Prod License</p>
+                                <p>For more information visit <a target="_blank" href="https://www.open-prod.com" style="text-decoration: underline;">Open-prod.com</a></p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

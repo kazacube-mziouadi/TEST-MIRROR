@@ -6,7 +6,10 @@
     'license': 'Open-prod license',
     'summary': 'Interface myfab pour échanger avec des logiciels externes via fichiers à plat.',
     'category': 'Base',
-    'description': """Interface myfab pour échanger avec des logiciels externes via fichiers à plat.""",
+    'description': """
+    Interface myfab pour échanger avec des logiciels externes via fichiers à plat.
+    \n\r
+    **Aide en ligne :** http://srv-bron-dkr1:8080/books/myfab-file-interface""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
@@ -41,7 +44,6 @@
         'views/attempts/FileInterfaceImportAttemptRecordImportMF.xml',
         'views/BaseMenus.xml'
     ],
-    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,
