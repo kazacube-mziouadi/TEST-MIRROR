@@ -13,6 +13,6 @@
             action="mf_action_see_xlsx_conversion" 
             id="mf_menu_xlsx_convert"
             parent="base.menu_tracability_export_import"
-            groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager/>
+            groups="myfab_xlsx_to_xml.mf_xlsx_to_xml_manager"/>
 	</data>
 </openerp>
