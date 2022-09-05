@@ -27,7 +27,7 @@ class ImporterServiceMF(models.TransientModel):
                 if "callback" in record_to_process_dict:
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
-                    self.env['mf.tools'].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
+                    self.env["mf.tools"].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
                 record_to_process_dict["status"] = status
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit

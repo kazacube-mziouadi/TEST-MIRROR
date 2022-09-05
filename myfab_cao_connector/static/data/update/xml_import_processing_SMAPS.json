@@ -1,7 +1,10 @@
 [
     {
         "fields": {
-            "mf_process_xlsx_conversion_id": {}, 
+            "name": "SMAPS"
+        },
+        "write": {
+            "mf_process_xlsx_conversion_id": {},
             "model_id": {
                 "beacon_ids": [
                     {
@@ -755,7 +758,7 @@
             }, 
             "state": "wait"
         }, 
-        "method": "create", 
+        "method": "merge",
         "model": "xml.import.processing"
     }
 ]
