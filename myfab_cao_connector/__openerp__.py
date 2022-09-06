@@ -29,11 +29,8 @@
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
         'views/myfab_cao_xlsx_menu.xml',
-<<<<<<< HEAD
         'wizards/processing/mf_xml_import_processing_wizard.xml',
-=======
         'views/myfab_cao_connector_global_menu.xml',
->>>>>>> 1b54ea089f48ff172ba822f4f13422235b394a56
     ],
     'qweb': [
         'static/src/xml/*.xml',

@@ -13,7 +13,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     _description = 'Splitting of a sale'
 
     name = fields.Char(string='Name', required=True)
-    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line', string='XLSX Conversion')
+    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_xlsx_conversion_id', string='XLSX Conversion')
     mf_processing_id = fields.Many2one('xml.import.processing', string="Processing")
     mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion')
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="Pre-treatment")
@@ -42,6 +42,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 new_processing = temp_processing.write(new_file)
                 new_processings.push(new_processing)
             else:
+                new_file.name = file.fname
                 new_processing = self.env['xml.import.processing'].create(new_file)
                 new_processings.push(new_processing)
         for new_process in new_processings:
