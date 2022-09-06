@@ -15,7 +15,8 @@ class CalendarEvent(models.Model):
     mf_type_name = fields.Char(compute="compute_mf_type_name")
     mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type")
     mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time")
-    mf_scrum_duration = fields.Float(string="Scrum duration")
+    mf_scrum_spent_time = fields.Float(string="Temps passé (heures)")
+    mf_scrum_estimated_time = fields.Float(string="Temps estimé (heures)")
 
     # ===========================================================================
     # METHODS

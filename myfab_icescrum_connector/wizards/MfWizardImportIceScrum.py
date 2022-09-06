@@ -10,7 +10,7 @@ API_ICESCRUM_STORY_NAME = "story"
 API_ICESCRUM_TASK_NAME = "task"
 SCRUM_TYPE_NAMES = ["Feature", "Story"]
 API_ICESCRUM_STATES = ["Brouillon", "Brouillon", "A faire", "A faire", "En cours", "En cours", "Terminé", "Terminé"]
-
+ICESCRUM_ESTIMATED_TIME_MARK = "[TE]"
 
 class MfWizardImportIceScrum(models.TransientModel):
     _name = "mf.wizard.import.icescrum"
@@ -77,7 +77,7 @@ class MfWizardImportIceScrum(models.TransientModel):
                     stories_api_list,
                     tasks_api_list
                 )
-                feature_creation_dict["mf_scrum_duration"] = self.get_total_scrum_duration_from_stories_creation_list(
+                feature_creation_dict["mf_scrum_spent_time"] = self.get_total_scrum_duration_from_stories_creation_list(
                     feature_creation_dict["mf_event_stories_ids"]
                 )
             self.env["calendar.event"].create(feature_creation_dict)
@@ -98,7 +98,7 @@ class MfWizardImportIceScrum(models.TransientModel):
     def get_total_scrum_duration_from_stories_creation_list(stories_creation_tuples_list):
         total_stories_scrum_duration = 0.0
         for story_creation_tuple in stories_creation_tuples_list:
-            total_stories_scrum_duration += story_creation_tuple[2]["mf_scrum_duration"]
+            total_stories_scrum_duration += story_creation_tuple[2]["mf_scrum_spent_time"]
         return total_stories_scrum_duration
 
     @staticmethod
@@ -110,7 +110,7 @@ class MfWizardImportIceScrum(models.TransientModel):
     def get_story_creation_dict(self, story_api_dict, tasks_api_list):
         action_type_story_id = self.env["action.type"].search([("name", '=', "Story")])
         story_creation_dict = self.get_action_event_creation_dict(story_api_dict, action_type_story_id)
-        story_creation_dict["mf_scrum_duration"] = self.get_story_scrum_duration(story_api_dict["id"], tasks_api_list)
+        story_creation_dict["mf_scrum_spent_time"] = self.get_story_scrum_duration(story_api_dict["id"], tasks_api_list)
         return story_creation_dict
 
     def get_action_event_creation_dict(self, icescrum_event_api_dict, icescrum_event_type_id):
@@ -124,6 +124,10 @@ class MfWizardImportIceScrum(models.TransientModel):
             "type_id": icescrum_event_type_id.id,
             "state_id": self.format_api_state(icescrum_event_api_dict["state"]),
         }
+        if icescrum_event_api_dict["notes"] and ICESCRUM_ESTIMATED_TIME_MARK in icescrum_event_api_dict["notes"]:
+            icescrum_event_creation_dict["mf_scrum_estimated_time"] = self.get_scrum_estimated_time_from_api(
+                icescrum_event_api_dict["notes"]
+            )
         if icescrum_event_api_dict["doneDate"]:
             icescrum_event_creation_dict["stop_datetime"] = self.format_api_datetime(icescrum_event_api_dict["doneDate"])
         else:
@@ -137,6 +141,12 @@ class MfWizardImportIceScrum(models.TransientModel):
             if task_api_dict["parentStory"] and task_api_dict["parentStory"]["id"] == story_id and task_api_dict["spent"]:
                 story_scrum_duration += task_api_dict["spent"]
         return story_scrum_duration
+
+    @staticmethod
+    def get_scrum_estimated_time_from_api(notes_string):
+        notes_split_after_te_mark = notes_string.split(ICESCRUM_ESTIMATED_TIME_MARK)[1]
+        te_time = notes_split_after_te_mark.split("\n")[0]
+        return float(te_time.replace(',', '.'))
 
     @staticmethod
     def format_api_datetime(api_datetime):
