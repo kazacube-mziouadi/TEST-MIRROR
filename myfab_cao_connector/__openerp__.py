@@ -27,6 +27,7 @@
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
         'views/myfab_cao_xlsx_menu.xml',
+        'wizards/processing/mf_xml_import_processing_wizard.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',
