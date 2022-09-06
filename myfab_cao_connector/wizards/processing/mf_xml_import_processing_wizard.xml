@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="view_form_processing_wizard">
+            <field name="name">view_form_processing_wizard</field>
+            <field name="model">mf.xml.import.processing.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Wizard processing creation">
+                    <group colspan="4" col="4">
+                        <group colspan="4" col="6">
+                            <field name="mf_processing_id" />
+                            <field name="mf_process_xlsx_conversion_id" />
+                            <field name="mf_preprocessing_id" />
+                            <field name="mf_configuration_table_id" />
+                            <field name="mf_stop_at_preprocessing" />
+                        </group>
+                        <group colspan="4" col="4" string="Files">
+                            <field name="mf_xml_import_processing_wizard_line_ids" nolabel="1" colspan="4" >
+                                <tree editable="bottom">
+                                    <field name="file"/>
+                                    <field name="fname" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="create_and_process" string="Validate" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_processing_wizard">
+            <field name="name">CAO Processing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mf.xml.import.processing.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+		<record id='view_form_product_myfab_cao_inherit' model="ir.ui.view">
+        	<field name="name">view_form_product_myfab_cao_inherit</field>
+			<field name="inherit_id" ref="product.view_form_product" />
+			<field name="model">product.product</field>
+			<field name="arch" type="xml">
+                <xpath expr="//separator[@name='separator_action_menu']" position="after">
+                    <button class="oe_inline oe_stat_button" type="action" string="CAO processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                </xpath>
+			</field>
+        </record>
+
+		<record id='view_form_mrp_bom_myfab_cao_inherit' model="ir.ui.view">
+        	<field name="name">view_form_mrp_bom_myfab_cao_inherit</field>
+			<field name="inherit_id" ref="mrp.view_form_mrp_bom" />
+			<field name="model">mrp.bom</field>
+			<field name="arch" type="xml">
+                <xpath expr="//separator[@name='separator_actions_menu']" position="after">
+                    <button class="oe_inline oe_stat_button" type="action" string="CAO processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                </xpath>
+			</field>
+        </record>
+
+        <menuitem action="action_processing_wizard" id="menu_view_action_processing_wizard" parent="xml_import.base_menu_xml_import_view"/>
+        
+    </data>
+</openerp>
