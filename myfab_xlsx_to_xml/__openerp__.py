@@ -15,7 +15,7 @@
         'my_fab',
     ],
     'data': [
-        'security/myfab_cao_connector_security.xml',
+        'security/myfab_xls_to_xml_security.xml',
         'security/ir.model.access.csv',
         'views/config/mf_xlsx_configuration.xml',
         'views/config/mf_xlsx_config_sheet.xml',
