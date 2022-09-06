@@ -1,5 +1,13 @@
 <template>
 
+    <t t-name="myfab_OnlineHelp.MenuWidget">
+        <li class="op_mf_menu_widget">
+            <button class="op_mf_menu_button">
+                <span class="fa"/>
+            </button>
+        </li>
+    </t>
+
     <!--00004349-->
     <div t-name="UserMenu.about" class="oe_about">
         <div>
