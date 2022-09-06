@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Convertisseur XLSX vers XML',
-    'version': '1.0.0',
+    'version': '1.0.1',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Convertis un XLSX vers XML',
@@ -15,6 +15,8 @@
         'my_fab',
     ],
     'data': [
+        'security/myfab_cao_connector_security.xml',
+        'security/ir.model.access.csv',
         'views/config/mf_xlsx_configuration.xml',
         'views/config/mf_xlsx_config_sheet.xml',
         'views/config/mf_xlsx_config_sheet_level.xml',

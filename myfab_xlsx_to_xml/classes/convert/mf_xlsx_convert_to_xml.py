@@ -22,7 +22,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     name = fields.Char(required=True)
     configuration_id = fields.Many2one('mf.xlsx.configuration', string='Configuration', ondelete='restrict')
-    xlsx_file = fields.Binary(string="XLSX file to convert", required=True)
+    xlsx_file = fields.Binary(string="XLSX file to convert")
     xlsx_file_name = fields.Char()
     xml_file = fields.Binary(string="XML file converted", readonly=True)
     xml_file_name = fields.Char()
@@ -32,11 +32,11 @@ class mf_xlsx_convert_to_xml(models.Model):
     # METHODS
     #===========================================================================
     @api.one
-    def mf_convert(self):
+    def mf_convert(self, with_error_message=True):
         xml_file = False
         execution_message = ''
 
-        if self._are_parameters_ok():
+        if self._are_parameters_ok(with_error_message):
             (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(self.xlsx_file, self.configuration_id)
             self.write({
                         'execution_message' : execution_message,
@@ -166,11 +166,15 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # CHECK METHODS
     #===========================================================================
-    def _are_parameters_ok(self):
-        if not self.xlsx_file : raise ValidationError(_('No XLSX file to convert.'))
-        if len(self.xlsx_file_name) <= 5 or self.xlsx_file_name[-5:].upper() != '.XLSX' : raise ValidationError(_('Conversion only works with XLSX files'))
-        if not self.configuration_id: raise ValidationError(_('Choose a configuration.'))
-        return True
+    def _are_parameters_ok(self, with_messages=True):
+        error_message = False
+        if not self.xlsx_file : error_message = _('No XLSX file to convert.')
+        if len(self.xlsx_file_name) <= 5 or self.xlsx_file_name[-5:].upper() != '.XLSX' : error_message = _('Conversion only works with XLSX files')
+        if not self.configuration_id: error_message = _('Choose a configuration.')
+
+        if not error_message: return True
+        if not with_messages: return False
+        raise ValidationError(error_message)          
 
     def _mf_is_row_child(self, xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
         if child_xlsx_row_index < len(xlsx_rows):

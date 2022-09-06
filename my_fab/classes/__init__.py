@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-import DataInitializerMF
-import DataInitializerMyFabMF
+import data_initializer
+import config

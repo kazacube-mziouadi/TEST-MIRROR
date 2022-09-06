@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Connecteur CAO myfab',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Connecteur CAO via import XML',
@@ -19,6 +19,8 @@
         'xml_import',
     ],
     'data': [
+        'security/mf_cao_xml_import_security.xml',
+        'security/ir.model.access.csv',
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
         'views/myfab_cao_connector_web.xml',
         'views/xml_preprocessing_table_rule.xml',
@@ -27,7 +29,11 @@
         'views/xml_import_processing.xml',
         'views/xml_import_processing_sim_action.xml',
         'views/myfab_cao_xlsx_menu.xml',
+<<<<<<< HEAD
         'wizards/processing/mf_xml_import_processing_wizard.xml',
+=======
+        'views/myfab_cao_connector_global_menu.xml',
+>>>>>>> 1b54ea089f48ff172ba822f4f13422235b394a56
     ],
     'qweb': [
         'static/src/xml/*.xml',
