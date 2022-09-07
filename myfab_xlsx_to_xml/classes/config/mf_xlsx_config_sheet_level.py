@@ -13,7 +13,7 @@ class mf_xlsx_config_sheet_level(models.Model):
     is_numerical_level = fields.Boolean(default=True)
     level_separator = fields.Char()
     parent_reference_column = fields.Char(help='Data column where to search current value in XLSX file')
-    beacon_per_level = fields.Char(required=True)
+    xml_beacon_per_level = fields.Char(required=True)
 
     @api.one
     def _mf_compute_name(self):
@@ -22,5 +22,5 @@ class mf_xlsx_config_sheet_level(models.Model):
             temp_name += " (Num)"
         else:
             temp_name += " -> " + self.parent_reference_column
-        temp_name += " = " + self.beacon_per_level
+        temp_name += " = " + self.xml_beacon_per_level
         self.name = temp_name

@@ -6,7 +6,7 @@
         "method": "merge",
         "model": "xml.import.processing",
         "write": {
-            "mf_process_xlsx_conversion_id": {},
+            "mf_process_conversion_id": {},
             "model_id": {
                 "beacon_ids": [
                     {
@@ -576,7 +576,7 @@
             },
             "name": "SMAPS",
             "preprocessing_id": {
-                "mf_preprocess_xlsx_conversion_id": {},
+                "mf_preprocess_conversion_id": {},
                 "name": "SMAPS",
                 "table_id": {
                     "name": "SMAPS",

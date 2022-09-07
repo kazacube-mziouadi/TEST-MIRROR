@@ -172,12 +172,12 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_file_name
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert_name
 msgid "Mf preprocess xlsx file name"
 msgstr "Nom du fichier XLSX de prétraitement"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_file_name
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert_name
 msgid "Mf process xlsx file name"
 msgstr "Nom du fichier XLSX de traitement"
 
@@ -215,8 +215,8 @@ msgstr "Valeur du noeud"
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_conversion_message
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_imported_from_simulation
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_conversion_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_file
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_file_name
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_beacon_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_node_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_selected_for_import
@@ -227,8 +227,8 @@ msgstr "Valeur du noeud"
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_tree_view_sim_action_parent_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_conversion_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_file
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_file_name
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_modif_old_value
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_use_old_value
 msgid "Not defined"
@@ -317,10 +317,10 @@ msgid "XLSX Conversion information"
 msgstr "Information de conversion XLSX"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_file
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_file
-msgid "XLSX file to convert"
-msgstr "Fichier XLSX à convertir"
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert
+msgid "XLSX/CSV file to convert"
+msgstr "Fichier XLSX/CSV à convertir"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_xml_import_processing

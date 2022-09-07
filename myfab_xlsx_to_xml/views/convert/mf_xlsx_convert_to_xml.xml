@@ -16,10 +16,10 @@
                             </div>
                             <group colspan="8" col="4" name="group_infos"> 
                                 <field name="configuration_id"/>
-                                <field name="xlsx_file" filename="xlsx_file_name"/>
+                                <field name="file_to_convert" filename="file_to_convert_name"/>
                                 <field name="execution_message"/>
                                 <field name="xml_file" filename="xml_file_name"/>
-                                <field name="xlsx_file_name" invisible="1" />
+                                <field name="file_to_convert_name" invisible="1" />
                                 <field name="xml_file_name" invisible="1" />
                             </group>
                         </group>
