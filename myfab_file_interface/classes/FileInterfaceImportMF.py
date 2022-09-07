@@ -136,7 +136,8 @@ class FileInterfaceImportMF(models.Model):
                 "fields_mf": json.dumps(record_dict["fields"], sort_keys=True, indent=4),
                 "fields_to_write_mf": record_dict["write"] if "write" in record_dict else "",
                 "callback_method_mf": record_dict["callback"] if "callback" in record_dict else "",
-                "committed_mf": record_dict["committed"] if "committed" in record_dict else False
+                "committed_mf": record_dict["committed"] if "committed" in record_dict else False,
+                "mf_linked_record_reference": self.format_reference(record_import_model, record_dict["reference"]) if "reference" in record_dict else False
             }
             if record_import_failed_dict and record_dict == record_import_failed_dict:
                 record_import_dict["status_mf"] = "failed"
@@ -144,6 +145,11 @@ class FileInterfaceImportMF(models.Model):
                 record_import_dict["status_mf"] = record_dict["status"] if "status" in record_dict else "not processed"
             import_attempt_record_imports_list.append((0, 0, record_import_dict))
         return import_attempt_record_imports_list
+
+    @staticmethod
+    def format_reference(model_id, reference_raw):
+        if reference_raw:
+            return model_id.model + ',' + str(reference_raw[0].id)
 
     # ===========================================================================
     # METHODS - BUTTONS
