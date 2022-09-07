@@ -46,7 +46,7 @@ class ExporterServiceMF(models.TransientModel):
             field_model_dictionary = model_dictionary.get_child_model_dictionary_for_field(
                 field_to_export, raise_error_if_not_found=False
             )
-            if field_model_dictionary and record_to_export_dict:
+            if field_model_dictionary and record_to_export_dict and field_to_export.name in record_to_export_dict:
                 child_fields_to_search = self.get_fields_to_search_dict_for_child_model_dictionary(
                     record_to_export_dict[field_to_export.name], field_model_dictionary
                 )

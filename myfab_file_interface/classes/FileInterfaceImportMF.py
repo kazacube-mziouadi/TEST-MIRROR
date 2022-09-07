@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 from openerp import models, fields, api, registry, _
 import traceback
 import base64
 from openerp.exceptions import MissingError
 import json
+
+KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model"]
 
 
 class FileInterfaceImportMF(models.Model):
@@ -53,9 +56,11 @@ class FileInterfaceImportMF(models.Model):
             self.env["importer.service.mf"].import_records_list(records_to_process_list)
         except Exception as e:
             record_import_failed_dict = None
-            if len(e.args) == 2:
-                exception, record_import_failed_dict = e
-            exception_traceback = traceback.format_exc()
+            if len(e.args) == 3:
+                exception, exception_traceback, record_import_failed_dict = e
+            else:
+                exception_traceback = traceback.format_exc()
+
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
             # Creation du fichier de tentative non factorisable a cause du rollback ci-dessus
@@ -67,12 +72,28 @@ class FileInterfaceImportMF(models.Model):
             import_attempt_dict.update({
                 "is_successful_mf": False,
                 "end_datetime_mf": self.get_current_datetime(),
-                "message_mf": exception_traceback,
-                "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(
-                    records_to_process_list, record_import_failed_dict
-                ),
                 "file_mf": import_attempt_file.id
             })
+            if type(records_to_process_list) is list :
+                incorrect_file_key = self.get_incorrect_dict_key_in_records_dicts_list(records_to_process_list)
+                if incorrect_file_key:
+                    # Si on arrive ici c'est qu'il y a une clé incorrecte dans le fichier, on la signale explicitement
+                    import_attempt_dict.update({
+                        "message_mf": _("The following key found in the file is incorrect : " + incorrect_file_key)
+                    })
+                else:
+                    # Gestion des exceptions "classiques"
+                    import_attempt_dict.update({
+                        "message_mf": exception_traceback,
+                        "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(
+                            records_to_process_list, record_import_failed_dict
+                        ),
+                    })
+            else:
+                # Si on arrive ici c'est que le format du fichier est incorrect, on le signale explicitement
+                import_attempt_dict.update({
+                    "message_mf": _("The file's format is incorrect.")
+                })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             self.directory_mf.delete_file(file_name)
             # On arrete l'import ici
@@ -86,6 +107,14 @@ class FileInterfaceImportMF(models.Model):
         })
         self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
         self.directory_mf.delete_file(file_name)
+
+    @staticmethod
+    def get_incorrect_dict_key_in_records_dicts_list(records_dicts_list):
+        for record_dict in records_dicts_list:
+            for record_dict_key in record_dict.keys():
+                if record_dict_key not in KEYS_IN_IMPORT_DICT:
+                    return record_dict_key
+        return False
 
     def get_one2many_record_imports_creation_list_from_dicts_list(self, records_list, record_import_failed_dict=None):
         import_attempt_record_imports_list = []
