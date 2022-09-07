@@ -6,7 +6,6 @@
         "method": "merge",
         "model": "xml.import.processing",
         "write": {
-            "mf_process_xlsx_conversion_id": {},
             "model_id": {
                 "beacon_ids": [
                     {
@@ -65,7 +64,6 @@
                                                     "model": "product.category"
                                                 },
                                                 "sequence": 21,
-                                                "target_attribute": {},
                                                 "update_object": false,
                                                 "use_onchange": true
                                             },
@@ -96,8 +94,6 @@
                                                 "parent_relation_id": {
                                                     "model": "product.product"
                                                 },
-                                                "relation_openprod_field_id": {},
-                                                "relation_openprod_id": {},
                                                 "sequence": 20,
                                                 "target_attribute": {
                                                     "attribute_type": "field",
@@ -140,8 +136,6 @@
                                                 "parent_relation_id": {
                                                     "model": "product.product"
                                                 },
-                                                "relation_openprod_field_id": {},
-                                                "relation_openprod_id": {},
                                                 "sequence": 22,
                                                 "target_attribute": {
                                                     "attribute_type": "field",
@@ -192,7 +186,6 @@
                                                     "model": "product.uom"
                                                 },
                                                 "sequence": 23,
-                                                "target_attribute": {},
                                                 "update_object": false,
                                                 "use_onchange": true
                                             }
@@ -217,7 +210,6 @@
                                             "model": "product.product"
                                         },
                                         "sequence": 20,
-                                        "target_attribute": {},
                                         "update_object": true,
                                         "use_onchange": true
                                     },
@@ -262,7 +254,6 @@
                                                             "model": "product.category"
                                                         },
                                                         "sequence": 20,
-                                                        "target_attribute": {},
                                                         "update_object": true,
                                                         "use_onchange": true
                                                     },
@@ -293,8 +284,6 @@
                                                         "parent_relation_id": {
                                                             "model": "product.product"
                                                         },
-                                                        "relation_openprod_field_id": {},
-                                                        "relation_openprod_id": {},
                                                         "sequence": 20,
                                                         "target_attribute": {
                                                             "attribute_type": "field",
@@ -337,8 +326,6 @@
                                                         "parent_relation_id": {
                                                             "model": "product.product"
                                                         },
-                                                        "relation_openprod_field_id": {},
-                                                        "relation_openprod_id": {},
                                                         "sequence": 20,
                                                         "target_attribute": {
                                                             "attribute_type": "field",
@@ -389,7 +376,6 @@
                                                             "model": "product.uom"
                                                         },
                                                         "sequence": 20,
-                                                        "target_attribute": {},
                                                         "update_object": true,
                                                         "use_onchange": true
                                                     }
@@ -414,7 +400,6 @@
                                                     "model": "product.product"
                                                 },
                                                 "sequence": 20,
-                                                "target_attribute": {},
                                                 "update_object": true,
                                                 "use_onchange": true
                                             },
@@ -445,8 +430,6 @@
                                                 "parent_relation_id": {
                                                     "model": "mrp.bom"
                                                 },
-                                                "relation_openprod_field_id": {},
-                                                "relation_openprod_id": {},
                                                 "sequence": 20,
                                                 "target_attribute": {
                                                     "attribute_type": "field",
@@ -483,7 +466,6 @@
                                             "model": "mrp.bom"
                                         },
                                         "sequence": 20,
-                                        "target_attribute": {},
                                         "update_object": true,
                                         "use_onchange": true
                                     },
@@ -514,8 +496,6 @@
                                         "parent_relation_id": {
                                             "model": "mrp.bom"
                                         },
-                                        "relation_openprod_field_id": {},
-                                        "relation_openprod_id": {},
                                         "sequence": 20,
                                         "target_attribute": {
                                             "attribute_type": "field",
@@ -541,13 +521,10 @@
                                 "domain": "[[\"product_id\",\"=\",null],[\"bom_id\",\"=\",false]]",
                                 "full_path": "Root/Nomenclature",
                                 "name": "Nomenclature",
-                                "parent_relation_id": {},
-                                "relation_openprod_field_id": {},
                                 "relation_openprod_id": {
                                     "model": "mrp.bom"
                                 },
                                 "sequence": 20,
-                                "target_attribute": {},
                                 "update_object": true,
                                 "use_onchange": true
                             }
@@ -561,11 +538,7 @@
                         "domain": "[]",
                         "full_path": "Root",
                         "name": "Root",
-                        "parent_relation_id": {},
-                        "relation_openprod_field_id": {},
-                        "relation_openprod_id": {},
                         "sequence": 20,
-                        "target_attribute": {},
                         "update_object": true,
                         "use_onchange": true
                     }
@@ -576,7 +549,6 @@
             },
             "name": "SMAPS",
             "preprocessing_id": {
-                "mf_preprocess_xlsx_conversion_id": {},
                 "name": "SMAPS",
                 "table_id": {
                     "name": "SMAPS",
