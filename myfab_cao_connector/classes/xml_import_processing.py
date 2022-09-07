@@ -10,9 +10,9 @@ class xml_import_processing(models.Model):
     # FIELDS
     # ===========================================================================
     mf_imported_from_simulation = fields.Boolean(string="Imported from simulation", default=False)
-    mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
-    mf_process_xlsx_file = fields.Binary(string="XLSX file to convert")
-    mf_process_xlsx_file_name = fields.Char()
+    mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
+    mf_process_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
+    mf_process_file_to_convert_name = fields.Char()
     mf_conversion_message = fields.Char(string="Conversion information", readonly=True)
         
     # ===========================================================================
@@ -39,33 +39,33 @@ class xml_import_processing(models.Model):
         """
         Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
         """ 
-        if not self.mf_process_xlsx_conversion_id:
+        if not self.mf_process_conversion_id:
             return True
-        if not self.mf_process_xlsx_file:
+        if not self.mf_process_file_to_convert:
             return False
             
-        self.mf_process_xlsx_conversion_id.write({'xlsx_file':self.mf_process_xlsx_file, 
-                                                'xlsx_file_name':self.mf_process_xlsx_file_name,
+        self.mf_process_conversion_id.write({'file_to_convert':self.mf_process_file_to_convert, 
+                                                'file_to_convert_name':self.mf_process_file_to_convert_name,
                                                 })
         
-        conversion_ok = self.mf_process_xlsx_conversion_id.mf_convert()
+        conversion_ok = self.mf_process_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
         
-        self.mf_conversion_message = self.mf_process_xlsx_conversion_id.execution_message
+        self.mf_conversion_message = self.mf_process_conversion_id.execution_message
         if conversion_ok:
-            self.write({'file': self.mf_process_xlsx_conversion_id.xml_file, 
-                        'fname': self.mf_process_xlsx_conversion_id.xml_file_name,
+            self.write({'file': self.mf_process_conversion_id.xml_file, 
+                        'fname': self.mf_process_conversion_id.xml_file_name,
                         })
         return conversion_ok
 
     @api.multi
     def preprocessing_xml_file(self):
-        if self.mf_process_xlsx_conversion_id:
+        if self.mf_process_conversion_id:
             # Don't use the current object conversion method, because it also exists in the preprocessing object 
             # Change all preprocessing parameters else the preprocessing will use it's own paramters
-            self.preprocessing_id.write({'mf_preprocess_xlsx_conversion_id':self.mf_process_xlsx_conversion_id.id, 
-                                        'mf_preprocess_xlsx_file':self.mf_process_xlsx_file,
-                                        'mf_preprocess_xlsx_file_name':self.mf_process_xlsx_file_name,
+            self.preprocessing_id.write({'mf_preprocess_conversion_id':self.mf_process_conversion_id.id, 
+                                        'mf_preprocess_file_to_convert':self.mf_process_file_to_convert,
+                                        'mf_preprocess_file_to_convert_name':self.mf_process_file_to_convert_name,
                                         'file':False,
                                         'preprocessing_file':False,
                                         })  
@@ -73,8 +73,8 @@ class xml_import_processing(models.Model):
         super(xml_import_processing, self).preprocessing_xml_file()
 
         # After preprocessing, we get the information from object
-        if self.mf_process_xlsx_conversion_id:
-            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_xlsx_conversion_id.execution_message
+        if self.mf_process_conversion_id:
+            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_conversion_id.execution_message
 
     def create_simulate_import(self, history):
         """

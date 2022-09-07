@@ -19,7 +19,6 @@
         'xml_import',
     ],
     'data': [
-        'security/mf_cao_xml_import_security.xml',
         'security/ir.model.access.csv',
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
         'views/myfab_cao_connector_web.xml',

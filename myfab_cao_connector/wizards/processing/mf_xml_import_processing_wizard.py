@@ -14,15 +14,14 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     @api.one
     @api.onchange('mf_processing_id')
     def _compute_mf_processing_id(self):
-        _logger.info("APPEL")
         self.mf_process_xlsx_conversion_id = self.mf_processing_id.mf_process_xlsx_conversion_id.id
         self.mf_preprocessing_id = self.mf_processing_id.preprocessing_id.id
         self.mf_configuration_table_id = self.mf_processing_id.model_id.id
 
     name = fields.Char(string='Name', required=True)
-    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_xlsx_conversion_id', string='XLSX Conversion')
+    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='XLSX Conversion')
     mf_processing_id = fields.Many2one('xml.import.processing', string="Processing")
-    mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion')
+    mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion')
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="Pre-treatment")
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')])
     mf_stop_at_preprocessing = fields.Boolean(string='Stop at preprocessing')
@@ -43,10 +42,10 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             elif file.file_name.split(".")[-1] in ["xlsx","xls"]:
                 new_file = {
                     "name":self.name,
-                    "mf_process_xlsx_file":file.file,
-                    "mf_process_xlsx_conversion_id":self.mf_process_xlsx_conversion_id.id,
-                    "preprocessing_id":self.mf_preprocessing_id.id,
-                    "model_id":self.mf_configuration_table_id.id,
+                    "mf_process_file_to_convert":file.file,
+                    "mf_process_conversion_id":self.mf_process_conversion_id,
+                    "preprocessing_id":self.mf_preprocessing_id,
+                    "model_id":self.mf_configuration_table_id,
                 }
             if self.mf_processing_id:
                 new_processing = self.mf_processing_id.copy()
@@ -56,7 +55,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 new_processing = self.env['xml.import.processing'].create(new_file)
                 new_processings.append(new_processing)
         for new_process in new_processings:
-            if new_process.mf_process_xlsx_file:
+            if new_process.mf_process_file_to_convert:
                 new_process.mf_xlsx_conversion()
             new_process.preprocessing_xml_file()
             new_process.simulate_file_analyse()

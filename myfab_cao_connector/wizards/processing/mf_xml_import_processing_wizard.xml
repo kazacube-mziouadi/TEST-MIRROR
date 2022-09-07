@@ -12,7 +12,7 @@
                         <group colspan="4" col="6">
                             <field name="name" />
                             <field name="mf_processing_id" />
-                            <field name="mf_process_xlsx_conversion_id" />
+                            <field name="mf_process_conversion_id" />
                             <field name="mf_preprocessing_id" />
                             <field name="mf_configuration_table_id" />
                             <field name="mf_stop_at_preprocessing" />

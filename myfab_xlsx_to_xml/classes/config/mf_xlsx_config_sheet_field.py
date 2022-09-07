@@ -13,7 +13,7 @@ class mf_xlsx_config_sheet_field(models.Model):
     writing_mode = fields.Selection('_mf_type_get', string='Writing mode', required=True, default='column_value')
     column = fields.Char(help='Data column in XLSX file')
     fixed_value = fields.Char(help='Fixed value')
-    beacon = fields.Char(required=True)
+    xml_beacon = fields.Char(required=True)
     attribute = fields.Char()
     is_merge = fields.Boolean(string='Merge values in same attributes/beacon', default=True)
     value = fields.Char(compute='_mf_compute_value', readonly=True)
