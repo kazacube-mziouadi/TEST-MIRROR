@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api
+from xml.dom import ValidationErr
+from openerp import models, api, fields, _
+from openerp.exceptions import ValidationError
 import openerp.addons.decimal_precision as dp
 import logging
 
@@ -11,13 +13,6 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     """
     _name = 'mf.xml.import.processing.wizard'
 
-    @api.one
-    @api.onchange('mf_processing_id')
-    def _compute_mf_processing_id(self):
-        self.mf_process_conversion_id = self.mf_processing_id.mf_process_conversion_id
-        self.mf_preprocessing_id = self.mf_processing_id.preprocessing_id
-        self.mf_configuration_table_id = self.mf_processing_id.model_id
-
     name = fields.Char(required=True)
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Processing wizard lines')
     mf_processing_id = fields.Many2one('xml.import.processing', string="Processing")
@@ -26,17 +21,44 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')])
     mf_stop_at_simulation = fields.Boolean(string='Stop at simulation')
 
+    @api.one
+    @api.onchange('mf_processing_id')
+    def _compute_mf_processing_id(self):
+        self.write({
+            'mf_process_conversion_id':self.mf_processing_id.mf_process_conversion_id.id,
+            'mf_preprocessing_id':self.mf_processing_id.preprocessing_id.id,
+            'mf_configuration_table_id':self.mf_processing_id.model_id.id,
+        })
 
-    @api.multi
-    def create_and_process(self):
-        new_processings = []
+
+    def _mf_check_parameters(self):
+        if not self.mf_processing_id and not self.mf_configuration_table_id: 
+            raise ValidationError(_("Select at least Processing or Configuration table."))
         for file in self.mf_xml_import_processing_wizard_line_ids:
-            new_processing = self._mf_create_process(file,len(new_processings))
+            if file.file_name.split(".")[-1].upper() in ["XLSX","CSV"] and not self.mf_process_conversion_id:
+                raise ValidationError(_("Select a XLSX/CSV Conversion."))
+        return True
+
+    @api.one
+    def create_and_process(self):
+        if self._mf_check_parameters():
+            files = []
+            file_already_present = []
+            for file in self.mf_xml_import_processing_wizard_line_ids:
+                if file.file_name and file.file_name not in file_already_present:
+                    file_already_present.append(file.file_name)
+                    files.append(file)
+            self._mf_files_to_process(files)
+
+    def _mf_files_to_process(self, files):
+        new_processings = []
+        for file in files:
+            new_processing = self._mf_create_process(file)
             if new_processing:
                 new_processings.append(new_processing)
         self._mf_process(new_processings)
 
-    def _mf_create_process(self, file_id, index):
+    def _mf_create_process(self, file_id, index = 0):
         new_file = False
         new_processing = False
 
@@ -45,6 +67,9 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             new_file = {
                 "file":file_id.file,
                 "fname":file_id.file_name,
+                "mf_process_file_to_convert":False,
+                "mf_process_file_to_convert_name":False,
+                "mf_process_conversion_id":False,
             }
         elif file_extension in ["XLSX","CSV"] and self.mf_process_conversion_id:
             new_file = {
@@ -54,8 +79,8 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 "mf_process_file_to_convert_name":file_id.file_name,
                 "mf_process_conversion_id":self.mf_process_conversion_id.id,
             }
-        if new_file:
-            new_file["name"] = self.name + ' ' + file_id.file_name + ((' ' + str(index)) if index > 0 else '')
+        if new_file and self.mf_configuration_table_id:
+            new_file["name"] = self.name + ' (' + file_id.file_name + ')' + ((' ' + str(index)) if index > 0 else '')
             new_file["preprocessing_file"] = False
             new_file["prefname"] = False
             new_file["preprocessing_id"] = self.mf_preprocessing_id.id

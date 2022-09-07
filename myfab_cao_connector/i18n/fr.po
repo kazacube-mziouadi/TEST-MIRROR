@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 10:39+0000\n"
-"PO-Revision-Date: 2022-09-07 10:39+0000\n"
+"POT-Creation-Date: 2022-09-07 13:25+0000\n"
+"PO-Revision-Date: 2022-09-07 13:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgid ". You must reduce the search domain "
 msgstr ". Vous devez réduire le domaine de recherche "
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_processing.py:158
+#: code:addons/myfab_cao_connector/classes/xml_import_processing.py:159
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_xml_import_processing
 #, python-format
 msgid "Analyse simulation"
@@ -246,6 +246,23 @@ msgid "Processing wizard"
 msgstr "Wizard de traitement"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_xml_import_processing_wizard_line_ids
+msgid "Processing wizard lines"
+msgstr "Ligne du Wizard de traitement "
+
+#. module: myfab_cao_connector
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:39
+#, python-format
+msgid "Select a XLSX/CSV Conversion."
+msgstr "Sélectionnez une Conversion XLSX/CSV."
+
+#. module: myfab_cao_connector
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:36
+#, python-format
+msgid "Select at least Processing or Configuration table."
+msgstr "Sélectionnez au moins le Traitement ou la Table de configuration."
+
+#. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_structure_tree_xml_import_processing_sim_action
 msgid "Simulation structure"
 msgstr "Simulation de la structure"
@@ -277,7 +294,6 @@ msgid "XLSX Configuration"
 msgstr "Configuration XLSX"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_xml_import_processing_wizard_line_ids
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_conversion_id
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_conversion_id
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xlsx_conversion
@@ -295,7 +311,7 @@ msgstr "Information de conversion XLSX"
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_conversion_id
 msgid "XLSX/CSV Conversion"
-msgstr "XLSX/CSV Conversion"
+msgstr "Conversion XLSX/CSV"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
@@ -327,7 +343,7 @@ msgstr "mf.xml.import.processing.wizard.line"
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
 msgid "or"
-msgstr "Ou"
+msgstr "ou"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_xml_preprocessing
