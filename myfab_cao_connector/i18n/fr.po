@@ -6,19 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-06 12:35+0000\n"
-"PO-Revision-Date: 2022-09-06 12:35+0000\n"
+"POT-Creation-Date: 2022-09-07 10:39+0000\n"
+"PO-Revision-Date: 2022-09-07 10:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: xml_import
-#: model:ir.module.category,name:xml_import.module_xml_import
-msgid "Xml import"
-msgstr "Traitement CAO (Import XML)"
 
 #. module: myfab_cao_connector
 #: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:67
@@ -50,11 +45,6 @@ msgid "Beacon contained in an XML file."
 msgstr "Balise contenu dans un fichier XML."
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_beacon_id
-msgid "Beacon relation"
-msgstr "Balise de relation"
-
-#. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_config
 msgid "CAO Configuration"
 msgstr "Configuration CAO"
@@ -67,19 +57,10 @@ msgstr "Connecteur CAO"
 #. module: myfab_cao_connector
 #: model:ir.actions.act_window,name:myfab_cao_connector.action_processing_wizard
 #: model:ir.ui.menu,name:myfab_cao_connector.menu_view_action_processing_wizard
-msgid "CAO Processing"
-msgstr "Traitement CAO"
-
-#. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_mrp_bom_myfab_cao_inherit
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_product_myfab_cao_inherit
-msgid "CAO processing"
+msgid "CAO Processing"
 msgstr "Traitement CAO"
-
-#. module: myfab_cao_connector
-#: model:ir.module.category,name:myfab_cao_connector.module_xml_import
-msgid "CAO processing (XML import)"
-msgstr "Traitement CAO (Import XML)"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
@@ -96,15 +77,6 @@ msgstr "Enregistrement enfants"
 msgid "Configuration table"
 msgstr "Table de configuration"
 
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sim_action_children_ids
-msgid "Children simulation elements"
-msgstr "Éléments de simulation enfants"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_use_old_value
-msgid "Compare to old value"
-msgstr "Comparer à l'ancienne valeur"
-
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_conversion_message
 msgid "Conversion information"
@@ -119,14 +91,12 @@ msgstr "Convertir"
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_uid
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_date
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_date
 msgid "Created on"
 msgstr "Créé le"
 
@@ -145,26 +115,7 @@ msgstr "Détails"
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_display_name
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_display_name
 msgid "Display Name"
-msgstr "Display Name"
-
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_configuration_table_mf_documents_directory_id
-msgid "Directory from which the documents will be scanned and attached to the imported records"
-msgstr "Répertoire depuis lequel les documents seront scannés et rattachés aux enregistrements importés"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_display_name
-msgid "Display Name"
 msgstr "Nom affiché"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_configuration_table_mf_documents_directory_id
-msgid "Documents directory"
-msgstr "Répertoire source de documents"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_field_setter_id
-msgid "Field setter"
-msgstr "Modificateur de champ"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_xml_import_processing_sim_action
@@ -177,14 +128,14 @@ msgid "File"
 msgstr "Fichier"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_file_name
+msgid "File name"
+msgstr "Nom du fichier"
+
+#. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
 msgid "Files"
 msgstr "Fichiers"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_fname
-msgid "Fname"
-msgstr "Nom du fichier"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_id
@@ -196,57 +147,29 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard___last_update
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line___last_update
 msgid "Last Modified on"
-msgstr "Last Modified on"
+msgstr "Dernière modification le"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_uid
-#: model:res.groups,name:myfab_cao_connector.mf_xml_import_fonctionnal
-msgid "Fonctionnal"
-msgstr "Fonctionnel"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_id
-msgid "ID"
-msgstr "ID"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_imported_from_simulation
-msgid "Imported from simulation"
-msgstr "Importé depuis simulation"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_is_configuration_done
-msgid "Is configuration done"
-msgstr "Configuration terminée"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector___last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_date
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_file_name
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert_name
-msgid "Mf preprocess xlsx file name"
-msgstr "Nom du fichier XLSX de prétraitement"
+msgid "Mf preprocess file to convert name"
+msgstr "Mf preprocess file to convert name"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert_name
-msgid "Mf process xlsx file name"
-msgstr "Nom du fichier XLSX de traitement"
+msgid "Mf process file to convert name"
+msgstr "Mf process file to convert name"
 
 #. module: myfab_cao_connector
 #: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:48
@@ -256,7 +179,6 @@ msgstr "Plus d'un enregistrement a été trouvé : "
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_name
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_name
 msgid "Name"
 msgstr "Nom"
 
@@ -271,76 +193,32 @@ msgstr "Nom"
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_uid
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_display_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_file
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_fname
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_file_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_mf_process_xlsx_conversion_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_mf_process_conversion_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_date
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_uid
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_configuration_table_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_preprocessing_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_xlsx_conversion_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_conversion_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_processing_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_stop_at_preprocessing
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_stop_at_simulation
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_xml_import_processing_wizard_line_ids
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_date
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_uid
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_node_name
-msgid "Node name"
-msgstr "Nom du noeud"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_name
-msgid "Node value"
-msgstr "Valeur du noeud"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector___last_update
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_date
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_uid
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_display_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_is_configuration_done
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_date
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_uid
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_conversion_message
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_imported_from_simulation
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_conversion_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_conversion_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_beacon_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_node_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_selected_for_import
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sequence
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sim_action_children_ids
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sim_action_parent_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_tree_view_sim_action_children_ids
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_tree_view_sim_action_parent_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_conversion_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_conversion_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert
 #: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_modif_old_value
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_use_old_value
 msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_preprocessing_id
-msgid "Pre-treatment"
-msgstr "Pre-treatment"
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_table_rule_mf_modif_old_value
-msgid "Old value"
-msgstr "Ancienne valeur"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sim_action_parent_id
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_tree_view_sim_action_parent_id
-msgid "Parent simulation element"
-msgstr "Élément de simulation parent"
-
-#. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_config_preprocessing
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xml_preprocessing
 msgid "PreProcessing"
@@ -350,10 +228,6 @@ msgstr "Prétraitement"
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xml_preprocessing_table
 msgid "PreProcessing configuration"
 msgstr "Configuration du prétraitement"
-
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sequence
-msgid "Sequence"
-msgstr "Séquence"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_processing_id
@@ -367,15 +241,19 @@ msgid "Processing configuration"
 msgstr "Configuration du traitement"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_mf_process_conversion_id
+msgid "Processing wizard"
+msgstr "Wizard de traitement"
+
+#. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_structure_tree_xml_import_processing_sim_action
 msgid "Simulation structure"
 msgstr "Simulation de la structure"
 
 #. module: myfab_cao_connector
-<<<<<<< HEAD
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_stop_at_preprocessing
-msgid "Stop at preprocessing"
-msgstr "Arrêt au Prétraitement"
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_stop_at_simulation
+msgid "Stop at simulation"
+msgstr "Arrêt après la simulation"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
@@ -386,21 +264,6 @@ msgstr "Valider"
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
 msgid "Wizard processing creation"
 msgstr "Wizard de création de traitements"
-=======
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_selected_for_import
-msgid "To import"
-msgstr "À importer"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_tree_view_sim_action_children_ids
-msgid "Treeview children simulation elements"
-msgstr "Éléments de treeview de simulation enfants"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,help:myfab_cao_connector.field_xml_import_processing_sim_action_mf_field_setter_id
-msgid "Value to set non-relational field with at simulation's validation."
-msgstr "Valeur à attribuer à un champ non relationnel à la validation de la simulation."
->>>>>>> 833c28d8cc3a676e1c53adcd30e02e2c3d581fa8
 
 #. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_config_xlsx
@@ -414,10 +277,9 @@ msgid "XLSX Configuration"
 msgstr "Configuration XLSX"
 
 #. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_xlsx_conversion_id
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_xml_import_processing_wizard_line_ids
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_xlsx_conversion_id
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_xlsx_conversion_id
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_conversion_id
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_conversion_id
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xlsx_conversion
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_menu_cao_xlsx_conversion
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_xml_import_processing
@@ -431,20 +293,15 @@ msgid "XLSX Conversion information"
 msgstr "Information de conversion XLSX"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_conversion_id
+msgid "XLSX/CSV Conversion"
+msgstr "XLSX/CSV Conversion"
+
+#. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert
 msgid "XLSX/CSV file to convert"
 msgstr "Fichier XLSX/CSV à convertir"
-
-#. module: myfab_cao_connector
-#: model:ir.model,name:myfab_cao_connector.model_xml_import_processing
-msgid "XML Import Processing"
-msgstr "Traitement d'import XML"
-
-#. module: myfab_cao_connector
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_mf_process_xlsx_conversion_id
-msgid "XLSX processing wizard"
-msgstr "XLSX processing wizard"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_xml_import_processing_sim_action
