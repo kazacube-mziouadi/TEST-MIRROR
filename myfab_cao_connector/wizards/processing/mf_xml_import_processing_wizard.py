@@ -30,36 +30,39 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     @api.multi
     def create_and_process(self):
         new_processings = []
-        new_file = False
         for file in self.mf_xml_import_processing_wizard_line_ids:
-            file_extension = file.file_name.split(".")[-1].upper()
-            if file_extension == "XML":
-                new_file = {
-                    "name":self.name,
-                    "file":file.file,
-                    "fname":file.file_name,
-                    "preprocessing_file":False,
-                    "prefname":False,
-                    "preprocessing_id":self.mf_preprocessing_id.id,
-                    "model_id":self.mf_configuration_table_id.id,
-                }
-            elif file_extension in ["XLSX","CSV"]:
-                new_file = {
-                    "name":self.name,
-                    "mf_process_file_to_convert":file.file,
-                    "mf_process_file_to_convert_name":file.file_name,
-                    "file":False,
-                    "fname":False,
-                    "preprocessing_file":False,
-                    "prefname":False,
-                    "mf_process_conversion_id":self.mf_process_conversion_id.id,
-                    "preprocessing_id":self.mf_preprocessing_id.id,
-                    "model_id":self.mf_configuration_table_id.id,
-                }
-            new_processing = self.env['xml.import.processing'].create(new_file)
+            new_processing = self._mf_create_process(file,len(new_processings))
             if new_processing:
                 new_processings.append(new_processing)
         self._mf_process(new_processings)
+
+    def _mf_create_process(self, file_id, index):
+        new_file = False
+        new_processing = False
+
+        file_extension = file_id.file_name.split(".")[-1].upper()
+        if file_extension == "XML":
+            new_file = {
+                "file":file_id.file,
+                "fname":file_id.file_name,
+            }
+        elif file_extension in ["XLSX","CSV"] and self.mf_process_conversion_id:
+            new_file = {
+                "file":False,
+                "fname":False,
+                "mf_process_file_to_convert":file_id.file,
+                "mf_process_file_to_convert_name":file_id.file_name,
+                "mf_process_conversion_id":self.mf_process_conversion_id.id,
+            }
+        if new_file:
+            new_file["name"] = self.name + ' ' + file_id.file_name + ((' ' + str(index)) if index > 0 else '')
+            new_file["preprocessing_file"] = False
+            new_file["prefname"] = False
+            new_file["preprocessing_id"] = self.mf_preprocessing_id.id
+            new_file["model_id"] = self.mf_configuration_table_id.id
+            new_processing = self.env['xml.import.processing'].create(new_file)
+
+        return new_processing
 
     def _mf_process(self, new_processings):
         for new_process in new_processings:
