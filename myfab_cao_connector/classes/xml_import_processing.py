@@ -69,8 +69,9 @@ class xml_import_processing(models.Model):
                                         'file':False,
                                         'preprocessing_file':False,
                                         })  
-                                                      
-        super(xml_import_processing, self).preprocessing_xml_file()
+
+        if self.preprocessing_id:                                              
+            super(xml_import_processing, self).preprocessing_xml_file()
 
         # After preprocessing, we get the information from object
         if self.mf_process_conversion_id:
