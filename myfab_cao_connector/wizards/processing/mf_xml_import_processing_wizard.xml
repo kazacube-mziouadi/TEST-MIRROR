@@ -10,17 +10,18 @@
                 <form string="Wizard processing creation">
                     <group colspan="4" col="4">
                         <group colspan="4" col="6">
+                            <field name="name" />
                             <field name="mf_processing_id" />
-                            <field name="mf_process_xlsx_conversion_id" />
+                            <field name="mf_process_conversion_id" />
                             <field name="mf_preprocessing_id" />
                             <field name="mf_configuration_table_id" />
-                            <field name="mf_stop_at_preprocessing" />
+                            <field name="mf_stop_at_simulation" />
                         </group>
                         <group colspan="4" col="4" string="Files">
                             <field name="mf_xml_import_processing_wizard_line_ids" nolabel="1" colspan="4" >
                                 <tree editable="bottom">
-                                    <field name="file"/>
-                                    <field name="fname" invisible="1"/>
+                                    <field name="file_name" invisible="1"/>
+                                    <field name="file" filename="file_name"/>
                                 </tree>
                             </field>
                         </group>
@@ -49,7 +50,7 @@
 			<field name="model">product.product</field>
 			<field name="arch" type="xml">
                 <xpath expr="//separator[@name='separator_action_menu']" position="after">
-                    <button class="oe_inline oe_stat_button" type="action" string="CAO processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                    <button class="oe_inline oe_stat_button" type="action" string="CAO Processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
                 </xpath>
 			</field>
         </record>
@@ -60,7 +61,7 @@
 			<field name="model">mrp.bom</field>
 			<field name="arch" type="xml">
                 <xpath expr="//separator[@name='separator_actions_menu']" position="after">
-                    <button class="oe_inline oe_stat_button" type="action" string="CAO processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                    <button class="oe_inline oe_stat_button" type="action" string="CAO Processing" name="%(action_processing_wizard)d" icon="fa-plus"/>
                 </xpath>
 			</field>
         </record>

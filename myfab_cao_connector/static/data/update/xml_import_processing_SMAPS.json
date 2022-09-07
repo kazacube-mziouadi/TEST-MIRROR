@@ -544,7 +544,6 @@
                     }
                 ],
                 "name": "SMAPS",
-                "state": "active",
                 "use_onchange": true
             },
             "name": "SMAPS",
@@ -696,8 +695,7 @@
                         }
                     ]
                 }
-            },
-            "state": "wait"
+            }
         }
     }
 ]
