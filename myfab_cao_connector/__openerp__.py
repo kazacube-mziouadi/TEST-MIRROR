@@ -21,6 +21,7 @@
     'data': [
         'security/ir.model.access.csv',
         'classes/data_initializer/MFDataInitializerCAOConnectorTrigger.yml',
+        'views/config/mf_config.xml',
         'views/myfab_cao_connector_web.xml',
         'views/xml_preprocessing_table_rule.xml',
         'views/xml_preprocessing.xml',

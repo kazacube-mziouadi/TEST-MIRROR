@@ -15,7 +15,9 @@
                                 </h1>
                             </div>
                         </group>
-                        <!-- Add groups to add options -->
+                        <group colspan="8" col="2" name="group_options"> 
+                            <!-- Add groups to add options -->
+                        </group>
                     </group>
                 </form>
             </field>

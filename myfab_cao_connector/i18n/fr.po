@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 13:25+0000\n"
-"PO-Revision-Date: 2022-09-07 13:25+0000\n"
+"POT-Creation-Date: 2022-09-07 15:29+0000\n"
+"PO-Revision-Date: 2022-09-07 15:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr "Connecteur CAO"
 
 #. module: myfab_cao_connector
 #: model:ir.actions.act_window,name:myfab_cao_connector.action_processing_wizard
-#: model:ir.ui.menu,name:myfab_cao_connector.menu_view_action_processing_wizard
+#: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xml_import_processing_wizard
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_mrp_bom_myfab_cao_inherit
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_product_myfab_cao_inherit
 msgid "CAO Processing"
@@ -99,6 +99,16 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_date
 msgid "Created on"
 msgstr "Créé le"
+
+#. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_default_processing_wizard
+msgid "Default processing in CAO Processing wizard"
+msgstr "Traitement par défaut dans la Wizard de Traitement CAO"
+
+#. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_default_stop_at_simulation
+msgid "Default stop at simulation in CAO Processing wizard"
+msgstr "Par defaut arrêter après la simulation dans la Wizard de Traitement CAO"
 
 #. module: myfab_cao_connector
 #: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:59
@@ -183,6 +193,8 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_default_processing_wizard
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_default_stop_at_simulation
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard___last_update
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_date
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_uid
@@ -251,13 +263,13 @@ msgid "Processing wizard lines"
 msgstr "Ligne du Wizard de traitement "
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:39
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:59
 #, python-format
 msgid "Select a XLSX/CSV Conversion."
 msgstr "Sélectionnez une Conversion XLSX/CSV."
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:36
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:56
 #, python-format
 msgid "Select at least Processing or Configuration table."
 msgstr "Sélectionnez au moins le Traitement ou la Table de configuration."
@@ -334,6 +346,11 @@ msgstr "Table de configuration d'import XML"
 #: model:ir.model,name:myfab_cao_connector.model_mf_data_initializer_cao_connnector
 msgid "mf.data.initializer.cao.connnector"
 msgstr "mf.data.initializer.cao.connnector"
+
+#. module: myfab_cao_connector
+#: model:ir.model,name:myfab_cao_connector.model_mf_modules_config
+msgid "mf.modules.config"
+msgstr "mf.modules.config"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_mf_xml_import_processing_wizard_line

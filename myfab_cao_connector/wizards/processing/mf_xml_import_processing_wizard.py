@@ -15,11 +15,11 @@ class mf_xml_import_processing_wizard(models.TransientModel):
 
     name = fields.Char(required=True)
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Processing wizard lines')
-    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing")
+    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", default=lambda self: self._mf_compute_default_processing_id())
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing")
     mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion')
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')])
-    mf_stop_at_simulation = fields.Boolean(string='Stop at simulation')
+    mf_stop_at_simulation = fields.Boolean(string='Stop at simulation', default=lambda self: self._mf_compute_default_stop_at_simulation())
 
     @api.one
     @api.onchange('mf_processing_id')
@@ -30,7 +30,27 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             'mf_configuration_table_id':self.mf_processing_id.model_id.id,
         })
 
+    # ===========================================================================
+    # DEFAULT VALUE METHODS
+    # ===========================================================================
+    def _mf_default_configuration(self):
+        return self.env['mf.modules.config'].search([], None, 1)
 
+    def _mf_compute_default_processing_id(self):
+        mf_config = self._mf_default_configuration()
+        if mf_config:
+            return mf_config.default_processing_wizard
+        return False
+
+    def _mf_compute_default_stop_at_simulation(self):
+        mf_config = self._mf_default_configuration()
+        if mf_config:
+            return mf_config.default_stop_at_simulation
+        return False
+
+    # ===========================================================================
+    # METHODS
+    # ===========================================================================
     def _mf_check_parameters(self):
         if not self.mf_processing_id and not self.mf_configuration_table_id: 
             raise ValidationError(_("Select at least Processing or Configuration table."))
