@@ -10,6 +10,7 @@
                 <form string="Wizard processing creation">
                     <group colspan="4" col="4">
                         <group colspan="4" col="6">
+                            <field name="name" />
                             <field name="mf_processing_id" />
                             <field name="mf_process_xlsx_conversion_id" />
                             <field name="mf_preprocessing_id" />
@@ -19,8 +20,8 @@
                         <group colspan="4" col="4" string="Files">
                             <field name="mf_xml_import_processing_wizard_line_ids" nolabel="1" colspan="4" >
                                 <tree editable="bottom">
-                                    <field name="file"/>
-                                    <field name="fname" invisible="1"/>
+                                    <field name="file_name" invisible="1"/>
+                                    <field name="file" filename="file_name"/>
                                 </tree>
                             </field>
                         </group>

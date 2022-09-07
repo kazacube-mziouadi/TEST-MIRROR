@@ -10,7 +10,14 @@ class mf_xml_import_processing_wizard(models.TransientModel):
         wizard that create XML and XLSX processing dans launch them
     """
     _name = 'mf.xml.import.processing.wizard'
-    _description = 'Splitting of a sale'
+
+    @api.one
+    @api.onchange('mf_processing_id')
+    def _compute_mf_processing_id(self):
+        _logger.info("APPEL")
+        self.mf_process_xlsx_conversion_id = self.mf_processing_id.mf_process_xlsx_conversion_id.id
+        self.mf_preprocessing_id = self.mf_processing_id.preprocessing_id.id
+        self.mf_configuration_table_id = self.mf_processing_id.model_id.id
 
     name = fields.Char(string='Name', required=True)
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_xlsx_conversion_id', string='XLSX Conversion')
@@ -20,31 +27,34 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')])
     mf_stop_at_preprocessing = fields.Boolean(string='Stop at preprocessing')
 
+
+    @api.multi
     def create_and_process(self):
         new_processings = []
         new_file = False
         for file in self.mf_xml_import_processing_wizard_line_ids:
-            if file.fname.split(".")[-1] == "xml":
+            if file.file_name.split(".")[-1] == "xml":
                 new_file = {
+                    "name":self.name,
                     "file":file.file,
-                    "preprocessing_id":self.mf_preprocessing_id,
-                    "model_id":self.mf_configuration_table_id,
+                    "preprocessing_id":self.mf_preprocessing_id.id,
+                    "model_id":self.mf_configuration_table_id.id,
                 }
-            elif file.fname.split(".")[-1] in ["xlsx","xls"]:
+            elif file.file_name.split(".")[-1] in ["xlsx","xls"]:
                 new_file = {
+                    "name":self.name,
                     "mf_process_xlsx_file":file.file,
-                    "mf_process_xlsx_conversion_id":self.mf_process_xlsx_conversion_id,
-                    "preprocessing_id":self.mf_preprocessing_id,
-                    "model_id":self.mf_configuration_table_id,
+                    "mf_process_xlsx_conversion_id":self.mf_process_xlsx_conversion_id.id,
+                    "preprocessing_id":self.mf_preprocessing_id.id,
+                    "model_id":self.mf_configuration_table_id.id,
                 }
             if self.mf_processing_id:
-                temp_processing = self.mf_processing_id.copy()
-                new_processing = temp_processing.write(new_file)
-                new_processings.push(new_processing)
+                new_processing = self.mf_processing_id.copy()
+                new_processing.write(new_file)
+                new_processings.append(new_processing)
             else:
-                new_file.name = file.fname
                 new_processing = self.env['xml.import.processing'].create(new_file)
-                new_processings.push(new_processing)
+                new_processings.append(new_processing)
         for new_process in new_processings:
             if new_process.mf_process_xlsx_file:
                 new_process.mf_xlsx_conversion()
