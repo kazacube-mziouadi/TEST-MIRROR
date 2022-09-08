@@ -92,7 +92,7 @@ class FileInterfaceImportMF(models.Model):
             else:
                 # Si on arrive ici c'est que le format du fichier est incorrect, on le signale explicitement
                 import_attempt_dict.update({
-                    "message_mf": _("The file's format is incorrect.")
+                    "message_mf": _("The file's structure is incorrect.")
                 })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             self.directory_mf.delete_file(file_name)
