@@ -42,6 +42,7 @@ class mf_xlsx_convert_to_xml(models.Model):
 
         if self._are_parameters_ok(with_error_message):
             execution_message = ''
+            #TODO : revoir le nom et la fonctionnalité de la fonction suivante (conversion csv vers xlsx)
             (xlsx_file,xlsx_file_name) = self._mf_convert_CSV_to_XLSX(self.file_to_convert,self.file_to_convert_name,self.configuration_id.csv_file_separator,self.configuration_id.csv_file_quoting,self.configuration_id.csv_file_encoding)
             (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(xlsx_file, self.configuration_id)
             self.write({
