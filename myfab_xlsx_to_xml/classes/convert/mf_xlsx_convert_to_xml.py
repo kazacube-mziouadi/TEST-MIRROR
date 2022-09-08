@@ -42,8 +42,7 @@ class mf_xlsx_convert_to_xml(models.Model):
 
         if self._are_parameters_ok(with_error_message):
             execution_message = ''
-            #TODO : revoir le nom et la fonctionnalité de la fonction suivante (conversion csv vers xlsx)
-            (xlsx_file,xlsx_file_name) = self._mf_convert_CSV_to_XLSX(self.file_to_convert,self.file_to_convert_name,self.configuration_id.csv_file_separator,self.configuration_id.csv_file_quoting,self.configuration_id.csv_file_encoding)
+            (xlsx_file,xlsx_file_name) = self._mf_get_xlsx_file(self.file_to_convert,self.file_to_convert_name)
             (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(xlsx_file, self.configuration_id)
             self.write({
                         'execution_message' : execution_message,
@@ -178,8 +177,7 @@ class mf_xlsx_convert_to_xml(models.Model):
 
         if not error_message and not self.configuration_id: error_message = _('Choose a configuration.')
         if not error_message and not self.file_to_convert : error_message = _('No XLSX/CSV file to convert.')
-        file_name_split = self.file_to_convert_name.split('.')
-        if not error_message and file_name_split[-1].upper() not in ['XLSX','CSV'] : error_message = _('Conversion only works with XLSX/CSV files')
+        if not error_message and self._mf_get_file_name_extension(self.file_to_convert_name) not in ['XLSX','CSV'] : error_message = _('Conversion only works with XLSX/CSV files')
 
         if not error_message: return True
         if not with_messages: return False
@@ -260,22 +258,16 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # CSV METHODS
     #===========================================================================
-    def _mf_convert_CSV_to_XLSX(self, csv_file, csv_file_name, csv_file_separator=';', csv_file_quoting=False, csv_file_encoding="utf-8"):
-        if csv_file_name[-4:].upper() == '.CSV':
-            temp_xlsx_file = Workbook()
-            temp_xlsx_sheet = temp_xlsx_file.active
-            csv_rows = csv.reader(StringIO(base64.decodestring(csv_file)), delimiter=str(csv_file_separator), quotechar=str(csv_file_quoting) if csv_file_quoting else None)
-            for csv_row in csv_rows:
-                csv_row = [cell.decode(csv_file_encoding).strip() for cell in csv_row]
-                temp_xlsx_sheet.append(csv_row)
+    def _mf_convert_CSV_to_XLSX(self, csv_file, csv_file_separator=';', csv_file_quoting=False, csv_file_encoding="utf-8"):
+        temp_xlsx_file = Workbook()
+        temp_xlsx_sheet = temp_xlsx_file.active
+        csv_rows = csv.reader(StringIO(base64.decodestring(csv_file)), delimiter=str(csv_file_separator), quotechar=str(csv_file_quoting) if csv_file_quoting else None)
+        for csv_row in csv_rows:
+            csv_row = [cell.decode(csv_file_encoding).strip() for cell in csv_row]
+            temp_xlsx_sheet.append(csv_row)
 
-            xlsx_file = base64.b64encode(save_virtual_workbook(temp_xlsx_file))
-            xlsx_file_name = csv_file_name[:-4] + '.XLSX'
-        else:
-            xlsx_file = csv_file
-            xlsx_file_name = csv_file_name[:-5] + '.XLSX'
-
-        return (xlsx_file,xlsx_file_name)
+        xlsx_file = base64.b64encode(save_virtual_workbook(temp_xlsx_file))
+        return xlsx_file
 
     #===========================================================================
     # XLSX METHODS
@@ -324,6 +316,15 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # GENERIC METHODS
     #===========================================================================
+    def _mf_get_xlsx_file(self, file_to_convert, file_to_convert_name ):
+        if self._mf_get_file_name_extension(file_to_convert_name) == 'CSV':
+            xlsx_file = self._mf_convert_CSV_to_XLSX(file_to_convert,self.configuration_id.csv_file_separator,self.configuration_id.csv_file_quoting,self.configuration_id.csv_file_encoding)
+        else:
+            xlsx_file = file_to_convert
+        xlsx_file_name = self._mf_get_file_name_without_extension(file_to_convert_name) + '.XLSX'
+
+        return (xlsx_file,xlsx_file_name)
+
     def _mf_merge_values(self, value_1, value_2):
         final_value = ''
 
@@ -335,3 +336,16 @@ class mf_xlsx_convert_to_xml(models.Model):
             final_value = value_2
 
         return final_value
+
+    #TODO : passer dans les MF tools
+    @staticmethod
+    def _mf_get_file_name_extension(file_name):
+        file_extension = file_name.split('.')[-1].upper()
+        return file_extension
+
+    @staticmethod
+    def _mf_get_file_name_without_extension(file_name):
+        file_name_split = file_name.split('.')
+        file_name_split.pop()
+        file_name_without_extension = '.'.join(file_name_split)
+        return file_name_without_extension
