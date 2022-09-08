@@ -6,7 +6,7 @@
             <field name="name">mf_view_form_modules_config</field>
             <field name="model">mf.modules.config</field>
             <field name="arch" type="xml">
-                <form string="myfab modules configuration" version="8.0">
+                <form string="myfab modules configuration" version="8.0" create="false" duplicate="false" delete="false">
                     <group colspan="8" col="9" name="group_all"> 
                         <group colspan="8" col="8" name="group_name"> 
                             <div>
@@ -15,8 +15,10 @@
                                 </h1>
                             </div>
                         </group>
-                        <group colspan="8" col="2" name="group_options"> 
-                            <!-- Add groups to add options -->
+                        <group colspan="8" col="8" name="group_options"> 
+                            <notebook>
+                                <!-- Add groups to add options -->
+                            </notebook>
                         </group>
                     </group>
                 </form>
@@ -28,7 +30,7 @@
             <field name="name">mf_view_tree_modules_config</field>
             <field name="model">mf.modules.config</field>
             <field name="arch" type="xml">
-                <tree string="myfab modules configuration">
+                <tree string="myfab modules configuration" create="false" duplicate="false" delete="false">
                     <field name="name" />
                     <!-- Add fields to add options -->
                 </tree>

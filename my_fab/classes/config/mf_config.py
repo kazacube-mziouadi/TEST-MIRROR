@@ -7,4 +7,4 @@ class mf_modules_config(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    name = fields.Char(required=True, default="myfab configuration")
+    name = fields.Char(required=True, default="myfab configuration", readonly=True)

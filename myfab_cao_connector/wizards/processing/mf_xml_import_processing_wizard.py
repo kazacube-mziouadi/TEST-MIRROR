@@ -14,7 +14,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     _name = 'mf.xml.import.processing.wizard'
 
     name = fields.Char(required=True)
-    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Processing wizard lines')
+    mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Files')
     mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", default=lambda self: self._mf_compute_default_processing_id())
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing")
     mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion')

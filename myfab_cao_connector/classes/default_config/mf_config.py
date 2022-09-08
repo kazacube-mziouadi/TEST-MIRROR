@@ -7,5 +7,5 @@ class mf_modules_config(models.Model):
     #===========================================================================
     # COLUMNS
     #===========================================================================
-    default_processing_wizard = fields.Many2one('xml.import.processing', string="Default processing in CAO Processing wizard")
-    default_stop_at_simulation = fields.Boolean(string='Default stop at simulation in CAO Processing wizard')
+    default_processing_wizard = fields.Many2one('xml.import.processing', string="Default processing")
+    default_stop_at_simulation = fields.Boolean(string='Default stop at simulation')

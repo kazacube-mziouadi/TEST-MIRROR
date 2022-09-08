@@ -7,9 +7,13 @@
 			<field name="inherit_id" ref="my_fab.mf_view_form_modules_config" />
 			<field name="model">mf.modules.config</field>
 			<field name="arch" type="xml">
-				<xpath expr="//group[@name='group_options']" position="inside">
-					<field name="default_processing_wizard"/>
-					<field name="default_stop_at_simulation"/>
+				<xpath expr="//notebook" position="inside">
+					<page string="CAO Processing">
+						<group colspan="8" col="2" name="group_options_cao" string="Wizard"> 
+							<field name="default_processing_wizard"/>
+							<field name="default_stop_at_simulation"/>
+						</group>
+					</page>
 				</xpath>
 			</field>
 		</record>
