@@ -51,7 +51,20 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     # ===========================================================================
     # METHODS
     # ===========================================================================
-    def _mf_check_parameters(self):
+    @api.one
+    def create_and_process(self):
+        if self._mf_are_parameters_ok():
+            files = []
+            file_names_already_present = []
+            for file in self.mf_xml_import_processing_wizard_line_ids:
+                #TODO : s'assurer que le contenu du fichier est identique. Ne pas se baser que sur le nom
+                if file.file_name and file.file_name not in file_names_already_present:
+                    file_names_already_present.append(file.file_name)
+                    files.append(file)
+            self._mf_files_to_process(files)
+
+    def _mf_are_parameters_ok(self):
+        #TODO : check que le nom saisie n'est pas déjà existant
         if not self.mf_processing_id and not self.mf_configuration_table_id: 
             raise ValidationError(_("Select at least Processing or Configuration table."))
         for file in self.mf_xml_import_processing_wizard_line_ids:
@@ -59,26 +72,15 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 raise ValidationError(_("Select a XLSX/CSV Conversion."))
         return True
 
-    @api.one
-    def create_and_process(self):
-        if self._mf_check_parameters():
-            files = []
-            file_already_present = []
-            for file in self.mf_xml_import_processing_wizard_line_ids:
-                if file.file_name and file.file_name not in file_already_present:
-                    file_already_present.append(file.file_name)
-                    files.append(file)
-            self._mf_files_to_process(files)
-
     def _mf_files_to_process(self, files):
         new_processings = []
         for file in files:
             new_processing = self._mf_create_process(file)
             if new_processing:
                 new_processings.append(new_processing)
-        self._mf_process(new_processings)
+        self._mf_launch_processings(new_processings)
 
-    def _mf_create_process(self, file_id, index = 0):
+    def _mf_create_process(self, file_id):
         new_file = False
         new_processing = False
 
@@ -100,7 +102,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 "mf_process_conversion_id":self.mf_process_conversion_id.id,
             }
         if new_file and self.mf_configuration_table_id:
-            new_file["name"] = self.name + ' (' + file_id.file_name + ')' + ((' ' + str(index)) if index > 0 else '')
+            new_file["name"] = self.name
             new_file["preprocessing_file"] = False
             new_file["prefname"] = False
             new_file["preprocessing_id"] = self.mf_preprocessing_id.id
@@ -109,7 +111,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
 
         return new_processing
 
-    def _mf_process(self, new_processings):
+    def _mf_launch_processings(self, new_processings):
         for new_process in new_processings:
             new_process.preprocessing_xml_file()
             new_process.simulate_file_analyse()
