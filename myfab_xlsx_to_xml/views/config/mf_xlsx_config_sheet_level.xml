@@ -12,7 +12,7 @@
                         <field name="is_numerical_level"/>
                         <field name="level_separator" attrs="{'invisible': [('is_numerical_level', '=', False)], 'required': [('is_numerical_level', '!=', False)]}"/>
                         <field name="parent_reference_column" attrs="{'invisible': [('is_numerical_level', '=', True)], 'required': [('is_numerical_level', '!=', True)]}"/>
-                        <field name="beacon_per_level"/>
+                        <field name="xml_beacon_per_level"/>
                     </group>
                 </form>
             </field>
@@ -25,7 +25,7 @@
             <field name="arch" type="xml">
                 <tree string="XLSX to XML - Level configuration">
                     <field name="column" />
-                    <field name="beacon_per_level" />
+                    <field name="xml_beacon_per_level" />
                 </tree>
             </field>
         </record>

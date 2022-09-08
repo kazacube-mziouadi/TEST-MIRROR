@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_modules_config' model='ir.ui.view'>
+            <field name="name">mf_view_form_modules_config</field>
+            <field name="model">mf.modules.config</field>
+            <field name="arch" type="xml">
+                <form string="myfab modules configuration" version="8.0" create="false" duplicate="false" delete="false">
+                    <group colspan="8" col="9" name="group_all"> 
+                        <group colspan="8" col="8" name="group_name"> 
+                            <div>
+                                <h1>
+                                    <field name="name"/>
+                                </h1>
+                            </div>
+                        </group>
+                        <group colspan="8" col="8" name="group_options"> 
+                            <notebook>
+                                <!-- Add groups to add options -->
+                            </notebook>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!-- TREE VIEW -->
+        <record id='mf_view_tree_modules_config' model='ir.ui.view'>
+            <field name="name">mf_view_tree_modules_config</field>
+            <field name="model">mf.modules.config</field>
+            <field name="arch" type="xml">
+                <tree string="myfab modules configuration" create="false" duplicate="false" delete="false">
+                    <field name="name" />
+                    <!-- Add fields to add options -->
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window"
+            id="mf_action_see_modules_config">
+            <field name="name">myfab modules configuration</field>
+            <field name="res_model">mf.modules.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_mf_modules_config" 
+                name="myfab config" 
+                parent="base.menu_administration" 
+                sequence="199"/>
+
+        <!-- copy and adapte this to add menu in the good module -->
+        <menuitem id="mf_menu_modules_config" 
+                name="Modules configuration" 
+                parent="menu_mf_modules_config"
+                sequence="1" 
+                action="mf_action_see_modules_config"/>
+	</data>
+</openerp>

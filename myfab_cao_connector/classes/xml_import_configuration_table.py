@@ -192,7 +192,7 @@ class xml_import_configuration_table(models.Model):
         return filtered_data_dicts_dict
 
     def is_root_data_dict(self, data_dict_id, data_dict, data_dicts_dict):
-        return data_dict["object_relation"].is_root_beacon_relation() and not self.is_id_in_another_data_children_list(
+        return data_dict["object_relation"].is_main_xml_beacon_relation() and not self.is_id_in_another_data_children_list(
             data_dict_id, data_dicts_dict
         )
 

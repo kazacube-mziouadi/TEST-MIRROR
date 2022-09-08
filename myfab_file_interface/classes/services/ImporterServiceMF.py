@@ -17,7 +17,7 @@ class ImporterServiceMF(models.TransientModel):
     def import_records_list(self, records_to_process_list):
         records_processed_counter = 0
         for record_to_process_dict in records_to_process_list:
-            try:
+            # try:
                 records_returned, status = self.apply_orm_method_to_model(
                     record_to_process_dict["model"],
                     record_to_process_dict["fields"],
@@ -27,7 +27,7 @@ class ImporterServiceMF(models.TransientModel):
                 if "callback" in record_to_process_dict:
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
-                    self.env['mf.tools'].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
+                    self.env["mf.tools"].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
                 record_to_process_dict["status"] = status
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
@@ -41,8 +41,8 @@ class ImporterServiceMF(models.TransientModel):
                     for record_processed_dict in records_processed_since_last_commit_list:
                         record_processed_dict["committed"] = True
                     records_processed_counter = 0
-            except Exception as e:
-                raise Exception(e, record_to_process_dict)
+            # except Exception as e:
+            #     raise Exception(e, record_to_process_dict)
         if records_processed_counter < COMMIT_BATCH_QUANTITY:
             for record_processed_dict in records_to_process_list:
                 record_processed_dict["committed"] = True
@@ -179,8 +179,13 @@ class ImporterServiceMF(models.TransientModel):
             ):
                 continue
             if type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is not tuple:
+                # List case
                 record_fields_tuples_list.append((field_name, "in", field_value))
+            elif type(field_value) is dict and not field_value:
+                # Empty dict case
+                record_fields_tuples_list.append((field_name, '=', False))
             elif type(field_value) not in [list, tuple]:
+                # Other values case
                 record_fields_tuples_list.append((field_name, '=', field_value))
         return self.env[model_name].search(record_fields_tuples_list, None, limit)
 
