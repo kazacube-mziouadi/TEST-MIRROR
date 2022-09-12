@@ -54,8 +54,8 @@
 					</attribute>
 				</xpath>
 				<xpath expr="//notebook" position="before">
-					<group colspan="4" col="4" string="Stories" attrs="{'invisible': [('mf_type_name', '!=', 'Feature')]}">
-						<field name="mf_event_stories_ids" nolabel="1"/>
+					<group colspan="4" col="4" string="Stories" attrs="{'invisible': [('mf_type_name', 'not in', ['Feature', 'Story'])]}">
+						<field name="mf_scrum_children_ids" nolabel="1"/>
 					</group>
 				</xpath>
 			</field>

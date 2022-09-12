@@ -8,9 +8,11 @@ API_ICESCRUM_ENDPOINT = "https://cloud.icescrum.com/ws/project/"
 API_ICESCRUM_FEATURE_NAME = "feature"
 API_ICESCRUM_STORY_NAME = "story"
 API_ICESCRUM_TASK_NAME = "task"
-SCRUM_TYPE_NAMES = ["Feature", "Story"]
+SCRUM_TYPE_NAMES = ["Feature", "Story", "Task"]
+# API_ICESCRUM_STATES links a workflow label to each IceScrum's state (1, 2, 3, etc.)
 API_ICESCRUM_STATES = ["Brouillon", "Brouillon", "A faire", "A faire", "En cours", "En cours", "Terminé", "Terminé"]
 ICESCRUM_ESTIMATED_TIME_MARK = "[TE]"
+
 
 class MfWizardImportIceScrum(models.TransientModel):
     _name = "mf.wizard.import.icescrum"
@@ -72,13 +74,10 @@ class MfWizardImportIceScrum(models.TransientModel):
         for feature_api_dict in features_api_list:
             feature_creation_dict = self.get_action_event_creation_dict(feature_api_dict, action_type_feature_id)
             if feature_api_dict["stories_ids"]:
-                feature_creation_dict["mf_event_stories_ids"] = self.get_stories_creation_tuples_list_by_ids(
+                feature_creation_dict["mf_scrum_children_ids"] = self.get_stories_creation_tuples_list_by_ids(
                     feature_api_dict["stories_ids"],
                     stories_api_list,
                     tasks_api_list
-                )
-                feature_creation_dict["mf_scrum_spent_time"] = self.get_total_scrum_duration_from_stories_creation_list(
-                    feature_creation_dict["mf_event_stories_ids"]
                 )
             self.env["calendar.event"].create(feature_creation_dict)
         # Creating the remaining orphans stories (not attached to a feature)
@@ -94,12 +93,13 @@ class MfWizardImportIceScrum(models.TransientModel):
             stories_creation_list.append((0, 0, self.get_story_creation_dict(story_api_dict, tasks_api_list)))
         return stories_creation_list
 
-    @staticmethod
-    def get_total_scrum_duration_from_stories_creation_list(stories_creation_tuples_list):
-        total_stories_scrum_duration = 0.0
-        for story_creation_tuple in stories_creation_tuples_list:
-            total_stories_scrum_duration += story_creation_tuple[2]["mf_scrum_spent_time"]
-        return total_stories_scrum_duration
+    def get_story_tasks_from_tasks_api_list_by_story_id(self, story_id, tasks_api_list):
+        story_tasks_api_list = []
+        action_type_task_id = self.env["action.type"].search([("name", '=', "Task")])
+        for task_api_dict in tasks_api_list:
+            if task_api_dict["parentStory"] and task_api_dict["parentStory"]["id"] == story_id:
+                story_tasks_api_list.append((0, 0, self.get_action_event_creation_dict(task_api_dict, action_type_task_id)))
+        return story_tasks_api_list
 
     @staticmethod
     def get_story_api_dict_from_list_by_id(stories_api_list, story_id):
@@ -110,7 +110,9 @@ class MfWizardImportIceScrum(models.TransientModel):
     def get_story_creation_dict(self, story_api_dict, tasks_api_list):
         action_type_story_id = self.env["action.type"].search([("name", '=', "Story")])
         story_creation_dict = self.get_action_event_creation_dict(story_api_dict, action_type_story_id)
-        story_creation_dict["mf_scrum_spent_time"] = self.get_story_scrum_duration(story_api_dict["id"], tasks_api_list)
+        story_creation_dict["mf_scrum_children_ids"] = self.get_story_tasks_from_tasks_api_list_by_story_id(
+            story_api_dict["id"], tasks_api_list
+        )
         return story_creation_dict
 
     def get_action_event_creation_dict(self, icescrum_event_api_dict, icescrum_event_type_id):
