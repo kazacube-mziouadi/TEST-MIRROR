@@ -12,10 +12,12 @@
                         <field name="writing_mode"/>
                         <field name="column" attrs="{'invisible': [('writing_mode', '!=', 'column_value')], 'required': [('writing_mode', '=', 'column_value')]}"/>
                         <field name="fixed_value" attrs="{'invisible': [('writing_mode', '!=', 'constant_value')], 'required': [('writing_mode', '=', 'constant_value')]}"/>
-                        <field name="beacon"/>
+                        <field name="value" invisible="1"/>
+                    </group>
+                    <group colspan="8" col="2" name="group_xml" string="XML"> 
+                        <field name="xml_beacon"/>
                         <field name="attribute"/>
                         <field name="is_merge"/>
-                        <field name="value" invisible="1"/>
                     </group>
                 </form>
             </field>
@@ -30,7 +32,7 @@
                     <field name="sequence" />
                     <field name="writing_mode" />
                     <field name="value" />
-                    <field name="beacon" />
+                    <field name="xml_beacon" />
                     <field name="attribute" />
                     <field name="is_merge" />
                 </tree>

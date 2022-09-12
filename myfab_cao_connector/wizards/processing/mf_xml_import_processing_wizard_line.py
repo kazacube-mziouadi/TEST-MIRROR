@@ -11,8 +11,8 @@ class mf_xml_import_processing_wizard_line(models.TransientModel):
     """
     _name = 'mf.xml.import.processing.wizard.line'
 
-    mf_process_xlsx_conversion_id = fields.Many2one('mf.xml.import.processing.wizard', string='XLSX processing wizard')
-    fname =  fields.Char(string='Fname')
-    file = fields.Binary(string='File')
+    mf_process_conversion_id = fields.Many2one('mf.xml.import.processing.wizard', string='Processing wizard')
+    file_name =  fields.Char()
+    file = fields.Binary()
 
 
