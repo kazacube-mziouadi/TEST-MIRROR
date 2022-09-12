@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+,,,,,,,
+access_mf_mf_xlsx_convert_to_xml_user,mf.xlsx.convert.xml,model_mf_xlsx_convert_xml,myfab_xlsx_to_xml.mf_xlsx_to_xml_user,1,1,1,0
+access_mf_mf_xlsx_convert_to_xml_manager,mf.xlsx.convert.xml,model_mf_xlsx_convert_xml,myfab_xlsx_to_xml.mf_xlsx_to_xml_manager,1,1,1,1
+,,,,,,,
+access_mf_mf_xlsx_configuration_user,mf.xlsx.configuration,model_mf_xlsx_configuration,myfab_xlsx_to_xml.mf_xlsx_to_xml_user,1,0,0,0
+access_mf_mf_xlsx_configuration_manager,mf.xlsx.configuration,model_mf_xlsx_configuration,myfab_xlsx_to_xml.mf_xlsx_to_xml_manager,1,1,1,1
+,,,,,,,
+access_mf_mf_xlsx_config_sheet_user,mf.xlsx.config.sheet,model_mf_xlsx_config_sheet,myfab_xlsx_to_xml.mf_xlsx_to_xml_user,1,0,0,0
+access_mf_mf_xlsx_config_sheet_manager,mf.xlsx.config.sheet,model_mf_xlsx_config_sheet,myfab_xlsx_to_xml.mf_xlsx_to_xml_manager,1,1,1,1
+,,,,,,,
+access_mf_mf_xlsx_config_sheet_level_user,mf.xlsx.config.sheet.level,model_mf_xlsx_config_sheet_level,myfab_xlsx_to_xml.mf_xlsx_to_xml_user,1,0,0,0
+access_mf_mf_xlsx_config_sheet_level_manager,mf.xlsx.config.sheet.level,model_mf_xlsx_config_sheet_level,myfab_xlsx_to_xml.mf_xlsx_to_xml_manager,1,1,1,1
+,,,,,,,
+access_mf_mf_xlsx_config_sheet_field_user,mf.xlsx.config.sheet.field,model_mf_xlsx_config_sheet_field,myfab_xlsx_to_xml.mf_xlsx_to_xml_user,1,0,0,0
+access_mf_mf_xlsx_config_sheet_field_manager,mf.xlsx.config.sheet.field,model_mf_xlsx_config_sheet_field,myfab_xlsx_to_xml.mf_xlsx_to_xml_manager,1,1,1,1

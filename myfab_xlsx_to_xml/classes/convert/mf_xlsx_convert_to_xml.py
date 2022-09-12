@@ -5,6 +5,7 @@ from openerp.exceptions import ValidationError
 import base64
 from StringIO import StringIO
 
+
 # some help https://www.pythonexcel.com/openpyxl.php
 from openpyxl import load_workbook
 from openpyxl.workbook import Workbook
@@ -14,6 +15,10 @@ import lxml
 import xml
 import xml.etree.ElementTree as ET
 
+# some help https://stackoverflow.com/questions/17684610/python-convert-csv-to-xlsx
+import csv
+from openpyxl.writer.excel import save_virtual_workbook
+
 class mf_xlsx_convert_to_xml(models.Model):
     _name = 'mf.xlsx.convert.xml'
         
@@ -21,9 +26,9 @@ class mf_xlsx_convert_to_xml(models.Model):
     # COLUMNS
     #===========================================================================
     name = fields.Char(required=True)
-    configuration_id = fields.Many2one('mf.xlsx.configuration', string='Configuration', ondelete='restrict')
-    xlsx_file = fields.Binary(string="XLSX file to convert", required=True)
-    xlsx_file_name = fields.Char()
+    configuration_id = fields.Many2one('mf.xlsx.configuration', string='Configuration', ondelete='restrict', required=True)
+    file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
+    file_to_convert_name = fields.Char()
     xml_file = fields.Binary(string="XML file converted", readonly=True)
     xml_file_name = fields.Char()
     execution_message = fields.Char(readonly=True)
@@ -32,16 +37,17 @@ class mf_xlsx_convert_to_xml(models.Model):
     # METHODS
     #===========================================================================
     @api.one
-    def mf_convert(self):
+    def mf_convert(self, with_error_message=True):
         xml_file = False
-        execution_message = ''
 
-        if self._are_parameters_ok():
-            (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(self.xlsx_file, self.configuration_id)
+        if self._are_parameters_ok(with_error_message):
+            execution_message = ''
+            (xlsx_file,xlsx_file_name) = self._mf_get_xlsx_file(self.file_to_convert,self.file_to_convert_name)
+            (execution_message,xml_file) = self._mf_convert_XLSX_to_XML(xlsx_file, self.configuration_id)
             self.write({
                         'execution_message' : execution_message,
                         'xml_file' : xml_file,
-                        'xml_file_name' : self.xlsx_file_name[:-5]+'.xml' if xml_file else False,
+                        'xml_file_name' : xlsx_file_name[:-5]+'.xml' if xml_file else False,
                         })
         return True if xml_file else False
         
@@ -62,7 +68,7 @@ class mf_xlsx_convert_to_xml(models.Model):
         if not xlsx_document:
             conversion_message.append(_('Error on loading XLSX file'))
         else:
-            ET_root = ET.Element(configuration_id.root_beacon)
+            ET_root = ET.Element(configuration_id.main_xml_beacon)
             for sheet_rc in configuration_id.sheet_ids:
                 if not self._mf_convert_XLSX_sheet_to_XML(ET_root, xlsx_document, sheet_rc):
                     conversion_message.append(_('No XLSX sheet "%s"')%(sheet_rc.sheet_name_or_index))
@@ -98,13 +104,13 @@ class mf_xlsx_convert_to_xml(models.Model):
         # but it assign a reference, so at end the main element has all sub elements added
         xlsx_rows = self._mf_get_XLSX_rows(xlsx_sheet, sheet_id)
         if len(xlsx_rows) > 0:
-            ET_sheet = self._mf_add_XML_last_sub_element(ET_root, sheet_id.beacon_for_sheet, False) if sheet_id.beacon_for_sheet else ET_root
+            ET_sheet = self._mf_add_XML_last_sub_element(ET_root, sheet_id.xml_beacon_for_sheet, False) if sheet_id.xml_beacon_for_sheet else ET_root
         
         # store the treated xlsx rows in child treatment, to not do them again as parent rows
         xlsx_rows_in_xml = []
         for xlsx_row_index in range(len(xlsx_rows)):
             self._mf_add_XLSX_row_to_XML(ET_sheet, xlsx_sheet, xlsx_rows, xlsx_row_index, 
-                                        sheet_id.beacon_grouping_fields, sheet_id.field_ids, sheet_id.level_field_id, 
+                                        sheet_id.xml_beacon_grouping_fields, sheet_id.field_ids, sheet_id.level_field_id, 
                                         xlsx_rows_in_xml)
 
         return True        
@@ -129,7 +135,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     def _mf_set_XML_field_value(self, ET_row, xlsx_sheet, xlsx_row, field_id):
         new_value = self._mf_get_cell_value(xlsx_sheet, xlsx_row, field_id)
         if new_value:
-            ET_field = self._mf_add_XML_last_sub_element(ET_row, field_id.beacon, False)
+            ET_field = self._mf_add_XML_last_sub_element(ET_row, field_id.xml_beacon, False)
             if field_id.attribute:
                 if field_id.is_merge: new_value = self._mf_merge_values(ET_field.get(field_id.attribute, ''),new_value)
                 ET_field.set(field_id.attribute, new_value)
@@ -147,7 +153,7 @@ class mf_xlsx_convert_to_xml(models.Model):
                 child_xlsx_row_index = xlsx_row_index + 1
                 while self._mf_is_row_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
                     if child_xlsx_row_index not in xlsx_rows_in_xml and self._mf_is_direct_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id, current_level_value):
-                        ET_Child = self._mf_add_XML_last_sub_element(ET_row, level_id.beacon_per_level, False)
+                        ET_Child = self._mf_add_XML_last_sub_element(ET_row, level_id.xml_beacon_per_level, False)
                         self._mf_add_XLSX_row_to_XML(ET_Child, xlsx_sheet, xlsx_rows, child_xlsx_row_index, 
                                                     row_beacon, field_ids, level_id, 
                                                     xlsx_rows_in_xml) 
@@ -166,11 +172,16 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # CHECK METHODS
     #===========================================================================
-    def _are_parameters_ok(self):
-        if not self.xlsx_file : raise ValidationError(_('No XLSX file to convert.'))
-        if len(self.xlsx_file_name) <= 5 or self.xlsx_file_name[-5:].upper() != '.XLSX' : raise ValidationError(_('Conversion only works with XLSX files'))
-        if not self.configuration_id: raise ValidationError(_('Choose a configuration.'))
-        return True
+    def _are_parameters_ok(self, with_messages=True):
+        error_message = False
+
+        if not error_message and not self.configuration_id: error_message = _('Choose a configuration.')
+        if not error_message and not self.file_to_convert : error_message = _('No XLSX/CSV file to convert.')
+        if not error_message and self._mf_get_file_name_extension(self.file_to_convert_name) not in ['XLSX','CSV'] : error_message = _('Conversion only works with XLSX/CSV files')
+
+        if not error_message: return True
+        if not with_messages: return False
+        raise ValidationError(error_message)          
 
     def _mf_is_row_child(self, xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
         if child_xlsx_row_index < len(xlsx_rows):
@@ -245,6 +256,20 @@ class mf_xlsx_convert_to_xml(models.Model):
         return xml_file_content
 
     #===========================================================================
+    # CSV METHODS
+    #===========================================================================
+    def _mf_convert_CSV_to_XLSX(self, csv_file, csv_file_separator=';', csv_file_quoting=False, csv_file_encoding="utf-8"):
+        temp_xlsx_file = Workbook()
+        temp_xlsx_sheet = temp_xlsx_file.active
+        csv_rows = csv.reader(StringIO(base64.decodestring(csv_file)), delimiter=str(csv_file_separator), quotechar=str(csv_file_quoting) if csv_file_quoting else None)
+        for csv_row in csv_rows:
+            csv_row = [cell.decode(csv_file_encoding).strip() for cell in csv_row]
+            temp_xlsx_sheet.append(csv_row)
+
+        xlsx_file = base64.b64encode(save_virtual_workbook(temp_xlsx_file))
+        return xlsx_file
+
+    #===========================================================================
     # XLSX METHODS
     #===========================================================================
     def _mf_set_XLSX_active_sheet(self, xlsx_document, sheet_name_or_index):
@@ -291,6 +316,15 @@ class mf_xlsx_convert_to_xml(models.Model):
     #===========================================================================
     # GENERIC METHODS
     #===========================================================================
+    def _mf_get_xlsx_file(self, file_to_convert, file_to_convert_name ):
+        if self._mf_get_file_name_extension(file_to_convert_name) == 'CSV':
+            xlsx_file = self._mf_convert_CSV_to_XLSX(file_to_convert,self.configuration_id.csv_file_separator,self.configuration_id.csv_file_quoting,self.configuration_id.csv_file_encoding)
+        else:
+            xlsx_file = file_to_convert
+        xlsx_file_name = self._mf_get_file_name_without_extension(file_to_convert_name) + '.XLSX'
+
+        return (xlsx_file,xlsx_file_name)
+
     def _mf_merge_values(self, value_1, value_2):
         final_value = ''
 
@@ -302,3 +336,16 @@ class mf_xlsx_convert_to_xml(models.Model):
             final_value = value_2
 
         return final_value
+
+    #TODO : passer dans les MF tools
+    @staticmethod
+    def _mf_get_file_name_extension(file_name):
+        file_extension = file_name.split('.')[-1].upper()
+        return file_extension
+
+    @staticmethod
+    def _mf_get_file_name_without_extension(file_name):
+        file_name_split = file_name.split('.')
+        file_name_split.pop()
+        file_name_without_extension = '.'.join(file_name_split)
+        return file_name_without_extension

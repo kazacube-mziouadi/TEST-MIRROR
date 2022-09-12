@@ -16,10 +16,15 @@
                             </div>
                         </group>
                         <group colspan="8" col="2" name="group_infos"> 
-                            <field name="root_beacon"/>
+                            <field name="main_xml_beacon"/>
                         </group>
                         <group colspan="8" col="1" name="group_sheets" string="Sheets"> 
                             <field name="sheet_ids" nolabel="1"/>
+                        </group>
+                        <group colspan="8" col="4" name="group_csv" string="CSV informations (optionnal)"> 
+                            <field name="csv_file_separator"/>
+                            <field name="csv_file_encoding"/>
+                            <field name="csv_file_quoting"/>
                         </group>
                     </group>
                 </form>
