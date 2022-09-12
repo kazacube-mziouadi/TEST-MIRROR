@@ -27,19 +27,22 @@
 			<field name="model">record.import.mf</field>
             <field name="arch" type="xml">
 				<form string="myfab file interface attempt">
-					<group col="1" string="Record import">
+					<group col="4" string="Record import">
 						<field name="status_mf" readonly="1"/>
 						<field name="committed_mf" readonly="1"/>
+						<field name="mf_linked_record_reference" readonly="1"/>
 						<field name="method_mf" readonly="1"/>
 						<field name="model_mf" readonly="1"/>
-						<field name="fields_mf" class="large_text_mf" readonly="1"/>
 						<field name="callback_method_mf"
 							   readonly="1"
 							   attrs="{'invisible': [('callback_method_mf', '=', False)]}"/>
-						<field name="fields_to_write_mf"
-							   class="large_text_mf"
-							   readonly="1"
-							   attrs="{'invisible': [('fields_to_write_mf', '=', False)]}"/>
+						<group col="1" colspan="4">
+							<field name="fields_mf" class="large_text_mf" readonly="1"/>
+							<field name="fields_to_write_mf"
+								   class="large_text_mf"
+								   readonly="1"
+								   attrs="{'invisible': [('fields_to_write_mf', '=', False)]}"/>
+						</group>
 					</group>
 				</form>
 			</field>

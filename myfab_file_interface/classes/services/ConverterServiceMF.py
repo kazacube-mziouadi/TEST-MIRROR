@@ -26,7 +26,6 @@ class ConverterServiceMF(models.TransientModel):
 
     @staticmethod
     def _convert_models_list_to_json(models_list):
-        print(models_list)
         return json.dumps(models_list, sort_keys=True, indent=4)
 
     def _convert_models_list_to_txt(self, models_list, file_quoting, fields_names_list, file_encoding):

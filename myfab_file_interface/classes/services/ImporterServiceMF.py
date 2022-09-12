@@ -1,6 +1,7 @@
 from openerp import models, fields, api, _
 from openerp.exceptions import MissingError
 import logging
+import traceback
 
 logger = logging.getLogger(__name__)
 COMMIT_BATCH_QUANTITY = 1000
@@ -17,7 +18,7 @@ class ImporterServiceMF(models.TransientModel):
     def import_records_list(self, records_to_process_list):
         records_processed_counter = 0
         for record_to_process_dict in records_to_process_list:
-            # try:
+            try:
                 records_returned, status = self.apply_orm_method_to_model(
                     record_to_process_dict["model"],
                     record_to_process_dict["fields"],
@@ -28,7 +29,10 @@ class ImporterServiceMF(models.TransientModel):
                     if record_to_process_dict["method"] == "delete":
                         raise ValueError("A callback method can not be called on a deleted record.")
                     self.env["mf.tools"].mf_launch_method_on_records(record_to_process_dict["callback"], records_returned)
-                record_to_process_dict["status"] = status
+                record_to_process_dict.update({
+                    "status": status,
+                    "reference": records_returned
+                })
                 records_processed_counter += 1
                 # Committing if we reach COMMIT_BATCH_QUANTITY limit since last commit
                 if records_processed_counter % COMMIT_BATCH_QUANTITY == 0:
@@ -41,8 +45,8 @@ class ImporterServiceMF(models.TransientModel):
                     for record_processed_dict in records_processed_since_last_commit_list:
                         record_processed_dict["committed"] = True
                     records_processed_counter = 0
-            # except Exception as e:
-            #     raise Exception(e, record_to_process_dict)
+            except Exception as e:
+                raise Exception(e, traceback.format_exc(), record_to_process_dict)
         if records_processed_counter < COMMIT_BATCH_QUANTITY:
             for record_processed_dict in records_to_process_list:
                 record_processed_dict["committed"] = True
