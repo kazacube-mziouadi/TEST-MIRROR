@@ -44,9 +44,7 @@ class xml_import_configuration_table(models.Model):
                 model_name = beacon_rc.relation_openprod_id.model
                 existing_record = self.env[model_name].search(research_domain_list)
                 if len(existing_record) > 1:
-                    raise ValidationError(
-                        _("More than one record have been found : ") + str(existing_record) + _(". You must reduce the search domain ") + str(research_domain_list)
-                    )
+                    self.raise_domain_error(existing_record, beacon_rc)
 
             for key in data_dict:
                 if key == "Childrens_list" and data_dict["Childrens_list"]:
@@ -64,7 +62,7 @@ class xml_import_configuration_table(models.Model):
                         data_dict, key, existing_record, beacon_rc
                     ))
 
-            if beacon_rc.update_object and existing_record:
+            if existing_record:
                 if len(existing_record) == 1:
                     # Checking if the import set new values on the existing records
                     if self.is_record_to_update(children_sim_action_list):
@@ -150,12 +148,15 @@ class xml_import_configuration_table(models.Model):
         )
 
     def get_non_relational_field_process_type(self, existing_record, field_setter_id):
-        if self.env["mf.tools"].are_values_equal_in_same_type(
-                getattr(existing_record, field_setter_id.mf_field_to_set_id.name), field_setter_id.mf_value
+        if not existing_record:
+            return "create"
+        existing_record_field_value = getattr(existing_record, field_setter_id.mf_field_to_set_id.name)
+        if existing_record_field_value and self.env["mf.tools"].are_values_equal_in_same_type(
+                existing_record_field_value, field_setter_id.mf_value
         ):
             return "unmodified"
         else:
-            return "update" if existing_record else "create"
+            return "update"
 
     def is_record_to_update(self, children_sim_action_list):
         return self.is_at_least_one_child_modified(children_sim_action_list)
@@ -263,4 +264,13 @@ class xml_import_configuration_table(models.Model):
                 child_record_id = self.env[child_data_beacon_relation_id.relation_openprod_id.model].search(
                     search_domains_list
                 )
+                if len(child_record_id) > 1:
+                    self.raise_domain_error(child_record_id, child_data_beacon_relation_id)
                 return child_record_id.id
+
+    def raise_domain_error(self, records_found_list, beacon_id):
+        raise ValidationError(
+            _("More than one record have been found : ") + str(records_found_list) +
+            _(". You must reduce the search domain ") + str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name
+            + _(" with id ") + str(beacon_id.id)
+        )
