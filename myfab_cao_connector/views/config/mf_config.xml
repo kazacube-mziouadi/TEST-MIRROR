@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id='mf_view_form_modules_config_cao' model="ir.ui.view">
+			<field name="name">mf_view_form_modules_config_cao</field>
+			<field name="inherit_id" ref="my_fab.mf_view_form_modules_config" />
+			<field name="model">mf.modules.config</field>
+			<field name="arch" type="xml">
+				<xpath expr="//notebook" position="inside">
+					<page string="CAO Processing">
+						<group colspan="8" col="2" name="group_options_cao" string="Wizard"> 
+							<field name="default_processing_wizard"/>
+							<field name="default_stop_at_simulation"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

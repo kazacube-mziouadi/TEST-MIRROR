@@ -46,7 +46,7 @@ class FileInterfaceMF(models.AbstractModel):
         default["directory_mf"] = new_directory.id
         return super(FileInterfaceMF, self).copy(default=default)
 
-    @api.multi
+    @api.one
     def unlink(self):
         directory_id = self.directory_mf
         res = super(FileInterfaceMF, self).unlink()
