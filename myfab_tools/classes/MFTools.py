@@ -87,4 +87,6 @@ class MFTools(models.Model):
     def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
         if value_to_compare_with == "False":
             value_to_compare_with = False
+        if not value_with_master_type and value_to_compare_with or value_with_master_type and not value_to_compare_with:
+            return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
