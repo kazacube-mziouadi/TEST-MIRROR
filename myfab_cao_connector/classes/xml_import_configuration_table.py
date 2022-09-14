@@ -44,10 +44,7 @@ class xml_import_configuration_table(models.Model):
                 model_name = beacon_rc.relation_openprod_id.model
                 existing_record = self.env[model_name].search(research_domain_list)
                 if len(existing_record) > 1:
-                    raise ValidationError(
-                        _("More than one record have been found : ") + str(existing_record)
-                        + _(". You must reduce the search domain ") + self.get_beacon_domain_label(beacon_rc)
-                    )
+                    self.raise_domain_error(existing_record, beacon_rc)
 
             for key in data_dict:
                 if key == "Childrens_list" and data_dict["Childrens_list"]:
@@ -274,9 +271,6 @@ class xml_import_configuration_table(models.Model):
     def raise_domain_error(self, records_found_list, beacon_id):
         raise ValidationError(
             _("More than one record have been found : ") + str(records_found_list) +
-            _(". You must reduce the search domain ") + self.get_beacon_domain_label(beacon_id)
+            _(". You must reduce the search domain ") + str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name
+            + _(" with id ") + str(beacon_id.id)
         )
-
-    @staticmethod
-    def get_beacon_domain_label(beacon_id):
-        return str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name + _(" with id ") + str(beacon_id.id)
