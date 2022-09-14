@@ -37,7 +37,7 @@ class xml_import_processing_sim_action(models.Model):
     def write(self, vals):
         if self.type == "unmodified":
             vals["mf_selected_for_import"] = False
-        if self.type == "unmodified" or "mf_selected_for_import" not in vals or "mf_sequence" in vals or (
+        if self.type == "unmodified" or "mf_selected_for_import" not in vals or (
             not self.mf_selected_for_import and self.at_least_one_child_is_checked()
         ):
             return super(xml_import_processing_sim_action, self).write(vals)
@@ -119,11 +119,16 @@ class xml_import_processing_sim_action(models.Model):
             tree_view_sim_action_child_id = sim_action_child_id.get_tree_view_sim_action_child_id()
             if tree_view_sim_action_child_id:
                 if tree_view_sim_action_child_id.type != "unmodified" and self.type == "unmodified":
-                    self.type = "update"
-                    self.mf_selected_for_import = True
+                    # Case when a child is updated but the parent is unmodified : the parent must get updated
+                    self.write({
+                        "type": "update",
+                        "mf_selected_for_import": True
+                    })
                 tree_view_sim_action_children_ids_list.append((4, tree_view_sim_action_child_id.id))
             sim_action_child_id.set_tree_view_sim_action_children()
         self.mf_tree_view_sim_action_children_ids = tree_view_sim_action_children_ids_list
+        if not self.mf_beacon_id.update_object:
+            self.mf_selected_for_import = False
 
     def get_tree_view_sim_action_child_id(self):
         if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
@@ -183,9 +188,7 @@ class xml_import_processing_sim_action(models.Model):
             return self.mf_sim_action_parent_id.get_processing_id()
 
     def process_data_import(self):
-        if self.type == "unmodified":
-            return self.reference
-        elif self.mf_selected_for_import:
+        if self.mf_selected_for_import:
             # Check to not import manufactured components which bom import has been unselected
             if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
                 product_id, product_name = self.get_child_product_id_and_name()
@@ -223,6 +226,8 @@ class xml_import_processing_sim_action(models.Model):
                 return self.reference
             if self.type == "delete":
                 self.reference.unlink()
+        else:
+            return self.reference
 
     def append_relation_field_child_to_fields_dict(self, fields_dict, child_record_id, beacon_id):
         field_name = beacon_id.relation_openprod_field_id.name
