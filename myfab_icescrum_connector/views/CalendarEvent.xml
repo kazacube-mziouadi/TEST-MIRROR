@@ -75,7 +75,7 @@
 				</xpath>
 				<xpath expr="//li[@t-if='record.stop_datetime.raw_value']" position="after">
 					<li t-if="record.mf_scrum_spent_time.raw_value">
-						<b>Scrum duration : </b>
+						<b>Spent time on task (hours) : </b>
 						<field name="mf_scrum_spent_time" />
 					</li>
 				</xpath>

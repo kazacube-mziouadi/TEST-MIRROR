@@ -9,15 +9,16 @@ class CalendarEvent(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    mf_external_id = fields.Char(string="External ID", help="ID in the external app linked to this event.")
-    mf_scrum_parent_id = fields.Many2one("calendar.event", string="Feature")
-    mf_scrum_children_ids = fields.One2many("calendar.event", "mf_scrum_parent_id", string="Stories")
-    mf_type_name = fields.Char(compute="compute_mf_type_name")
-    mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type")
-    mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time")
-    mf_scrum_spent_time = fields.Float(compute="compute_mf_scrum_spent_time", string="Temps passé (heures)")
-    mf_scrum_task_spent_time = fields.Float(string="Temps passé sur tâche (heures)")
-    mf_scrum_estimated_time = fields.Float(string="Temps estimé (heures)")
+    mf_external_id = fields.Char(string="External ID", help="ID in the external app linked to this event.", readonly=True)
+    mf_scrum_parent_id = fields.Many2one("calendar.event", string="Feature", readonly=True)
+    mf_scrum_children_ids = fields.One2many("calendar.event", "mf_scrum_parent_id", string="Stories", readonly=True)
+    mf_type_name = fields.Char(compute="compute_mf_type_name", readonly=True)
+    mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type", readonly=True)
+    mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time", readonly=True)
+    mf_scrum_spent_time = fields.Float(compute="compute_mf_scrum_spent_time", string="Spent time (hours)", readonly=True)
+    mf_scrum_task_spent_time = fields.Float(string="Spent time on task (hours)", readonly=True)
+    mf_scrum_estimated_time = fields.Float(string="Estimated time (hours)", readonly=True)
+    mf_scrum_last_update = fields.Datetime(string="Scrum last update", readonly=True)
 
     # ===========================================================================
     # METHODS

@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Import from IceScrum">
 					<p>
-                        The import from IceScrum button will get the Features and Stories from the IceScrum APIs and insert them as actions in Open-Prod.
+                        The "import from IceScrum" button will get the Features, Stories and Tasks from the IceScrum APIs and insert them as actions in Open-Prod.
                     </p>
                     <group>
                         <field name="mf_icescrum_project_name"/>
