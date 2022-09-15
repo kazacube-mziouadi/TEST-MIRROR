@@ -7,6 +7,14 @@ class RecordImportMF(models.AbstractModel):
     _auto = False
 
     # ===========================================================================
+    # METHODS
+    # ===========================================================================
+    def _links_get(self):
+        model_pool = self.env["ir.model"]
+        res = model_pool.search([]).read(["model", "name"])
+        return [(r["model"], r["name"]) for r in res] + [('', '')]
+
+    # ===========================================================================
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, help='')
@@ -20,3 +28,4 @@ class RecordImportMF(models.AbstractModel):
     )
     committed_mf = fields.Boolean(string="Committed", default=False)
     callback_method_mf = fields.Char(string="Method called on record", help="")
+    mf_linked_record_reference = fields.Reference(string="Linked record's reference", selection=_links_get, size=128)

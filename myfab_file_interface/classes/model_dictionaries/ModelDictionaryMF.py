@@ -103,7 +103,9 @@ class ModelDictionaryMF(models.AbstractModel):
                 return {}
         object_dict = {}
         for field_to_export in self.fields_to_export_mf:
-            object_dict[field_to_export.name] = self.get_value_of_field_to_export(field_to_export, record_to_export)
+            field_value = self.get_value_of_field_to_export(field_to_export, record_to_export)
+            if field_value != {}:
+                object_dict[field_to_export.name] = field_value
         return object_dict
 
     def get_value_of_field_to_export(self, field_to_export, record_to_export):
