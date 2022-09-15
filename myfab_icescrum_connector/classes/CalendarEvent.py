@@ -16,6 +16,7 @@ class CalendarEvent(models.Model):
     mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type")
     mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time")
     mf_scrum_spent_time = fields.Float(compute="compute_mf_scrum_spent_time", string="Temps passé (heures)")
+    mf_scrum_task_spent_time = fields.Float(string="Temps passé sur tâche (heures)")
     mf_scrum_estimated_time = fields.Float(string="Temps estimé (heures)")
 
     # ===========================================================================
@@ -39,7 +40,12 @@ class CalendarEvent(models.Model):
     @api.one
     @api.depends("mf_scrum_children_ids")
     def compute_mf_scrum_spent_time(self):
-        total_scrum_children_spent_time = 0.0
-        for scrum_child in self.mf_scrum_children_ids:
-            total_scrum_children_spent_time += scrum_child.mf_scrum_spent_time
-        self.mf_scrum_spent_time = total_scrum_children_spent_time
+        # Computing the mf_scrum_spent_time if the even has scrum children (feature or story case)
+        if self.mf_scrum_children_ids:
+            total_scrum_children_spent_time = 0.0
+            for scrum_child in self.mf_scrum_children_ids:
+                if scrum_child.mf_scrum_spent_time:
+                    total_scrum_children_spent_time += scrum_child.mf_scrum_spent_time
+            self.mf_scrum_spent_time = total_scrum_children_spent_time
+        else:
+            self.mf_scrum_spent_time = self.mf_scrum_task_spent_time

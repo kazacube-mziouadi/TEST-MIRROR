@@ -83,6 +83,10 @@ class MfWizardImportIceScrum(models.TransientModel):
         # Creating the remaining orphans stories (not attached to a feature)
         for story_api_dict in stories_api_list:
             self.env["calendar.event"].create(self.get_story_creation_dict(story_api_dict, tasks_api_list))
+        # Creating the remaining orphans tasks (not attached to a feature)
+        for task_api_dict in tasks_api_list:
+            action_type_task_id = self.env["action.type"].search([("name", '=', "Task")])
+            self.env["calendar.event"].create(self.get_action_event_creation_dict(task_api_dict, action_type_task_id))
 
     def get_stories_creation_tuples_list_by_ids(self, searched_stories_ids_dicts, stories_api_list, tasks_api_list):
         stories_creation_list = []
@@ -134,6 +138,8 @@ class MfWizardImportIceScrum(models.TransientModel):
             icescrum_event_creation_dict["stop_datetime"] = self.format_api_datetime(icescrum_event_api_dict["doneDate"])
         else:
             icescrum_event_creation_dict["stop_datetime"] = self.format_api_datetime(icescrum_event_api_dict["dateCreated"])
+        if "spent" in icescrum_event_api_dict:
+            icescrum_event_creation_dict["mf_scrum_task_spent_time"] = icescrum_event_api_dict["spent"]
         return icescrum_event_creation_dict
 
     @staticmethod
