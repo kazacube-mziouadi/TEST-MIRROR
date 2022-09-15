@@ -1,0 +1,181 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* myfab_icescrum_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-15 15:43+0000\n"
+"PO-Revision-Date: 2022-09-15 15:43+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: myfab_icescrum_connector
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.mf_calendar_event_kanban_view
+msgid "<b>Spent time on task (hours) : </b>"
+msgstr "<b>Temps passé sur la tâche (heures) : </b>"
+
+#. module: myfab_icescrum_connector
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.view_wizard_import_icescrum_mf
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_estimated_time
+msgid "Estimated time (hours)"
+msgstr "Temps estimé (heures)"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model,name:myfab_icescrum_connector.model_calendar_event
+msgid "Event"
+msgstr "Événement"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_external_id
+msgid "External ID"
+msgstr "ID externe"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_parent_id
+msgid "Feature"
+msgstr "Feature"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_id
+msgid "ID"
+msgstr "ID"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_external_id
+msgid "ID in the external app linked to this event."
+msgstr "ID dans l'application externe liée à cet événement."
+
+#. module: myfab_icescrum_connector
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.mf_view_form_modules_config_icescrum
+msgid "IceScrum"
+msgstr "IceScrum"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_mf_icescrum_project_name
+msgid "IceScrum project's name"
+msgstr "Nom de projet IceScrum"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_mf_icescrum_token
+msgid "IceScrum user's token"
+msgstr "Token d'utilisateur IceScrum"
+
+#. module: myfab_icescrum_connector
+#: model:ir.actions.act_window,name:myfab_icescrum_connector.mf_act_wizard_calendar_event_import_icescrum
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.view_wizard_import_icescrum_mf
+msgid "Import from IceScrum"
+msgstr "Importer depuis IceScrum"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_mf_wizard_import_icescrum_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_is_scrum_type
+msgid "Mf is scrum type"
+msgstr "Mf is scrum type"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_is_start_equal_to_stop_time
+msgid "Mf is start equal to stop time"
+msgstr "Mf is start equal to stop time"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_type_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_is_scrum_type
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_is_start_equal_to_stop_time
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_children_ids
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_estimated_time
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_last_update
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_parent_id
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_spent_time
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_scrum_task_spent_time
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_calendar_event_mf_type_name
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum___last_update
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_create_date
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_create_uid
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_display_name
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_id
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_mf_icescrum_project_name
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_mf_icescrum_token
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_write_date
+#: model:ir.model.fields,help:myfab_icescrum_connector.field_mf_wizard_import_icescrum_write_uid
+msgid "Not defined"
+msgstr "Non défini"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_last_update
+msgid "Scrum last update"
+msgstr "Dernière màj Scrum"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_spent_time
+msgid "Spent time (hours)"
+msgstr "Temps estimé (heures)"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_task_spent_time
+msgid "Spent time on task (hours)"
+msgstr "Temps passé sur la tâche (heures)"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model.fields,field_description:myfab_icescrum_connector.field_calendar_event_mf_scrum_children_ids
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.mf_view_form_calendar_event
+msgid "Stories"
+msgstr "Stories"
+
+#. module: myfab_icescrum_connector
+#: model:ir.ui.view,arch_db:myfab_icescrum_connector.view_wizard_import_icescrum_mf
+msgid "The \"import from IceScrum\" button will get the Features, Stories and Tasks from the IceScrum APIs and insert them as actions in Open-Prod."
+msgstr "Le bouton \"Importer depuis IceScrum\" va récupérer les Features, Stories et Tâches depuis les APIs IceScrum et les insérer en actions dans Open-Prod."
+
+#. module: myfab_icescrum_connector
+#: model:ir.model,name:myfab_icescrum_connector.model_mf_modules_config
+msgid "mf.modules.config"
+msgstr "mf.modules.config"
+
+#. module: myfab_icescrum_connector
+#: model:ir.model,name:myfab_icescrum_connector.model_mf_wizard_import_icescrum
+msgid "mf.wizard.import.icescrum"
+msgstr "mf.wizard.import.icescrum"
+
