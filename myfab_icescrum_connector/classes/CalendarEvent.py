@@ -12,7 +12,7 @@ class CalendarEvent(models.Model):
     mf_external_id = fields.Char(string="External ID", help="ID in the external app linked to this event.", readonly=True)
     mf_scrum_parent_id = fields.Many2one("calendar.event", string="Feature", readonly=True)
     mf_scrum_children_ids = fields.One2many("calendar.event", "mf_scrum_parent_id", string="Stories", readonly=True)
-    mf_type_name = fields.Char(compute="compute_mf_type_name", readonly=True)
+    mf_type_name = fields.Char(related="type_id.name", readonly=True)
     mf_is_scrum_type = fields.Boolean(compute="compute_mf_is_scrum_type", readonly=True)
     mf_is_start_equal_to_stop_time = fields.Boolean(compute="compute_mf_is_start_equal_to_stop_time", readonly=True)
     mf_scrum_spent_time = fields.Float(compute="compute_mf_scrum_spent_time", string="Spent time (hours)", readonly=True)
@@ -23,11 +23,6 @@ class CalendarEvent(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
-    @api.one
-    @api.depends("type_id")
-    def compute_mf_type_name(self):
-        self.mf_type_name = self.type_id.name
-
     @api.one
     @api.depends("type_id")
     def compute_mf_is_scrum_type(self):

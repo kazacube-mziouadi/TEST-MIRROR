@@ -21,11 +21,20 @@ class MfWizardImportIceScrum(models.TransientModel):
     # COLUMNS
     # ===========================================================================
     mf_icescrum_project_name = fields.Char(required=True, string="IceScrum project's name")
-    mf_token = fields.Char(required=True, string="IceScrum user's token")
+    mf_icescrum_token = fields.Char(required=True, string="IceScrum user's token")
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.model
+    def default_get(self, fields_list):
+        res = super(MfWizardImportIceScrum, self).default_get(fields_list=fields_list)
+        config_myfab_id = self.env['mf.modules.config'].search([], None, 1)
+        if config_myfab_id:
+            res["mf_icescrum_project_name"] = config_myfab_id.mf_icescrum_project_name
+            res["mf_icescrum_token"] = config_myfab_id.mf_icescrum_token
+        return res
+
     @api.multi
     def action_import_from_icescrum(self):
         self.create_icescrum_types(SCRUM_TYPE_NAMES)
@@ -58,7 +67,7 @@ class MfWizardImportIceScrum(models.TransientModel):
         return {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "x-icescrum-token": self.mf_token
+            "x-icescrum-token": self.mf_icescrum_token
         }
 
     def create_feature_records_from_features_api_list(self, features_api_list):
@@ -114,7 +123,7 @@ class MfWizardImportIceScrum(models.TransientModel):
             existing_action_event_id.write(action_event_api_dict)
         elif not existing_action_event_id:
             # Create case
-            if action_events_creation_list:
+            if action_events_creation_list is not None:
                 # If we're given an action_events_creation_list, we append the creation tuple to it
                 action_events_creation_list.append((0, 0, action_event_api_dict))
             else:

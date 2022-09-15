@@ -11,7 +11,7 @@
                     </p>
                     <group>
                         <field name="mf_icescrum_project_name"/>
-                        <field name="mf_token"/>
+                        <field name="mf_icescrum_token"/>
                     </group>
                     <footer>
                         <button name="action_import_from_icescrum" type="object" string="Import from IceScrum" class="oe_highlight"/>

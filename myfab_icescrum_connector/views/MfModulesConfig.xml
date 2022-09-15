@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <!-- FORM VIEW -->
+        <record id="mf_view_form_modules_config_icescrum" model="ir.ui.view">
+			<field name="name">mf_view_form_modules_config_icescrum</field>
+			<field name="inherit_id" ref="my_fab.mf_view_form_modules_config" />
+			<field name="model">mf.modules.config</field>
+			<field name="arch" type="xml">
+				<xpath expr="//notebook" position="inside">
+					<page string="IceScrum">
+						<group colspan="8" col="2" name="group_options_icescrum" string="IceScrum">
+							<field name="mf_icescrum_project_name"/>
+							<field name="mf_icescrum_token"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

@@ -15,6 +15,7 @@
     ],
     'data': [
         'views/CalendarEvent.xml',
+        'views/MfModulesConfig.xml',
         'wizards/MfWizardImportIceScrum.xml',
     ],
     'qweb': [],
