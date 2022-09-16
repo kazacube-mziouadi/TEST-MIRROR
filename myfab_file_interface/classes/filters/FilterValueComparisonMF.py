@@ -1,5 +1,6 @@
 from openerp import models, fields, api, _
 from FilterInterfaceMF import FilterInterfaceMF
+from ast import literal_eval
 
 
 class FilterValueComparisonMF(models.Model, FilterInterfaceMF):
@@ -19,6 +20,8 @@ class FilterValueComparisonMF(models.Model, FilterInterfaceMF):
     model_dictionary_field_mf = fields.Many2one(string="Model dictionary field", required=False, ondelete="cascade")
 
     def get_filter_tuple(self, field_name):
-        return field_name, self.operator_mf, self.value_mf
-
-
+        if self.value_mf[0] == '[' and self.value_mf[-1] == ']':
+            value_to_search = literal_eval(self.value_mf)
+        else:
+            value_to_search = self.value_mf
+        return field_name, self.operator_mf, value_to_search

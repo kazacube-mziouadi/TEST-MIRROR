@@ -30,7 +30,7 @@ class xml_import_configuration_table(models.Model):
         temp_history_list = []
         for data_dict_id in data_dicts_to_process_dict.keys():
             # Object is internal number of data
-            existing_record = False
+            existing_record = None
             data_dict = data_dicts_to_process_dict[data_dict_id]
             beacon_rc = data_dict["object_relation"]
             children_sim_action_list = []
@@ -57,6 +57,10 @@ class xml_import_configuration_table(models.Model):
                     if children_sim_action_list and existing_record:
                         self.add_elements_to_delete_to_children_history_list(children_sim_action_list, existing_record)
                 elif key not in ["Childrens_list", "object_relation"]:
+                    if not existing_record:
+                        raise ValidationError(
+                            _("No record has been found for domain ") + self.get_beacon_domain_as_string(beacon_rc)
+                        )
                     # Value processing case
                     children_sim_action_list.append(self.get_non_relational_field_sim_action_id(
                         data_dict, key, existing_record, beacon_rc
@@ -271,6 +275,9 @@ class xml_import_configuration_table(models.Model):
     def raise_domain_error(self, records_found_list, beacon_id):
         raise ValidationError(
             _("More than one record have been found : ") + str(records_found_list) +
-            _(". You must reduce the search domain ") + str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name
-            + _(" with id ") + str(beacon_id.id)
+            _(". You must reduce the search domain ") + self.get_beacon_domain_as_string(beacon_id)
         )
+
+    @staticmethod
+    def get_beacon_domain_as_string(beacon_id):
+        return str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name + _(" with id ") + str(beacon_id.id)

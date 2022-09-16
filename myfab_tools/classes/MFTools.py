@@ -44,11 +44,13 @@ class MFTools(models.Model):
     # Dynamic execution tools
     ####################################################################
     """
-       Launch a method at format (for example) "method_name(paramInt, 'paramString')" on a list of records.
+       Launch a method at string format (for example) "method_name(paramInt, 'paramString')" on a list of records.
        It's not a static method as "self" is used through the exec() method
     """
     def mf_launch_method_on_records(self, method_name, record_ids):
         record_ids_str_ids_list = [str(record_id.id) for record_id in record_ids]
+        if method_name[-1:] != ')':
+            method_name += "()"
         exec("self.env['" + record_ids[0]._name + "'].search([('id', 'in', " + str(record_ids_str_ids_list) + ")])." + method_name)
 
     ####################################################################

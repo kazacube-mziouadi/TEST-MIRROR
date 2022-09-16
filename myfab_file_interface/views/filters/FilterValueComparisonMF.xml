@@ -28,6 +28,9 @@
 						<field name="operator_mf"/>
 						<field name="value_mf"/>
 					</group>
+					<p attrs="{'invisible': [('operator_mf', 'not in', ['in', 'not in'])]}">
+						Lists must be written in the format : ['value01', 'value02']
+					</p>
 				</form>
 			</field>
 		</record>
