@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from openerp import models, fields, api, _
 from openerp.exceptions import MissingError
 import logging
@@ -51,14 +52,16 @@ class ImporterServiceMF(models.TransientModel):
             for record_processed_dict in records_to_process_list:
                 record_processed_dict["committed"] = True
 
-    # Apply an ORM method (create/write/search/unlink) on the given model_name, with the given dicts :
-    #     - record_fields for the fields of the record we are looking for
-    #     - record_fields_to_write for the fields we want to update for the searched record (write method only)
+    """
+        Apply an ORM method (create/write/search/unlink) on the given model_name, with the given dicts :
+            - record_fields for the fields of the record we are looking for
+            - record_fields_to_write for the fields we want to update for the searched record (write method only)
+    """
     def apply_orm_method_to_model(self, model_name, record_fields_dict, record_to_write_fields_dict, orm_method_name):
         # Retrieving the ID of each relational field recursively
-        self.set_relation_fields_to_ids_in_dict(model_name, record_fields_dict, orm_method_name)
         if record_to_write_fields_dict:
-            self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict, orm_method_name)
+            self.set_relation_fields_to_ids_in_dict(model_name, record_to_write_fields_dict, orm_method_name, record_fields_dict)
+        self.set_relation_fields_to_ids_in_dict(model_name, record_fields_dict, orm_method_name)
         records_found = self.search_records_by_fields_dict(model_name, record_fields_dict)
         if orm_method_name == "create" or (orm_method_name == "merge" and not records_found):
             if records_found:
@@ -87,8 +90,10 @@ class ImporterServiceMF(models.TransientModel):
             return records_found, "success"
         raise ValueError("The " + orm_method_name + " method is not supported.")
 
-    # Set all the relation fields in the dict to the id of the matching record.
-    # If this record doesn't exist, the record is created.
+    """
+        Set all the relation fields in the dict to the id of the matching record.
+        If this record doesn't exist, the record is created.
+    """
     def set_relation_fields_to_ids_in_dict(self, record_model_name, record_fields_dict, orm_method_name, search_fields_dict={}):
         # TODO: utiliser orm_method_name et search_fields_dict pour savoir sur quelles clés rechercher les sous-niveaux (pour write/merge)
         for field_name in record_fields_dict:
@@ -96,11 +101,16 @@ class ImporterServiceMF(models.TransientModel):
                 if not record_fields_dict[field_name]:
                     continue
                 # Many2one case : we get the id of the related record
+                # print("*-*-* search_fields_dict")
+                # print(search_fields_dict)
+                # print(field_name)
+                # print(search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {})
                 relation_field_id = self.set_relation_field_to_id_in_dict(
                     record_model_name,
                     field_name,
                     record_fields_dict[field_name],
-                    orm_method_name
+                    orm_method_name,
+                    search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {}
                 )
                 if relation_field_id:
                     record_fields_dict[field_name] = relation_field_id
@@ -113,7 +123,8 @@ class ImporterServiceMF(models.TransientModel):
                         record_model_name,
                         field_name,
                         one2many_member,
-                        orm_method_name
+                        orm_method_name,
+                        search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {}
                     )
                     if type(relation_field_id) is list:
                         # Odoo many2many ids string
@@ -135,7 +146,7 @@ class ImporterServiceMF(models.TransientModel):
         Else it returns the tuple permitting it's linking or it's creation during the root record creation.
         https://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model.write
     """
-    def set_relation_field_to_id_in_dict(self, parent_model_name, field_name, relation_field_dict, orm_method_name):
+    def set_relation_field_to_id_in_dict(self, parent_model_name, field_name, relation_field_dict, orm_method_name, search_fields_dict={}):
         # Odoo many2many multi id string processing
         if "id" in relation_field_dict and type(relation_field_dict["id"]) is not int and ',' in relation_field_dict["id"]:
             many2many_id_strings = relation_field_dict["id"].split(',')
@@ -158,13 +169,32 @@ class ImporterServiceMF(models.TransientModel):
             relation_field_id = self.get_record_id_by_id_string(relation_field_dict["id"])
             # Link to the existing relation record
             return (4, relation_field_id) if field_model.ttype == "many2many" else relation_field_id
-        self.set_relation_fields_to_ids_in_dict(field_model.relation, relation_field_dict, orm_method_name)
-        relation_field_record = self.search_records_by_fields_dict(field_model.relation, relation_field_dict, 1)
+        self.set_relation_fields_to_ids_in_dict(field_model.relation, relation_field_dict, orm_method_name, search_fields_dict)
+        if type(search_fields_dict) is list:
+            # one2many search case, we search on multiple field values (ex : name = "toto", name = "tata", etc)
+            # so we have to merge all these fields (ex : name in ["toto", "tata"])
+            merged_search_fields_dict = {}
+            for search_fields_elem_dict in search_fields_dict:
+                self.merge_search_fields_dicts(
+                    self.get_only_root_fields_from_dict(search_fields_elem_dict), merged_search_fields_dict
+                )
+            search_fields_dict = merged_search_fields_dict
+        relation_field_record = self.search_records_by_fields_dict(
+            field_model.relation,
+            self.get_only_root_fields_from_dict(search_fields_dict) if search_fields_dict else relation_field_dict,
+            1
+        )
+        # Total merge/write if the dict of values is different from the existing record's values
+        if relation_field_record and orm_method_name in ["merge", "write"] and not self.env["mf.tools"].are_dict_and_record_values_equals(
+            relation_field_dict,
+            relation_field_record
+        ):
+            relation_field_record.write(self.get_dict_of_updated_fields_only(relation_field_dict, relation_field_record))
         if field_model.ttype == "one2many" and relation_field_record:
             # If a record exists for this one2many element AND is already linked to a many2one, we create a new one.
             # Else, the existing record is linked to our one2many.
-            relation_field_record_value = getattr(relation_field_record, field_model.relation_field)
-            if relation_field_record_value:
+            relation_field_many2one_value = getattr(relation_field_record, field_model.relation_field)
+            if relation_field_many2one_value and orm_method_name in ["merge", "create"]:
                 return (0, 0, relation_field_dict)
             else:
                 return (4, relation_field_record.id)
@@ -173,7 +203,7 @@ class ImporterServiceMF(models.TransientModel):
             return relation_field_record.id if field_model.ttype == "many2one" else (4, relation_field_record.id)
         else:
             # Creation of the relation record
-            if field_model.ttype == "many2one":
+            if field_model.ttype == "many2one" and orm_method_name in ["merge", "create"]:
                 many2one_created = self.env[field_model.relation].create(relation_field_dict)
                 return many2one_created.id
             else:
@@ -208,3 +238,33 @@ class ImporterServiceMF(models.TransientModel):
             return ir_model_data.res_id
         else:
             raise MissingError("No record found for id string " + id_string)
+
+    def get_dict_of_updated_fields_only(self, fields_dict, record_id):
+        updated_fields_dict = {}
+        for field_name in fields_dict.keys():
+            field_value = fields_dict[field_name]
+            if type(field_value) in [list, dict, tuple]:
+                continue
+            record_field_value = getattr(record_id, field_name)
+            if hasattr(record_field_value, "id"):
+                record_field_value = record_field_value.id
+            if not self.env["mf.tools"].are_values_equal_in_same_type(record_field_value, fields_dict[field_name]):
+                updated_fields_dict[field_name] = field_value
+        return updated_fields_dict
+
+    @staticmethod
+    def get_only_root_fields_from_dict(fields_dict):
+        root_fields_dict = {}
+        for field_name in fields_dict.keys():
+            field_value = fields_dict[field_name]
+            if type(field_value) not in [list, dict, tuple]:
+                root_fields_dict[field_name] = field_value
+        return root_fields_dict
+
+    @staticmethod
+    def merge_search_fields_dicts(dict_to_merge, dict_to_merge_into):
+        for field_name in dict_to_merge.keys():
+            if field_name in dict_to_merge_into:
+                dict_to_merge_into[field_name].append(dict_to_merge[field_name])
+            else:
+                dict_to_merge_into[field_name] = [dict_to_merge[field_name]]

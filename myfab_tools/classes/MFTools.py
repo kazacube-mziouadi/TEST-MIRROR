@@ -87,8 +87,34 @@ class MFTools(models.Model):
     """
     @staticmethod
     def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
+        if value_with_master_type == "False":
+            value_with_master_type = False
         if value_to_compare_with == "False":
             value_to_compare_with = False
+        if value_with_master_type is False and value_to_compare_with is False:
+            return True
         if not value_with_master_type and value_to_compare_with or value_with_master_type and not value_to_compare_with:
             return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
+
+    """
+        Compare a dict of field values and a record. If the dict has the same values than the record, return True.
+        Else return False.
+    """
+    def are_dict_and_record_values_equals(self, values_dict, record_id):
+        for field_name in values_dict.keys():
+            field_value = values_dict[field_name]
+            if type(field_value) in [list, dict, tuple]:
+                continue
+            record_field_value = getattr(record_id, field_name)
+            if hasattr(record_field_value, "id"):
+                record_field_value = record_field_value.id
+            if not self.are_values_equal_in_same_type(record_field_value, values_dict[field_name]):
+                print("*-*-*-* FALSE *-*-*-*-*")
+                print(record_field_value)
+                print(type(record_field_value))
+                print(values_dict[field_name])
+                print(type(values_dict[field_name]))
+                print(record_field_value == values_dict[field_name])
+                return False
+        return True
