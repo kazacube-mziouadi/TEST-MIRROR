@@ -127,7 +127,7 @@ class xml_import_processing_sim_action(models.Model):
                 tree_view_sim_action_children_ids_list.append((4, tree_view_sim_action_child_id.id))
             sim_action_child_id.set_tree_view_sim_action_children()
         self.mf_tree_view_sim_action_children_ids = tree_view_sim_action_children_ids_list
-        if not self.mf_beacon_id.update_object:
+        if (self.type == "create" and not self.mf_beacon_id.create_object) or (self.type == "update" and not self.mf_beacon_id.update_object):
             self.mf_selected_for_import = False
 
     def get_tree_view_sim_action_child_id(self):
