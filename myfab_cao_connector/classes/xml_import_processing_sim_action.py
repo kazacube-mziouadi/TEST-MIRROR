@@ -38,11 +38,13 @@ class xml_import_processing_sim_action(models.Model):
         if self.type == "unmodified":
             vals["mf_selected_for_import"] = False
         if self.type == "unmodified" or "mf_selected_for_import" not in vals or (
-            not self.mf_selected_for_import and self.at_least_one_child_is_checked()
+            not self.mf_selected_for_import and self.mf_tree_view_sim_action_children_ids and self.at_least_one_child_is_checked()
         ):
+            # Simple write without cascade checking
             return super(xml_import_processing_sim_action, self).write(vals)
         else:
-            if self.mf_selected_for_import and not self.at_least_one_child_is_checked():
+            # Write with cascade checking
+            if self.mf_selected_for_import and self.mf_tree_view_sim_action_children_ids and not self.at_least_one_child_is_checked():
                 vals["mf_selected_for_import"] = False
             res = super(xml_import_processing_sim_action, self).write(vals)
             self.toggle_mf_selected_for_import(triggered_by_write=True)
@@ -95,7 +97,8 @@ class xml_import_processing_sim_action(models.Model):
         elif is_child:
             self.mf_selected_for_import = sim_action_parent_id.mf_selected_for_import
         if (self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.mf_selected_for_import) or (
-            not self.mf_selected_for_import and sim_action_parent_id and not sim_action_parent_id.at_least_one_child_is_checked()
+            not self.mf_selected_for_import and sim_action_parent_id and self.mf_tree_view_sim_action_children_ids
+            and not sim_action_parent_id.at_least_one_child_is_checked()
         ):
             self.check_parent_mf_selected_for_import_recursively(self.mf_selected_for_import)
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
@@ -105,7 +108,10 @@ class xml_import_processing_sim_action(models.Model):
     def check_parent_mf_selected_for_import_recursively(self, is_selected):
         sim_action_parent_id = self.mf_tree_view_sim_action_parent_id
         if sim_action_parent_id and (
-            is_selected or (not is_selected and not sim_action_parent_id.at_least_one_child_is_checked())
+            is_selected or (
+                not is_selected and self.mf_tree_view_sim_action_children_ids
+                and not sim_action_parent_id.at_least_one_child_is_checked()
+            )
         ):
             sim_action_parent_id.mf_selected_for_import = is_selected
             sim_action_parent_id.check_parent_mf_selected_for_import_recursively(is_selected)
@@ -127,7 +133,10 @@ class xml_import_processing_sim_action(models.Model):
                 tree_view_sim_action_children_ids_list.append((4, tree_view_sim_action_child_id.id))
             sim_action_child_id.set_tree_view_sim_action_children()
         self.mf_tree_view_sim_action_children_ids = tree_view_sim_action_children_ids_list
-        if (self.type == "create" and not self.mf_beacon_id.create_object) or (self.type == "update" and not self.mf_beacon_id.update_object):
+        if (
+            self.mf_selected_for_import and self.mf_tree_view_sim_action_children_ids
+            and not self.at_least_one_child_is_checked()
+        ) or (self.type == "create" and not self.mf_beacon_id.create_object) or (self.type == "update" and not self.mf_beacon_id.update_object):
             self.mf_selected_for_import = False
 
     def get_tree_view_sim_action_child_id(self):
@@ -217,9 +226,9 @@ class xml_import_processing_sim_action(models.Model):
                         record_id = self.env[model_name].create(fields_dict)
                     self.reference = model_name + ',' + str(record_id.id)
                 elif self.type == "update":
-                    has_written = self.write_different_fields_only(self.reference, fields_dict)
-                    if has_written and self.mf_beacon_id.use_onchange:
-                        self.apply_onchanges_on_record_id(self.reference, self.mf_beacon_id.relation_openprod_id)
+                    fields_written_dict = self.write_different_fields_only(self.reference, fields_dict)
+                    if fields_written_dict and self.mf_beacon_id.use_onchange:
+                        self.apply_onchanges_on_record_id(self.reference, fields_written_dict)
                 if model_name == "mrp.bom" and self.processing_id.model_id.mf_documents_directory_id:
                     product_code = self.reference.product_id.code
                     self.processing_id.mf_import_product_document(product_code)
@@ -242,11 +251,10 @@ class xml_import_processing_sim_action(models.Model):
     def get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
 
-    def apply_onchanges_on_record_id(self, record_id, model_id=None):
-        if not model_id:
-            model_id = self.env["ir.model"].search([("model", '=', record_id._name)])
-        for field_id in model_id.field_id:
-            for method in record_id._onchange_methods.get(field_id.name, ()):
+    @staticmethod
+    def apply_onchanges_on_record_id(record_id, fields_written_dict):
+        for field_name in fields_written_dict.keys():
+            for method in record_id._onchange_methods.get(field_name, ()):
                 method(record_id)
 
     def write_different_fields_only(self, record_id, fields_dict):
@@ -268,11 +276,11 @@ class xml_import_processing_sim_action(models.Model):
                         if update_tuple[1] not in record_field_value_ids_list:
                             relation_field_values_to_add_list.append(update_tuple)
                     different_fields_dict[field_name] = relation_field_values_to_add_list
-            elif record_field_value != update_field_value:
+            elif not self.env["mf.tools"].are_values_equal_in_same_type(record_field_value, update_field_value):
                 different_fields_dict[field_name] = update_field_value
         if different_fields_dict:
             record_id.write(different_fields_dict)
-            return True
+            return different_fields_dict
         return False
 
     def get_sim_action_creation_tuple(

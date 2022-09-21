@@ -151,8 +151,11 @@ class xml_import_configuration_table(models.Model):
         if not existing_record:
             return "create"
         existing_record_field_value = getattr(existing_record, field_setter_id.mf_field_to_set_id.name)
-        if existing_record_field_value and self.env["mf.tools"].are_values_equal_in_same_type(
-                existing_record_field_value, field_setter_id.mf_value
+        field_setter_value = field_setter_id.mf_value
+        if (not field_setter_value and field_setter_value not in [False, 0]) or (
+            self.env["mf.tools"].are_values_equal_in_same_type(
+                existing_record_field_value, field_setter_value
+            )
         ):
             return "unmodified"
         else:
