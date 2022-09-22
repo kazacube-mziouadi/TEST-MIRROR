@@ -5,7 +5,7 @@ import base64
 from openerp.exceptions import MissingError
 import json
 
-KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model"]
+KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model", "status", "reference", "committed"]
 
 
 class FileInterfaceImportMF(models.Model):
