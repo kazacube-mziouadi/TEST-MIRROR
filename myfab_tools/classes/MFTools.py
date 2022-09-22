@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _, modules
-from openerp.exceptions import ValidationError
-from datetime import datetime, date, timedelta
+from datetime import datetime
 import pytz
 
 class MFTools(models.Model):
@@ -87,13 +86,9 @@ class MFTools(models.Model):
     """
     @staticmethod
     def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
-        if value_with_master_type == "False":
-            value_with_master_type = False
-        if value_to_compare_with == "False":
-            value_to_compare_with = False
-        if value_with_master_type is False and value_to_compare_with is False:
-            return True
-        if not value_with_master_type and value_to_compare_with or value_with_master_type and not value_to_compare_with:
+        if (value_to_compare_with and (value_with_master_type is False or value_with_master_type is None)) or (
+            value_with_master_type and (value_to_compare_with is False or value_to_compare_with is None)
+        ):
             return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
 
@@ -118,3 +113,12 @@ class MFTools(models.Model):
                 print(record_field_value == values_dict[field_name])
                 return False
         return True
+
+    ####################################################################
+    # Dict tools
+    ####################################################################
+    @staticmethod
+    def merge_two_dicts(dict_1, dict_2):
+        merged_dict = dict_1.copy()   # copies keys and values of x
+        merged_dict.update(dict_2)    # modifies z with keys and values of y
+        return merged_dict
