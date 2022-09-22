@@ -5,7 +5,7 @@ import base64
 from openerp.exceptions import MissingError
 import json
 
-KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model"]
+KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model", "status", "reference", "committed"]
 
 
 class FileInterfaceImportMF(models.Model):
@@ -79,7 +79,7 @@ class FileInterfaceImportMF(models.Model):
                 if incorrect_file_key:
                     # Si on arrive ici c'est qu'il y a une clé incorrecte dans le fichier, on la signale explicitement
                     import_attempt_dict.update({
-                        "message_mf": _("The following key found in the file is incorrect : " + incorrect_file_key)
+                        "message_mf": _("The following key found in the file is incorrect : ") + incorrect_file_key
                     })
                 else:
                     # Gestion des exceptions "classiques"
