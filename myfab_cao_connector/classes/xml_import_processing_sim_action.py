@@ -221,9 +221,6 @@ class xml_import_processing_sim_action(models.Model):
                         if already_created_record_id:
                             self.update_record(already_created_record_id, fields_dict)
                             return already_created_record_id
-                    print("***CREATE***")
-                    print(model_name)
-                    print(fields_dict)
                     if self.mf_beacon_id.use_onchange:
                         record_id = self.env[model_name].create_with_onchange(fields_dict)
                     else:
@@ -272,9 +269,6 @@ class xml_import_processing_sim_action(models.Model):
         return record_id if field_type == "many2one" else [(4, record_id)]
 
     def update_record(self, record_id, fields_dict):
-        print("***UPDATE***")
-        print(record_id)
-        print(fields_dict)
         fields_written_dict = self.write_different_fields_only(record_id, fields_dict)
         if fields_written_dict and self.mf_beacon_id.use_onchange:
             self.apply_onchanges_on_record_id(record_id, fields_written_dict)
