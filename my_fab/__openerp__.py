@@ -25,11 +25,10 @@
     'data': [
         'classes/DataInitializerMyFabTriggerMF.yml',
         'views/my_fab_web.xml',
-        'views/DataInitializerMyFabMF.xml'
+        'views/DataInitializerMyFabMF.xml',
+        'static/src/xml/online_help.xml',
     ],
-    'qweb': [
-        'static/src/xml/*.xml',
-    ],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,
