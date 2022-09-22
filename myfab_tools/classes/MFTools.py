@@ -105,12 +105,6 @@ class MFTools(models.Model):
             if hasattr(record_field_value, "id"):
                 record_field_value = record_field_value.id
             if not self.are_values_equal_in_same_type(record_field_value, values_dict[field_name]):
-                print("*-*-*-* FALSE *-*-*-*-*")
-                print(record_field_value)
-                print(type(record_field_value))
-                print(values_dict[field_name])
-                print(type(values_dict[field_name]))
-                print(record_field_value == values_dict[field_name])
                 return False
         return True
 
@@ -122,3 +116,35 @@ class MFTools(models.Model):
         merged_dict = dict_1.copy()   # copies keys and values of x
         merged_dict.update(dict_2)    # modifies z with keys and values of y
         return merged_dict
+
+    ####################################################################
+    # ORM tools
+    ####################################################################
+    def write_different_fields_only(self, record_id, fields_dict):
+        different_fields_dict = {}
+        for field_name in fields_dict.keys():
+            update_field_value = fields_dict[field_name]
+            field_id = self.env["ir.model.fields"].search(
+                [("model_id", "=", record_id._name), ("name", "=", field_name)]
+            )
+            record_field_value = getattr(record_id, field_name)
+            if field_id.ttype == "many2one" and record_field_value:
+                record_field_value = record_field_value.id
+            if field_id.ttype in ["one2many", "many2many"]:
+                update_field_value_ids_list = [update_tuple[1] for update_tuple in update_field_value]
+                record_field_value_ids_list = record_field_value.ids
+                if not self.env["mf.tools"].are_lists_equal(update_field_value_ids_list, record_field_value_ids_list):
+                    relation_field_values_to_add_list = []
+                    for update_tuple in update_field_value:
+                        if update_tuple[1] not in record_field_value_ids_list:
+                            relation_field_values_to_add_list.append(update_tuple)
+                    different_fields_dict[field_name] = relation_field_values_to_add_list
+            elif not self.env["mf.tools"].are_values_equal_in_same_type(record_field_value, update_field_value):
+                different_fields_dict[field_name] = update_field_value
+        if different_fields_dict:
+            # print("***WRITE***")
+            # print(record_id)
+            # print(different_fields_dict)
+            record_id.write(different_fields_dict)
+            return different_fields_dict
+        return False

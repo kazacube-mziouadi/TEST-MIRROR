@@ -269,7 +269,7 @@ class xml_import_processing_sim_action(models.Model):
         return record_id if field_type == "many2one" else [(4, record_id)]
 
     def update_record(self, record_id, fields_dict):
-        fields_written_dict = self.write_different_fields_only(record_id, fields_dict)
+        fields_written_dict = self.env["mf.tools"].write_different_fields_only(record_id, fields_dict)
         if fields_written_dict and self.mf_beacon_id.use_onchange:
             self.apply_onchanges_on_record_id(record_id, fields_written_dict)
 
@@ -278,32 +278,6 @@ class xml_import_processing_sim_action(models.Model):
         for field_name in fields_written_dict.keys():
             for method in record_id._onchange_methods.get(field_name, ()):
                 method(record_id)
-
-    def write_different_fields_only(self, record_id, fields_dict):
-        different_fields_dict = {}
-        for field_name in fields_dict.keys():
-            update_field_value = fields_dict[field_name]
-            field_id = self.env["ir.model.fields"].search(
-                [("model_id", "=", record_id._name), ("name", "=", field_name)]
-            )
-            record_field_value = getattr(record_id, field_name)
-            if field_id.ttype == "many2one" and record_field_value:
-                record_field_value = record_field_value.id
-            if field_id.ttype in ["one2many", "many2many"]:
-                update_field_value_ids_list = [update_tuple[1] for update_tuple in update_field_value]
-                record_field_value_ids_list = record_field_value.ids
-                if not self.env["mf.tools"].are_lists_equal(update_field_value_ids_list, record_field_value_ids_list):
-                    relation_field_values_to_add_list = []
-                    for update_tuple in update_field_value:
-                        if update_tuple[1] not in record_field_value_ids_list:
-                            relation_field_values_to_add_list.append(update_tuple)
-                    different_fields_dict[field_name] = relation_field_values_to_add_list
-            elif not self.env["mf.tools"].are_values_equal_in_same_type(record_field_value, update_field_value):
-                different_fields_dict[field_name] = update_field_value
-        if different_fields_dict:
-            record_id.write(different_fields_dict)
-            return different_fields_dict
-        return False
 
     def get_sim_action_creation_tuple(
             self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False
