@@ -196,7 +196,7 @@ class xml_import_processing_sim_action(models.Model):
         else:
             return self.mf_sim_action_parent_id.get_processing_id()
 
-    def process_data_import(self):
+    def process_data_import(self, created_records_dict):
         if self.mf_selected_for_import:
             # Check to not import manufactured components which bom import has been unselected
             if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
@@ -205,30 +205,36 @@ class xml_import_processing_sim_action(models.Model):
                 if root_sim_action_with_same_product_id and not root_sim_action_with_same_product_id.mf_selected_for_import:
                     return False
             if self.type in ["create", "update"]:
-                fields_dict = {}
-                for sim_action_child_id in self.mf_sim_action_children_ids:
-                    field_setter_id = sim_action_child_id.mf_field_setter_id
-                    if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
-                        fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
-                    elif not field_setter_id:
-                        child_record_id = sim_action_child_id.process_data_import()
-                        if child_record_id:
-                            self.append_relation_field_child_to_fields_dict(
-                                fields_dict, child_record_id, sim_action_child_id.mf_beacon_id
-                            )
+                fields_dict = self.get_fields_dict(created_records_dict)
                 model_name = self.mf_beacon_id.relation_openprod_id.model
                 if self.type == "create":
                     if not fields_dict:
                         return False
+                    # In all cases except bom, checking if the record has not already been created ; if so, we update it
+                    # Boms are excluded, else the manufactured component is created in the root bom but not it's bom
+                    if model_name != "mrp.bom" and model_name in created_records_dict:
+                        already_created_record_id = self.env["importer.service.mf"].search_records_by_fields_dict(
+                            model_name,
+                            self.env["mf.tools"].merge_two_dicts(fields_dict, {"id": created_records_dict[model_name]}),
+                            1
+                        )
+                        if already_created_record_id:
+                            self.update_record(already_created_record_id, fields_dict)
+                            return already_created_record_id
+                    print("***CREATE***")
+                    print(model_name)
+                    print(fields_dict)
                     if self.mf_beacon_id.use_onchange:
                         record_id = self.env[model_name].create_with_onchange(fields_dict)
                     else:
                         record_id = self.env[model_name].create(fields_dict)
                     self.reference = model_name + ',' + str(record_id.id)
+                    if model_name in created_records_dict:
+                        created_records_dict[model_name].append(record_id.id)
+                    else:
+                        created_records_dict[model_name] = [record_id.id]
                 elif self.type == "update":
-                    fields_written_dict = self.write_different_fields_only(self.reference, fields_dict)
-                    if fields_written_dict and self.mf_beacon_id.use_onchange:
-                        self.apply_onchanges_on_record_id(self.reference, fields_written_dict)
+                    self.update_record(self.reference, fields_dict)
                 if model_name == "mrp.bom" and self.processing_id.model_id.mf_documents_directory_id:
                     product_code = self.reference.product_id.code
                     self.processing_id.mf_import_product_document(product_code)
@@ -237,6 +243,20 @@ class xml_import_processing_sim_action(models.Model):
                 self.reference.unlink()
         else:
             return self.reference
+
+    def get_fields_dict(self, created_records_dict):
+        fields_dict = {}
+        for sim_action_child_id in self.mf_sim_action_children_ids:
+            field_setter_id = sim_action_child_id.mf_field_setter_id
+            if field_setter_id and (field_setter_id.mf_value or field_setter_id.mf_value is False):
+                fields_dict.update(sim_action_child_id.mf_field_setter_id.get_field_setter_dict())
+            elif not field_setter_id:
+                child_record_id = sim_action_child_id.process_data_import(created_records_dict)
+                if child_record_id:
+                    self.append_relation_field_child_to_fields_dict(
+                        fields_dict, child_record_id, sim_action_child_id.mf_beacon_id
+                    )
+        return fields_dict
 
     def append_relation_field_child_to_fields_dict(self, fields_dict, child_record_id, beacon_id):
         field_name = beacon_id.relation_openprod_field_id.name
@@ -250,6 +270,14 @@ class xml_import_processing_sim_action(models.Model):
     @staticmethod
     def get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
+
+    def update_record(self, record_id, fields_dict):
+        print("***UPDATE***")
+        print(record_id)
+        print(fields_dict)
+        fields_written_dict = self.write_different_fields_only(record_id, fields_dict)
+        if fields_written_dict and self.mf_beacon_id.use_onchange:
+            self.apply_onchanges_on_record_id(record_id, fields_written_dict)
 
     @staticmethod
     def apply_onchanges_on_record_id(record_id, fields_written_dict):

@@ -89,3 +89,12 @@ class MFTools(models.Model):
         ):
             return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
+
+    ####################################################################
+    # Dict tools
+    ####################################################################
+    @staticmethod
+    def merge_two_dicts(dict_1, dict_2):
+        merged_dict = dict_1.copy()   # copies keys and values of x
+        merged_dict.update(dict_2)    # modifies z with keys and values of y
+        return merged_dict
