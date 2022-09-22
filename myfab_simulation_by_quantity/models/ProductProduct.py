@@ -7,12 +7,15 @@ class ProductProduct(models.Model):
     @api.multi
     def mf_create_simulation_by_quantity_button(self):
         return {
-            "name": _("Simulation by quantity"),
-            "view_mode": "form",
-            "res_model": "mf.simulation.by.quantity",
-            "type": "ir.actions.act_window",
             "target": "current",
-            "context": {
-                "mf_product_id": self.id
-            }
+            "name": _("Simulation by quantity"),
+            "type": "ir.actions.act_window",
+            "res_model": "mf.simulation.by.quantity",
+            "view_mode": "tree,form",
+            "domain": [("mf_product_id","=",self.id)],
         }
+        #    "view_mode": "form",
+        #    "context": {
+        #        "mf_product_id": self.id
+        #    }
+        #}
