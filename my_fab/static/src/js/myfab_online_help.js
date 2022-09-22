@@ -8,6 +8,9 @@ odoo.define('myfab_online_help', function(require) {
             var user_menu = $(".oe_user_menu_placeholder");
             var self = this;
             this._super.apply(this, arguments);
+
+            // TODO : ajouter l'icone class="fa fa-circle-question"
+            // TODO : corriger le bug : le bouton disparait en cas de mode debug
             user_menu.prepend(
                 '<li class="oe_online_help">' +
                     '<a href="#" title="myfab Online Help">?' + 
