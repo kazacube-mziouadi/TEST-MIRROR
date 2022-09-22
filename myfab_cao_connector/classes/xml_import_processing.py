@@ -97,8 +97,11 @@ class xml_import_processing(models.Model):
             super(xml_import_processing, self).file_analyse()
 
     def import_simulation_lines(self):
+        # Dict containing all the records' ids that have already been created, so they don't get created again
+        # Ex : { "product.product": [1, 5, 9], "mrp.bom", [1, 5] }
+        created_records_dict = {}
         for simulation_line_id in self.processing_simulate_action_ids:
-            simulation_line_id.process_data_import()
+            simulation_line_id.process_data_import(created_records_dict)
 
     def mf_import_product_document(self, product_code):
         directory_id = self.model_id.mf_documents_directory_id

@@ -178,7 +178,7 @@ class ImporterServiceMF(models.TransientModel):
         record_fields_tuples_list = []
         for field_name, field_value in record_fields_dict.items():
             # Odoo's string id and record(s) not created yet like (0, 0, {'name': 'example'}) are ignored in search
-            if (field_name == "id" and not field_value.isdecimal()) or type(field_value) is tuple or (
+            if (field_name == "id" and type(field_value) is not list and not field_value.isdecimal()) or type(field_value) is tuple or (
                 type(field_value) is list and len(field_value) > 0 and type(field_value[0]) is tuple
             ):
                 continue
