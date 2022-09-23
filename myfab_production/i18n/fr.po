@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-08 15:10+0000\n"
-"PO-Revision-Date: 2022-06-08 15:10+0000\n"
+"POT-Creation-Date: 2022-09-23 15:06+0000\n"
+"PO-Revision-Date: 2022-09-23 15:06+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,59 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_kanban_mrp_manufacturingorder
+msgid "<b>Planned ressource : </b>"
+msgstr "<b>Ressource planifiée : </b>"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_mf_planned_ressource
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_config
+msgid "Activate Planned ressource management"
+msgstr "Activer gestion ressource planifiée"
+
+#. module: myfab_production
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_use_default_end_time
 msgid "Activate the use of the below default end time in the Create Timetracking wizard"
 msgstr "Active l'utilisation de l'heure de fin ci-dessous dans la wizard de saisie des temps passés."
 
 #. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
+msgid "Change planned ressource"
+msgstr "Chnager la ressource planifiée"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
+msgid "Change ressource"
+msgstr "Changer la ressource"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_mf_color
+msgid "Color"
+msgstr "Couleur"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_create_uid
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_create_uid
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_create_date
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_create_date
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_create_date
 msgid "Created on"
 msgstr "Créé le"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_search_mrp_manufacturingorder
+msgid "D to D+15"
+msgstr "J à J+15"
 
 #. module: myfab_production
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_mf_default_end_time
@@ -36,12 +76,14 @@ msgid "Default end time"
 msgstr "Heure de fin par défaut"
 
 #. module: myfab_production
-#: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_mf_default_end_time_timezone_name
-msgid "Default end timezone name"
-msgstr "Nom du fuseau horaire de l'heure de fin par défaut"
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_mf_description
+msgid "Description"
+msgstr "Description"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_display_name
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_display_name
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -51,45 +93,154 @@ msgid "Format HH:MM"
 msgstr "Au format HH:MM"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_id
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_id
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_id
 msgid "ID"
 msgstr "ID"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_is_wm1_wp1
+msgid "Is current week -1 to current week +1"
+msgstr "Est de la semaine -1 à la semaine +1"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_is_d_d15
+msgid "Is today to today +15"
+msgstr "Est d'aujourd'hui à aujourd'hui +15"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource___last_update
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config___last_update
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_write_uid
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_write_uid
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_write_date
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_write_date
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_mf_mo_id
+msgid "Manufactoring order"
+msgstr "Ordre de fabrication"
+
+#. module: myfab_production
+#: model:ir.model,name:myfab_production.model_mrp_manufacturingorder
+msgid "Manufacturing order"
+msgstr "Ordre de fabrication"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_name
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_name
 msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_production
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource___last_update
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_create_date
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_create_uid
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_display_name
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_id
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_mf_color
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_mf_description
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_mf_number_ressources
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_name
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_write_date
+#: model:ir.model.fields,help:myfab_production.field_mf_planned_ressource_write_uid
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config___last_update
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_create_date
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_create_uid
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_display_name
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_id
-#: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_default_end_time_timezone_name
+#: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_planned_ressource
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_name
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_write_date
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_write_uid
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_is_d_d15
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_is_wm1_wp1
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_color
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_config
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_id
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_name
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_start_date
+#: model:ir.model.fields,help:myfab_production.field_mrp_manufacturingorder_mf_planned_start_week
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard___last_update
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_create_date
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_create_uid
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_display_name
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_id
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_mf_mo_id
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_mf_planned_ressource_id
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_write_date
+#: model:ir.model.fields,help:myfab_production.field_planned_ressource_wizard_write_uid
 msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_production
-#: code:addons/myfab_production/models/MFProductionConfig.py:35
+#: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_mf_number_ressources
+msgid "Number of ressources"
+msgstr "Nombre de ressource"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_id
+#: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_mf_planned_ressource_id
+msgid "Planned Ressource"
+msgstr "Ressource planifiée"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_color
+msgid "Planned Ressource color"
+msgstr "Couleur de ressource planifiée"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_ressource_name
+msgid "Planned Ressource name"
+msgstr "Nom de ressource planifiée"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_search_mrp_manufacturingorder
+msgid "Planned Start Date"
+msgstr "Date de début planifiée"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_start_date
+msgid "Planned Start Date Mf"
+msgstr "Date de début planifiée Mf"
+
+#. module: myfab_production
+#: model:ir.model.fields,field_description:myfab_production.field_mrp_manufacturingorder_mf_planned_start_week
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_search_mrp_manufacturingorder
+msgid "Planned Start Week"
+msgstr "Semaine de début planifiée"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_config_form
+msgid "Planned ressource config"
+msgstr "Configuration de ressource planifiée"
+
+#. module: myfab_production
+#: model:res.groups,name:myfab_production.group_menu_planned_ressource
+msgid "Planned ressource menu"
+msgstr "Menu de ressource planifiée"
+
+#. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_form_mrp_manufacturingorder
+msgid "Ressource"
+msgstr "Ressource"
+
+#. module: myfab_production
+#: code:addons/myfab_production/models/MFProductionConfig.py:38
 #, python-format
 msgid "The time tracking's default end time can not be greater than 23:59"
 msgstr "La date de fin par défaut des temps passés ne peut pas être supérieure à 23:59"
@@ -110,6 +261,24 @@ msgid "Use default end time"
 msgstr "Utiliser l'heure de fin par défaut"
 
 #. module: myfab_production
+#: model:ir.ui.view,arch_db:myfab_production.mf_production_view_search_mrp_manufacturingorder
+msgid "W-1 to W+1"
+msgstr "S-1 à S+1"
+
+#. module: myfab_production
+#: model:ir.model,name:myfab_production.model_mf_planned_ressource
+msgid "mf.planned.ressource"
+msgstr "mf.planned.ressource"
+
+#. module: myfab_production
+#: model:ir.actions.act_window,name:myfab_production.mf_planned_ressource
+#: model:ir.ui.menu,name:myfab_production.menu_production_mf_planned_ressource
+#: model:ir.ui.view,arch_db:myfab_production.mf_planned_ressource_form
+#: model:ir.ui.view,arch_db:myfab_production.mf_planned_ressource_treeview
+msgid "myfab planned ressource"
+msgstr "Ressource planifiée MF"
+
+#. module: myfab_production
 #: model:ir.actions.act_window,name:myfab_production.mf_production_config
 #: model:ir.model,name:myfab_production.model_mf_production_config
 #: model:ir.ui.menu,name:myfab_production.menu_production_myfab_production_config
@@ -123,8 +292,12 @@ msgid "myfab production configs"
 msgstr "Configurations myfab production"
 
 #. module: myfab_production
-#: code:addons/myfab_production/models/MFProductionConfig.py:33
-#, python-format
-msgid "myfab production configuration"
-msgstr "Configuration myfab production"
+#: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
+msgid "or"
+msgstr "ou"
+
+#. module: myfab_production
+#: model:ir.model,name:myfab_production.model_planned_ressource_wizard
+msgid "planned.ressource.wizard"
+msgstr "planned.ressource.wizard"
 

@@ -7,5 +7,12 @@
 				  parent="mrp.menu_production_configuration"
 				  sequence="120"
 				  groups="mrp.group_manufacturing_admin"/>
+
+		<menuitem name="myfab planned ressource"
+				  action="mf_planned_ressource"
+				  id="menu_production_mf_planned_ressource"
+				  parent="base_openprod.menu_resource_configuration"
+				  sequence="55"
+				  groups="group_menu_planned_ressource"/>
 	</data>
 </openerp>

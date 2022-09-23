@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <record id='mf_production_view_tree_mrp_manufacturingorder' model='ir.ui.view'>
+            <field name="name">mf_production_view_tree_mrp_manufacturingorder</field>
+            <field name="model">mrp.manufacturingorder</field>
+            <field name="inherit_id" ref="mrp.view_tree_mrp_manufacturingorder" />
+            <field name="priority" eval="3650" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_line_id']" position="after">
+                    <field name="mf_is_d_d15" invisible="1"/>
+                    <field name="mf_is_wm1_wp1" invisible="1"/>
+                    <field name="mf_planned_start_date" invisible="1"/>
+                    <field name="mf_planned_start_week" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='mf_production_view_search_mrp_manufacturingorder' model='ir.ui.view'>
+			<field name="name">mf_production_view_search_mrp_manufacturingorder</field>
+			<field name="inherit_id" ref="mrp.view_search_mrp_manufacturingorder" />
+			<field name="priority" eval="1400" />
+			<field name="model">mrp.manufacturingorder</field>
+			<field name="arch" type="xml">
+				<xpath expr="//group[1]" position="inside">
+                    <filter string="D to D+15" domain="[('mf_is_d_d15', '=', True)]" />
+                    <filter string="W-1 to W+1" domain="[('mf_is_wm1_wp1', '=', True)]" />
+				</xpath>
+				<xpath expr="//group[@name='group_by']" position="inside">
+                    <filter string="Planned Start Date" icon="terp-partner" context="{'group_by' : 'mf_planned_start_date'}" />
+                    <filter string="Planned Start Week" icon="terp-partner" context="{'group_by' : 'mf_planned_start_week'}" />
+				</xpath>
+			</field>
+		</record>
+
+        <record id='mf_production_view_kanban_mrp_manufacturingorder' model='ir.ui.view'>
+            <field name="name">mf_production_view_kanban_mrp_manufacturingorder</field>
+            <field name="model">mrp.manufacturingorder</field>
+            <field name="inherit_id" ref="mrp.view_kanban_mrp_manufacturingorder" />
+            <field name="priority" eval="3650" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="mf_planned_ressource_color" invisible="1"/>
+                    <field name="mf_planned_ressource_name" invisible="1"/>
+                    <field name="mf_planned_ressource_config" invisible="1"/>
+                </xpath>
+                <xpath expr="//kanban" position="attributes">
+					<attribute name="default_order">mf_planned_ressource_name asc</attribute>
+                </xpath>
+                <xpath expr="//ul" position="inside">
+                    <li t-if="record.mf_planned_ressource_id.raw_value &amp;&amp; mf_planned_ressource_config">
+                        <b>Planned ressource : </b>
+                        <field name="mf_planned_ressource_id" />
+                    </li>
+                </xpath>
+                <xpath expr="//ul" position="after">
+                    <button icon="fa-exchange" t-attf-style="background-color: #{record.mf_planned_ressource_color.raw_value};border-style:solid;border-color:#000000;border-width:1px;float:right;" name="%(action_planned_ressource)d" type="action" attrs="{'invisible': [('mf_planned_ressource_config', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='mf_production_view_form_mrp_manufacturingorder' model='ir.ui.view'>
+            <field name="name">mf_production_view_form_mrp_manufacturingorder</field>
+            <field name="model">mrp.manufacturingorder</field>
+            <field name="inherit_id" ref="mrp.view_form_mrp_manufacturingorder" />
+            <field name="priority" eval="3650" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='requested_date']/.." position="after">
+                    <group colspan="2" string="Ressource" col="2" attrs="{'invisible': [('mf_planned_ressource_config', '!=', True)]}">
+                        <field name="mf_planned_ressource_config" invisible="1"/>
+                        <field name="mf_planned_ressource_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
