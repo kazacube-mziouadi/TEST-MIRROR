@@ -84,13 +84,16 @@ class MFTools(models.Model):
         Compare 2 values, with the second one casted to the type of the first.
         Return True if equals, else False.
     """
-    @staticmethod
-    def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
-        if (value_to_compare_with and (value_with_master_type is False or value_with_master_type is None)) or (
-            value_with_master_type and (value_to_compare_with is False or value_to_compare_with is None)
+    def are_values_equal_in_same_type(self, value_with_master_type, value_to_compare_with):
+        if (value_to_compare_with and self.is_value_empty(value_with_master_type)) or (
+            value_with_master_type and self.is_value_empty(value_to_compare_with)
         ):
             return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
+
+    @staticmethod
+    def is_value_empty(value):
+        return value is False or value is None or (hasattr(value, "_name") and not value)
 
     """
         Compare a dict of field values and a record. If the dict has the same values than the record, return True.
@@ -122,6 +125,8 @@ class MFTools(models.Model):
     ####################################################################
     def write_different_fields_only(self, record_id, fields_dict):
         different_fields_dict = {}
+        print("*/*/*/*/*//--*-/")
+        print(record_id)
         for field_name in fields_dict.keys():
             update_field_value = fields_dict[field_name]
             field_id = self.env["ir.model.fields"].search(
@@ -131,20 +136,27 @@ class MFTools(models.Model):
             if field_id.ttype == "many2one" and record_field_value:
                 record_field_value = record_field_value.id
             if field_id.ttype in ["one2many", "many2many"]:
+                print("**O2M***")
+                print(update_field_value)
                 update_field_value_ids_list = [update_tuple[1] for update_tuple in update_field_value]
                 record_field_value_ids_list = record_field_value.ids
-                if not self.env["mf.tools"].are_lists_equal(update_field_value_ids_list, record_field_value_ids_list):
+                if not self.are_lists_equal(update_field_value_ids_list, record_field_value_ids_list):
                     relation_field_values_to_add_list = []
                     for update_tuple in update_field_value:
                         if update_tuple[1] not in record_field_value_ids_list:
                             relation_field_values_to_add_list.append(update_tuple)
                     different_fields_dict[field_name] = relation_field_values_to_add_list
-            elif not self.env["mf.tools"].are_values_equal_in_same_type(record_field_value, update_field_value):
+                    print("**ADDING***")
+                    print(different_fields_dict)
+            elif not self.are_values_equal_in_same_type(record_field_value, update_field_value):
+                # print("***///****")
+                # print(record_field_value)
+                # print(update_field_value)
                 different_fields_dict[field_name] = update_field_value
         if different_fields_dict:
-            # print("***WRITE***")
-            # print(record_id)
-            # print(different_fields_dict)
+            print("***WRITE***")
+            print(record_id)
+            print(different_fields_dict)
             record_id.write(different_fields_dict)
             return different_fields_dict
         return False

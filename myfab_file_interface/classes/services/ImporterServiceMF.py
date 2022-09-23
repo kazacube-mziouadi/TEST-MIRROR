@@ -95,6 +95,16 @@ class ImporterServiceMF(models.TransientModel):
         If this record doesn't exist, the record is created.
     """
     def set_relation_fields_to_ids_in_dict(self, record_model_name, record_fields_dict, orm_method_name, search_fields_dict={}):
+        record_id = None
+        if search_fields_dict:
+            record_id = self.search_records_by_fields_dict(
+                record_model_name,
+                self.get_non_relational_fields_from_dict(search_fields_dict)
+            )
+            print("***SEARCH PARENT")
+            print(record_id)
+            print(record_model_name)
+            print(self.get_non_relational_fields_from_dict(search_fields_dict))
         for field_name in record_fields_dict:
             if type(record_fields_dict[field_name]) is dict:
                 if not record_fields_dict[field_name]:
@@ -105,7 +115,8 @@ class ImporterServiceMF(models.TransientModel):
                     field_name,
                     record_fields_dict[field_name],
                     orm_method_name,
-                    search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {}
+                    search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {},
+                    record_id
                 )
                 if relation_field_id:
                     record_fields_dict[field_name] = relation_field_id
@@ -113,13 +124,15 @@ class ImporterServiceMF(models.TransientModel):
                 # Many2many and One2many case : we get the list of ids of the related records
                 list_of_one2many_ids = []
                 is_list_of_many2one = False
-                for one2many_member in record_fields_dict[field_name]:
+                for one2many_index, one2many_member in enumerate(record_fields_dict[field_name]):
                     relation_field_id = self.set_relation_field_to_id_in_dict(
                         record_model_name,
                         field_name,
                         one2many_member,
                         orm_method_name,
-                        search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {}
+                        search_fields_dict[field_name] if search_fields_dict and field_name in search_fields_dict else {},
+                        record_id,
+                        one2many_index
                     )
                     if type(relation_field_id) is list:
                         # Odoo many2many ids string
@@ -141,9 +154,10 @@ class ImporterServiceMF(models.TransientModel):
         Else it returns the tuple permitting it's linking or it's creation during the root record creation.
         https://www.odoo.com/documentation/11.0/reference/orm.html#odoo.models.Model.write
     """
-    def set_relation_field_to_id_in_dict(self, parent_model_name, field_name, relation_field_dict, orm_method_name, search_fields_dict={}):
-        print("****")
-        print(search_fields_dict)
+    def set_relation_field_to_id_in_dict(
+            self, parent_model_name, field_name, relation_field_dict, orm_method_name, search_fields_dict={},
+            parent_record_id=None, one2many_index=None
+    ):
         # Odoo many2many multi id string processing
         if "id" in relation_field_dict and type(relation_field_dict["id"]) is not int and ',' in relation_field_dict["id"]:
             many2many_id_strings = relation_field_dict["id"].split(',')
@@ -166,9 +180,16 @@ class ImporterServiceMF(models.TransientModel):
             relation_field_id = self.get_record_id_by_id_string(relation_field_dict["id"])
             # Link to the existing relation record
             return (4, relation_field_id) if field_model.ttype == "many2many" else relation_field_id
+        if parent_record_id and field_model.relation_field:
+            if type(search_fields_dict) is list:
+                search_fields_dict[one2many_index][field_model.relation_field] = parent_record_id.id
+            else:
+                search_fields_dict[field_model.relation_field] = parent_record_id.id
         self.set_relation_fields_to_ids_in_dict(
-            field_model.relation, relation_field_dict, orm_method_name,
-            search_fields_dict[0] if type(search_fields_dict) is list else search_fields_dict
+            field_model.relation,
+            relation_field_dict,
+            orm_method_name,
+            search_fields_dict[one2many_index] if type(search_fields_dict) is list else search_fields_dict,
         )
         if type(search_fields_dict) is list:
             # one2many search case, we search on multiple field values (ex : name = "toto", name = "tata", etc)
@@ -176,18 +197,17 @@ class ImporterServiceMF(models.TransientModel):
             merged_search_fields_dict = {}
             for search_fields_elem_dict in search_fields_dict:
                 self.merge_search_fields_dicts(
-                    self.get_non_relationnal_fields_from_dict(search_fields_elem_dict), merged_search_fields_dict
+                    self.get_non_relational_fields_from_dict(search_fields_elem_dict), merged_search_fields_dict
                 )
         else:
             merged_search_fields_dict = search_fields_dict
-        # print("++++SEARCH+++++")
-        # print(field_model.relation)
-        # print(self.get_non_relationnal_fields_from_dict(merged_search_fields_dict))
-        relation_field_record = self.search_records_by_fields_dict(
-            field_model.relation,
-            self.get_non_relationnal_fields_from_dict(merged_search_fields_dict) if merged_search_fields_dict else relation_field_dict,
-            1
-        )
+        if merged_search_fields_dict:
+            search_dict = self.get_non_relational_fields_from_dict(merged_search_fields_dict)
+        else:
+            search_dict = relation_field_dict
+        if parent_record_id and field_model.relation_field:
+            search_dict[field_model.relation_field] = parent_record_id.id
+        relation_field_record = self.search_records_by_fields_dict(field_model.relation, search_dict, 1)
         # Total merge/write if the dict of values is different from the existing record's values
         if relation_field_record and orm_method_name in ["merge", "write"] and not self.env["mf.tools"].are_dict_and_record_values_equals(
             relation_field_dict,
@@ -199,6 +219,8 @@ class ImporterServiceMF(models.TransientModel):
             # Else, the existing record is linked to our one2many.
             relation_field_many2one_value = getattr(relation_field_record, field_model.relation_field)
             if relation_field_many2one_value and orm_method_name in ["merge", "create"]:
+                # TODO : le merge total du fichier JSON de data CAO ne fonctionne pas à cause de cette ligne ci-dessous.
+                # Cette ligne gère le cas où on a déjà un élément qui existe dans une one2many et qu'on veut en ajouter une autre avec les mêmes infos
                 return (0, 0, relation_field_dict)
             else:
                 return (4, relation_field_record.id)
@@ -230,6 +252,8 @@ class ImporterServiceMF(models.TransientModel):
             elif type(field_value) not in [list, tuple]:
                 # Other values case
                 record_fields_tuples_list.append((field_name, '=', field_value))
+        print("**")
+        print(record_fields_tuples_list)
         return self.env[model_name].search(record_fields_tuples_list, None, limit)
 
     # In Odoo CSV exports, an 'id' string may refer to a record through the ir_model_data table
@@ -244,7 +268,7 @@ class ImporterServiceMF(models.TransientModel):
             raise MissingError("No record found for id string " + id_string)
 
     @staticmethod
-    def get_non_relationnal_fields_from_dict(fields_dict):
+    def get_non_relational_fields_from_dict(fields_dict):
         root_fields_dict = {}
         for field_name in fields_dict.keys():
             field_value = fields_dict[field_name]
