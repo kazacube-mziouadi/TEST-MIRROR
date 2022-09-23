@@ -13,9 +13,7 @@ class ProductProduct(models.Model):
             "res_model": "mf.simulation.by.quantity",
             "view_mode": "tree,form",
             "domain": [("mf_product_id","=",self.id)],
+            "context": {
+                "mf_product_id": self.id,
+            },
         }
-        #    "view_mode": "form",
-        #    "context": {
-        #        "mf_product_id": self.id
-        #    }
-        #}
