@@ -58,6 +58,8 @@ class xml_import_configuration_table(models.Model):
                         self.add_elements_to_delete_to_children_history_list(children_sim_action_list, existing_record)
                 elif key not in ["Childrens_list", "object_relation"]:
                     # Value processing case
+                    #TODO : on ne vérifie pas le "existing_record" ce qui fait planter si pas de "beacon_rc.domain". Nécessitera peut être un debug. 
+                    #Pour l'instant il suffit de vérifier les balises sans domaine étant des objets et de leur en associer un.
                     children_sim_action_list.append(self.get_non_relational_field_sim_action_id(
                         data_dict, key, existing_record, beacon_rc
                     ))
