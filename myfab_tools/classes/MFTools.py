@@ -98,3 +98,18 @@ class MFTools(models.Model):
         merged_dict = dict_1.copy()   # copies keys and values of x
         merged_dict.update(dict_2)    # modifies z with keys and values of y
         return merged_dict
+
+    ####################################################################
+    # File tools
+    ####################################################################
+    @staticmethod
+    def mf_get_file_name_extension(file_name):
+        file_extension = file_name.split('.')[-1].upper()
+        return file_extension
+
+    @staticmethod
+    def mf_get_file_name_without_extension(file_name):
+        file_name_split = file_name.split('.')
+        file_name_split.pop()
+        file_name_without_extension = '.'.join(file_name_split)
+        return file_name_without_extension
