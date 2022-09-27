@@ -305,16 +305,12 @@ class xml_import_processing_sim_action(models.Model):
             return different_fields_dict
         return False
 
-    def get_sim_action_creation_tuple(
-            self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False
-    ):
+    def get_sim_action_creation_tuple(self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False):
         return (0, 0, self._get_sim_action_creation_dict(
                 process_type, model_name, record_id, beacon_id, children_list, field_setter_id
         ))
 
-    def _get_sim_action_creation_dict(
-            self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False
-    ):
+    def _get_sim_action_creation_dict(self, process_type, model_name, record_id, beacon_id, children_list, field_setter_id=False):
         creation_dict = {
             "type": process_type,
             "mf_beacon_id": beacon_id.id,

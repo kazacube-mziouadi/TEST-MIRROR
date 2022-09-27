@@ -128,19 +128,28 @@ class xml_import_configuration_table(models.Model):
                 ))
 
     def _get_non_relational_field_sim_action_id(self, data_dict, field_name, existing_record, beacon_id):
+        field_id = False
         value = data_dict[field_name][0]
         if type(value) is not str and not isinstance(value, unicode): value = str(value)
-        if existing_record:
+        try:
             model_id = self.env["ir.model"].search([("model", '=', existing_record._name)], None, 1)
+        except Exception as e:   
+            model_id = False
         if model_id:
             field_id = self.env["ir.model.fields"].search([("name", '=', field_name),("model_id", '=', model_id.id)], None, 1)
-        if field_id:
-            field_setter_id = self.env["mf.field.setter"].create({
-                "mf_field_to_set_id": field_id.id,
-                "mf_value": value
-            })
+
+        field_setter_id = self.env["mf.field.setter"].create({
+            "mf_field_to_set_id": (field_id.id if field_id else False),
+            "mf_value": value
+        })
         field_process_type = self._get_non_relational_field_process_type(existing_record, field_setter_id)
-        return self._get_sim_action_creation_tuple(field_process_type, model_id.model, existing_record.id, beacon_id, [], field_setter_id)
+
+        return self._get_sim_action_creation_tuple(field_process_type, 
+                                                    (model_id.model if model_id else False), 
+                                                    (existing_record.id if existing_record else False), 
+                                                    beacon_id, 
+                                                    [], 
+                                                    field_setter_id)
 
     def _get_non_relational_field_process_type(self, existing_record, field_setter_id):
         if not existing_record:
@@ -269,6 +278,7 @@ class xml_import_configuration_table(models.Model):
     def _raise_domain_error(self, records_found_list, beacon_id):
         raise ValidationError(
             _("More than one record have been found : ") + str(records_found_list) +
-            _(". You must reduce the search domain ") + str(beacon_id.domain) + _(" of the beacon ") + beacon_id.name
-            + _(" with id ") + str(beacon_id.id)
+            _(". You must reduce the search domain ") + str(beacon_id.domain) + 
+            _(" of the beacon ") + beacon_id.name +
+            _(" with id ") + str(beacon_id.id)
         )
