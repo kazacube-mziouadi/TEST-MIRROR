@@ -64,11 +64,12 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             self._mf_files_to_process(files)
 
     def _mf_are_parameters_ok(self):
-        #TODO : check que le nom saisie n'est pas déjà existant
+        if self.env['xml.import.processing'].search([("name", '=', self.name)], None, 1):
+            raise ValidationError(_("At least one processing with same name already exists. Enter an other name"))
         if not self.mf_processing_id and not self.mf_configuration_table_id: 
             raise ValidationError(_("Select at least Processing or Configuration table."))
         for file in self.mf_xml_import_processing_wizard_line_ids:
-            if file.file_name.split(".")[-1].upper() in ["XLSX","CSV"] and not self.mf_process_conversion_id:
+            if file.file_name.split(".")[-1].upper() in ["XLSX","CSV","TXT"] and not self.mf_process_conversion_id:
                 raise ValidationError(_("Select a XLSX/CSV Conversion."))
         return True
 
@@ -93,7 +94,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 "mf_process_file_to_convert_name":False,
                 "mf_process_conversion_id":False,
             }
-        elif file_extension in ["XLSX","CSV"] and self.mf_process_conversion_id:
+        elif file_extension in ["XLSX","CSV","TXT"] and self.mf_process_conversion_id:
             new_file = {
                 "file":False,
                 "fname":False,
