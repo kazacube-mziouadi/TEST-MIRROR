@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-14 15:21+0000\n"
-"PO-Revision-Date: 2022-09-14 15:21+0000\n"
+"POT-Creation-Date: 2022-09-27 08:39+0000\n"
+"PO-Revision-Date: 2022-09-27 08:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,35 +16,41 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:274
+#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:0,xml.import.configuration.table
 #, python-format
 msgid " of the beacon "
 msgstr " de la balise "
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:275
+#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:0,xml.import.configuration.table
 #, python-format
 msgid " with id "
 msgstr " d'id "
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:67
+#: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:0,xml.import.processing.sim.action
 #, python-format
 msgid "(unnamed)"
 msgstr "(sans nom)"
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:274
+#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:0,xml.import.configuration.table
 #, python-format
 msgid ". You must reduce the search domain "
 msgstr ". Vous devez réduire le domaine de recherche "
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_processing.py:159
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_xml_import_processing
+#: code:addons/myfab_cao_connector/classes/xml_import_processing.py:0,xml.import.processing
 #, python-format
 msgid "Analyse simulation"
 msgstr "Analyse de simulation"
+
+#. module: myfab_cao_connector
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:0,mf.xml.import.processing.wizard
+#, python-format
+msgid "At least one processing with same name already exists. Enter an other name"
+msgstr "Au moins un traitement avec le même nom existe déjà. Saisir un autre nom"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_xml_import_attribute_relation
@@ -121,7 +127,6 @@ msgstr "Convertir"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_uid
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_create_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_uid
 msgid "Created by"
@@ -129,7 +134,6 @@ msgstr "Créé par"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_create_date
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_create_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_create_date
 msgid "Created on"
@@ -146,7 +150,7 @@ msgid "Default stop at simulation"
 msgstr "Par défaut arrêter après la simulation"
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:59
+#: code:addons/myfab_cao_connector/classes/xml_import_processing_sim_action.py:0,xml.import.processing.sim.action
 #, python-format
 msgid "Delete"
 msgstr "Suppression"
@@ -163,7 +167,6 @@ msgstr "Répertoire qui sera scanné pour récupérer les documents à associer 
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_display_name
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_display_name
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_display_name
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_display_name
 msgid "Display Name"
@@ -202,7 +205,6 @@ msgstr "Fichiers"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_id
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_id
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_id
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_id
 msgid "ID"
@@ -220,7 +222,6 @@ msgstr "Configuration terminée"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector___last_update
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config___last_update
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard___last_update
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line___last_update
 msgid "Last Modified on"
@@ -228,7 +229,6 @@ msgstr "Derniàre modification le"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_uid
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_write_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_uid
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_uid
 msgid "Last Updated by"
@@ -236,7 +236,6 @@ msgstr "Derniàre mise à jour par"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_date
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_write_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_line_write_date
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_write_date
 msgid "Last Updated on"
@@ -253,14 +252,13 @@ msgid "Mf process file to convert name"
 msgstr "Mf process file to convert name"
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:273
+#: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:0,xml.import.configuration.table
 #, python-format
 msgid "More than one record have been found : "
 msgstr "Plus d'un enregistrement a été trouvé : "
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_data_initializer_cao_connnector_name
-#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_modules_config_name
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_name
 msgid "Name"
 msgstr "Nom"
@@ -285,16 +283,8 @@ msgstr "Valeur du noeud"
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_date
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_data_initializer_cao_connnector_write_uid
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config___last_update
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_create_date
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_create_uid
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_default_processing_wizard
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_default_stop_at_simulation
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_display_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_id
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_name
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_write_date
-#: model:ir.model.fields,help:myfab_cao_connector.field_mf_modules_config_write_uid
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard___last_update
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_date
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_create_uid
@@ -381,13 +371,13 @@ msgid "Processing wizard"
 msgstr "Wizard de traitement"
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:72
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:0,mf.xml.import.processing.wizard
 #, python-format
 msgid "Select a XLSX/CSV Conversion."
 msgstr "Sélectionnez une Conversion XLSX/CSV."
 
 #. module: myfab_cao_connector
-#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:69
+#: code:addons/myfab_cao_connector/wizards/processing/mf_xml_import_processing_wizard.py:0,mf.xml.import.processing.wizard
 #, python-format
 msgid "Select at least Processing or Configuration table."
 msgstr "Sélectionnez au moins le Traitement ou la Table de configuration."
@@ -477,7 +467,7 @@ msgstr "Conversion XLSX/CSV"
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_process_file_to_convert
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_preprocessing_mf_preprocess_file_to_convert
 msgid "XLSX/CSV file to convert"
-msgstr "Fichier XLSX/CSV � convertir"
+msgstr "Fichier XLSX/CSV à convertir"
 
 #. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_xml_import_processing

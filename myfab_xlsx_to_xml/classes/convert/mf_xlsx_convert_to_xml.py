@@ -177,7 +177,7 @@ class mf_xlsx_convert_to_xml(models.Model):
 
         if not error_message and not self.configuration_id: error_message = _('Choose a configuration.')
         if not error_message and not self.file_to_convert : error_message = _('No XLSX/CSV file to convert.')
-        if not error_message and self._mf_get_file_name_extension(self.file_to_convert_name) not in ['XLSX','CSV'] : error_message = _('Conversion only works with XLSX/CSV files')
+        if not error_message and self.env["mf.tools"].mf_get_file_name_extension(self.file_to_convert_name) not in ['XLSX','CSV','TXT'] : error_message = _('Conversion only works with XLSX/CSV files')
 
         if not error_message: return True
         if not with_messages: return False
@@ -317,11 +317,11 @@ class mf_xlsx_convert_to_xml(models.Model):
     # GENERIC METHODS
     #===========================================================================
     def _mf_get_xlsx_file(self, file_to_convert, file_to_convert_name ):
-        if self._mf_get_file_name_extension(file_to_convert_name) == 'CSV':
+        if self.env["mf.tools"].mf_get_file_name_extension(file_to_convert_name) in ['CSV','TXT']:
             xlsx_file = self._mf_convert_CSV_to_XLSX(file_to_convert,self.configuration_id.csv_file_separator,self.configuration_id.csv_file_quoting,self.configuration_id.csv_file_encoding)
         else:
             xlsx_file = file_to_convert
-        xlsx_file_name = self._mf_get_file_name_without_extension(file_to_convert_name) + '.XLSX'
+        xlsx_file_name = self.env["mf.tools"].mf_get_file_name_without_extension(file_to_convert_name) + '.XLSX'
 
         return (xlsx_file,xlsx_file_name)
 
@@ -336,16 +336,3 @@ class mf_xlsx_convert_to_xml(models.Model):
             final_value = value_2
 
         return final_value
-
-    #TODO : passer dans les MF tools
-    @staticmethod
-    def _mf_get_file_name_extension(file_name):
-        file_extension = file_name.split('.')[-1].upper()
-        return file_extension
-
-    @staticmethod
-    def _mf_get_file_name_without_extension(file_name):
-        file_name_split = file_name.split('.')
-        file_name_split.pop()
-        file_name_without_extension = '.'.join(file_name_split)
-        return file_name_without_extension
