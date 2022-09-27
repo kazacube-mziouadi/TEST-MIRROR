@@ -107,7 +107,7 @@ class xml_import_processing(models.Model):
         directory_id = self.model_id.mf_documents_directory_id
         if directory_id.directory_scan_is_needed_mf: directory_id.scan_directory()
         for file_to_import in directory_id.files_mf:
-            file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name)
+            file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code)
             if file_product_code == product_code:
                 self._mf_import_document_to_product_internal_plans(file_to_import, file_product_code, file_product_version, file_extension)
 
@@ -140,14 +140,19 @@ class xml_import_processing(models.Model):
         product_id.write(product_write_dict)
         file_to_import.delete()
 
-    def _mf_get_data_from_file_name(self, file_name):
+    def _mf_get_data_from_file_name(self, file_name, code_product):
         file_extension = self.env["mf.tools"].mf_get_file_name_extension(file_name)
-        file_name_split_list = self.env["mf.tools"].mf_get_file_name_without_extension(file_name).split('-')
-        
+        file_without_extension = self.env["mf.tools"].mf_get_file_name_without_extension(file_name)
+        file_name_split_list = file_without_extension.split('-')
+
+        product_code = False
         product_version = False
-        if len(file_name_split_list) > 1:
-            product_version = file_name_split_list.pop()
-        product_code = '-'.join(file_name_split_list)
+        if file_without_extension == code_product:
+            product_code = code_product
+        elif file_without_extension.startswith(code_product):
+            if len(file_name_split_list) > 1:
+                product_version = file_name_split_list.pop()
+            product_code = '-'.join(file_name_split_list)
 
         return product_code, product_version, file_extension
 
