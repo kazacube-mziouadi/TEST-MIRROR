@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-07 09:45+0000\n"
-"PO-Revision-Date: 2022-09-07 09:45+0000\n"
+"POT-Creation-Date: 2022-09-28 13:32+0000\n"
+"PO-Revision-Date: 2022-09-28 13:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgid "CSV informations (optionnal)"
 msgstr "Informations CSV (optionnel)"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:178
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Choose a configuration."
 msgstr "Choississez une configuration."
@@ -48,7 +48,7 @@ msgid "Column"
 msgstr "Colonne"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/config/mf_xlsx_config_sheet_field.py:23
+#: code:addons/myfab_xlsx_to_xml/classes/config/mf_xlsx_config_sheet_field.py:0,mf.xlsx.config.sheet.field
 #, python-format
 msgid "Column value"
 msgstr "Valeur de la colonne"
@@ -59,19 +59,19 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/config/mf_xlsx_config_sheet_field.py:24
+#: code:addons/myfab_xlsx_to_xml/classes/config/mf_xlsx_config_sheet_field.py:0,mf.xlsx.config.sheet.field
 #, python-format
 msgid "Constant value"
 msgstr "Valeur fixe"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:93
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Conversion from XLSX to XML finished with success"
 msgstr "Conversion de XLSX vers XML terminée avec succès"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:181
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Conversion only works with XLSX/CSV files"
 msgstr "La conversion ne fonctionne qu'avec des fichiers .XLSX/.CSV"
@@ -107,12 +107,12 @@ msgstr "Encodage fichier CSV"
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_configuration_csv_file_quoting
 msgid "CSV file quoting"
-msgstr "Caractère quote fichier CSV"
+msgstr "Quotation fichier CSV"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_configuration_csv_file_separator
 msgid "CSV file separator"
-msgstr "Séparateur fichier CSV"
+msgstr "Separateur fichier CSV"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_field_column
@@ -135,7 +135,7 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:90
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Empty XML file after XLSX conversion"
 msgstr "Fichier XML vide après la conversion XLSX"
@@ -146,13 +146,13 @@ msgid "Ending line"
 msgstr "Ligne de fin"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:69
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Error on loading XLSX file"
 msgstr "Erreur de chargement du fichier XLSX"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:85
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "Error when writing XLSX converted XML file"
 msgstr "Erreur pendant l'écriture du fichier XLSX converti en XML"
@@ -194,9 +194,9 @@ msgid "ID"
 msgstr "ID"
 
 #. module: myfab_xlsx_to_xml
-#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_is_numerical_level
-msgid "Is numerical level"
-msgstr "L'arborescence est numérique"
+#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_is_level_mono_column
+msgid "Is level mono column"
+msgstr "Arborescence mono colonne"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet___last_update
@@ -263,13 +263,13 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:74
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "No XLSX sheet \"%s\""
 msgstr "Aucune feuille \"%s\" dans le fichier XLSX"
 
 #. module: myfab_xlsx_to_xml
-#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:179
+#: code:addons/myfab_xlsx_to_xml/classes/convert/mf_xlsx_convert_to_xml.py:0,mf.xlsx.convert.xml
 #, python-format
 msgid "No XLSX/CSV file to convert."
 msgstr "Aucun fichier XLSX/CSV à convertir."
@@ -302,13 +302,14 @@ msgstr "Aucun fichier XLSX/CSV à convertir."
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_display_name
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_field_id
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_id
-#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_is_numerical_level
+#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_is_level_mono_column
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_level_separator
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_name
+#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_parent_xml_beacon_new_name
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_sheet_ids
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_write_date
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_write_uid
-#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_xml_beacon_per_level
+#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_xml_beacon_grouping_children_level
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_sequence
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_write_date
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_write_uid
@@ -348,6 +349,11 @@ msgstr "Non défini"
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_parent_reference_column
 msgid "Parent reference column"
 msgstr "Colonne contenant la référence parente"
+
+#. module: myfab_xlsx_to_xml
+#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_parent_xml_beacon_new_name
+msgid "Parent XML beacon new name"
+msgstr "Nouveau nom de la balise XML parente"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_starting_line
@@ -450,6 +456,11 @@ msgid "XLSX/CSV file to convert"
 msgstr "Fichier XLSX/CSV à convertir"
 
 #. module: myfab_xlsx_to_xml
+#: model:ir.ui.view,arch_db:myfab_xlsx_to_xml.mf_view_form_xlsx_config_sheet_field
+msgid "XML"
+msgstr "XML"
+
+#. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_xml_file
 msgid "XML file converted"
 msgstr "Fichier XML converti"
@@ -461,8 +472,13 @@ msgstr "Balise XML"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_xml_beacon_for_sheet
-msgid "XML beacon for sheet"
+msgid "Xml beacon for sheet"
 msgstr "Balise XML pour la feuille"
+
+#. module: myfab_xlsx_to_xml
+#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_xml_beacon_grouping_children_level
+msgid "Xml beacon grouping children level"
+msgstr "Balise XML regroupant les niveaux enfants"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_xml_beacon_grouping_fields
@@ -470,14 +486,15 @@ msgid "XML beacon grouping fields"
 msgstr "Balise XML regroupant les champs"
 
 #. module: myfab_xlsx_to_xml
-#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_config_sheet_level_xml_beacon_per_level
-msgid "XML beacon per level"
-msgstr "Balise XML pour l'arborescence"
-
-#. module: myfab_xlsx_to_xml
 #: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_xml_file_name
 msgid "XML file name"
-msgstr "Nom du fichier XML"
+msgstr "Nom fichier XML"
+
+#. module: myfab_xlsx_to_xml
+#: code:addons/myfab_xlsx_to_xml/classes/config/mf_xlsx_config_sheet_level.py:0,mf.xlsx.config.sheet.level
+#, python-format
+msgid "add"
+msgstr "ajoute"
 
 #. module: myfab_xlsx_to_xml
 #: model:ir.model,name:myfab_xlsx_to_xml.model_mf_xlsx_config_sheet

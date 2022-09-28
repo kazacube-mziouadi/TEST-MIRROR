@@ -146,6 +146,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     def _mf_convert_children_rows_to_xml(self, ET_row, xlsx_sheet, xlsx_rows, xlsx_row_index, row_beacon, field_ids, level_id, xlsx_rows_in_xml):
         if xlsx_row_index < len(xlsx_rows):
             xlsx_row = xlsx_rows[xlsx_row_index]
+            at_least_one_child_level = False
 
             if level_id:
                 current_level_value = self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.column)
@@ -153,11 +154,16 @@ class mf_xlsx_convert_to_xml(models.Model):
                 child_xlsx_row_index = xlsx_row_index + 1
                 while self._mf_is_row_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
                     if child_xlsx_row_index not in xlsx_rows_in_xml and self._mf_is_direct_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id, current_level_value):
-                        ET_Child = self._mf_add_XML_last_sub_element(ET_row, level_id.xml_beacon_per_level, False)
+                        ET_Child = self._mf_add_XML_last_sub_element(ET_row, level_id.xml_beacon_grouping_children_level, False)
                         self._mf_add_XLSX_row_to_XML(ET_Child, xlsx_sheet, xlsx_rows, child_xlsx_row_index, 
                                                     row_beacon, field_ids, level_id, 
                                                     xlsx_rows_in_xml) 
+                        at_least_one_child_level = True
                     child_xlsx_row_index += 1
+
+                if at_least_one_child_level and level_id.parent_xml_beacon_new_name:
+                    ET_row.tag = level_id.parent_xml_beacon_new_name
+
 
     def _mf_get_cell_value(self, xlsx_sheet, xlsx_row, field_id):
         if field_id.writing_mode == 'column_value':
@@ -187,7 +193,7 @@ class mf_xlsx_convert_to_xml(models.Model):
         if child_xlsx_row_index < len(xlsx_rows):
             xlsx_row = xlsx_rows[child_xlsx_row_index]
 
-            if level_id.is_numerical_level:
+            if level_id.is_level_mono_column:
                 level_value = self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.column)
                 level_values = level_value.split(level_id.level_separator)
                 return (len(level_values) > 1)
@@ -198,7 +204,7 @@ class mf_xlsx_convert_to_xml(models.Model):
         if child_xlsx_row_index < len(xlsx_rows):
             xlsx_row = xlsx_rows[child_xlsx_row_index]
 
-            if level_id.is_numerical_level:
+            if level_id.is_level_mono_column:
                 level_child_value = self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.column)
                 return self._mf_is_direct_numerical_child(level_parent_value, level_child_value, level_id.level_separator)
             else:
@@ -232,15 +238,20 @@ class mf_xlsx_convert_to_xml(models.Model):
             # Check if each beacon is already existing, else add it
             for searched_beacon in beacon_list:
                 cpt +=1
-                is_beacon_present = False
-                if add_last_beacon_as_list == False or cpt < len(beacon_list):
-                    for child in ET_root:
-                        if child.tag == searched_beacon : 
+                if searched_beacon:
+                    is_beacon_present = False
+                    if add_last_beacon_as_list == False or cpt < len(beacon_list):
+                        if ET_root.tag == searched_beacon:
+                            ET_Temp = ET_root
                             is_beacon_present = True
-                            ET_Temp = child
-                if is_beacon_present == False:
-                    ET_Temp = ET.SubElement(ET_root, searched_beacon)
-                ET_root = ET_Temp
+                        else:
+                            for child in ET_root:
+                                if child.tag == searched_beacon : 
+                                    is_beacon_present = True
+                                    ET_Temp = child
+                    if is_beacon_present == False:
+                        ET_Temp = ET.SubElement(ET_root, searched_beacon)
+                    ET_root = ET_Temp
 
         return ET_root
     
