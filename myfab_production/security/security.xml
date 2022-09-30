@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="group_menu_planned_ressource" model="res.groups">
+            <field name="name">Planned ressource menu</field>
+            <field name="category_id" ref="base_openprod.module_menu_production" />
+        </record>
+    </data>
+</openerp>

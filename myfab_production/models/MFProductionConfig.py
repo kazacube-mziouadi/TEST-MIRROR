@@ -21,6 +21,7 @@ class MFProductionConfig(models.Model):
         string="Use default end time", default=False,
         help="Activate the use of the below default end time in the Create Timetracking wizard"
     )
+    mf_planned_ressource = fields.Boolean(string="Activate Planned ressource management",default=False)
     mf_default_end_time = fields.Float(string="Default end time", help="Format HH:MM")
 
     # ===========================================================================
@@ -35,3 +36,20 @@ class MFProductionConfig(models.Model):
     def _check_mf_default_end_time(self):
         if self.mf_default_end_time >= 24:
             raise ValidationError(_("The time tracking's default end time can not be greater than 23:59"))
+    
+    @api.multi
+    def write(self, vals):
+        if 'mf_planned_ressource' in vals:
+            if vals['mf_planned_ressource'] == True:
+                users = self.env['res.users'].search([])
+                data_xml = self.env['ir.model.data'].search([("name","=","group_menu_planned_ressource")])
+                group = self.env['res.groups'].browse(data_xml.res_id)
+                group.write({"users":[(6, 0, users.ids)]})
+            else:
+                data_xml = self.env['ir.model.data'].search([("name","=","group_menu_planned_ressource")])
+                group = self.env['res.groups'].browse(data_xml.res_id)
+                group.write({"users":[(5, 0, 0)]})
+        return super(MFProductionConfig, self).write(vals)
+
+
+
