@@ -44,11 +44,8 @@
                     <field name="mf_planned_ressource_name" invisible="1"/>
                     <field name="mf_planned_ressource_config" invisible="1"/>
                 </xpath>
-                <xpath expr="//kanban" position="attributes">
-					<attribute name="default_order">mf_planned_ressource_name asc</attribute>
-                </xpath>
                 <xpath expr="//ul" position="inside">
-                    <li t-if="record.mf_planned_ressource_id.raw_value &amp;&amp; mf_planned_ressource_config">
+                    <li t-if="record.mf_planned_ressource_id.raw_value &amp;&amp; record.mf_planned_ressource_config.raw_value">
                         <b>Planned ressource : </b>
                         <field name="mf_planned_ressource_id" />
                     </li>

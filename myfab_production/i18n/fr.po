@@ -232,7 +232,7 @@ msgstr "Configuration de ressource planifiée"
 #. module: myfab_production
 #: model:res.groups,name:myfab_production.group_menu_planned_ressource
 msgid "Planned ressource menu"
-msgstr "Menu de ressource planifiée"
+msgstr "Menu de ressource planifiée myfab"
 
 #. module: myfab_production
 #: model:ir.ui.view,arch_db:myfab_production.mf_production_view_form_mrp_manufacturingorder

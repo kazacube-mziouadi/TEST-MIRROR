@@ -25,7 +25,7 @@ class mrp_manufacturingorder(models.Model):
     @api.one
     @api.depends('workorder_ids', 'workorder_ids.planned_start_date', 'workorder_ids.planned_end_date')
     def _compute_planned_date(self):
-        _logger.info(self.planned_end_date)
+        planned_start_date = False
         first_workorder_rcs = self.env['mrp.workorder']
         for wo in self.workorder_ids:
             if not wo.prev_wo_ids:
@@ -37,8 +37,8 @@ class mrp_manufacturingorder(models.Model):
             date = datetime.datetime.strptime((planned_start_date[0:10]), '%Y-%m-%d').date()
             self.mf_is_d_d15 = date>=datetime.date.today() and date<= datetime.date.today() + datetime.timedelta(days=15)
             self.mf_is_wm1_wp1 = date>= datetime.date.today() - datetime.timedelta(weeks=1) and date<= datetime.date.today() + datetime.timedelta(weeks=1)
-            self.mf_planned_start_date = (str(date.day) if date.day>10 else "0"+str(date.day))+"/"+(str(date.month) if date.month>10 else "0"+str(date.month))+"/"+str(date.year)
-            self.mf_planned_start_week = "S" + str(date.isocalendar()[1])+"/"+str(date.year)
+            self.mf_planned_start_date = str(date.year)+"/"+(str(date.month) if date.month>=10 else "0"+str(date.month))+"/"+(str(date.day) if date.day>=10 else "0"+str(date.day))
+            self.mf_planned_start_week = str(date.year)+"/" +"S" + str(date.isocalendar()[1])
         return super(mrp_manufacturingorder, self)._compute_planned_date()
 
     def _search_mf_is_d_d15(self, operator, value):

@@ -10,7 +10,7 @@
                 <form string="Change planned ressource">
                     <group colspan="4" col="4">
                         <field name="mf_planned_ressource_id" />
-                        <field name="mf_mo_id" invislbe="1"/>
+                        <field name="mf_mo_id" invisible="1"/>
                     </group>
                     <footer>
                         <button name="change_ressource" string="Change ressource" type="object" class="oe_highlight" />
