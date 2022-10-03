@@ -1,10 +1,19 @@
 from openerp import models, fields, api, _, modules
 
 CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
-    "mf_price_consumable",
-    "mf_price_workforce",
+    "mf_material_unit_price",
+    "mf_material_total_price",
+    "mf_material_unit_prcnt_margin",
+    "mf_material_unit_amount_margin",
+    "mf_consumable_unit_price",
+    "mf_workforce_unit_price",
+    "mf_workforce_unit_price",
+    "mf_workforce_total_price",
+    "mf_workforce_unit_prcnt_margin",
+    "mf_workforce_unit_amount_margin",
     "mf_general_costs",
-    "mf_unit_margin",
+    "mf_unit_prcnt_margin",
+    "mf_unit_amount_margin",
 ]
 
 

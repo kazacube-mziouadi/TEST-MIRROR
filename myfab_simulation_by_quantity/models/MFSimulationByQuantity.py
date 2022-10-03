@@ -10,14 +10,14 @@ class MFSimulationByQuantity(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, readonly=True)
+    mf_designation = fields.Char(string="Designation", size=60)
+    mf_description = fields.Char(string="Description")
     mf_customer_id = fields.Many2one("res.partner", string="Customer")
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
-    mf_simulation_lines_ids = fields.One2many("mf.simulation.by.quantity.line", "mf_simulation_id", copy=True,
-                                              string="Simulation lines")
-    mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id",
-                                           string="Configurable fields")
+    mf_simulation_lines_ids = fields.One2many("mf.simulation.by.quantity.line", "mf_simulation_id", copy=True, string="Simulation lines")
+    mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id", string="Configurable fields")
     mf_hide_warning_config_message = fields.Boolean("Hide warning config message", default=True)
 
     # ===========================================================================
@@ -159,9 +159,9 @@ class MFSimulationByQuantity(models.Model):
         }
 
     def check_customer_and_lines_exist(self):
-        if (
-                not self.mf_customer_id or not self.mf_simulation_lines_ids
-                or not self.at_least_one_simulation_line_is_selected()
+        if (not self.mf_customer_id 
+            or not self.mf_simulation_lines_ids
+            or not self.at_least_one_simulation_line_is_selected()
         ):
             raise MissingError(_(
                 "Make sure that a customer is selected and that the simulation contains at least one selected line."

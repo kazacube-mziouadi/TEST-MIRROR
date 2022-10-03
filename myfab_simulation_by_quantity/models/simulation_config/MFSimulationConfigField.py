@@ -1,6 +1,5 @@
 from openerp import models, fields, api, _, modules
 
-
 class MFSimulationConfigField(models.Model):
     _name = "mf.simulation.config.field"
     _description = "myfab Simulation by quantity"

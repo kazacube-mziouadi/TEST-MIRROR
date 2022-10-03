@@ -14,6 +14,15 @@
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity">
 					<field name="name"/>
+					<field name="mf_designation"/>
+					<field name="mf_customer_id"/>
+					<field name="mf_product_id"/>
+					<field name="mf_bom_id"/>
+					<field name="mf_routing_id"/>
+					<field name="create_uid"/>
+					<field name="create_date"/>
+					<field name="write_uid"/>
+					<field name="write_date"/>
 				</tree>
 			</field>
         </record>
@@ -29,6 +38,8 @@
 								<h1>
 									<field name="name" nolabel="1" />
 								</h1>
+								<field name="mf_designation"/>
+								<field name="mf_description"/>
 							</div>
 							<notebook>
 								<page string="Simulation">
@@ -59,6 +70,14 @@
 									<p attrs="{'invisible': [('name', '!=', False)]}">
 										You must save the form before being able to edit it's configuration
 									</p>
+								</page>
+								<page string="Informations">
+									<group string="Informations" col="4" attrs="{'invisible': [('name', '=', False)]}">
+										<field name="create_uid" />
+										<field name="create_date" />
+										<field name="write_uid" />
+										<field name="write_date" />
+									</group>
 								</page>
 							</notebook>
 						</group>
