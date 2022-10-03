@@ -1,22 +1,5 @@
 from openerp import models, fields, api, _, modules
 
-CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
-    "mf_material_unit_price",
-    "mf_material_total_price",
-    "mf_material_unit_prcnt_margin",
-    "mf_material_unit_amount_margin",
-    "mf_consumable_unit_price",
-    "mf_workforce_unit_price",
-    "mf_workforce_unit_price",
-    "mf_workforce_total_price",
-    "mf_workforce_unit_prcnt_margin",
-    "mf_workforce_unit_amount_margin",
-    "mf_general_costs",
-    "mf_unit_prcnt_margin",
-    "mf_unit_amount_margin",
-]
-
-
 class MFSimulationConfig(models.Model):
     _name = "mf.simulation.config"
     _description = "myfab Simulation by quantity"
@@ -45,14 +28,17 @@ class MFSimulationConfig(models.Model):
         return super(MFSimulationConfig, self).create(fields_list)
 
     def get_mf_fields_ids(self):
-        configurable_simulation_fields_ids = self.env["ir.model.fields"].search([
-            ("name", "in", CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST)
-        ])
         simulation_config_fields_create_list = []
-        for field_id in configurable_simulation_fields_ids:
+        for field_id in self._mf_get_field_list():
             simulation_config_fields_create_list.append((0, 0, {"mf_field_id": field_id.id}))
         return simulation_config_fields_create_list
 
-    @staticmethod
-    def get_configurable_simulation_fields_names_list():
-        return CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST
+    def _mf_get_field_list(self):
+        configurable_simulation_fields_ids = self.env["ir.model.fields"].search([
+            ("name", "in", self.get_configurable_simulation_fields_names_list())
+        ])
+        return configurable_simulation_fields_ids
+
+    def get_configurable_simulation_fields_names_list(self):
+        return self.env["mf.simulation.by.quantity.line"].get_configurable_simulation_fields_names_list()
+

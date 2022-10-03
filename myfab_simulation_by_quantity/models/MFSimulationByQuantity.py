@@ -11,7 +11,7 @@ class MFSimulationByQuantity(models.Model):
     # ===========================================================================
     name = fields.Char(string="Name", size=64, readonly=True)
     mf_designation = fields.Char(string="Designation", size=60)
-    mf_description = fields.Char(string="Description")
+    mf_description = fields.Text(string="Description")
     mf_customer_id = fields.Many2one("res.partner", string="Customer")
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)

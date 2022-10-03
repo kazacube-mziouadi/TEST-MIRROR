@@ -4,6 +4,21 @@ from openerp.exceptions import MissingError
 
 RESOURCE_CATEGORY_LABEL_SUBCONTRACTING = _("Subcontracting")
 RESOURCE_CATEGORY_LABEL_ROUTING_COST = _("Routing cost")
+CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
+    "mf_material_unit_price",
+    "mf_material_total_price",
+    "mf_material_unit_prcnt_margin",
+    "mf_material_unit_amount_margin",
+    "mf_consumable_unit_price",
+    "mf_workforce_unit_price",
+    "mf_workforce_unit_price",
+    "mf_workforce_total_price",
+    "mf_workforce_unit_prcnt_margin",
+    "mf_workforce_unit_amount_margin",
+    "mf_general_costs",
+    "mf_unit_prcnt_margin",
+    "mf_unit_amount_margin",
+]
 
 
 class MFSimulationByQuantityLine(models.Model):
@@ -22,11 +37,6 @@ class MFSimulationByQuantityLine(models.Model):
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
 
-
-    """
-        Go into MFSimulationConfig class 
-        Add all configurable fields in the constant "CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST"
-    """
     # ===========================================================================
     # COLUMNS - CALCULATED (readonly)
     # ===========================================================================
@@ -77,6 +87,10 @@ class MFSimulationByQuantityLine(models.Model):
     mf_general_costs_is_visible = fields.Boolean(string="General costs is visible", compute="_compute_mf_general_costs_is_visible")
     mf_general_costs = fields.Float(string="General costs", default=0.0, digits=dp.get_precision("Price technical"))
     
+    @staticmethod
+    def get_configurable_simulation_fields_names_list():
+        return CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST
+
     # ===========================================================================
     # METHODS - FORM ONCHANGES
     # ===========================================================================
@@ -222,7 +236,7 @@ class MFSimulationByQuantityLine(models.Model):
     # METHODS - FOR COMPUTE
     # ===========================================================================
     def _get_field_value_if_visible(self, field_name, value_if_invisible=0):
-        if field_name in self.env["mf.simulation.config"].get_configurable_simulation_fields_names_list():
+        if field_name in self.get_configurable_simulation_fields_names_list():
             field_is_visible = self._is_configurable_field_visible(field_name)
             if field_is_visible:
                 return getattr(self, field_name)

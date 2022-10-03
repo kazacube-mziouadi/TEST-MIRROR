@@ -38,9 +38,11 @@
 								<h1>
 									<field name="name" nolabel="1" />
 								</h1>
+							</div>
+							<group colspan="8" col="2">
 								<field name="mf_designation"/>
 								<field name="mf_description"/>
-							</div>
+							</group>
 							<notebook>
 								<page string="Simulation">
 									<group string="Simulation" col="1">
@@ -78,6 +80,9 @@
 										<field name="write_uid" />
 										<field name="write_date" />
 									</group>
+									<p attrs="{'invisible': [('name', '!=', False)]}">
+										You must save the form before being able to see it's informations
+									</p>
 								</page>
 							</notebook>
 						</group>
