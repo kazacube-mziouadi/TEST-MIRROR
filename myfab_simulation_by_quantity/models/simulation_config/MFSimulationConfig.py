@@ -15,8 +15,7 @@ class MFSimulationConfig(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", default=_("Simulation global configuration"), readonly=True)
-    mf_fields_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_config_id",
-                                    string="Configurable fields")
+    mf_fields_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_config_id", string="Configurable fields")
 
     # ===========================================================================
     # METHODS
@@ -25,7 +24,9 @@ class MFSimulationConfig(models.Model):
     def create(self, fields_list):
         # We write the simulation's name using it's sequence
         fields_list["mf_fields_ids"] = self.get_mf_fields_ids()
-        return super(MFSimulationConfig, self).create(fields_list)
+        res = super(MFSimulationConfig, self).create(fields_list)
+        self._set_fields_order(res.mf_fields_ids)
+        return res
 
     @api.one
     def mf_update(self):
@@ -39,11 +40,19 @@ class MFSimulationConfig(models.Model):
             for field_id in global_field_list:
                 if field_id.name not in field_names_present_in_list:
                     simulation_config_fields_update_list.append((0, 0, {"mf_field_id": field_id.id}))
-            
             vals = {
                 'mf_fields_ids': simulation_config_fields_update_list,
             }
             self.write(vals)
+        self._set_fields_order(self.mf_fields_ids)
+
+    def _set_fields_order(self, field_list_ids):
+        order = 0
+        for field_name in self.get_configurable_simulation_fields_names_list():
+            for field_config_id in field_list_ids:
+                if field_config_id.mf_field_id.name == field_name:
+                    field_config_id.sequence = order
+            order += 1
 
     def get_mf_fields_ids(self):
         simulation_config_fields_create_list = []

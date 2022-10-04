@@ -61,19 +61,19 @@ class MFSimulationByQuantityLine(models.Model):
     # ===========================================================================
     # COLUMNS - VISIBILITY CALCULATED (readonly)
     # ===========================================================================
-    mf_material_unit_price_is_visible = fields.Boolean(string="Material unit price is visible", compute="_compute_mf_field_is_visible")
-    mf_material_total_price_is_visible = fields.Boolean(string="Material total price is visible", compute="_compute_mf_field_is_visible")
-    mf_material_unit_prcnt_margin_is_visible = fields.Boolean(string="Material unit margin percentage is visible", compute="_compute_mf_field_is_visible")
-    mf_material_unit_amount_margin_is_visible = fields.Boolean(string="Material unit margin amount is visible", compute="_compute_mf_field_is_visible")
-    mf_consumable_unit_price_is_visible = fields.Boolean(string="Consumable price is visible", compute="_compute_mf_field_is_visible")
-    mf_workforce_unit_price_is_visible = fields.Boolean(string="Workforce unit price is visible", compute="_compute_mf_field_is_visible")
-    mf_workforce_total_price_is_visible = fields.Boolean(string="Workforce total price is visible", compute="_compute_mf_field_is_visible")
-    mf_workforce_unit_prcnt_margin_is_visible = fields.Boolean(string="Workforce unit margin percentage is visible", compute="_compute_mf_field_is_visible")
-    mf_workforce_unit_amount_margin_is_visible = fields.Boolean(string="Workforce unit margin amount is visible", compute="_compute_mf_field_is_visible")
-    mf_subcontracting_unit_price_is_visible = fields.Boolean(string="Subcontracting price is visible", compute="_compute_mf_field_is_visible")
-    mf_free_costs_is_visible = fields.Boolean(string="Free costs is visible", compute="_compute_mf_field_is_visible")
-    mf_unit_prcnt_margin_is_visible = fields.Boolean(string="Unit margin percentage is visible", compute="_compute_mf_field_is_visible")
-    mf_unit_amount_margin_is_visible = fields.Boolean(string="Unit margin amount is visible", compute="_compute_mf_field_is_visible")
+    mf_material_unit_price_is_visible = fields.Boolean(string="Material unit price is visible",)
+    mf_material_total_price_is_visible = fields.Boolean(string="Material total price is visible")
+    mf_material_unit_prcnt_margin_is_visible = fields.Boolean(string="Material unit margin percentage is visible")
+    mf_material_unit_amount_margin_is_visible = fields.Boolean(string="Material unit margin amount is visible")
+    mf_consumable_unit_price_is_visible = fields.Boolean(string="Consumable price is visible")
+    mf_workforce_unit_price_is_visible = fields.Boolean(string="Workforce unit price is visible")
+    mf_workforce_total_price_is_visible = fields.Boolean(string="Workforce total price is visible")
+    mf_workforce_unit_prcnt_margin_is_visible = fields.Boolean(string="Workforce unit margin percentage is visible")
+    mf_workforce_unit_amount_margin_is_visible = fields.Boolean(string="Workforce unit margin amount is visible")
+    mf_subcontracting_unit_price_is_visible = fields.Boolean(string="Subcontracting price is visible")
+    mf_free_costs_is_visible = fields.Boolean(string="Free costs is visible")
+    mf_unit_prcnt_margin_is_visible = fields.Boolean(string="Unit margin percentage is visible")
+    mf_unit_amount_margin_is_visible = fields.Boolean(string="Unit margin amount is visible")
     # ===========================================================================
     # COLUMNS - MARGINS (READ / WRITE)
     # ===========================================================================
@@ -95,7 +95,9 @@ class MFSimulationByQuantityLine(models.Model):
     # ===========================================================================
     # METHODS - VIEW COLUMNS COMPUTE
     # ===========================================================================
-    def _compute_mf_field_is_visible(self):
+    @api.one
+    @api.onchange('sequence')
+    def compute_mf_field_is_visible(self):
         vals = {}
         for field in self.get_configurable_simulation_fields_names_list():
             vals[field + '_is_visible'] = self._is_configurable_field_visible(field)

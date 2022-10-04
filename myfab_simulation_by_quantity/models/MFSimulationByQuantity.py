@@ -34,6 +34,7 @@ class MFSimulationByQuantity(models.Model):
         # We write the simulation's name using it's sequence
         fields_list["name"] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
         fields_list["mf_field_configs_ids"] = self._get_field_configs_ids_from_global_config()
+
         return super(MFSimulationByQuantity, self).create(fields_list)
 
     @api.multi
@@ -67,6 +68,7 @@ class MFSimulationByQuantity(models.Model):
                 'mf_field_configs_ids': self._get_field_configs_ids_from_global_config(),
             }
         self.write(fields_list)
+        self._set_fields_order()
 
     def _get_field_configs_ids_from_global_config(self):
         global_config_field_ids = self._get_global_config_fields()
@@ -78,6 +80,7 @@ class MFSimulationByQuantity(models.Model):
         for field_config_id in global_config_field_ids:
             if field_config_id.mf_field_id.name not in field_names_present_in_list:
                 field_configs_ids_list.append((0, 0, {
+                    "sequence": field_config_id.sequence,
                     "mf_field_id": field_config_id.mf_field_id.id,
                     "mf_is_visible": field_config_id.mf_is_visible,
                 }))
@@ -92,6 +95,14 @@ class MFSimulationByQuantity(models.Model):
             global_config_id.mf_update()
 
         return global_config_id.mf_fields_ids
+    
+    def _set_fields_order(self):
+        global_config_field_ids = self._get_global_config_fields()
+        for global_field_id in global_config_field_ids:
+            for field_config_id in self.mf_field_configs_ids:
+                if field_config_id.mf_field_id.id == global_field_id.mf_field_id.id:
+                    field_config_id.sequence = global_field_id.sequence
+
     # ===========================================================================
     # METHODS - ONCHANGE
     # ===========================================================================
@@ -161,6 +172,7 @@ class MFSimulationByQuantity(models.Model):
     @api.multi
     def recompute_simulation_lines_button(self):
         for simulation_line_id in self.mf_simulation_lines_ids:
+            simulation_line_id.compute_mf_field_is_visible()
             simulation_line_id.mf_quantity = simulation_line_id.mf_quantity
 
     @api.multi
