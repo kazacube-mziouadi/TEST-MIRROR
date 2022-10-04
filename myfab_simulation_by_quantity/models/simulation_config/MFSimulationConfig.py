@@ -27,6 +27,24 @@ class MFSimulationConfig(models.Model):
         fields_list["mf_fields_ids"] = self.get_mf_fields_ids()
         return super(MFSimulationConfig, self).create(fields_list)
 
+    @api.one
+    def mf_update(self):
+        field_names_present_in_list = []
+        for config_field in self.mf_fields_ids:
+            field_names_present_in_list.append(config_field.mf_field_id.name)
+
+        global_field_list = self._mf_get_field_list()
+        if len(field_names_present_in_list) != len(global_field_list):
+            simulation_config_fields_update_list =[]
+            for field_id in global_field_list:
+                if field_id.name not in field_names_present_in_list:
+                    simulation_config_fields_update_list.append((0, 0, {"mf_field_id": field_id.id}))
+            
+            vals = {
+                'mf_fields_ids': simulation_config_fields_update_list,
+            }
+            self.write(vals)
+
     def get_mf_fields_ids(self):
         simulation_config_fields_create_list = []
         for field_id in self._mf_get_field_list():

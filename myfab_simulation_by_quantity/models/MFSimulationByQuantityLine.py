@@ -15,7 +15,8 @@ CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
     "mf_workforce_total_price",
     "mf_workforce_unit_prcnt_margin",
     "mf_workforce_unit_amount_margin",
-    "mf_general_costs",
+    "mf_subcontracting_unit_price",
+    "mf_free_costs",
     "mf_unit_prcnt_margin",
     "mf_unit_amount_margin",
 ]
@@ -70,6 +71,7 @@ class MFSimulationByQuantityLine(models.Model):
     mf_workforce_unit_prcnt_margin_is_visible = fields.Boolean(string="Workforce unit margin percentage is visible", compute="_compute_mf_field_is_visible")
     mf_workforce_unit_amount_margin_is_visible = fields.Boolean(string="Workforce unit margin amount is visible", compute="_compute_mf_field_is_visible")
     mf_subcontracting_unit_price_is_visible = fields.Boolean(string="Subcontracting price is visible", compute="_compute_mf_field_is_visible")
+    mf_free_costs_is_visible = fields.Boolean(string="Free costs is visible", compute="_compute_mf_field_is_visible")
     mf_unit_prcnt_margin_is_visible = fields.Boolean(string="Unit margin percentage is visible", compute="_compute_mf_field_is_visible")
     mf_unit_amount_margin_is_visible = fields.Boolean(string="Unit margin amount is visible", compute="_compute_mf_field_is_visible")
     # ===========================================================================
@@ -84,15 +86,37 @@ class MFSimulationByQuantityLine(models.Model):
     # ===========================================================================
     # COLUMNS (READ / WRITE)
     # ===========================================================================
-    mf_general_costs_is_visible = fields.Boolean(string="General costs is visible", compute="_compute_mf_general_costs_is_visible")
-    mf_general_costs = fields.Float(string="General costs", default=0.0, digits=dp.get_precision("Price technical"))
+    mf_free_costs = fields.Float(string="Free costs", default=0.0, digits=dp.get_precision("Price technical"))
     
     @staticmethod
     def get_configurable_simulation_fields_names_list():
         return CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST
 
     # ===========================================================================
-    # METHODS - FORM ONCHANGES
+    # METHODS - VIEW COLUMNS COMPUTE
+    # ===========================================================================
+    def _compute_mf_field_is_visible(self):
+        vals = {}
+        for field in self.get_configurable_simulation_fields_names_list():
+            vals[field + '_is_visible'] = self._is_configurable_field_visible(field)
+        self.write(vals)
+
+    def _get_field_value_if_visible(self, field_name, value_if_invisible=0):
+        if field_name in self.get_configurable_simulation_fields_names_list():
+            field_is_visible = self._is_configurable_field_visible(field_name)
+            if field_is_visible:
+                return getattr(self, field_name)
+            else:
+                return value_if_invisible
+
+    def _is_configurable_field_visible(self, field_name):
+        for configurable_field in self.mf_simulation_id.mf_field_configs_ids:
+            if configurable_field.mf_field_id.name == field_name:
+                return configurable_field.mf_is_visible
+        raise MissingError(field_name + _(" is not a configurable field."))
+
+    # ===========================================================================
+    # METHODS - ONCHANGES
     # ===========================================================================
     @api.onchange("mf_product_id")
     def _onchange_mf_product_id(self):
@@ -119,7 +143,7 @@ class MFSimulationByQuantityLine(models.Model):
                 self.mf_routing_id = product_routing_id.id
 
     # ===========================================================================
-    # METHODS - FORM COMPUTE
+    # METHODS - SIMULATIE QUANTITY PRICES
     # ===========================================================================
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id")
@@ -138,7 +162,7 @@ class MFSimulationByQuantityLine(models.Model):
         self.mf_consumable_total_price = self.mf_quantity * self.mf_consumable_unit_price
 
     @api.one
-    @api.depends("mf_quantity", "mf_consumable_unit_price")
+    @api.depends("mf_consumable_unit_price")
     def _compute_mf_workforce_prices(self):
         self.mf_workforce_unit_price = (
                 self.mf_quantity and self.mf_consumable_unit_price / self.mf_quantity or self.mf_consumable_unit_price
@@ -152,7 +176,7 @@ class MFSimulationByQuantityLine(models.Model):
         self.mf_subcontracting_unit_price = 0
 
     @api.one
-    @api.depends("mf_quantity", "mf_material_unit_price", "mf_material_unit_prcnt_margin", "mf_material_unit_amount_margin")
+    @api.depends("mf_material_unit_price", "mf_material_unit_prcnt_margin", "mf_material_unit_amount_margin")
     def _compute_mf_material_margin_prices(self):
         self.mf_material_unit_margin_price = (
             self.mf_material_unit_price * (1 + self._get_field_value_if_visible("mf_material_unit_prcnt_margin") / 100) 
@@ -161,7 +185,7 @@ class MFSimulationByQuantityLine(models.Model):
         self.mf_material_total_margin_price = self.mf_material_unit_margin_price * self.mf_quantity
 
     @api.one
-    @api.depends("mf_quantity", "mf_workforce_unit_price", "mf_workforce_unit_prcnt_margin", "mf_workforce_unit_amount_margin")
+    @api.depends("mf_workforce_unit_price", "mf_workforce_unit_prcnt_margin", "mf_workforce_unit_amount_margin")
     def _compute_mf_workforce_margin_prices(self):
         self.mf_workforce_unit_margin_price = (
             self.mf_workforce_unit_price * (1 + self._get_field_value_if_visible("mf_workforce_unit_prcnt_margin") / 100) 
@@ -170,18 +194,18 @@ class MFSimulationByQuantityLine(models.Model):
         self.mf_workforce_unit_margin_price = self.mf_workforce_unit_price * self.mf_quantity
 
     @api.one
-    @api.depends("mf_material_unit_margin_price", "mf_consumable_unit_price", "mf_workforce_unit_margin_price", "mf_general_costs")
+    @api.depends("mf_material_unit_margin_price", "mf_consumable_unit_price", "mf_workforce_unit_margin_price", "mf_free_costs")
     def _compute_cost_unit_price(self):
         self.mf_unit_cost_price = (
             self.mf_material_unit_margin_price
             + self.mf_consumable_unit_price
             + self.mf_workforce_unit_margin_price
-            + self._get_field_value_if_visible("mf_general_costs")
+            + self._get_field_value_if_visible("mf_free_costs")
             + self.mf_subcontracting_unit_price
         )
 
     @api.one
-    @api.depends("mf_quantity", "mf_unit_cost_price")
+    @api.depends("mf_unit_cost_price")
     def _compute_cost_total_price(self):
         self.mf_total_cost_price = (self.mf_unit_cost_price * self.mf_quantity)
 
@@ -202,7 +226,7 @@ class MFSimulationByQuantityLine(models.Model):
         )   
 
     @api.one
-    @api.depends("mf_quantity", "mf_unit_sale_price")
+    @api.depends("mf_unit_sale_price")
     def _compute_sale_total_price(self):
         self.mf_total_sale_price = (self.mf_unit_sale_price * self.mf_quantity)  
 
@@ -210,41 +234,3 @@ class MFSimulationByQuantityLine(models.Model):
     @api.depends("mf_total_sale_price", "mf_total_cost_price")
     def _compute_total_margin(self):
         self.mf_total_margin = (self.mf_total_sale_price - self.mf_total_cost_price)
-
-    # ===========================================================================
-    # METHODS - VIEW COLUMNS COMPUTE
-    # ===========================================================================
-    @api.one
-    @api.depends("sequence")
-    def _compute_mf_field_is_visible(self):
-        self.mf_material_unit_price_is_visible = self._is_configurable_field_visible("mf_material_unit_price")
-        self.mf_material_total_price_is_visible = self._is_configurable_field_visible("mf_material_total_price")
-        self.mf_material_unit_prcnt_margin_is_visible = self._is_configurable_field_visible("mf_workforce_unit_prcnt_margin")
-        self.mf_material_unit_amount_margin_is_visible = self._is_configurable_field_visible("mf_workforce_unit_amount_margin")
-        self.mf_consumable_unit_price_is_visible = self._is_configurable_field_visible("mf_consumable_unit_price")
-        self.mf_workforce_unit_price_is_visible = self._is_configurable_field_visible("mf_workforce_unit_price")
-        self.mf_workforce_total_price_is_visible = self._is_configurable_field_visible("mf_workforce_total_price")
-        self.mf_workforce_unit_prcnt_margin_is_visible = self._is_configurable_field_visible("mf_workforce_unit_prcnt_margin")
-        self.mf_workforce_unit_amount_margin_is_visible = self._is_configurable_field_visible("mf_workforce_unit_amount_margin")
-        self.mf_subcontracting_unit_price_is_visible = self._is_configurable_field_visible("mf_subcontracting_prices")
-        self.mf_general_costs_is_visible = self._is_configurable_field_visible("mf_general_costs")
-        self.mf_unit_prcnt_margin_is_visible = self._is_configurable_field_visible("mf_unit_prcnt_margin")
-        self.mf_unit_amount_margin_is_visible = self._is_configurable_field_visible("mf_unit_amount_margin")
-
-
-    # ===========================================================================
-    # METHODS - FOR COMPUTE
-    # ===========================================================================
-    def _get_field_value_if_visible(self, field_name, value_if_invisible=0):
-        if field_name in self.get_configurable_simulation_fields_names_list():
-            field_is_visible = self._is_configurable_field_visible(field_name)
-            if field_is_visible:
-                return getattr(self, field_name)
-            else:
-                return value_if_invisible
-
-    def _is_configurable_field_visible(self, field_name):
-        for configurable_field in self.mf_simulation_id.mf_field_configs_ids:
-            if configurable_field.mf_field_id.name == field_name:
-                return configurable_field.mf_is_visible
-        raise MissingError(field_name + _(" is not a configurable field."))

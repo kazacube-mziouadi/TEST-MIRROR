@@ -142,13 +142,13 @@ msgid "Exported simulation lines"
 msgstr "Lignes de simulation exportées"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs
-msgid "General costs"
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_free_costs
+msgid "Free costs"
 msgstr "Frais généraux"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs_is_visible
-msgid "General costs is visible"
+#: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_free_costs_is_visible
+msgid "Free costs is visible"
 msgstr "Frais généraux visibles"
 
 #. module: myfab_simulation_by_quantity
@@ -300,8 +300,8 @@ msgstr "Nomenclature"
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_display_name
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_id
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_bom_id
-#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs
-#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_general_costs_is_visible
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_free_costs
+#: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_free_costs_is_visible
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_hour_sale_price
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_consumable_unit_price
 #: model:ir.model.fields,help:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_consumable_unit_price_is_visible

@@ -10,7 +10,7 @@ class MFSimulationByQuantity(models.Model):
     # COLUMNS
     # ===========================================================================
     name = fields.Char(string="Name", size=64, readonly=True)
-    mf_designation = fields.Char(string="Designation", size=60)
+    mf_designation = fields.Char(string="Designation", size=60, required=True)
     mf_description = fields.Text(string="Description")
     mf_customer_id = fields.Many2one("res.partner", string="Customer")
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
@@ -18,7 +18,7 @@ class MFSimulationByQuantity(models.Model):
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
     mf_simulation_lines_ids = fields.One2many("mf.simulation.by.quantity.line", "mf_simulation_id", copy=True, string="Simulation lines")
     mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id", string="Configurable fields")
-    mf_hide_warning_config_message = fields.Boolean("Hide warning config message", default=True)
+    mf_display_warning_config_message = fields.Boolean(default=False)
 
     # ===========================================================================
     # METHODS - MODEL
@@ -33,7 +33,7 @@ class MFSimulationByQuantity(models.Model):
     def create(self, fields_list):
         # We write the simulation's name using it's sequence
         fields_list["name"] = self.env["ir.sequence"].get("mf.simulation.by.quantity")
-        fields_list["mf_field_configs_ids"] = self.get_field_configs_ids_from_global_config()
+        fields_list["mf_field_configs_ids"] = self._get_field_configs_ids_from_global_config()
         return super(MFSimulationByQuantity, self).create(fields_list)
 
     @api.multi
@@ -55,20 +55,43 @@ class MFSimulationByQuantity(models.Model):
                     if field_config_id.id == field_config_id_id:
                         field_config_id.mf_is_visible = field_config_write_dict["mf_is_visible"]
                         break
+            fields_list["mf_display_warning_config_message"] = False
+        res = super(MFSimulationByQuantity, self).write(fields_list)
+        if "mf_field_configs_ids" in fields_list:
             self.recompute_simulation_lines_button()
-        fields_list["mf_hide_warning_config_message"] = True
-        return super(MFSimulationByQuantity, self).write(fields_list)
+        return res
 
-    def get_field_configs_ids_from_global_config(self):
-        global_config_id = self.env["mf.simulation.config"].search([], None, 1)
+    @api.one
+    def mf_fields_update(self):
+        fields_list = {
+                'mf_field_configs_ids': self._get_field_configs_ids_from_global_config(),
+            }
+        self.write(fields_list)
+
+    def _get_field_configs_ids_from_global_config(self):
+        global_config_field_ids = self._get_global_config_fields()
         field_configs_ids_list = []
-        for field_config_id in global_config_id.mf_fields_ids:
-            field_configs_ids_list.append((0, 0, {
-                "mf_is_visible": field_config_id.mf_is_visible,
-                "mf_field_id": field_config_id.mf_field_id.id
-            }))
+        field_names_present_in_list = []
+        for config_field in self.mf_field_configs_ids:
+            field_names_present_in_list.append(config_field.mf_field_id.name)
+
+        for field_config_id in global_config_field_ids:
+            if field_config_id.mf_field_id.name not in field_names_present_in_list:
+                field_configs_ids_list.append((0, 0, {
+                    "mf_field_id": field_config_id.mf_field_id.id,
+                    "mf_is_visible": field_config_id.mf_is_visible,
+                }))
+
         return field_configs_ids_list
 
+    def _get_global_config_fields(self):
+        global_config_id = self.env["mf.simulation.config"].search([], None, 1)
+        if not global_config_id:
+            global_config_id = self.env["mf.simulation.config"].create({})
+        else:
+            global_config_id.mf_update()
+
+        return global_config_id.mf_fields_ids
     # ===========================================================================
     # METHODS - ONCHANGE
     # ===========================================================================
@@ -101,7 +124,7 @@ class MFSimulationByQuantity(models.Model):
 
     @api.onchange("mf_field_configs_ids")
     def _onchange_mf_field_configs_ids(self):
-        self.mf_hide_warning_config_message = False
+        self.mf_display_warning_config_message = True
 
     # ===========================================================================
     # METHODS - BUTTONS

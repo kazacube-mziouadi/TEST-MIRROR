@@ -25,5 +25,14 @@ class MFDataInitializerSimulationByQuantity(models.Model):
                 "number_increment": 1,
                 "number_next_actual": 1
             })
-        if not self.env["mf.simulation.config"].search([]):
+        
+    def update_configurations(self):
+        field_config_ids = self.env["mf.simulation.config"].search([])
+        if not field_config_ids:
             self.env["mf.simulation.config"].create({})
+        else:
+            field_config_ids.mf_update()
+
+        sim_by_qty_ids = self.env["mf.simulation.by.quantity"].search([])
+        if sim_by_qty_ids:
+            sim_by_qty_ids.mf_fields_update()
