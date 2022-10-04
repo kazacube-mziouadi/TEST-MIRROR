@@ -2,18 +2,18 @@
 <openerp>
 	<data>
 		<record id='mf_simulation_by_quantity_line' model="ir.actions.act_window">
-        	<field name="name">myfab Simulation by quantity line</field>
+        	<field name="name">mf_simulation_by_quantity_line</field>
 			<field name="res_model">mf.simulation.by.quantity.line</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
 		<!-- TREE view -->
-		<record id='mf_simulation_by_quantity_line_treeview' model="ir.ui.view">
-        	<field name="name">myfab Simulations by quantity</field>
+		<record id='mf_simulation_by_quantity_line_tree' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_line_tree</field>
 			<field name="model">mf.simulation.by.quantity.line</field>
             <field name="arch" type="xml">
-				<tree string="myfab Simulations by quantity" default_order="sequence" editable="bottom">
+				<tree string="Line simulation by quantity" default_order="sequence" editable="bottom">
 					<field name="mf_selected_for_creation"/>
 					<field name="sequence" invisible="1"/>
 					<field name="mf_quantity" />
@@ -74,7 +74,7 @@
         	<field name="name">mf.simulation.by.quantity.line.form</field>
 			<field name="model">mf.simulation.by.quantity.line</field>
             <field name="arch" type="xml">
-				<form string="myfab Simulation by quantity line" version="8.0">
+				<form string="Line simulation by quantity" version="8.0">
 					<group col="2">
 						<field name="mf_quantity"/>
 					</group>

@@ -2,14 +2,14 @@
 <openerp>
 	<data>
 		<record id='mf_simulation_by_quantity' model="ir.actions.act_window">
-        	<field name="name">myfab Simulation by quantity</field>
+        	<field name="name">Product price by quantity simulation</field>
 			<field name="res_model">mf.simulation.by.quantity</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
-		<record id='mf_simulation_by_quantity_treeview' model="ir.ui.view">
-        	<field name="name">myfab Simulations by quantity</field>
+		<record id='mf_simulation_by_quantity_tree' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_tree</field>
 			<field name="model">mf.simulation.by.quantity</field>
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity">
@@ -28,7 +28,7 @@
         </record>
 
         <record id='mf_simulation_by_quantity_form' model="ir.ui.view">
-        	<field name="name">mf.simulation.by.quantity.form</field>
+        	<field name="name">mf_simulation_by_quantity_form</field>
 			<field name="model">mf.simulation.by.quantity</field>
             <field name="arch" type="xml">
 				<form string="myfab Simulation by quantity">
@@ -93,7 +93,7 @@
 							</notebook>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="mf_simulation_by_quantity_action_menu_mf">
-							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="create_sale_order_button"
@@ -104,11 +104,13 @@
 									name="create_quotation_button"
 									string="Create quotation"
 									icon="fa-file"/>
+							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="update_product_customer_info_button"
-									string="Update products customers info"
+									string="Update products customers referencing"
 									icon="fa-user-plus"/>
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="recompute_simulation_lines_button"

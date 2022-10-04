@@ -59,7 +59,7 @@ class MFSimulationByQuantity(models.Model):
             fields_list["mf_display_warning_config_message"] = False
         res = super(MFSimulationByQuantity, self).write(fields_list)
         if "mf_field_configs_ids" in fields_list:
-            self.recompute_simulation_lines_button()
+            self.recompute_simulation_lines_button(True)
         return res
 
     @api.one
@@ -170,9 +170,10 @@ class MFSimulationByQuantity(models.Model):
         }
 
     @api.multi
-    def recompute_simulation_lines_button(self):
+    def recompute_simulation_lines_button(self, compute_field_visible_state = False):
         for simulation_line_id in self.mf_simulation_lines_ids:
-            simulation_line_id.compute_mf_field_is_visible()
+            if compute_field_visible_state:
+                simulation_line_id.compute_mf_field_is_visible()
             simulation_line_id.mf_quantity = simulation_line_id.mf_quantity
 
     @api.multi

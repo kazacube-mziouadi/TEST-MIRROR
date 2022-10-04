@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-04 13:52+0000\n"
-"PO-Revision-Date: 2022-10-04 13:52+0000\n"
+"POT-Creation-Date: 2022-10-04 15:04+0000\n"
+"PO-Revision-Date: 2022-10-04 15:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -135,6 +135,11 @@ msgstr "Créé par"
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_create_date
 msgid "Created on"
 msgstr "Créé le"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Creation"
+msgstr "Création"
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_customer_id
@@ -286,6 +291,12 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_wizard_simulation_product_info_creation_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_form
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_tree
+msgid "Line simulation by quantity"
+msgstr "Ligne de simulation par quantité"
 
 #. module: myfab_simulation_by_quantity
 #: code:addons/myfab_simulation_by_quantity/models/MFSimulationByQuantity.py:0,mf.simulation.by.quantity
@@ -501,6 +512,11 @@ msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_simulation_by_quantity
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
+msgid "Price referencing"
+msgstr "Référencement prix"
+
+#. module: myfab_simulation_by_quantity
 #: model:ir.model,name:myfab_simulation_by_quantity.model_product_product
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_product_id
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_mf_product_id
@@ -513,6 +529,7 @@ msgid "Product configuration"
 msgstr "Configuration produit"
 
 #. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity
 #: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity
 #: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity_config
 msgid "Product price by quantity simulation"
@@ -617,6 +634,7 @@ msgstr "Sous-traitance"
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_subcontracting_unit_price
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_form
 msgid "Subcontracting price"
 msgstr "Prix de sous-traitance"
 
@@ -683,8 +701,8 @@ msgstr "Prix de vente unitaire"
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_form
-msgid "Update products customers info"
-msgstr "Mettre à jour les référencements produit/client"
+msgid "Update products customers referencing"
+msgstr "Update products customers referencing"
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_form
@@ -817,7 +835,21 @@ msgid "mf.wizard.simulation.product.info.creation"
 msgstr "mf.wizard.simulation.product.info.creation"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity_line
+msgid "mf_simulation_by_quantity_line"
+msgstr "mf_simulation_by_quantity_line"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config
+msgid "mf_simulation_config"
+msgstr "mf_simulation_config"
+
+#. module: myfab_simulation_by_quantity
+#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config_field
+msgid "mf_simulation_config_field"
+msgstr "mf_simulation_config_field"
+
+#. module: myfab_simulation_by_quantity
 #: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_by_quantity
 #: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_config
 #: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_config_field
@@ -828,37 +860,32 @@ msgid "myfab Simulation by quantity"
 msgstr "Simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config
 #: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_form
 msgid "myfab Simulation by quantity config"
 msgstr "Configuration de simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_treeview
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_tree
 msgid "myfab Simulation by quantity configs"
 msgstr "Configurations de simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_config_field
 #: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_field_form
 msgid "myfab Simulation by quantity field's config"
 msgstr "Configuration de champ de simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_field_treeview
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_config_field_tree
 msgid "myfab Simulation by quantity field's configs"
 msgstr "Configurations de champs de simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.actions.act_window,name:myfab_simulation_by_quantity.mf_simulation_by_quantity_line
 #: model:ir.model,name:myfab_simulation_by_quantity.model_mf_simulation_by_quantity_line
-#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_form
 msgid "myfab Simulation by quantity line"
-msgstr "Lignes de simulation par quantité myfab"
+msgstr "Ligne de simulation par quantité myfab"
 
 #. module: myfab_simulation_by_quantity
-#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_line_treeview
-#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_treeview
+#: model:ir.ui.view,arch_db:myfab_simulation_by_quantity.mf_simulation_by_quantity_tree
 msgid "myfab Simulations by quantity"
 msgstr "Simulations par quantité myfab"
 
