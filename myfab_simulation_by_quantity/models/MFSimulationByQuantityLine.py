@@ -193,7 +193,7 @@ class MFSimulationByQuantityLine(models.Model):
             self.mf_workforce_unit_price * (1 + self._get_field_value_if_visible("mf_workforce_unit_prcnt_margin") / 100) 
             + self._get_field_value_if_visible("mf_workforce_unit_amount_margin")
         ) 
-        self.mf_workforce_unit_margin_price = self.mf_workforce_unit_price * self.mf_quantity
+        self.mf_workforce_total_margin_price = self.mf_workforce_unit_price * self.mf_quantity
 
     @api.one
     @api.depends("mf_material_unit_margin_price", "mf_consumable_unit_price", "mf_workforce_unit_margin_price", "mf_free_costs")
