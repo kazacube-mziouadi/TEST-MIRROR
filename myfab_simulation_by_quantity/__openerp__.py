@@ -11,7 +11,8 @@
     'module_type': 'base',
     'images': [],
     'depends': [
-        'my_fab'
+        'my_fab',
+        'product',
     ],
     'data': [
         'models/MFDataInitializerSimulationByQuantityTrigger.yml',

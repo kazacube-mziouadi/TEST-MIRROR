@@ -47,6 +47,10 @@ class DataInitializerMF(models.AbstractModel):
     def set_configurations(self):
         pass
 
+    # Method to override in order to update configurations after initializing the data
+    def update_configurations(self):
+        pass
+
     # ===========================================================================
     # GENERAL METHODS
     # ===========================================================================
@@ -62,6 +66,7 @@ class DataInitializerMF(models.AbstractModel):
                 "name": self._name,
                 "is_configuration_done": True
             })
+        self.update_configurations()
         self.import_data_files(IMPORT_MODE_UPDATE)
         self.unlink()
 

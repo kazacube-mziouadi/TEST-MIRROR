@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<menuitem name="Simulation | Offer by quantity"
+		<menuitem name="Product price by quantity simulation"
 				  action="mf_simulation_by_quantity"
 				  id="menu_product_myfab_simulation_by_quantity"
 				  parent="product.menu_product_main"
 				  sequence="120"
 				  groups="product.product_fonctional"/>
-		<menuitem name="Simulation | Offer by quantity"
+		<menuitem name="Product price by quantity simulation"
 				  action="mf_simulation_config"
 				  id="menu_product_myfab_simulation_by_quantity_config"
 				  parent="product.menu_technical_data_configuration"

@@ -2,24 +2,33 @@
 <openerp>
 	<data>
 		<record id='mf_simulation_by_quantity' model="ir.actions.act_window">
-        	<field name="name">myfab Simulation by quantity</field>
+        	<field name="name">Product price by quantity simulation</field>
 			<field name="res_model">mf.simulation.by.quantity</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
 
-		<record id='mf_simulation_by_quantity_treeview' model="ir.ui.view">
-        	<field name="name">myfab Simulations by quantity</field>
+		<record id='mf_simulation_by_quantity_tree' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_tree</field>
 			<field name="model">mf.simulation.by.quantity</field>
             <field name="arch" type="xml">
 				<tree string="myfab Simulations by quantity">
 					<field name="name"/>
+					<field name="mf_designation"/>
+					<field name="mf_customer_id"/>
+					<field name="mf_product_id"/>
+					<field name="mf_bom_id"/>
+					<field name="mf_routing_id"/>
+					<field name="create_uid"/>
+					<field name="create_date"/>
+					<field name="write_uid"/>
+					<field name="write_date"/>
 				</tree>
 			</field>
         </record>
 
         <record id='mf_simulation_by_quantity_form' model="ir.ui.view">
-        	<field name="name">mf.simulation.by.quantity.form</field>
+        	<field name="name">mf_simulation_by_quantity_form</field>
 			<field name="model">mf.simulation.by.quantity</field>
             <field name="arch" type="xml">
 				<form string="myfab Simulation by quantity">
@@ -30,40 +39,61 @@
 									<field name="name" nolabel="1" />
 								</h1>
 							</div>
+							<group colspan="8" col="2">
+								<field name="mf_designation"/>
+								<field name="mf_description"/>
+							</group>
 							<notebook>
 								<page string="Simulation">
-									<group string="Simulation" col="1">
+									<group col="1">
 										<group col="6">
 											<field name="mf_product_id"/>
 											<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
 											<field name="mf_customer_id"/>
 										</group>
-										<field name="mf_simulation_lines_ids"
-											   nolabel="1"
-											   attrs="{'invisible': [('name', '=', False)]}"/>
-										<p attrs="{'invisible': [('name', '!=', False)]}">
+									</group>
+									<group string="Simulation" col="1" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
 											You must save the form before being able to launch simulations
 										</p>
 									</group>
+									<group string="Simulation" col="1" attrs="{'invisible': [('name', '=', False)]}">
+										<field name="mf_simulation_lines_ids" nolabel="1"/>
+									</group>
 								</page>
 								<page string="Configuration">
-									<group string="Configuration" col="1" attrs="{'invisible': [('name', '=', False)]}">
-										<field name="mf_field_configs_ids" />
-										<field name="mf_hide_warning_config_message" invisible="1" />
-										<p style="color:red" attrs="{'invisible': [('mf_hide_warning_config_message', '=', True)]}">
-											You must save the form to apply the new configuration. <br/>
-											Warning : changing the fields' configurations will recompute all the simulation lines.
+									<group string="Configuration" col="1" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
+											You must save the form before being able to edit it's configuration
 										</p>
 									</group>
-									<p attrs="{'invisible': [('name', '!=', False)]}">
-										You must save the form before being able to edit it's configuration
-									</p>
+									<group string="Configuration" col="1" attrs="{'invisible': ['|', ('name', '=', False)]}">
+										<p style="color:red">
+											Configuration changes will be applied after save. <br/>
+											Warning : changing the fields configuration will recompute all the simulation lines.
+										</p>
+										<field name="mf_display_warning_config_message" invisible="1" />
+										<field name="mf_field_configs_ids" nolabel="1" attrs="{'invisible': [('name', '=', False)]}"/>
+									</group>
+								</page>
+								<page string="Informations">
+									<group string="Informations" col="4" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
+											You must save the form before being able to see it's informations
+										</p>
+									</group>
+									<group string="Informations" col="4" attrs="{'invisible': [('name', '=', False)]}">
+										<field name="create_uid" readonly="1" />
+										<field name="create_date" readonly="1" />
+										<field name="write_uid" readonly="1" />
+										<field name="write_date" readonly="1" />
+									</group>
 								</page>
 							</notebook>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="mf_simulation_by_quantity_action_menu_mf">
-							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="create_sale_order_button"
@@ -74,11 +104,13 @@
 									name="create_quotation_button"
 									string="Create quotation"
 									icon="fa-file"/>
+							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="update_product_customer_info_button"
-									string="Update products customers info"
+									string="Update products customers referencing"
 									icon="fa-user-plus"/>
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="recompute_simulation_lines_button"
