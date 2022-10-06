@@ -41,18 +41,18 @@ class MFSimulationByQuantityLine(models.Model):
     # ===========================================================================
     # COLUMNS - CALCULATED (readonly)
     # ===========================================================================
-    mf_material_unit_price = fields.Float(string="Material unit price", compute="_compute_mf_material_and_consumable_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_material_total_price = fields.Float(string="Material total price", compute="_compute_mf_material_and_consumable_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_material_unit_price = fields.Float(string="Material unit price", compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_material_total_price = fields.Float(string="Material total price", compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_material_unit_margin_price = fields.Float(string="Material unit margin price", compute="_compute_mf_material_margin_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_material_total_margin_price = fields.Float(string="Material total margin price", compute="_compute_mf_material_margin_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_consumable_unit_price = fields.Float(string="Consumable unit price", default=0.0, compute="_compute_mf_material_and_consumable_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_consumable_total_price = fields.Float(string="Consumable total price", default=0.0, compute="_compute_mf_material_and_consumable_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_workforce_unit_price = fields.Float(string="Workforce unit price", default=0.0, compute="_compute_mf_workforce_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_workforce_total_price = fields.Float(string="Workforce total price", default=0.0, compute="_compute_mf_workforce_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_consumable_unit_price = fields.Float(string="Consumable unit price", default=0.0, compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_consumable_total_price = fields.Float(string="Consumable total price", default=0.0, compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_workforce_unit_price = fields.Float(string="Workforce unit price", default=0.0, compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_workforce_total_price = fields.Float(string="Workforce total price", default=0.0, compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_workforce_unit_margin_price = fields.Float(string="Workforce unit margin price", compute="_compute_mf_workforce_margin_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_workforce_total_margin_price = fields.Float(string="Workforce total margin price", compute="_compute_mf_workforce_margin_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_hour_sale_price = fields.Float(string="Hour sale price", compute="_compute_hour_sale_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
-    mf_subcontracting_unit_price = fields.Float(string="Subcontracting price", default=0.0, compute="_compute_mf_subcontracting_prices", store=True, digits=dp.get_precision("Price technical"))
+    mf_subcontracting_unit_price = fields.Float(string="Subcontracting price", default=0.0, compute="_compute_mf_basic_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_unit_cost_price = fields.Float(string="Unit cost price", compute="_compute_cost_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
     mf_total_cost_price = fields.Float(string="Total cost price", compute="_compute_cost_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
     mf_unit_sale_price = fields.Float(string="Unit sale price", compute="_compute_sale_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
@@ -152,35 +152,26 @@ class MFSimulationByQuantityLine(models.Model):
     # Cela genere une erreur lors de la compilation (maximum recursion depth exceeded)
 
     @api.one
-    @api.depends("mf_quantity", "mf_product_id", "mf_bom_id")
-    def _compute_mf_material_and_consumable_prices(self):
-        material_unit_price, ptb, pucb, consumable_unit_price, pur1, puf1 = self.mf_bom_id.function_compute_price(
-            button=False,
-            type=self.mf_bom_id.type,
-            product=self.mf_product_id,
-            serie_eco=self.mf_quantity,
-            prod_family=self.mf_bom_id.prod_family_id,
+    @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id")
+    def _compute_mf_basic_prices(self):
+        price_unit_bom, price_total_bom, price_unit_one_routing, price_total_routing, price_unit_component_1_buy, price_unit_component_buy, price_unit_routing_1, freigh_cost_unit, price_unit_freight_1 = self.mf_bom_id.compute_price_product_produce(
+            serie_eco=self.mf_quantity, 
+            bom=self.mf_bom_id, 
+            routing=self.mf_routing_id, 
             return_detail_price=True,
             product_rc=self.mf_product_id,
             bom_rc=self.mf_bom_id
         )
-        self.mf_material_unit_price = material_unit_price
+
+        self.mf_material_unit_price = price_unit_bom
         self.mf_material_total_price = self.mf_material_unit_price * self.mf_quantity
-        self.mf_consumable_unit_price = consumable_unit_price
+        self.mf_consumable_unit_price = price_unit_component_buy
         self.mf_consumable_total_price = self.mf_consumable_unit_price * self.mf_quantity
-
-    @api.one
-    @api.depends("mf_consumable_unit_price")
-    def _compute_mf_workforce_prices(self):
-        qty = self.mf_quantity
-        if not qty: qty = 1
-        self.mf_workforce_unit_price = self.mf_consumable_unit_price / qty
+        self.mf_workforce_unit_price = price_unit_one_routing
         self.mf_workforce_total_price = self.mf_workforce_unit_price * self.mf_quantity
-
-    @api.one
-    @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id")
-    def _compute_mf_subcontracting_prices(self):
-        # TODO : ce champ est cache le temps que le besoin soit affine
+        # TODO : ajouter si necessaire
+        #self.mf_freigh_unit_price = freigh_cost_unit
+        #self.mf_freigh_total_price = self.mf_freigh_unit_price  * self.mf_quantity
         self.mf_subcontracting_unit_price = 0
 
     @api.one
@@ -206,10 +197,9 @@ class MFSimulationByQuantityLine(models.Model):
     def _compute_cost_prices(self):
         self.mf_unit_cost_price = (
             self.mf_material_unit_margin_price
-            + self.mf_consumable_unit_price
             + self.mf_workforce_unit_margin_price
+            # +self.mf_freigh_unit_price # TODO : ajouter si necessaire
             + self._get_field_value_if_visible("mf_free_costs")
-            + self.mf_subcontracting_unit_price
         )
         self.mf_total_cost_price = self.mf_unit_cost_price * self.mf_quantity
 
