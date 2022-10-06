@@ -50,7 +50,7 @@ class MFSimulationConfig(models.Model):
         order = 0
         for field_name in self.get_configurable_simulation_fields_names_list():
             for field_config_id in field_list_ids:
-                if field_config_id.mf_field_id.name == field_name:
+                if field_config_id.mf_field_id.name == field_name and field_config_id.sequence != order:
                     field_config_id.sequence = order
             order += 1
 

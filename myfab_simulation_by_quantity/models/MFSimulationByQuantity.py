@@ -82,7 +82,7 @@ class MFSimulationByQuantity(models.Model):
                 field_configs_ids_list.append((0, 0, {
                     "sequence": field_config_id.sequence,
                     "mf_field_id": field_config_id.mf_field_id.id,
-                    "mf_is_visible": field_config_id.mf_is_visible,
+                    "mf_is_visible": False,
                 }))
 
         return field_configs_ids_list
@@ -100,7 +100,7 @@ class MFSimulationByQuantity(models.Model):
         global_config_field_ids = self._get_global_config_fields()
         for global_field_id in global_config_field_ids:
             for field_config_id in self.mf_field_configs_ids:
-                if field_config_id.mf_field_id.id == global_field_id.mf_field_id.id:
+                if field_config_id.mf_field_id.id == global_field_id.mf_field_id.id and field_config_id.sequence != global_field_id.sequence:
                     field_config_id.sequence = global_field_id.sequence
 
     # ===========================================================================

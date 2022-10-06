@@ -533,7 +533,7 @@ msgstr "Configuration produit"
 #: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity
 #: model:ir.ui.menu,name:myfab_simulation_by_quantity.menu_product_myfab_simulation_by_quantity_config
 msgid "Product price by quantity simulation"
-msgstr "Simulation Prix article par quantité"
+msgstr "Simulation prix article par quantité"
 
 #. module: myfab_simulation_by_quantity
 #: model:ir.model.fields,field_description:myfab_simulation_by_quantity.field_mf_simulation_by_quantity_line_mf_quantity

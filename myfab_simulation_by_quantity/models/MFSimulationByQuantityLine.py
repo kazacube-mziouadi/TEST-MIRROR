@@ -53,10 +53,10 @@ class MFSimulationByQuantityLine(models.Model):
     mf_workforce_total_margin_price = fields.Float(string="Workforce total margin price", compute="_compute_mf_workforce_margin_prices", store=True, digits=dp.get_precision("Price technical"))
     mf_hour_sale_price = fields.Float(string="Hour sale price", compute="_compute_hour_sale_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
     mf_subcontracting_unit_price = fields.Float(string="Subcontracting price", default=0.0, compute="_compute_mf_subcontracting_prices", store=True, digits=dp.get_precision("Price technical"))
-    mf_unit_cost_price = fields.Float(string="Unit cost price", compute="_compute_cost_unit_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
-    mf_total_cost_price = fields.Float(string="Total cost price", compute="_compute_cost_total_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
-    mf_unit_sale_price = fields.Float(string="Unit sale price", compute="_compute_sale_unit_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
-    mf_total_sale_price = fields.Float(string="Total sale price", compute="_compute_sale_total_price", store=True, default=0.0, digits=dp.get_precision("Price technical"))
+    mf_unit_cost_price = fields.Float(string="Unit cost price", compute="_compute_cost_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
+    mf_total_cost_price = fields.Float(string="Total cost price", compute="_compute_cost_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
+    mf_unit_sale_price = fields.Float(string="Unit sale price", compute="_compute_sale_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
+    mf_total_sale_price = fields.Float(string="Total sale price", compute="_compute_sale_prices", store=True, default=0.0, digits=dp.get_precision("Price technical"))
     mf_total_margin = fields.Float(string="Total margin", compute="_compute_total_margin", store=True, default=0.0, digits=dp.get_precision("Price technical"))
     # ===========================================================================
     # COLUMNS - VISIBILITY CALCULATED (readonly)
@@ -147,10 +147,14 @@ class MFSimulationByQuantityLine(models.Model):
     # ===========================================================================
     # METHODS - SIMULATIE QUANTITY PRICES
     # ===========================================================================
+    
+    # Pas de write de plusieurs valeurs d'un coup !
+    # Cela genere une erreur lors de la compilation (maximum recursion depth exceeded)
+
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id")
     def _compute_mf_material_and_consumable_prices(self):
-        self.mf_material_unit_price, ptb, pucb, self.mf_consumable_unit_price, pur1, puf1 = self.mf_bom_id.function_compute_price(
+        material_unit_price, ptb, pucb, consumable_unit_price, pur1, puf1 = self.mf_bom_id.function_compute_price(
             button=False,
             type=self.mf_bom_id.type,
             product=self.mf_product_id,
@@ -160,16 +164,18 @@ class MFSimulationByQuantityLine(models.Model):
             product_rc=self.mf_product_id,
             bom_rc=self.mf_bom_id
         )
-        self.mf_material_total_price = self.mf_quantity * self.mf_material_unit_price
-        self.mf_consumable_total_price = self.mf_quantity * self.mf_consumable_unit_price
+        self.mf_material_unit_price = material_unit_price
+        self.mf_material_total_price = self.mf_material_unit_price * self.mf_quantity
+        self.mf_consumable_unit_price = consumable_unit_price
+        self.mf_consumable_total_price = self.mf_consumable_unit_price * self.mf_quantity
 
     @api.one
     @api.depends("mf_consumable_unit_price")
     def _compute_mf_workforce_prices(self):
-        self.mf_workforce_unit_price = (
-                self.mf_quantity and self.mf_consumable_unit_price / self.mf_quantity or self.mf_consumable_unit_price
-        )
-        self.mf_workforce_total_price = self.mf_quantity * self.mf_workforce_unit_price
+        qty = self.mf_quantity
+        if not qty: qty = 1
+        self.mf_workforce_unit_price = self.mf_consumable_unit_price / qty
+        self.mf_workforce_total_price = self.mf_workforce_unit_price * self.mf_quantity
 
     @api.one
     @api.depends("mf_quantity", "mf_product_id", "mf_bom_id", "mf_routing_id")
@@ -197,7 +203,7 @@ class MFSimulationByQuantityLine(models.Model):
 
     @api.one
     @api.depends("mf_material_unit_margin_price", "mf_consumable_unit_price", "mf_workforce_unit_margin_price", "mf_free_costs")
-    def _compute_cost_unit_price(self):
+    def _compute_cost_prices(self):
         self.mf_unit_cost_price = (
             self.mf_material_unit_margin_price
             + self.mf_consumable_unit_price
@@ -205,19 +211,16 @@ class MFSimulationByQuantityLine(models.Model):
             + self._get_field_value_if_visible("mf_free_costs")
             + self.mf_subcontracting_unit_price
         )
-
-    @api.one
-    @api.depends("mf_unit_cost_price")
-    def _compute_cost_total_price(self):
-        self.mf_total_cost_price = (self.mf_unit_cost_price * self.mf_quantity)
+        self.mf_total_cost_price = self.mf_unit_cost_price * self.mf_quantity
 
     @api.one
     @api.depends("mf_unit_cost_price", "mf_unit_prcnt_margin", "mf_unit_amount_margin")
-    def _compute_sale_unit_price(self):
+    def _compute_sale_prices(self):
         self.mf_unit_sale_price = (
             self.mf_unit_cost_price * (1 + self._get_field_value_if_visible("mf_unit_prcnt_margin") / 100)
             + self._get_field_value_if_visible("mf_unit_amount_margin")
         )
+        self.mf_total_sale_price = self.mf_unit_sale_price * self.mf_quantity
 
     @api.one
     @api.depends("mf_workforce_unit_margin_price", "mf_unit_prcnt_margin", "mf_unit_amount_margin")
@@ -228,11 +231,6 @@ class MFSimulationByQuantityLine(models.Model):
         )   
 
     @api.one
-    @api.depends("mf_unit_sale_price")
-    def _compute_sale_total_price(self):
-        self.mf_total_sale_price = (self.mf_unit_sale_price * self.mf_quantity)  
-
-    @api.one
-    @api.depends("mf_total_sale_price", "mf_total_cost_price")
+    @api.depends("mf_total_sale_price")
     def _compute_total_margin(self):
-        self.mf_total_margin = (self.mf_total_sale_price - self.mf_total_cost_price)
+        self.mf_total_margin = self.mf_total_sale_price - self.mf_total_cost_price
