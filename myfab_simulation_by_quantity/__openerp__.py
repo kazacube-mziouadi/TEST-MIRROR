@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab Simulation par quantités',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Simulation par quantités',
@@ -15,9 +15,10 @@
         'product',
     ],
     'data': [
-        'models/MFDataInitializerSimulationByQuantityTrigger.yml',
+        'classes/data_intializer/MFDataInitializerSimulationByQuantityTrigger.yml',
         'views/MFSimulationByQuantityLine.xml',
         'views/MFSimulationByQuantity.xml',
+        'wizards/simulation_global_value/MFWizardSimulationGlobalValue.xml',
         'wizards/simulation_creation/MFWizardSimulationGenericCreation.xml',
         'wizards/product_info_creation/MFWizardSimulationProductInfoCreation.xml',
         'views/simulation_config/MFSimulationConfig.xml',

@@ -106,7 +106,6 @@ class MFSimulationByQuantity(models.Model):
     # ===========================================================================
     # METHODS - ONCHANGE
     # ===========================================================================
-
     @api.onchange("mf_product_id")
     def _onchange_mf_product_id(self):
         if not self.mf_product_id:
@@ -140,6 +139,18 @@ class MFSimulationByQuantity(models.Model):
     # ===========================================================================
     # METHODS - BUTTONS
     # ===========================================================================
+    @api.multi
+    def global_value(self):
+        return {
+            "name": _("Apply new value on all simulation lines"),
+            "view_mode": "form",
+            "res_model": "mf.wizard.simulation.global.value",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {
+                "mf_simulation_id": self.id,
+            }
+        }
 
     @api.multi
     def create_sale_order_button(self):

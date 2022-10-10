@@ -116,6 +116,11 @@
 									name="recompute_simulation_lines_button"
 									string="Recompute simulation lines"
 									icon="fa-repeat"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="global_value"
+									string="Global value"
+									icon="fa-plus"/>
 						</group>
 					</group>
 				</form>

@@ -11,7 +11,6 @@ CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
     "mf_material_unit_amount_margin",
     "mf_consumable_unit_price",
     "mf_workforce_unit_price",
-    "mf_workforce_unit_price",
     "mf_workforce_total_price",
     "mf_workforce_unit_prcnt_margin",
     "mf_workforce_unit_amount_margin",
@@ -19,6 +18,15 @@ CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST = [
     "mf_free_costs",
     "mf_unit_prcnt_margin",
     "mf_unit_amount_margin",
+]
+EDITABLE_SIMULATION_FIELDS_NAMES_LIST = [
+    "mf_material_unit_prcnt_margin",
+    "mf_material_unit_amount_margin",
+    "mf_workforce_unit_prcnt_margin",
+    "mf_workforce_unit_amount_margin",
+    "mf_unit_prcnt_margin",
+    "mf_unit_amount_margin",
+    "mf_free_costs",
 ]
 
 
@@ -91,6 +99,10 @@ class MFSimulationByQuantityLine(models.Model):
     @staticmethod
     def get_configurable_simulation_fields_names_list():
         return CONFIGURABLE_SIMULATION_FIELDS_NAMES_LIST
+        
+    @staticmethod
+    def get_editable_simulation_fields_names_list():
+        return EDITABLE_SIMULATION_FIELDS_NAMES_LIST
 
     # ===========================================================================
     # METHODS - VIEW COLUMNS COMPUTE

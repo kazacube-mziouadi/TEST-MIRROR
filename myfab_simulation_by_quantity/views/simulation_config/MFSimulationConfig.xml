@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 		<record id='mf_simulation_config' model="ir.actions.act_window">
-        	<field name="name">mf_simulation_config</field>
+        	<field name="name">myfab Simulation configuration</field>
 			<field name="res_model">mf.simulation.config</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
