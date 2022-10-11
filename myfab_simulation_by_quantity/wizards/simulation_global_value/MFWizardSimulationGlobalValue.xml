@@ -12,10 +12,7 @@
                         <field name="mf_simulation_id" invisible="1" />
                     </group>
                     <footer>
-                        <button name="action_update_simulation"
-                                type="object"
-                                string="Validate"
-                                class="oe_highlight"/>
+                        <button name="action_update_simulation" string="Validate" type="object" class="oe_highlight" />
                         <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>
