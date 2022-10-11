@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+
+    <record id="mf_inherited_quotation_form" model="ir.ui.view">
+        <field name="name">mf_inherited_quotation_form</field>
+        <field name="model">quotation</field>
+        <field name="inherit_id" ref="quotation.view_form_quotation_id" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='action_menu']" position="inside">
+                <!-- Open on the form view  -->
+                <button class="oe_inline oe_stat_button"
+                        type="object"
+						name="mf_create_simulation_by_quantity_button"
+						string="Simulation by quantity"
+						icon="fa-calculator"/>
+            </xpath>
+        </field>
+    </record>
+
+</openerp>

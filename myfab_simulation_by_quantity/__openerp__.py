@@ -13,6 +13,8 @@
     'depends': [
         'my_fab',
         'product',
+        'sale_purchase',
+        'quotation',
     ],
     'data': [
         'classes/data_intializer/MFDataInitializerSimulationByQuantityTrigger.yml',
@@ -24,7 +26,9 @@
         'views/simulation_config/MFSimulationConfig.xml',
         'views/simulation_config/MFSimulationConfigField.xml',
         'views/BaseMenus.xml',
-        'views/ProductProduct.xml',
+        'views/product.xml',
+        'views/quotation.xml',
+        'views/sale_order.xml',
         'views/myfab_simulation_by_quantity_view.xml'
     ],
     'qweb': [],

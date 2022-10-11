@@ -14,6 +14,8 @@ class MFSimulationByQuantity(models.Model):
     mf_description = fields.Text(string="Description")
     mf_customer_id = fields.Many2one("res.partner", string="Customer")
     mf_product_id = fields.Many2one("product.product", string="Product", required=True)
+    mf_quotation_id = fields.Many2one("quotation", string="Quotation", required=True)
+    mf_sale_order_id = fields.Many2one("sale.order", string="Sale order", required=True)
     mf_bom_id = fields.Many2one("mrp.bom", string="Nomenclature", required=True)
     mf_routing_id = fields.Many2one("mrp.routing", string="Routing", required=True)
     mf_simulation_lines_ids = fields.One2many("mf.simulation.by.quantity.line", "mf_simulation_id", copy=True, string="Simulation lines")
