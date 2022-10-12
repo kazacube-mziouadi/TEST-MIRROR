@@ -81,6 +81,7 @@ class FileInterfaceExportMF(models.Model):
         })
         self.env["exporter.service.mf"].launch_post_export_processes_on_model_dictionary_records(model_dictionary)
 
+    @api.multi
     def get_file_name(self, model_dictionary_id):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
         now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")
