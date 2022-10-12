@@ -104,15 +104,6 @@ class MFSimulationByQuantity(models.Model):
             for field_config_id in self.mf_field_configs_ids:
                 if field_config_id.mf_field_id.id == global_field_id.mf_field_id.id and field_config_id.sequence != global_field_id.sequence:
                     field_config_id.sequence = global_field_id.sequence
-
-    def _get_editable_simulation_fields_names_list(self):
-        model_id = self.env["ir.model"].search([("model", '=', "mf.simulation.by.quantity.line")], None, 1)
-        editable_simulation_fields_ids = self.env["ir.model.fields"].search([
-            ("name", "in", self.env["mf.simulation.by.quantity.line"].get_editable_simulation_fields_names_list()),
-            ("model_id", '=', model_id.id)
-        ])
-        return editable_simulation_fields_ids
-
     # ===========================================================================
     # METHODS - ONCHANGE
     # ===========================================================================
@@ -149,38 +140,6 @@ class MFSimulationByQuantity(models.Model):
     # ===========================================================================
     # METHODS - BUTTONS
     # ===========================================================================
-    @api.multi
-    def global_value(self):
-        field_ids_list = self._set_wizard_editable_fields()
-        return {
-            "name": _("Apply new value on all simulation lines"),
-            "view_mode": "form",
-            "res_model": "mf.wizard.simulation.global.value",
-            "type": "ir.actions.act_window",
-            "target": "new",
-            "context": {
-                "mf_simulation_id": self.id,
-                "mf_selectable_field_ids": False if len(field_ids_list) > 1 else field_ids_list[0],
-            }
-        }
-
-    def _set_wizard_editable_fields(self):
-        self.env["mf.wizard.simulation.fields.list"].search([("mf_simulation_id", "=", self.id)]).unlink()
-
-        new_field_ids_list = []
-        for field_id in self._get_editable_simulation_fields_names_list():
-            for field_config_id in self.mf_field_configs_ids:
-                if field_id.name == field_config_id.mf_field_id.name and field_config_id.mf_is_visible:
-                    new_field_id = self.env["mf.wizard.simulation.fields.list"].create({
-                        "sequence": field_config_id.sequence,
-                        "name": field_id.field_description,
-                        "mf_technical_name": field_id.name,
-                        "mf_simulation_id": self.id,
-                    })
-                    new_field_ids_list.append(new_field_id.id)
-
-        return new_field_ids_list
-
     @api.multi
     def create_sale_order_button(self):
         self.check_customer_and_lines_exist()
@@ -248,3 +207,48 @@ class MFSimulationByQuantity(models.Model):
             if simulation_line_id.mf_selected_for_creation:
                 return True
         return False
+
+    # ===========================================================================
+    # METHODS - WIZARD
+    # ===========================================================================
+    #TODO : revoir le fonctionnement de l'appel de cette wizard.
+    # L'ajout de ce traitement dans le modele de la wizard, soit genere des soucis d'affichage de la liste, soit lors de la validation des donnees
+    @api.multi
+    def global_value(self):
+        field_ids_list = self._set_wizard_editable_fields()
+        return {
+            "name": _("Apply new value on all simulation lines"),
+            "view_mode": "form",
+            "res_model": "mf.wizard.simulation.global.value",
+            "type": "ir.actions.act_window",
+            "target": "new",
+            "context": {
+                "mf_simulation_id": self.id,
+                "mf_selectable_field_ids": field_ids_list[0] if len(field_ids_list) == 1 else False,
+            }
+        }
+
+    def _get_editable_simulation_fields_names_list(self):
+        model_id = self.env["ir.model"].search([("model", '=', "mf.simulation.by.quantity.line")], None, 1)
+        editable_simulation_fields_ids = self.env["ir.model.fields"].search([
+            ("name", "in", self.env["mf.simulation.by.quantity.line"].get_editable_simulation_fields_names_list()),
+            ("model_id", '=', model_id.id)
+        ])
+        return editable_simulation_fields_ids
+
+    def _set_wizard_editable_fields(self):
+        self.env["mf.wizard.simulation.fields.list"].search([("mf_simulation_id", "=", self.id)]).unlink()
+
+        new_field_ids_list = []
+        for field_id in self._get_editable_simulation_fields_names_list():
+            for field_config_id in self.mf_field_configs_ids:
+                if field_id.name == field_config_id.mf_field_id.name and field_config_id.mf_is_visible:
+                    new_field_id = self.env["mf.wizard.simulation.fields.list"].create({
+                        "sequence": field_config_id.sequence,
+                        "name": field_id.field_description,
+                        "mf_technical_name": field_id.name,
+                        "mf_simulation_id": self.id,
+                    })
+                    new_field_ids_list.append(new_field_id.id)
+
+        return new_field_ids_list
