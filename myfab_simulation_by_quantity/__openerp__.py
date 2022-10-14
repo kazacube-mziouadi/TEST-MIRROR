@@ -26,6 +26,7 @@
         'views/product.xml',
         'views/quotation_line.xml',
         'views/sale_order.xml',
+        'views/sale_order_line.xml',
         'views/myfab_simulation_by_quantity_view.xml',
         'wizards/simulation_global_value/MFWizardSimulationGlobalValue.xml',
         'wizards/simulation_creation/MFWizardSimulationGenericCreation.xml',

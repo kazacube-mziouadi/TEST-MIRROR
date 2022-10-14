@@ -3,4 +3,3 @@ import simulation_config
 import simulation
 import data_intializer
 import product
-import sale_purchase
