@@ -119,18 +119,18 @@
 									attrs="{'invisible': ['|', ('mf_quotation_line_id', '!=', False), ('mf_sale_order_line_id', '!=', False)]}"
 									string="Create quotation"
 									icon="fa-file"/>
-							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" attrs="{'invisible': [('mf_quotation_line_id', '=', False), ('mf_sale_order_line_id', '=', False)]}" />
+							<separator string="Add" colspan="1" name="separator_add_menu_mf" attrs="{'invisible': [('mf_quotation_line_id', '=', False), ('mf_sale_order_line_id', '=', False)]}" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="update_sale_order_button"
 									attrs="{'invisible': [('mf_sale_order_line_id', '=', False)]}"
-									string="Update sale order"
+									string="Add to current sale order"
 									icon="fa-cart-plus"/>
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="update_quotation_button"
 									attrs="{'invisible': [('mf_quotation_line_id', '=', False)]}"
-									string="Update quotation"
+									string="Add to current quotation"
 									icon="fa-cart-plus"/>
 							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" attrs="{'invisible': ['|', ('mf_quotation_line_id', '!=', False), ('mf_sale_order_line_id', '!=', False)]}" />
 							<button class="oe_inline oe_stat_button"
