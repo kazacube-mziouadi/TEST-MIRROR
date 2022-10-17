@@ -78,7 +78,7 @@
 									icon="fa-play"/>
 							<button class="oe_inline oe_stat_button"
 									type="object"
-									name="scan_directory"
+									name="mf_scan_directory"
 									string="Scan directory"
 									icon="fa-search"
 									attrs="{'invisible': [('name', '=', False)]}"/>

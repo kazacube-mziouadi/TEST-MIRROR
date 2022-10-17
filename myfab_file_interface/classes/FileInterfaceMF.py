@@ -59,6 +59,7 @@ class FileInterfaceMF(models.AbstractModel):
 
     @api.one
     def _compute_cron_already_exists(self):
+        #TODO : ne trouve pas le cron ???
         existing_cron_for_self = self.env["ir.cron"].search([
             ("model", "=", self._name),
             ("args", "=", repr([self.id]))
@@ -132,5 +133,5 @@ class FileInterfaceMF(models.AbstractModel):
         ], None, 1).unlink()
 
     @api.multi
-    def scan_directory(self):
-        self.directory_mf.scan_directory()
+    def mf_scan_directory(self):
+        self.directory_mf.mf_scan_directory()

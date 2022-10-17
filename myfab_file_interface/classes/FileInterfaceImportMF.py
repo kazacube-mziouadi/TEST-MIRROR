@@ -29,7 +29,7 @@ class FileInterfaceImportMF(models.Model):
     @api.one
     def launch(self):
         if self.directory_mf.directory_scan_is_needed_mf:
-            self.directory_mf.scan_directory()
+            self.directory_mf.mf_scan_directory()
         sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_mf: file_mf.sequence)
         for file_to_import in sorted_files_list:
             #Add the context to help all search/create function with trads, else it doesn't find all wanted elements
@@ -96,7 +96,7 @@ class FileInterfaceImportMF(models.Model):
                     "message_mf": _("The file's structure is incorrect.")
                 })
             self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
-            self.directory_mf.delete_file(file_name)
+            self.directory_mf.mf_delete_file(file_name)
             # On arrete l'import ici
             return
         # Creation de la tentative
@@ -107,7 +107,7 @@ class FileInterfaceImportMF(models.Model):
             "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
         self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
-        self.directory_mf.delete_file(file_name)
+        self.directory_mf.mf_delete_file(file_name)
 
     @staticmethod
     def get_incorrect_dict_key_in_records_dicts_list(records_dicts_list):
@@ -159,7 +159,7 @@ class FileInterfaceImportMF(models.Model):
     @api.one
     def launch_button(self):
         if self.directory_mf.directory_scan_is_needed_mf:
-            self.directory_mf.scan_directory()
+            self.directory_mf.mf_scan_directory()
             return {
                 "name": _("The files to import list has been updated"),
                 "view_mode": "form",
@@ -177,6 +177,7 @@ class FileInterfaceImportMF(models.Model):
 
     @api.one
     def open_upload_import_file_wizard(self):
+        self.directory_mf._is_dir_valid()
         return {
             "name": _("Upload import file into directory"),
             "view_mode": "form",
