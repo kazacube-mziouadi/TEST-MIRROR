@@ -31,5 +31,5 @@ class MFWizardSimulationGenericCreation(models.TransientModel):
 
     @api.one
     def action_single_creation(self):
-        return self.mf_simulation_lines_ids[0].mf_simulation_id.mf_action_single_creation(self.mf_model_to_create_id, self.mf_simulation_lines_ids)
+        return self.mf_simulation_lines_ids[0].mf_simulation_id.mf_action_single_save(self.mf_model_to_create_id, False, self.mf_simulation_lines_ids)
 

@@ -20,9 +20,7 @@ class MFSimulationByQuantity(models.Model):
     mf_field_configs_ids = fields.One2many("mf.simulation.config.field", "mf_simulation_id", string="Configurable fields")
     mf_display_warning_config_message = fields.Boolean(default=False)
     mf_customer_id = fields.Many2one("res.partner", string="Customer")
-    mf_quotation_line_id = fields.Many2one("quotation.line", string="Quotation line", readonly=True)
     mf_quotation_id = fields.Many2one("quotation", string="Quotation", readonly=True)
-    mf_sale_order_line_id = fields.Many2one("sale.order.line", string="Sale order line", readonly=True)
     mf_sale_order_id = fields.Many2one("sale.order", string="Sale order", readonly=True)
 
     # ===========================================================================
@@ -34,20 +32,22 @@ class MFSimulationByQuantity(models.Model):
         res["mf_designation"] = self.env.context.get("mf_designation")
         res["mf_product_id"] = self.env.context.get("mf_product_id")
         res["mf_customer_id"] = self.env.context.get("mf_customer_id")
-        res["mf_quotation_line_id"] = self.env.context.get("mf_quotation_line_id")
-        res["mf_sale_order_line_id"] = self.env.context.get("mf_sale_order_line_id")
 
-        quotation_line_id = self.env["quotation.line"].search([("id", "=", res["mf_quotation_line_id"])])
-        if quotation_line_id:
-            res["mf_quotation_id"] = quotation_line_id.quotation_id.id
-            res["mf_customer_id"] = quotation_line_id.quotation_id.partner_id.id
-            res["mf_product_id"] = quotation_line_id.product_id.id
+        quotation_line_id_id = self.env.context.get("mf_quotation_line_id")
+        if sale_order_line_id_id:
+            quotation_line_id = self.env["quotation.line"].search([("id", "=", quotation_line_id_id)])
+            if quotation_line_id:
+                res["mf_quotation_id"] = quotation_line_id.quotation_id.id
+                res["mf_customer_id"] = quotation_line_id.quotation_id.partner_id.id
+                res["mf_product_id"] = quotation_line_id.product_id.id
 
-        sale_order_line_id = self.env["sale.order.line"].search([("id", "=", res["mf_sale_order_line_id"])])
-        if sale_order_line_id:
-            res["mf_sale_order_id"] = sale_order_line_id.sale_order_id.id
-            res["mf_customer_id"] = sale_order_line_id.sale_order_id.partner_id.id
-            res["mf_product_id"] = sale_order_line_id.product_id.id
+        sale_order_line_id_id = self.env.context.get("mf_sale_order_line_id")
+        if sale_order_line_id_id:
+            sale_order_line_id = self.env["sale.order.line"].search([("id", "=", sale_order_line_id_id)])
+            if sale_order_line_id:
+                res["mf_sale_order_id"] = sale_order_line_id.sale_order_id.id
+                res["mf_customer_id"] = sale_order_line_id.sale_order_id.partner_id.id
+                res["mf_product_id"] = sale_order_line_id.product_id.id
 
         return res
 
@@ -187,14 +187,14 @@ class MFSimulationByQuantity(models.Model):
     def update_sale_order_button(self):
         simulation_lines_to_create_ids = self._get_selected_simulation_lines(True)
         if self.mf_sale_order_id and simulation_lines_to_create_ids:
-            self.mf_action_single_update(self._mf_get_model("sale.order"), self.mf_sale_order_id, simulation_lines_to_create_ids)
+            self.mf_action_single_save(self._mf_get_model("sale.order"), self.mf_sale_order_id, simulation_lines_to_create_ids)
         
 
     @api.multi
     def update_quotation_button(self):
         simulation_lines_to_create_ids = self._get_selected_simulation_lines()
         if self.mf_quotation_id and simulation_lines_to_create_ids:
-            self.mf_action_single_update(self._mf_get_model("quotation"), self.mf_quotation_id, simulation_lines_to_create_ids)
+            self.mf_action_single_save(self._mf_get_model("quotation"), self.mf_quotation_id, simulation_lines_to_create_ids)
 
 
     @api.multi
@@ -254,25 +254,8 @@ class MFSimulationByQuantity(models.Model):
         return self._mf_open_record(model_id, last_record_created_id)
 
     @api.one
-    def mf_action_single_creation(self, model_id, selected_simulation_lines_ids):
-        model_line_field_id = self._mf_get_model_line_field_id(model_id)
-        partner_id = selected_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
-        record_to_create_dict = {model_line_field_id.name: []}
-        simulation_lines_ids_sorted_list = sorted(
-            selected_simulation_lines_ids, 
-            key=lambda simulation_line_id: simulation_line_id.sequence
-        )
-        for index, simulation_line_id in enumerate(simulation_lines_ids_sorted_list):
-            # Ex: in sale.order, model_line_field_id.name will be "order_line_ids"
-            record_to_create_dict[model_line_field_id.name].append(
-                self._mf_get_line_creation_dict_for_simulation_line(model_id, simulation_line_id, (1 + index) * 10)
-            )
-        record_created_id = self._mf_create_record(model_id, record_to_create_dict, partner_id)
-        return self._mf_open_record(model_id, record_created_id)
-
-    @api.one
-    def mf_action_single_update(self, model_id, model_record_id, selected_simulation_lines_ids):
-        max_sequence = self._mf_get_max_sequence(model_id, model_record_id)
+    def mf_action_single_save(self, model_id, model_record_id, selected_simulation_lines_ids):
+        max_sequence = self._mf_get_max_sequence(model_id, model_record_id) if model_record_id else 0
         model_line_field_id = self._mf_get_model_line_field_id(model_id)
         partner_id = selected_simulation_lines_ids[0].mf_simulation_id.mf_customer_id
         record_to_create_dict = {model_line_field_id.name: []}
@@ -285,8 +268,12 @@ class MFSimulationByQuantity(models.Model):
             record_to_create_dict[model_line_field_id.name].append(
                 self._mf_get_line_creation_dict_for_simulation_line(model_id, simulation_line_id, ((1 + index) * 10 + max_sequence))
             )
-        model_record_id =self._mf_write_record(model_id, model_record_id, record_to_create_dict, partner_id)
-        #TODO : revenir sur le devis / vente d'origine. la fonction suivante ne fonctionne pas pour l'instant
+        if model_record_id:
+            model_record_id = self._mf_write_record(model_id, model_record_id, record_to_create_dict, partner_id)
+        else:
+            model_record_id = self._mf_create_record(model_id, record_to_create_dict, partner_id)
+        #TODO : revenir sur le devis / vente d'origine. 
+        # En dehors de la wizard la fonction suivante ne fonctionne pas pour l'instant
         return self._mf_open_record(model_id, model_record_id)
 
     """
