@@ -61,8 +61,10 @@ class MFSimulationConfig(models.Model):
         return simulation_config_fields_create_list
 
     def _mf_get_field_list(self):
+        model_id = self.env["ir.model"].search([("model", '=', "mf.simulation.by.quantity.line")], None, 1)
         configurable_simulation_fields_ids = self.env["ir.model.fields"].search([
-            ("name", "in", self.get_configurable_simulation_fields_names_list())
+            ("name", "in", self.get_configurable_simulation_fields_names_list()),
+            ("model_id", '=', model_id.id)
         ])
         return configurable_simulation_fields_ids
 

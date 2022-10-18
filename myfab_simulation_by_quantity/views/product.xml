@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
+<openerp>
 
     <record id="mf_inherited_product_product_form" model="ir.ui.view">
-        <field name="name">mf.inherited.product.product.form</field>
+        <field name="name">mf_inherited_product_product_form</field>
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.view_form_product" />
         <field name="arch" type="xml">
@@ -13,14 +13,8 @@
 						name="mf_create_simulation_by_quantity_button"
 						string="Simulation by quantity"
 						icon="fa-calculator"/>
-                <!-- Open on the standard view  -->
-                <!-- <button class="oe_inline oe_stat_button"
-						type="action"
-						name="%(mf_simulation_by_quantity)d"
-						string="Simulation by quantity"
-						icon="fa-calculator"/> -->
             </xpath>
         </field>
     </record>
 
-</odoo>
+</openerp>

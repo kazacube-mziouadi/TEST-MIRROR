@@ -6,14 +6,16 @@
             <field name="model">mf.wizard.simulation.generic.creation</field>
             <field name="arch" type="xml">
                 <form string="Simulation by quantity - Lines export">
-                    <group col="1">
+                    <group col="2">
                         <field name="mf_model_to_create_id" />
-                        <field name="mf_simulation_lines_ids" readonly="1"/>
                     </group>
-                    <p>
-                        Choose the creation type below. You can use mouse hover on the buttons to know more about their actions.
-                    </p>
+                    <group col="1">
+                        <field name="mf_simulation_lines_ids"/>
+                    </group>
                     <footer>
+                        <p>
+                            Choose the creation type below. You can use mouse hover on the buttons to know more about their actions.
+                        </p>
                         <button name="action_single_creation"
                                 type="object"
                                 string="Single creation"

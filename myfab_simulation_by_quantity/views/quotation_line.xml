@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <record id="mf_inherited_quotation_form" model="ir.ui.view">
+        <field name="name">mf_inherited_quotation_form</field>
+        <field name="model">quotation</field>
+        <field name="inherit_id" ref="quotation.view_form_quotation_id" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='draft_quotation_line_ids']/tree/field[@name='total_price']" position="after">
+                <!-- Open on the form view  -->
+                <button class="oe_inline oe_stat_button"
+                        type="action"
+                        context="{'mf_quotation_line_id': id}"
+                        name="%(mf_action_create_generic_simulation_by_quantity)d"
+						string="Simulation by quantity"
+						icon="fa-calculator"/>
+            </xpath>
+            <xpath expr="//field[@name='quotation_line_ids']/tree/field[@name='total_price']" position="after">
+                <!-- Open on the form view  -->
+                <button class="oe_inline oe_stat_button"
+                        type="object"
+						context="{'mf_quotation_id': id}"
+                        name="%(mf_action_create_generic_simulation_by_quantity)d"
+						string="Simulation by quantity"
+						icon="fa-calculator"/>
+            </xpath>
+        </field>
+    </record>
+
+</openerp>

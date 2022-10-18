@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 		<record id='mf_simulation_config' model="ir.actions.act_window">
-        	<field name="name">mf_simulation_config</field>
+        	<field name="name">myfab Simulation configuration</field>
 			<field name="res_model">mf.simulation.config</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
@@ -10,7 +10,7 @@
         </record>
 
 		<record id='mf_simulation_config_tree' model="ir.ui.view">
-        	<field name="name">mf_simulation_config_tree</field>
+        	<field name="name">myfab Simulation configuration tree</field>
 			<field name="model">mf.simulation.config</field>
             <field name="arch" type="xml">
 				<tree string="myfab Simulation by quantity configs">
@@ -20,7 +20,7 @@
         </record>
 
         <record id='mf_simulation_config_form' model="ir.ui.view">
-        	<field name="name">mf_simulation_config_form</field>
+        	<field name="name">myfab Simulation configuration form</field>
 			<field name="model">mf.simulation.config</field>
             <field name="arch" type="xml">
 				<form string="myfab Simulation by quantity config">

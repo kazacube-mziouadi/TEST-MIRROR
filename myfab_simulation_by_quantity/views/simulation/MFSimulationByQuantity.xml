@@ -8,6 +8,15 @@
 			<field name="view_mode">tree,form</field>
         </record>
 
+		<record model="ir.actions.act_window" id="mf_action_create_generic_simulation_by_quantity">
+			<field name="name">Simulation by quantity</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mf.simulation.by.quantity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">current</field>
+		</record>
+
 		<record id='mf_simulation_by_quantity_tree' model="ir.ui.view">
         	<field name="name">mf_simulation_by_quantity_tree</field>
 			<field name="model">mf.simulation.by.quantity</field>
@@ -50,7 +59,9 @@
 											<field name="mf_product_id"/>
 											<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
 											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
-											<field name="mf_customer_id"/>
+											<field name="mf_customer_id" attrs="{'readonly': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"/>
+											<field name="mf_quotation_id" attrs="{'invisible': [('mf_quotation_id', '=', False)]}"/>
+											<field name="mf_sale_order_id" attrs="{'invisible': [('mf_sale_order_id', '=', False)]}"/>
 										</group>
 									</group>
 									<group string="Simulation" col="1" attrs="{'invisible': [('name', '!=', False)]}">
@@ -93,22 +104,38 @@
 							</notebook>
 						</group>
 						<group colspan="1" col="1" class="op_shortcuts" name="mf_simulation_by_quantity_action_menu_mf">
-							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" />
+							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="create_sale_order_button"
-									string="Create sale order"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Sale order"
 									icon="fa-cart-plus"/>
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="create_quotation_button"
-									string="Create quotation"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Quotation"
 									icon="fa-file"/>
-							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" />
+							<separator string="Add lines to" colspan="1" name="separator_add_menu_mf" attrs="{'invisible': [('mf_quotation_id', '=', False), ('mf_sale_order_id', '=', False)]}" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_sale_order_button"
+									attrs="{'invisible': [('mf_sale_order_id', '=', False)]}"
+									string="Sale order"
+									icon="fa-cart-plus"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_quotation_button"
+									attrs="{'invisible': [('mf_quotation_id', '=', False)]}"
+									string="Quotation"
+									icon="fa-file"/>
+							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									name="update_product_customer_info_button"
-									string="Update products customers referencing"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Update products"
 									icon="fa-user-plus"/>
 							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
 							<button class="oe_inline oe_stat_button"
@@ -116,6 +143,11 @@
 									name="recompute_simulation_lines_button"
 									string="Recompute simulation lines"
 									icon="fa-repeat"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="global_value"
+									string="Global value"
+									icon="fa-list"/>
 						</group>
 					</group>
 				</form>
