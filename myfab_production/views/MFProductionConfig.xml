@@ -7,6 +7,13 @@
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
         </record>
+		
+		<record id='mf_production_config' model="ir.actions.act_window">
+        	<field name="name">myfab production config</field>
+			<field name="res_model">mf.production.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
 
 		<record id='mf_production_config_treeview' model="ir.ui.view">
         	<field name="name">myfab production config configs</field>
@@ -28,6 +35,9 @@
 						<field name="mf_default_end_time"
 							   widget="float_time"
 							   attrs="{'required': [('mf_use_default_end_time', '=', True)]}"/>
+					</group>
+					<group col="2" string="Planned ressource config">
+						<field name="mf_planned_ressource" />
 					</group>
 				</form>
 			</field>

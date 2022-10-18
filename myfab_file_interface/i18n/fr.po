@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 14:23+0000\n"
-"PO-Revision-Date: 2022-04-25 14:23+0000\n"
+"POT-Creation-Date: 2022-10-18 08:42+0000\n"
+"PO-Revision-Date: 2022-10-18 08:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,11 @@ msgstr "=like"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_path_mf
 msgid "Absolute path"
 msgstr "Chemin absolu"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_access_error_mf
+msgid "Access error mf"
+msgstr "Erreur d'accès"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
@@ -122,11 +127,11 @@ msgstr "Visualisation du contenu"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_converter_service_mf
-msgid "Converter service MyFab"
-msgstr "Converter service MyFab"
+msgid "Converter service myfab"
+msgstr "Service myfab de conversion"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:33
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "Create"
 msgstr "Création"
@@ -184,11 +189,12 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_cron_already_exists_mf
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_cron_already_exists_mf
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_cron_already_exists_mf
-msgid "Cron already exists mf"
-msgstr "Le cron existe déjà"
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_mf_cron_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_mf_cron_id
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_mf_cron_id
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
+msgid "Cron"
+msgstr "Cron"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_custom_extension
@@ -212,7 +218,7 @@ msgid "Days"
 msgstr "Jours"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:36
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "Delete"
 msgstr "Suppression"
@@ -245,7 +251,6 @@ msgstr "Unité d'intervalle"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_directory_mf
-#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
 msgid "Directory"
 msgstr "Répertoire"
 
@@ -271,6 +276,7 @@ msgstr "Répertoire où uploader le fichier"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_directory_files_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_directory_files_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_directory_files_mf
+#: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_mf_form
 msgid "Directory's files"
 msgstr "Fichiers du répertoire"
 
@@ -340,19 +346,19 @@ msgstr "Tentatives d'export"
 
 #. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_exporter_service_mf
-msgid "Exporter service MyFab"
-msgstr "Service d'export MyFab"
+msgid "Exporter service myfab"
+msgstr "Service myfab d'export"
 
 #. module: myfab_file_interface
 #: model:ir.ui.menu,name:myfab_file_interface.menu_myfab_file_interface_exports
 msgid "Exports File Interface myfab"
-msgstr "Exports Fichiers"
+msgstr "Export fichier"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:27
-#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:26
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:0,file.interface.attempt.mf
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:0,record.import.mf
 #, python-format
 msgid "Failed"
 msgstr "Échec"
@@ -389,11 +395,6 @@ msgstr "Champs à exporter"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_mf_fields_to_search
 msgid "Fields to search at import"
 msgstr "Champs à rechercher à l'import"
-
-#. module: myfab_file_interface
-#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_mf_field_relation_model_id
-msgid "Field's relation model"
-msgstr "Modèle enfant"
 
 #. module: myfab_file_interface
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
@@ -441,6 +442,8 @@ msgstr "Extension du fichier"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_file_name_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_file_name_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_mf_file_name_mf
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_name
+#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_name
 msgid "File name"
 msgstr "Nom du fichier"
 
@@ -479,13 +482,7 @@ msgid "General"
 msgstr "Général"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:94
-#, python-format
-msgid "Generate cron for export"
-msgstr "Générer le cron pour l'export"
-
-#. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceMF.py:113
+#: code:addons/myfab_file_interface/classes/FileInterfaceMF.py:0,file.interface.mf
 #, python-format
 msgid "Generate cron for file interface"
 msgstr "Générer le cron pour l'interface fichier"
@@ -565,9 +562,9 @@ msgid "If set to 0, no limit is applied."
 msgstr "Si paramétré à 0, aucune limite n'est appliquée."
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:26
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:0,record.import.mf
 #, python-format
 msgid "Ignored"
 msgstr "Ignoré"
@@ -589,7 +586,7 @@ msgid "Import file again"
 msgstr "Réimporter le fichier"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:105
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "Import successful."
 msgstr "Import réussi."
@@ -605,6 +602,21 @@ msgid "Imports File Interface myfab"
 msgstr "Imports Fichiers"
 
 #. module: myfab_file_interface
+#: code:addons/myfab_file_interface/classes/files/PhysicalDirectoryMF.py:0,physical.directory.mf
+#, python-format
+msgid "Impossible to access to the directory.\n"
+"Check your rights or change the directory."
+msgstr "Impossible d'accéder au répertoire.\n"
+"Vérifiez vos droits ou changez de répertoire."
+
+#. module: myfab_file_interface
+#: model:ir.ui.view,arch_db:myfab_file_interface.physical_directory_form
+msgid "Impossible to access to the directory. <br/>\n"
+"									Check your rights or change the directory."
+msgstr "Impossible d'accéder au répertoire. <br/>\n"
+"									Vérifiez vos droits ou changez de répertoire."
+
+#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_number_mf
 msgid "Interval Number"
 msgstr "Nombre d'intervalle"
@@ -613,6 +625,13 @@ msgstr "Nombre d'intervalle"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_file_interface_cron_mf_interval_type_mf
 msgid "Interval Unit"
 msgstr "Unité d'intervalle"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_mf_is_cron_active
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_mf_is_cron_active
+#: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_mf_is_cron_active
+msgid "Is cron active"
+msgstr "Cron actif"
 
 #. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_is_successful_mf
@@ -739,7 +758,7 @@ msgid "Make sure to save the entire document to be able to finish the model expo
 msgstr "Assurez-vous de sauvegarder le document tout entier pour pouvoir finir la configuration du modèle à exporter."
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:34
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "Merge"
 msgstr "Fusionner"
@@ -783,6 +802,11 @@ msgstr "Méthode à exécuter sur le modèle"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_mf_method_setters
 msgid "Methods triggered at export"
 msgstr "Méthodes déclenchées à l'export"
+
+#. module: myfab_file_interface
+#: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_mf_hide_child_model_field_filters_view
+msgid "Mf hide child model field filters view"
+msgstr "Mf hide child model field filters view"
 
 #. module: myfab_file_interface
 #: selection:filter.datetime.delta.mf,delta_type_mf:0
@@ -840,86 +864,6 @@ msgid "Months"
 msgstr "Mois"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_mf
-msgid "myfab file"
-msgstr "Fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_attempt_mf
-msgid "myfab file interface attempt"
-msgstr "Tentative d'interface fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_mf
-msgid "myfab file interface configuration"
-msgstr "Configuration d'interface fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_export_attempt_mf
-msgid "myfab file interface export attempt"
-msgstr "Tentative d'export fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_export_mf
-msgid "myfab file interface export configuration"
-msgstr "Configuration d'export fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_mf
-msgid "myfab file interface import attempt"
-msgstr "Tentative d'import fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_record_import_mf
-msgid "myfab file interface import attempt's record import object"
-msgstr "Tentative d'import fichier myfab d'enregistrement"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_import_mf
-msgid "myfab file interface import configuration"
-msgstr "Configuration d'import fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_record_import_row_mf
-msgid "myfab import record's row"
-msgstr "Ligne de fichier importée via import fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_model_dictionary_mf
-msgid "myfab model dictionary abstract generator - to use it, you have to inherit from this model, override it's Many2many and One2many fields, add a Many2one to target the model where it is used."
-msgstr "myfab model dictionary abstract generator - Pour l'utiliser, vous devez hériter de ce modèle, surcharger ses Many2many/One2many, ajouter une Many2one qui cible le modèle où il est utilisé."
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_file_interface_export_model_dictionary_mf
-msgid "myfab model dictionary generator for a myfab File Interface Export"
-msgstr "Générateur de dictionnaire de modèle pour un export fichier myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_model_dictionary_field_filter_mf
-msgid "myfab model dictionary link between a field and it's filters"
-msgstr "Lien entre un dictionnaire de modèle et ses filtres"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_physical_directory_mf
-msgid "myfab physical directory"
-msgstr "Répertoire physique myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_physical_file_mf
-msgid "myfab physical file"
-msgstr "Fichier physique myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_record_import_mf
-msgid "myfab record import object"
-msgstr "Import fichier d'enregistrement myfab"
-
-#. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_filter_value_comparison_mf
-msgid "myfab value comparison filter"
-msgstr "Filtre de comparaison de valeur myfab"
-
-#. module: myfab_file_interface
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_attempt_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_attempt_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_mf_name
@@ -928,14 +872,12 @@ msgstr "Filtre de comparaison de valeur myfab"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_file_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_datetime_delta_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_filter_value_comparison_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_mf_field_setter_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_field_filter_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_model_dictionary_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_physical_directory_mf_name
-#: model:ir.model.fields,field_description:myfab_file_interface.field_physical_file_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_record_import_row_mf_name
 #: model:ir.model.fields,field_description:myfab_file_interface.field_wizard_confirm_import_file_mf_name
@@ -970,7 +912,7 @@ msgid "Next planned execution date for this job."
 msgstr "Prochaine date d'exécution planifiée pour ce cron"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:174
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "No files found in directory "
 msgstr "Aucun fichier trouvé dans le répertoire "
@@ -1021,7 +963,6 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_activate_file_generation_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_date
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_cron_already_exists_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_custom_extension
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_files_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_directory_path_mf
@@ -1032,6 +973,8 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_file_quoting_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_file_separator_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_mf_cron_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_mf_is_cron_active
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_model_dictionaries_to_export_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_name
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_export_mf_use_custom_extension
@@ -1093,7 +1036,6 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf___last_update
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_date
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_create_uid
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_cron_already_exists_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_files_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_path_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_directory_scan_is_needed_mf
@@ -1104,11 +1046,12 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_file_separator_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_id
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_import_attempts_mf
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_mf_cron_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_mf_is_cron_active
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_name
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_date
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_import_mf_write_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf___last_update
-#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_cron_already_exists_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_files_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_path_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_directory_scan_is_needed_mf
@@ -1117,6 +1060,8 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_file_quoting_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_file_separator_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_mf_cron_id
+#: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_mf_is_cron_active
 #: model:ir.model.fields,help:myfab_file_interface.field_file_interface_mf_name
 #: model:ir.model.fields,help:myfab_file_interface.field_file_mf___last_update
 #: model:ir.model.fields,help:myfab_file_interface.field_file_mf_content_mf
@@ -1217,6 +1162,7 @@ msgstr "Aucun fichier trouvé dans le répertoire "
 #: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_write_date
 #: model:ir.model.fields,help:myfab_file_interface.field_parser_service_mf_write_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf___last_update
+#: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_access_error_mf
 #: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_create_date
 #: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_create_uid
 #: model:ir.model.fields,help:myfab_file_interface.field_physical_directory_mf_directory_scan_is_needed_mf
@@ -1301,9 +1247,9 @@ msgid "Not defined"
 msgstr "Non défini"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:26
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:0,record.import.mf
 #, python-format
 msgid "Not processed"
 msgstr "Non traité"
@@ -1419,7 +1365,7 @@ msgid "Scan directory"
 msgstr "Scanner le répertoire"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:37
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "Search"
 msgstr "Recherche"
@@ -1453,10 +1399,10 @@ msgid "Status"
 msgstr "Statut"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:27
-#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:26
 #: selection:file.interface.import.attempt.record.import.mf,status_mf:0
 #: selection:record.import.mf,status_mf:0
+#: code:addons/myfab_file_interface/classes/attempts/FileInterfaceAttemptMF.py:0,file.interface.attempt.mf
+#: code:addons/myfab_file_interface/classes/attempts/RecordImportMF.py:0,record.import.mf
 #, python-format
 msgid "Success"
 msgstr "Succès"
@@ -1491,14 +1437,14 @@ msgid "The directory's path must be unique"
 msgstr "Le chemin du répertoire doit être unique pour chaque interface fichier."
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:95
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "The file's structure is incorrect."
 msgstr "La structure du fichier est incorrect."
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:163
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_confirm_import_file_mf
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "The files to import list has been updated"
 msgstr "La liste des fichiers à importer a été mise à jour."
@@ -1511,7 +1457,7 @@ msgstr "La liste des fichiers à importer a été mise à jour.\n"
 "                        Si vous souhaitez vérifier les fichiers avant qu'ils ne soient importés, vous pouvez annuler cet import."
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:82
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "The following key found in the file is incorrect : "
 msgstr "La clé suivante trouvée dans le fichier est incorrecte : "
@@ -1544,8 +1490,8 @@ msgid "Upload an import file into the import directory"
 msgstr "Déposer un fichier dans le répertoire d'import"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/files/PhysicalDirectoryMF.py:94
 #: model:ir.ui.view,arch_db:myfab_file_interface.view_wizard_upload_file_mf
+#: code:addons/myfab_file_interface/classes/files/PhysicalDirectoryMF.py:0,physical.directory.mf
 #, python-format
 msgid "Upload file into directory"
 msgstr "Uploader le fichier dans le répertoire"
@@ -1556,7 +1502,7 @@ msgid "Upload import file"
 msgstr "Uploader le fichier d'import"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:180
+#: code:addons/myfab_file_interface/classes/FileInterfaceImportMF.py:0,file.interface.import.mf
 #, python-format
 msgid "Upload import file into directory"
 msgstr "Uploader le fichier d'import dans le répertoire"
@@ -1593,13 +1539,13 @@ msgid "Work Days"
 msgstr "Jours ouvrés"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:35
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "Write"
 msgstr "Ecriture"
 
 #. module: myfab_file_interface
-#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:43
+#: code:addons/myfab_file_interface/classes/FileInterfaceExportMF.py:0,file.interface.export.mf
 #, python-format
 msgid "You must configure the models to export before being able to launch the export."
 msgstr "Vous devez configurer les modèles à exporter avant de pouvoir lancer l'export."
@@ -1661,11 +1607,6 @@ msgstr "Interface fichier myfab"
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_export_model_dictionary_mf_file_interface_export_mf
 msgid "myfab File Interface Export"
 msgstr "Exports Fichiers"
-
-#. module: base
-#: model:ir.ui.menu,name:base.menu_external_apis_mf
-msgid "APIs myfab"
-msgstr "APIs myfab"
 
 #. module: myfab_file_interface
 #: model:ir.actions.act_window,name:myfab_file_interface.file_interface_export_attempt_mf
@@ -1749,6 +1690,7 @@ msgid "myfab file"
 msgstr "Fichier myfab"
 
 #. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_attempt_mf
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_interface_attempt_mf_form
 #: model:ir.ui.view,arch_db:myfab_file_interface.file_mf_form
 #: model:ir.ui.view,arch_db:myfab_file_interface.record_import_mf_form
@@ -1786,6 +1728,7 @@ msgid "myfab file interface import"
 msgstr "Import fichier myfab"
 
 #. module: myfab_file_interface
+#: model:ir.model,name:myfab_file_interface.model_file_interface_import_attempt_mf
 #: model:ir.model.fields,field_description:myfab_file_interface.field_file_interface_import_attempt_record_import_mf_file_interface_import_attempt_mf
 msgid "myfab file interface import attempt"
 msgstr "Tentative d'import fichier myfab"
@@ -1815,6 +1758,7 @@ msgstr "Ligne de fichier importée via import fichier myfab"
 msgid "myfab import's record"
 msgstr "myfab import's record"
 
+#. module: myfab_file_interface
 #: model:ir.actions.act_window,name:myfab_file_interface.mf_method_setter
 #: model:ir.model,name:myfab_file_interface.model_mf_method_setter
 #: model:ir.ui.view,arch_db:myfab_file_interface.mf_method_setter_form
@@ -1919,11 +1863,7 @@ msgid "wizard.file.interface.cron.mf"
 msgstr "wizard.file.interface.cron.mf"
 
 #. module: myfab_file_interface
-#: model:ir.model,name:myfab_file_interface.model_wizard_no_import_file_mf
-msgid "wizard.no.import.file.mf"
-msgstr "wizard.no.import.file.mf"
-
-#. module: myfab_file_interface
 #: model:ir.model,name:myfab_file_interface.model_wizard_upload_file_mf
 msgid "wizard.upload.file.mf"
 msgstr "wizard.upload.file.mf"
+

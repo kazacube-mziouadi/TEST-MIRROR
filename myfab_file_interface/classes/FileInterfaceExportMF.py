@@ -42,7 +42,7 @@ class FileInterfaceExportMF(models.Model):
         if not self.model_dictionaries_to_export_mf:
             raise MissingError(_("You must configure the models to export before being able to launch the export."))
         for model_dictionary in self.model_dictionaries_to_export_mf:
-            self.export_model_dictionary(model_dictionary)
+            self.with_context(lang=self.env.user.lang).export_model_dictionary(model_dictionary)
 
     def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()

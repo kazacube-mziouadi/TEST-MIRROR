@@ -24,7 +24,8 @@ class FileInterfaceMF(models.AbstractModel):
     directory_path_mf = fields.Char(related="directory_mf.path_mf", string="Directory's path", readonly=True)
     directory_files_mf = fields.One2many(related="directory_mf.files_mf", string="Directory's files")
     directory_scan_is_needed_mf = fields.Boolean(related="directory_mf.directory_scan_is_needed_mf", readonly=True)
-    cron_already_exists_mf = fields.Boolean(compute="_compute_cron_already_exists", readonly=True)
+    mf_cron_id = fields.Many2one("ir.cron", string="Cron", compute="_compute_get_cron", readonly=True)
+    mf_is_cron_active = fields.Boolean(related="mf_cron_id.active", string="Is cron active", readonly=True)
     file_extension_mf = fields.Selection(
         [("json", "JSON"), ("csv", "CSV"), ("txt", "TXT")], "File extension", default="json", required=True
     )
@@ -58,12 +59,17 @@ class FileInterfaceMF(models.AbstractModel):
     # ===========================================================================
 
     @api.one
-    def _compute_cron_already_exists(self):
+    def _compute_get_cron(self):
+        # need to search explicitly in the active and inactive crons
         existing_cron_for_self = self.env["ir.cron"].search([
             ("model", "=", self._name),
-            ("args", "=", repr([self.id]))
+            ("args", "=", repr([self.id])),
+            '|',
+            ('active', '=', True),
+            ('active', '=', False),
         ], None, 1)
-        self.cron_already_exists_mf = True if existing_cron_for_self else False
+
+        self.mf_cron_id = existing_cron_for_self
 
     # ===========================================================================
     # METHODS - DOMAIN
@@ -132,5 +138,5 @@ class FileInterfaceMF(models.AbstractModel):
         ], None, 1).unlink()
 
     @api.multi
-    def scan_directory(self):
-        self.directory_mf.scan_directory()
+    def mf_scan_directory(self):
+        self.directory_mf.mf_scan_directory()

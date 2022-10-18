@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+mf_planned_ressource_user,mf_planned_ressource,model_mf_planned_ressource,base_openprod.resource_user,1,0,0,0,1
+mf_planned_ressource_fonctional,mf_planned_ressource,model_mf_planned_ressource,base_openprod.resource_manager,1,1,1,1,1
+mf_planned_ressource_manager,mf_planned_ressource,model_mf_planned_ressource,base_openprod.resource_fonctional,1,1,1,1,1
+mf_planned_ressource_administrator,mf_planned_ressource,model_mf_planned_ressource,base_openprod.resource_responsible,1,1,1,1,1

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_simulation_by_quantity' model="ir.actions.act_window">
+        	<field name="name">Product price by quantity simulation</field>
+			<field name="res_model">mf.simulation.by.quantity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<record model="ir.actions.act_window" id="mf_action_create_generic_simulation_by_quantity">
+			<field name="name">Simulation by quantity</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">mf.simulation.by.quantity</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="target">current</field>
+		</record>
+
+		<record id='mf_simulation_by_quantity_tree' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_tree</field>
+			<field name="model">mf.simulation.by.quantity</field>
+            <field name="arch" type="xml">
+				<tree string="myfab Simulations by quantity">
+					<field name="name"/>
+					<field name="mf_designation"/>
+					<field name="mf_customer_id"/>
+					<field name="mf_product_id"/>
+					<field name="mf_bom_id"/>
+					<field name="mf_routing_id"/>
+					<field name="create_uid"/>
+					<field name="create_date"/>
+					<field name="write_uid"/>
+					<field name="write_date"/>
+				</tree>
+			</field>
+        </record>
+
+        <record id='mf_simulation_by_quantity_form' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_form</field>
+			<field name="model">mf.simulation.by.quantity</field>
+            <field name="arch" type="xml">
+				<form string="myfab Simulation by quantity">
+					<group col="9">
+						<group colspan="8" col="1">
+							<div class="oe_title">
+								<h1>
+									<field name="name" nolabel="1" />
+								</h1>
+							</div>
+							<group colspan="8" col="2">
+								<field name="mf_designation"/>
+								<field name="mf_description"/>
+							</group>
+							<notebook>
+								<page string="Simulation">
+									<group col="1">
+										<group col="6">
+											<field name="mf_product_id"/>
+											<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
+											<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
+											<field name="mf_customer_id" attrs="{'readonly': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"/>
+											<field name="mf_quotation_id" attrs="{'invisible': [('mf_quotation_id', '=', False)]}"/>
+											<field name="mf_sale_order_id" attrs="{'invisible': [('mf_sale_order_id', '=', False)]}"/>
+										</group>
+									</group>
+									<group string="Simulation" col="1" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
+											You must save the form before being able to launch simulations
+										</p>
+									</group>
+									<group string="Simulation" col="1" attrs="{'invisible': [('name', '=', False)]}">
+										<field name="mf_simulation_lines_ids" nolabel="1"/>
+									</group>
+								</page>
+								<page string="Configuration">
+									<group string="Configuration" col="1" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
+											You must save the form before being able to edit it's configuration
+										</p>
+									</group>
+									<group string="Configuration" col="1" attrs="{'invisible': ['|', ('name', '=', False)]}">
+										<p style="color:red">
+											Configuration changes will be applied after save. <br/>
+											Warning : changing the fields configuration will recompute all the simulation lines.
+										</p>
+										<field name="mf_display_warning_config_message" invisible="1" />
+										<field name="mf_field_configs_ids" nolabel="1" attrs="{'invisible': [('name', '=', False)]}"/>
+									</group>
+								</page>
+								<page string="Informations">
+									<group string="Informations" col="4" attrs="{'invisible': [('name', '!=', False)]}">
+										<p>
+											You must save the form before being able to see it's informations
+										</p>
+									</group>
+									<group string="Informations" col="4" attrs="{'invisible': [('name', '=', False)]}">
+										<field name="create_uid" readonly="1" />
+										<field name="create_date" readonly="1" />
+										<field name="write_uid" readonly="1" />
+										<field name="write_date" readonly="1" />
+									</group>
+								</page>
+							</notebook>
+						</group>
+						<group colspan="1" col="1" class="op_shortcuts" name="mf_simulation_by_quantity_action_menu_mf">
+							<separator string="Creation" colspan="1" name="separator_creation_menu_mf" attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="create_sale_order_button"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Sale order"
+									icon="fa-cart-plus"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="create_quotation_button"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Quotation"
+									icon="fa-file"/>
+							<separator string="Add lines to" colspan="1" name="separator_add_menu_mf" attrs="{'invisible': [('mf_quotation_id', '=', False), ('mf_sale_order_id', '=', False)]}" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_sale_order_button"
+									attrs="{'invisible': [('mf_sale_order_id', '=', False)]}"
+									string="Sale order"
+									icon="fa-cart-plus"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_quotation_button"
+									attrs="{'invisible': [('mf_quotation_id', '=', False)]}"
+									string="Quotation"
+									icon="fa-file"/>
+							<separator string="Price referencing" colspan="1" name="separator_price_referencing_menu_mf" attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="update_product_customer_info_button"
+									attrs="{'invisible': ['|', ('mf_quotation_id', '!=', False), ('mf_sale_order_id', '!=', False)]}"
+									string="Update products"
+									icon="fa-user-plus"/>
+							<separator string="Actions" colspan="1" name="separator_action_menu_mf" />
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="recompute_simulation_lines_button"
+									string="Recompute simulation lines"
+									icon="fa-repeat"/>
+							<button class="oe_inline oe_stat_button"
+									type="object"
+									name="global_value"
+									string="Global value"
+									icon="fa-list"/>
+						</group>
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

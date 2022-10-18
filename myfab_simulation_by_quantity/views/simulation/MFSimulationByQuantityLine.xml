@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id='mf_simulation_by_quantity_line' model="ir.actions.act_window">
+        	<field name="name">mf_simulation_by_quantity_line</field>
+			<field name="res_model">mf.simulation.by.quantity.line</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+        </record>
+
+		<!-- TREE view -->
+		<record id='mf_simulation_by_quantity_line_tree' model="ir.ui.view">
+        	<field name="name">mf_simulation_by_quantity_line_tree</field>
+			<field name="model">mf.simulation.by.quantity.line</field>
+            <field name="arch" type="xml">
+				<tree string="Line simulation by quantity" default_order="sequence" editable="bottom">
+					<field name="mf_selected_for_creation"/>
+					<field name="sequence" invisible="1"/>
+					<field name="mf_quantity" />
+					<field name="mf_product_id"/>
+					<field name="mf_bom_id" domain="[('product_id', '=', mf_product_id)]"/>
+					<field name="mf_routing_id" domain="[('bom_ids', 'in', mf_bom_id)]"/>
+					<field name="mf_material_unit_price" column_invisible_list="[('mf_material_unit_price_is_visible', '=', False)]"/>
+					<field name="mf_material_total_price" column_invisible_list="[('mf_material_total_price_is_visible', '=', False)]"/>
+					<field name="mf_material_unit_prcnt_margin" column_invisible_list="[('mf_material_unit_prcnt_margin_is_visible', '=', False)]"/>
+					<field name="mf_material_unit_amount_margin" column_invisible_list="[('mf_material_unit_amount_margin_is_visible', '=', False)]"/>
+					<field name="mf_material_unit_margin_price" column_invisible_list="1"/>
+					<field name="mf_material_total_margin_price" column_invisible_list="1"/>
+
+					<field name="mf_consumable_unit_price" column_invisible_list="[('mf_consumable_unit_price_is_visible', '=', False)]"/>
+					<field name="mf_consumable_total_price" column_invisible_list="1"/>
+
+					<field name="mf_workforce_unit_price" column_invisible_list="[('mf_workforce_unit_price_is_visible', '=', False)]"/>
+					<field name="mf_workforce_total_price" column_invisible_list="[('mf_workforce_total_price_is_visible', '=', False)]"/>
+					<field name="mf_workforce_unit_prcnt_margin" column_invisible_list="[('mf_workforce_unit_prcnt_margin_is_visible', '=', False)]"/>
+					<field name="mf_workforce_unit_amount_margin" column_invisible_list="[('mf_workforce_unit_amount_margin_is_visible', '=', False)]"/>
+					<field name="mf_workforce_unit_margin_price" column_invisible_list="1"/>
+					<field name="mf_workforce_total_margin_price" column_invisible_list="1"/>
+
+					<field name="mf_subcontracting_unit_price" column_invisible_list="1"/>
+
+					<field name="mf_free_costs" column_invisible_list="[('mf_free_costs_is_visible', '=', False)]"/>
+
+					<field name="mf_unit_cost_price" />
+					<field name="mf_total_cost_price" />
+
+					<field name="mf_unit_prcnt_margin" column_invisible_list="[('mf_unit_prcnt_margin_is_visible', '=', False)]"/>
+					<field name="mf_unit_amount_margin" column_invisible_list="[('mf_unit_amount_margin_is_visible', '=', False)]"/>
+
+					<field name="mf_unit_sale_price" />
+					<field name="mf_total_sale_price" />
+					<field name="mf_hour_sale_price" />
+					<field name="mf_total_margin" column_invisible_list="[('mf_material_unit_prcnt_margin_is_visible', '=', False), ('mf_material_unit_amount_margin_is_visible', '=', False), ('mf_workforce_unit_prcnt_margin_is_visible', '=', False), ('mf_workforce_unit_amount_margin_is_visible', '=', False)]"/>
+
+					<field name="mf_material_unit_price_is_visible" invisible="1"/>
+					<field name="mf_material_total_price_is_visible" invisible="1"/>
+					<field name="mf_material_unit_prcnt_margin_is_visible" invisible="1"/>
+					<field name="mf_material_unit_amount_margin_is_visible" invisible="1"/>
+					<field name="mf_consumable_unit_price_is_visible" invisible="1"/>
+					<field name="mf_workforce_unit_price_is_visible" invisible="1"/>
+					<field name="mf_workforce_total_price_is_visible" invisible="1"/>
+					<field name="mf_workforce_unit_prcnt_margin_is_visible" invisible="1"/>
+					<field name="mf_workforce_unit_amount_margin_is_visible" invisible="1"/>
+					<field name="mf_subcontracting_unit_price_is_visible" invisible="1"/>
+					<field name="mf_free_costs_is_visible" invisible="1"/>
+					<field name="mf_unit_prcnt_margin_is_visible" invisible="1"/>
+					<field name="mf_unit_amount_margin_is_visible" invisible="1"/>
+				</tree>
+			</field>
+        </record>
+
+		<!-- FORM view -->
+        <record id='mf_simulation_by_quantity_line_form' model="ir.ui.view">
+        	<field name="name">mf.simulation.by.quantity.line.form</field>
+			<field name="model">mf.simulation.by.quantity.line</field>
+            <field name="arch" type="xml">
+				<form string="Line simulation by quantity" version="8.0">
+					<group col="2">
+						<field name="mf_quantity"/>
+					</group>
+					<group col="6" string="Product configuration">
+						<field name="mf_product_id"/>
+						<field name="mf_bom_id" />
+						<field name="mf_routing_id" />
+					</group>
+					<group col="4" string="Material prices" attrs="{'invisible': [('mf_material_unit_price_is_visible', '=', False), ('mf_material_total_price_is_visible', '=', False), ('mf_material_unit_prcnt_margin_is_visible', '=', False), ('mf_material_unit_amount_margin_is_visible', '=', False)]}">
+						<field name="mf_material_unit_price" attrs="{'invisible': [('mf_material_unit_price_is_visible', '=', False)]}"/>
+						<field name="mf_material_total_price" attrs="{'invisible': [('mf_material_total_price_is_visible', '=', False)]}"/>
+						<field name="mf_material_unit_prcnt_margin" attrs="{'invisible': [('mf_material_unit_prcnt_margin_is_visible', '=', False)]}"/>
+						<field name="mf_material_unit_amount_margin" attrs="{'invisible': [('mf_material_unit_amount_margin_is_visible', '=', False)]}"/>
+						<field name="mf_material_unit_margin_price" attrs="{'invisible': ['|', ('mf_material_unit_price_is_visible', '=', False), ('mf_material_unit_prcnt_margin_is_visible', '=', False), ('mf_material_unit_amount_margin_is_visible', '=', False)]}"/>
+						<field name="mf_material_total_margin_price" attrs="{'invisible': ['|', ('mf_material_total_price_is_visible', '=', False), ('mf_material_unit_prcnt_margin_is_visible', '=', False), ('mf_material_unit_amount_margin_is_visible', '=', False)]}"/>
+					</group>
+					<group col="2" string="Consumable prices" attrs="{'invisible': [('mf_consumable_unit_price_is_visible', '=', False)]}">
+						<field name="mf_consumable_unit_price" attrs="{'invisible': [('mf_consumable_unit_price_is_visible', '=', False)]}"/>
+						<field name="mf_consumable_total_price" attrs="{'invisible': True}"/>
+					</group>
+					<group col="4" string="Workforce prices" attrs="{'invisible': [('mf_workforce_unit_price_is_visible', '=', False), ('mf_workforce_total_price_is_visible', '=', False), ('mf_workforce_unit_prcnt_margin_is_visible', '=', False), ('mf_workforce_unit_amount_margin_is_visible', '=', False)]}">
+						<field name="mf_workforce_unit_price" attrs="{'invisible': [('mf_workforce_unit_price_is_visible', '=', False)]}"/>
+						<field name="mf_workforce_total_price" attrs="{'invisible': [('mf_workforce_total_price_is_visible', '=', False)]}"/>
+						<field name="mf_workforce_unit_prcnt_margin" attrs="{'invisible': [('mf_workforce_unit_prcnt_margin_is_visible', '=', False)]}"/>
+						<field name="mf_workforce_unit_amount_margin" attrs="{'invisible': [('mf_workforce_unit_amount_margin_is_visible', '=', False)]}"/>
+						<field name="mf_workforce_unit_margin_price" attrs="{'invisible': ['|', ('mf_workforce_unit_price_is_visible', '=', False), ('mf_workforce_unit_prcnt_margin_is_visible', '=', False), ('mf_workforce_unit_amount_margin_is_visible', '=', False)]}"/>
+						<field name="mf_workforce_total_margin_price" attrs="{'invisible': ['|', ('mf_workforce_total_price_is_visible', '=', False), ('mf_workforce_unit_prcnt_margin_is_visible', '=', False), ('mf_workforce_unit_amount_margin_is_visible', '=', False)]}"/>
+					</group>
+					<group col="2" string="Subcontracting price" attrs="{'invisible': True}">
+						<field name="mf_subcontracting_unit_price" attrs="{'invisible': True}"/>
+					</group>
+					<group col="2" string="Free costs price" attrs="{'invisible': [('mf_free_costs_is_visible', '=', False)]}">
+						<field name="mf_free_costs" attrs="{'invisible': [('mf_free_costs_is_visible', '=', False)]}"/>
+					</group>
+					<group col="4" string="Final prices">
+						<field name="mf_unit_cost_price" />
+						<field name="mf_total_cost_price" />
+
+						<field name="mf_unit_prcnt_margin" attrs="{'invisible': [('mf_unit_prcnt_margin_is_visible', '=', False)]}"/>
+						<field name="mf_unit_amount_margin" attrs="{'invisible': [('mf_unit_amount_margin_is_visible', '=', False)]}"/>
+
+						<field name="mf_unit_sale_price" />
+						<field name="mf_total_sale_price" />
+						<field name="mf_hour_sale_price" attrs="{'invisible': [('mf_workforce_unit_price_is_visible', '=', False)]}"/>
+						<field name="mf_total_margin" attrs="{'invisible': [('mf_material_unit_prcnt_margin_is_visible', '=', False), ('mf_material_unit_amount_margin_is_visible', '=', False), ('mf_workforce_unit_prcnt_margin_is_visible', '=', False), ('mf_workforce_unit_amount_margin_is_visible', '=', False)]}"/>
+					</group>
+					<group col="2" string="Visible configuration" invisible="1">
+						<field name="mf_material_unit_price_is_visible" />
+						<field name="mf_material_total_price_is_visible" />
+						<field name="mf_material_unit_prcnt_margin_is_visible" />
+						<field name="mf_material_unit_amount_margin_is_visible" />
+						<field name="mf_consumable_unit_price_is_visible" />
+						<field name="mf_workforce_unit_price_is_visible" />
+						<field name="mf_workforce_total_price_is_visible" />
+						<field name="mf_workforce_unit_prcnt_margin_is_visible" />
+						<field name="mf_workforce_unit_amount_margin_is_visible" />
+						<field name="mf_subcontracting_unit_price_is_visible" />
+						<field name="mf_free_costs_is_visible" />
+						<field name="mf_unit_prcnt_margin_is_visible" />
+						<field name="mf_unit_amount_margin_is_visible" />
+					</group>
+				</form>
+			</field>
+		</record>
+    </data>
+</openerp>

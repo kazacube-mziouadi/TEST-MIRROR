@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_mf_wizard_simulation_global_value" model="ir.ui.view">
+            <field name="name">view_mf_wizard_simulation_global_value</field>
+            <field name="model">mf.wizard.simulation.global.value</field>
+            <field name="arch" type="xml">
+                <form string="Simulation by quantity - Lines export">
+                    <group col="4">
+                        <field name="mf_selectable_field_ids" widget="selection"/>
+                        <field name="mf_global_value"/>
+                        <field name="mf_simulation_id" invisible="1" />
+                    </group>
+                    <footer>
+                        <button name="action_update_simulation" string="Validate" type="object" class="oe_highlight" />
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>
