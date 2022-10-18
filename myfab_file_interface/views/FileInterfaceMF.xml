@@ -31,7 +31,12 @@
 										<group col="4">
 											<field name="name"/>
 											<field name="directory_mf"/>
-											<field name="cron_already_exists_mf" invisible="1"/>
+										</group>
+									</page>
+									<page string="Cron" name="page_cron" attrs="{'invisible': [('mf_cron_id', '=', False)]}">
+										<group col="4">
+											<field name="mf_cron_id" attrs="{'invisible': [('mf_cron_id', '=', False)]}"/>
+											<field name="mf_is_cron_active" attrs="{'invisible': [('mf_cron_id', '=', False)]}"/>
 										</group>
 									</page>
 									<page string="File" name="page_configuration_file">
@@ -50,14 +55,15 @@
 							</group>
 							<group name="monitoring" col="1" string="Monitoring">
 								<notebook colspan="8">
-									<page string="Directory" name="page_monitoring_directory">
+									<page string="Directory's files" name="page_monitoring_directory">
 										<group col="1" attrs="{'invisible': [('directory_mf', '=', False)]}">
-											<group col="4">
+											<group col="4" invisible="1">
 												<field name="directory_path_mf"/>
 												<field name="directory_scan_is_needed_mf" invisible="1"/>
 											</group>
 											<field name="directory_files_mf"
-												   attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
+												nolabel="1"
+												attrs="{'invisible': [('directory_scan_is_needed_mf', '=', True)]}"/>
 											<p attrs="{'invisible': [('directory_scan_is_needed_mf', '=', False)]}">
 												The directory's files are out of sync. Use the "Scan directory" button to synchronize.
 											</p>
@@ -82,18 +88,19 @@
 									string="Scan directory"
 									icon="fa-search"
 									attrs="{'invisible': [('name', '=', False)]}"/>
+							<separator string="Cron" colspan="1" name="separator_cron_menu_mf" />
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									string="Generate cron for this file interface"
 									name="generate_cron"
-									icon="fa-repeat"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', True)]}"/>
+									icon="fa-plus"
+									attrs="{'invisible': [('mf_cron_id', '!=', False)]}"/>
 							<button class="oe_inline oe_stat_button"
 									type="object"
 									string="Delete the cron for this file interface"
 									name="delete_cron"
 									icon="fa-trash"
-									attrs="{'invisible': [('cron_already_exists_mf', '=', False)]}"/>
+									attrs="{'invisible': [('mf_cron_id', '=', False)]}"/>
 						</group>
 					</group>
 				</form>
