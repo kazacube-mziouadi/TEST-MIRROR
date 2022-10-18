@@ -286,6 +286,7 @@ class MFSimulationByQuantity(models.Model):
                 self._mf_get_line_creation_dict_for_simulation_line(model_id, simulation_line_id, ((1 + index) * 10 + max_sequence))
             )
         model_record_id =self._mf_write_record(model_id, model_record_id, record_to_create_dict, partner_id)
+        #TODO : revenir sur le devis / vente d'origine. la fonction suivante ne fonctionne pas pour l'instant
         return self._mf_open_record(model_id, model_record_id)
 
     """
