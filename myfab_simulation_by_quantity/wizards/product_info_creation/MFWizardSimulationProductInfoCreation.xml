@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 		<record id="view_mf_wizard_simulation_product_info_creation" model="ir.ui.view">
-            <field name="name">mf.wizard.simulation.product.info.creation.form</field>
+            <field name="name">view_mf_wizard_simulation_product_info_creation</field>
             <field name="model">mf.wizard.simulation.product.info.creation</field>
             <field name="arch" type="xml">
                 <form string="Simulation by quantity - Product info creation">

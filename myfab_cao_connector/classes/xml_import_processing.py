@@ -105,7 +105,7 @@ class xml_import_processing(models.Model):
 
     def mf_import_product_document(self, product_code):
         directory_id = self.model_id.mf_documents_directory_id
-        if directory_id.directory_scan_is_needed_mf: directory_id.scan_directory()
+        if directory_id.directory_scan_is_needed_mf: directory_id.mf_scan_directory()
         for file_to_import in directory_id.files_mf:
             file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code)
             if file_product_code == product_code:
