@@ -18,7 +18,6 @@
     ],
     'data': [
         'classes/data_intializer/MFDataInitializerSimulationByQuantityTrigger.yml',
-        'views/BaseMenus.xml',
         'views/simulation/MFSimulationByQuantityLine.xml',
         'views/simulation/MFSimulationByQuantity.xml',
         'views/simulation_config/MFSimulationConfigField.xml',
@@ -31,6 +30,7 @@
         'wizards/simulation_global_value/MFWizardSimulationGlobalValue.xml',
         'wizards/simulation_creation/MFWizardSimulationGenericCreation.xml',
         'wizards/product_info_creation/MFWizardSimulationProductInfoCreation.xml',
+        'views/BaseMenus.xml',
     ],
     'qweb': [],
     'demo': [],
