@@ -234,7 +234,7 @@ class xml_import_processing_sim_action(models.Model):
                     self._update_record(self.reference, fields_dict)
                 if model_name == "mrp.bom" and self.processing_id.model_id.mf_documents_directory_id:
                     product_code = self.reference.product_id.code
-                    self.processing_id.mf_import_product_document(product_code)
+                    self.processing_id.mf_import_product_document(product_code,record_id)
                 return self.reference
             if self.type == "delete":
                 self.reference.unlink()
