@@ -34,7 +34,7 @@ class MFSimulationByQuantity(models.Model):
         res["mf_customer_id"] = self.env.context.get("mf_customer_id")
 
         quotation_line_id_id = self.env.context.get("mf_quotation_line_id")
-        if sale_order_line_id_id:
+        if quotation_line_id_id:
             quotation_line_id = self.env["quotation.line"].search([("id", "=", quotation_line_id_id)])
             if quotation_line_id:
                 res["mf_quotation_id"] = quotation_line_id.quotation_id.id
