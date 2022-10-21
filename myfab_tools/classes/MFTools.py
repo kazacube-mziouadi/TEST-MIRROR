@@ -99,6 +99,46 @@ class MFTools(models.Model):
         merged_dict.update(dict_2)    # modifies z with keys and values of y
         return merged_dict
 
+    def dicts_non_common_elements(self, dict_1, dict_2):
+        new_dict = {}
+        if type(dict_1) == dict and type(dict_1) == type(dict_2):
+            new_dict.update(self.extract_diff_from_element_1(dict_1,dict_2))
+            new_dict.update(self.extract_diff_from_element_1(dict_2,dict_1))
+        return new_dict
+
+    def extract_diff_from_element_1(self, element_1, element_2):
+        new_values = False
+        
+        if type(element_1) in [dict,list] and type(element_1) == type(element_2):
+            if type(element_1) == dict : new_values = {}
+            if type(element_1) == list : new_values = []
+            # Compare each element from list between element 1 and 2
+            for key_1 in element_1:
+                values_1 = element_1.get(key_1) if type(element_1) is dict else key_1
+                if key_1 in element_2:
+                    if type(element_1) == dict:
+                        values_2 = element_2.get(key_1) if type(element_2) is dict else key_1
+                        new_value_nested = self.extract_diff_from_element_1(values_1,values_2)
+                        if new_value_nested:
+                            self.add_value_to_dict(new_values, key_1, new_value_nested)
+                    else:
+                        new_values = False                    
+                elif type(element_1) == dict:
+                    self.add_value_to_dict(new_values, key_1, values_1)
+                else:
+                    new_values = values_1
+        elif element_1 != element_2:
+            new_values = element_1
+        
+        return new_values
+
+    @staticmethod
+    def add_value_to_dict(dict, key, value):
+        if key in dict:
+            dict[key].append(value)
+        else:
+            dict[key] = [value]
+
     ####################################################################
     # File tools
     ####################################################################

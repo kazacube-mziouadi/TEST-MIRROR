@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
+import copy
 
 FIELD_SEQUENCES_DICT = {
     "product_id": 1,
@@ -218,41 +219,42 @@ class xml_import_processing_sim_action(models.Model):
 
     def _create_update_process(self, created_records_dict):
         model_name = self.mf_beacon_id.relation_openprod_id.model
-        fields_dict = self._get_fields_dict(created_records_dict)
+        #Copy the created records in a new dict to be able to make a delta and get the new ones
+        children_created_records_dict = copy.deepcopy(created_records_dict)
+        fields_dict = self._get_fields_dict(children_created_records_dict)
 
-        print("------------")
-        print(model_name)
-        print(self.mf_beacon_id.relation_openprod_field_id.ttype)
-        print(fields_dict)
-        if self.type == "create":
+        if self.type == "update":
+            self._update_record(self.reference, fields_dict)
+
+        elif self.type == "create":
             if not fields_dict: return False
             # In all cases except bom, checking if the record has not already been created ; if so, we update it
             # Boms are excluded, else the manufactured component is created in the root bom but not it's bom
-            if model_name != "mrp.bom" and model_name in created_records_dict and self.mf_beacon_id.relation_openprod_field_id.ttype not in ["one2many","many2many"]:
-                print(created_records_dict[model_name])
+            if model_name != "mrp.bom" and self.mf_beacon_id.relation_openprod_field_id.ttype not in ["one2many","many2many"] and model_name in children_created_records_dict:
                 already_created_record_id = self.env["importer.service.mf"].search_records_by_fields_dict(
                     model_name,
-                    self.env["mf.tools"].merge_two_dicts(fields_dict, {"id": created_records_dict[model_name]}),
+                    self.env["mf.tools"].merge_two_dicts(fields_dict, {"id": children_created_records_dict[model_name]}),
                     1
                 )
                 if already_created_record_id:
-                    print("already_created_record_id")
-                    print(already_created_record_id)
-                    self._update_record(already_created_record_id, fields_dict)
+                    # If we find it at already created with the sames fields dict and in the ids already created
+                    # it is not necessary to update th record
+                    #self._update_record(already_created_record_id, fields_dict)
+
+                    # We must deleted all the children records created
+                    self._delete_useless_created_records(created_records_dict, children_created_records_dict)
+
                     return already_created_record_id
             if self.mf_beacon_id.use_onchange:
                 record_id = self.env[model_name].create_with_onchange(fields_dict)
             else:
                 record_id = self.env[model_name].create(fields_dict)
-            self.reference = model_name + ',' + str(record_id.id)
-            if model_name in created_records_dict:
-                created_records_dict[model_name].append(record_id.id)
-            else:
-                created_records_dict[model_name] = [record_id.id]
-            print(record_id)
-        elif self.type == "update":
-            self._update_record(self.reference, fields_dict)
-            print(self.reference)
+            self.env["mf.tools"].add_value_to_dict(children_created_records_dict, model_name, record_id.id)
+            self.reference = self._generate_reference(model_name,record_id)
+        #At end we must update the created record dict with the children created records
+        #this permits to make the rest work
+        created_records_dict.update(children_created_records_dict)
+        
         return self.reference
 
     def _get_fields_dict(self, created_records_dict):
@@ -284,16 +286,25 @@ class xml_import_processing_sim_action(models.Model):
     def _get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
 
+    @staticmethod
+    def _generate_reference(model_name, record_id):
+        return model_name + ',' + str(record_id.id)
+
+    def _delete_useless_created_records(self, dict_1, dict_2):
+        new_dict = self.env["mf.tools"].dicts_non_common_elements(dict_1,dict_2)
+        for model_name in new_dict:
+            if model_name and new_dict[model_name]:
+                elements_to_delete = self.env["importer.service.mf"].search_records_by_fields_dict(
+                    model_name,
+                    {"id": new_dict[model_name]}
+                )
+            if elements_to_delete:
+                elements_to_delete.unlink()
+
     def _update_record(self, record_id, fields_dict):
         fields_written_dict = self._write_different_fields_only(record_id, fields_dict)
         if fields_written_dict and self.mf_beacon_id.use_onchange:
             self._apply_onchanges_on_record_id(record_id, fields_written_dict)
-
-    @staticmethod
-    def _apply_onchanges_on_record_id(record_id, fields_written_dict):
-        for field_name in fields_written_dict.keys():
-            for method in record_id._onchange_methods.get(field_name, ()):
-                method(record_id)
 
     def _write_different_fields_only(self, record_id, fields_dict):
         different_fields_dict = {}
@@ -321,6 +332,12 @@ class xml_import_processing_sim_action(models.Model):
             return different_fields_dict
         return False
 
+    @staticmethod
+    def _apply_onchanges_on_record_id(record_id, fields_written_dict):
+        for field_name in fields_written_dict.keys():
+            for method in record_id._onchange_methods.get(field_name, ()):
+                method(record_id)
+
     # ===========================================================================
     # METHODS
     # ===========================================================================
@@ -335,12 +352,11 @@ class xml_import_processing_sim_action(models.Model):
         }
         if model_name:
             creation_dict["object_model"] = self.env["ir.model"].search([("model", "=", model_name)]).id
-            if record_id:
-                creation_dict["reference"] = model_name + ',' + str(record_id)
-            if field_setter_id:
-                creation_dict["mf_field_setter_id"] = field_setter_id.id
+            if record_id: creation_dict["reference"] = model_name + ',' + str(record_id)
+            if field_setter_id: creation_dict["mf_field_setter_id"] = field_setter_id.id
         if field_setter_id and field_setter_id.mf_field_to_set_id.name in FIELD_SEQUENCES_DICT:
             creation_dict["mf_sequence"] = FIELD_SEQUENCES_DICT[field_setter_id.mf_field_to_set_id.name]
         elif beacon_id.relation_openprod_field_id.name in FIELD_SEQUENCES_DICT:
             creation_dict["mf_sequence"] = FIELD_SEQUENCES_DICT[beacon_id.relation_openprod_field_id.name]
+        
         return creation_dict
