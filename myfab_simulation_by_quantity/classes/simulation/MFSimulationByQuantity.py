@@ -34,7 +34,7 @@ class MFSimulationByQuantity(models.Model):
         res["mf_customer_id"] = self.env.context.get("mf_customer_id")
 
         quotation_line_id_id = self.env.context.get("mf_quotation_line_id")
-        if sale_order_line_id_id:
+        if quotation_line_id_id:
             quotation_line_id = self.env["quotation.line"].search([("id", "=", quotation_line_id_id)])
             if quotation_line_id:
                 res["mf_quotation_id"] = quotation_line_id.quotation_id.id
@@ -187,14 +187,14 @@ class MFSimulationByQuantity(models.Model):
     def update_sale_order_button(self):
         simulation_lines_to_create_ids = self._get_selected_simulation_lines(True)
         if self.mf_sale_order_id and simulation_lines_to_create_ids:
-            self.mf_action_single_save(self._mf_get_model("sale.order"), self.mf_sale_order_id, simulation_lines_to_create_ids)
+            return self.mf_action_single_save(self._mf_get_model("sale.order"), self.mf_sale_order_id, simulation_lines_to_create_ids)
         
 
     @api.multi
     def update_quotation_button(self):
         simulation_lines_to_create_ids = self._get_selected_simulation_lines()
         if self.mf_quotation_id and simulation_lines_to_create_ids:
-            self.mf_action_single_save(self._mf_get_model("quotation"), self.mf_quotation_id, simulation_lines_to_create_ids)
+            return self.mf_action_single_save(self._mf_get_model("quotation"), self.mf_quotation_id, simulation_lines_to_create_ids)
 
 
     @api.multi
