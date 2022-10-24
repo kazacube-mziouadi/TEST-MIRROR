@@ -71,7 +71,8 @@ class xml_import_processing_sim_action(models.Model):
 
     def _mf_at_least_one_child_is_checked(self):
         for sim_action_child_id in self.mf_tree_view_sim_action_children_ids:
-            if sim_action_child_id.mf_selected_for_import: return True
+            if sim_action_child_id.mf_selected_for_import: 
+                return True
         return False
 
     def _get_node_record_name(self):
@@ -227,7 +228,8 @@ class xml_import_processing_sim_action(models.Model):
             self._update_record(self.reference, fields_dict)
 
         elif self.type == "create":
-            if not fields_dict: return False
+            if not fields_dict: 
+                return False
             # In all cases except bom, checking if the record has not already been created ; if so, we update it
             # Boms are excluded, else the manufactured component is created in the root bom but not it's bom
             if model_name != "mrp.bom" and self.mf_beacon_id.relation_openprod_field_id.ttype not in ["one2many","many2many"] and model_name in children_created_records_dict:
@@ -250,7 +252,7 @@ class xml_import_processing_sim_action(models.Model):
             else:
                 record_id = self.env[model_name].create(fields_dict)
             self.env["mf.tools"].add_value_to_dict(children_created_records_dict, model_name, record_id.id)
-            self.reference = self._generate_reference(model_name,record_id)
+            self.reference = self.env["mf.tools"].generate_reference(model_name,record_id.id)
         #At end we must update the created record dict with the children created records
         #this permits to make the rest work
         created_records_dict.update(children_created_records_dict)
@@ -285,10 +287,6 @@ class xml_import_processing_sim_action(models.Model):
     @staticmethod
     def _get_relation_field_id_link_by_field_type(record_id, field_type):
         return record_id if field_type == "many2one" else [(4, record_id)]
-
-    @staticmethod
-    def _generate_reference(model_name, record_id):
-        return model_name + ',' + str(record_id.id)
 
     def _delete_useless_created_records(self, dict_1, dict_2):
         new_dict = self.env["mf.tools"].dicts_non_common_elements(dict_1,dict_2)
@@ -352,8 +350,10 @@ class xml_import_processing_sim_action(models.Model):
         }
         if model_name:
             creation_dict["object_model"] = self.env["ir.model"].search([("model", "=", model_name)]).id
-            if record_id: creation_dict["reference"] = model_name + ',' + str(record_id)
-            if field_setter_id: creation_dict["mf_field_setter_id"] = field_setter_id.id
+            if record_id: 
+                creation_dict["reference"] = self.env["mf.tools"].generate_reference(model_name,record_id)
+            if field_setter_id: 
+                creation_dict["mf_field_setter_id"] = field_setter_id.id
         if field_setter_id and field_setter_id.mf_field_to_set_id.name in FIELD_SEQUENCES_DICT:
             creation_dict["mf_sequence"] = FIELD_SEQUENCES_DICT[field_setter_id.mf_field_to_set_id.name]
         elif beacon_id.relation_openprod_field_id.name in FIELD_SEQUENCES_DICT:

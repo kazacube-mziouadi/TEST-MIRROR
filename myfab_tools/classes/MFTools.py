@@ -139,6 +139,10 @@ class MFTools(models.Model):
         else:
             dict[key] = [value]
 
+    @staticmethod
+    def generate_reference(model_name, record_id):
+        return model_name + ',' + str(record_id)
+
     ####################################################################
     # File tools
     ####################################################################
