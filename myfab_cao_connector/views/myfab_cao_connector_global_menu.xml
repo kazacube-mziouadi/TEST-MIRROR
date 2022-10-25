@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-		<menuitem id="mf_cao_connector_menu_base" name="CAO Connector" sequence="20" parent="base_openprod.menu_technical_data_main" groups="xml_import.xml_import_user"/>
-			<menuitem id="mf_cao_connector_menu_xml_import_processing_wizard" name="CAO Import" sequence="10" parent="mf_cao_connector_menu_base" action="action_processing_wizard" groups="xml_import.xml_import_user"/>
+		<menuitem id="mf_cao_connector_menu_base" name="T.D. Connector" sequence="20" parent="base_openprod.menu_technical_data_main" groups="xml_import.xml_import_user"/>
+			<menuitem id="mf_cao_connector_menu_xml_import_processing_wizard" name="T.D. Integration" sequence="10" parent="mf_cao_connector_menu_base" action="action_processing_wizard" groups="xml_import.xml_import_user"/>
 			<menuitem id="mf_cao_connector_menu_xml_import_processing" name="Processing" sequence="20" parent="mf_cao_connector_menu_base" action="xml_import.act_xml_import_processing" groups="xml_import.xml_import_user"/>
 			
-		<menuitem id="mf_cao_connector_menu_config" name="CAO Configuration" sequence="200" parent="product.menu_technical_data_configuration" groups="xml_import.xml_import_manager"/>
+		<menuitem id="mf_cao_connector_menu_config" name="T.D. Configuration" sequence="200" parent="product.menu_technical_data_configuration" groups="xml_import.xml_import_manager"/>
 			<menuitem id="mf_cao_connector_menu_xml_import_configuration_table" name="Processing configuration" sequence="20" parent="mf_cao_connector_menu_config" action="xml_import.act_xml_import_configuration_table" groups="xml_import.xml_import_manager"/>			
 			<menuitem id="mf_cao_connector_menu_config_preprocessing" name="PreProcessing" sequence="30" parent="mf_cao_connector_menu_config" groups="xml_import.xml_import_manager"/>
 				<menuitem id="mf_cao_connector_menu_xml_preprocessing_table" name="PreProcessing configuration" sequence="10" parent="mf_cao_connector_menu_config_preprocessing" action="xml_import.act_xml_preprocessing_table" groups="xml_import.xml_import_manager"/>

@@ -20,7 +20,8 @@ class MFTools(models.Model):
 
     @staticmethod
     def mf_convert_tz(date_in, t_from, t_to, date_in_format ='%Y-%m-%d %H:%M:%S'):
-        date_in = datetime.strptime(date_in, date_in_format)
+        if type(date_in) != datetime:
+            date_in = datetime.strptime(date_in, date_in_format)
         tz_from = pytz.timezone(t_from)
         date_without_tz = tz_from.localize(date_in)
         tz_to = pytz.timezone(t_to)
