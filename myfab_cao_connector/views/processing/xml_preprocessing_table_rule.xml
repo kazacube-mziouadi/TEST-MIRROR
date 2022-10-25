@@ -12,5 +12,20 @@
 				</xpath>
 			</field>
 		</record>
+
+		<record id='mf_view_tree_xml_preprocessing_table_rule' model="ir.ui.view">
+			<field name="name">mf_view_tree_xml_preprocessing_table_rule</field>
+			<field name="inherit_id" ref="xml_import.view_tree_xml_preprocessing_table_rule" />
+			<field name="model">xml.preprocessing.table.rule</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='beacon_path']" position="after">
+					<field name="is_use_lite_path" />
+				</xpath>
+				<xpath expr="//field[@name='action']" position="after">
+					<field name="mf_result" />
+					<field name="is_use_dynamic_path" />
+				</xpath>
+			</field>
+		</record>
 	</data>
 </openerp>
