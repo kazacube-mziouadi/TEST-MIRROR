@@ -18,6 +18,9 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion', readonly=True)
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')], readonly=True)
 
+    #TODO : the sequence is incremented at wizard opening and at validation
+    # We will resolve this bug later because it's not blocking
+    
     @api.one
     @api.onchange('mf_processing_id')
     def _compute_mf_processing_id(self):
