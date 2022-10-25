@@ -211,7 +211,7 @@ class xml_import_processing_sim_action(models.Model):
                 self.reference = self._create_update_process(created_records_dict)
                 if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom" and self.processing_id.model_id.mf_documents_directory_id:
                     product_code = self.reference.product_id.code
-                    self.processing_id.mf_import_product_document(product_code,record_id)
+                    self.processing_id.mf_import_product_document(product_code,self.reference)
                 return self.reference
             if self.type == "delete":
                 self.reference.unlink()
@@ -223,7 +223,7 @@ class xml_import_processing_sim_action(models.Model):
         #Copy the created records in a new dict to be able to make a delta and get the new ones
         children_created_records_dict = copy.deepcopy(created_records_dict)
         fields_dict = self._get_fields_dict(children_created_records_dict)
-
+        record_id = False
         if self.type == "update":
             self._update_record(self.reference, fields_dict)
 
@@ -256,7 +256,6 @@ class xml_import_processing_sim_action(models.Model):
         #At end we must update the created record dict with the children created records
         #this permits to make the rest work
         created_records_dict.update(children_created_records_dict)
-        
         return self.reference
 
     def _get_fields_dict(self, created_records_dict):
