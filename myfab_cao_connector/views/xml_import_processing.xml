@@ -8,15 +8,17 @@
 			<field name="arch" type="xml">
                 <!-- TODO: on ne bénéficiera plus des potentiels nouveaux champs du standard de l'import XML -->
 				<xpath expr="//field[@name='name']/.." position="replace">
-					<group colspan="8" col="4">
-						<div>
-							<h1>
-								<field name="name" nolabel="1" />
-							</h1>
-						</div>
-					</group>
-					<group colspan="8" col="4">
-						<field name="mf_is_model" />
+					<group colspan="8" col="8">
+						<group colspan="6" col="6">
+							<div>
+								<h1>
+									<field name="name" nolabel="1" />
+								</h1>
+							</div>
+						</group>
+						<group colspan="2" col="2">
+							<field name="mf_is_model"/>
+						</group>
 					</group>
 					<group colspan="8" col="4" string="Details">
 						<field name="mf_process_conversion_id" />

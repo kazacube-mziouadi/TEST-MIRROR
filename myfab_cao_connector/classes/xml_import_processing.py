@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
+from openerp.exceptions import ValidationError
 import datetime
 import os
 
 class xml_import_processing(models.Model):
     _inherit = "xml.import.processing"
+    _order = 'mf_is_model desc, id'
 
     # ===========================================================================
     # FIELDS
@@ -45,6 +47,15 @@ class xml_import_processing(models.Model):
         default['mf_is_model'] = False
         res = super(xml_import_processing, self).copy(default=default)
         return res
+
+    @api.onchange("mf_is_model")
+    def _onchange_is_model(self):
+        if not self.mf_is_model:
+            default_config = self.env['mf.modules.config'].search([], None, 1)
+            #TODO : réussir a valider la condition, actuellement le self.id retourne un "<openerp.models.NewId object at 0x7f21a13e7d50>"
+            if default_config and default_config.default_processing_wizard.id == self.id:
+                self.mf_is_model = True
+                raise ValidationError(_("This processing is used as default processing.\nIt must stay as model as it is in default configuration")) 
 
     @api.one
     def mf_xlsx_conversion(self):
