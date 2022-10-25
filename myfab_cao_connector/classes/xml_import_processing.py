@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
+from openerp.exceptions import ValidationError
 import datetime
 import os
 
 class xml_import_processing(models.Model):
     _inherit = "xml.import.processing"
+    _order = 'mf_is_model desc, id'
 
     # ===========================================================================
     # FIELDS
@@ -14,6 +16,7 @@ class xml_import_processing(models.Model):
     mf_process_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
     mf_process_file_to_convert_name = fields.Char()
     mf_conversion_message = fields.Char(string="Conversion information", readonly=True)
+    mf_is_model = fields.Boolean(string="Is model", default=False)
         
     # ===========================================================================
     # METHODS - WORKFLOW
@@ -34,6 +37,34 @@ class xml_import_processing(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.multi
+    def copy(self, default=None):
+        """
+        Overrider of the copy method
+        """
+        if not default:
+            default = {}
+        default['mf_is_model'] = False
+        res = super(xml_import_processing, self).copy(default=default)
+        return res
+
+    @api.multi
+    def unlink(self):
+        for xml_import_processing_id in self:
+            if xml_import_processing_id.mf_is_model:
+                raise ValidationError(_('You cannot delete a processing which is model.\nYou should first unselect them as model or unselect the models.'))
+
+        return super(xml_import_processing, self).unlink()
+
+    @api.onchange("mf_is_model")
+    def _onchange_is_model(self):
+        if not self.mf_is_model:
+            default_config = self.env['mf.modules.config'].search([], None, 1)
+            #TODO : réussir a valider la condition, actuellement le self.id retourne un "<openerp.models.NewId object at 0x7f21a13e7d50>"
+            if default_config and default_config.default_processing_wizard.id == self.id:
+                self.mf_is_model = True
+                raise ValidationError(_("This processing is used as default processing.\nIt must stay as model as it is in default configuration")) 
+
     @api.one
     def mf_xlsx_conversion(self):
         """
@@ -75,7 +106,11 @@ class xml_import_processing(models.Model):
 
         # After preprocessing, we get the information from object
         if self.mf_process_conversion_id:
-            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_conversion_id.execution_message
+            self.write({
+                'file': self.preprocessing_id.file, 
+                'fname': self.preprocessing_id.fname,
+                'mf_conversion_message': self.preprocessing_id.mf_preprocess_conversion_id.execution_message,
+            })
 
     def create_simulate_import(self, history):
         """
@@ -121,8 +156,7 @@ class xml_import_processing(models.Model):
             ("version", '=', product_version)
         ], None, 1)
         root_directory_id = self.env["document.directory"].search([("name", '=', "Root")], None, 1)
-        existing_document = self.env["document.openprod"].search(["name","=",product_code])
-        print(existing_document)
+        existing_document = self.env["document.openprod"].search([("name","=",product_code)],order="create_date desc",limit=1)
         if not existing_document:
             document = self.env["document.openprod"].create({
                     "name": product_code,
@@ -135,7 +169,7 @@ class xml_import_processing(models.Model):
                 })
         else:
             document = existing_document.create_new_version(datetime.datetime.now())
-            document.write({"attachment": file_to_import.content_mf,})
+            document.write({"attachment": file_to_import.content_mf})
 
         product_write_dict = {
             "internal_plan_ids": [(4, document.id, 0)]

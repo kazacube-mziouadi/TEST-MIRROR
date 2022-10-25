@@ -10,7 +10,7 @@ class xml_import_configuration_table(models.Model):
     # ===========================================================================
     # FIELDS
     # ===========================================================================
-    mf_documents_directory_id = fields.Many2one("physical.directory.mf", string="Documents directory", ondelete="cascade",
+    mf_documents_directory_id = fields.Many2one("physical.directory.mf", string="T.D. Integration documents directory", ondelete="cascade",
                                                 help="Directory from which the documents will be scanned and attached to the imported records")
 
     # ===========================================================================
