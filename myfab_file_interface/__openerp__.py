@@ -9,7 +9,7 @@
     'description': """
     Interface myfab pour échanger avec des logiciels externes via fichiers à plat.
     \n\r
-    **Aide en ligne :** http://srv-bron-dkr1:8080/books/myfab-file-interface
+    **Aide en ligne :** https://docs.myfab.fr/books/myfab-file-interface
     """,
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
