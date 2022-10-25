@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="mf_online_help_assets_backend_web_menu" name="myfab Online Help assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/my_fab/static/src/js/myfab_online_help.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

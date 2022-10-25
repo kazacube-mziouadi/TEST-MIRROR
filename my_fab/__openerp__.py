@@ -27,6 +27,7 @@
         'views/config/mf_config.xml',
         'classes/data_initializer/DataInitializerMyFabTriggerMF.yml',
         'views/data_initializer/DataInitializerMyFabMF.xml',
+        'static/src/xml/online_help.xml',
     ],
     'qweb': [],
     'demo': [],
