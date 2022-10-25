@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
-from xml.dom import ValidationErr
 from openerp import models, api, fields, _
 from openerp.exceptions import ValidationError
-import openerp.addons.decimal_precision as dp
-import logging
-
-_logger = logging.getLogger(__name__)
+from datetime import datetime
 
 class mf_xml_import_processing_wizard(models.TransientModel):
     """ 
@@ -13,7 +9,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     """
     _name = 'mf.xml.import.processing.wizard'
 
-    name = fields.Char(required=True)
+    name = fields.Char(default=lambda self: self._mf_name_sequence(), readonly=True, required=True)
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Files')
     mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", domain=[('mf_is_model', '=', True)], default=lambda self: self._mf_compute_default_processing_id())
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing", readonly=True)
@@ -47,6 +43,12 @@ class mf_xml_import_processing_wizard(models.TransientModel):
         if mf_config:
             return mf_config.default_stop_at_simulation
         return False
+
+    def _mf_name_sequence(self):
+        now = self.env['mf.tools'].mf_convert_from_UTC_to_tz(datetime.now(), self.env.user.tz).strftime("%d-%m-%Y %H:%M")
+        sequence = self.env['ir.sequence'].get('xml.import.processing')
+        new_name = ("%s %s") % (sequence, now)
+        return new_name
 
     # ===========================================================================
     # METHODS
