@@ -41,6 +41,7 @@
         'views/attempts/FileInterfaceImportAttemptRecordImportMF.xml',
         'views/BaseMenus.xml'
     ],
+    'qweb': [],
     'demo': [],
     'test': [],
     'installable': True,
