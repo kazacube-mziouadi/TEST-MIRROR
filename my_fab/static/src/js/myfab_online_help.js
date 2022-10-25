@@ -17,7 +17,7 @@ odoo.define('myfab_online_help', function(require) {
             );
             // Bind a click event via JQuery that change the actual user's company
             $(".oe_online_help").click((e) => {
-                window.open('http://srv-bron-dkr1:8080/books','_blank');                         
+                window.open('https://docs.myfab.fr/','_blank');                         
             });
         }
     });
