@@ -42,7 +42,7 @@ class FileInterfaceExportMF(models.Model):
         if not self.model_dictionaries_to_export_mf:
             raise MissingError(_("You must configure the models to export before being able to launch the export."))
         for model_dictionary in self.model_dictionaries_to_export_mf:
-            self.export_model_dictionary(model_dictionary)
+            self.with_context(lang=self.env.user.lang).export_model_dictionary(model_dictionary)
 
     def export_model_dictionary(self, model_dictionary):
         start_datetime = datetime.datetime.now()
@@ -81,6 +81,7 @@ class FileInterfaceExportMF(models.Model):
         })
         self.env["exporter.service.mf"].launch_post_export_processes_on_model_dictionary_records(model_dictionary)
 
+    @api.multi
     def get_file_name(self, model_dictionary_id):
         company_timezone = pytz.timezone(self.env.user.company_id.tz)
         now_formatted = company_timezone.fromutc(datetime.datetime.now()).strftime("%Y%m%d_%H%M%S%f")

@@ -10,9 +10,9 @@ class xml_import_processing(models.Model):
     # FIELDS
     # ===========================================================================
     mf_imported_from_simulation = fields.Boolean(string="Imported from simulation", default=False)
-    mf_process_xlsx_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
-    mf_process_xlsx_file = fields.Binary(string="XLSX file to convert")
-    mf_process_xlsx_file_name = fields.Char()
+    mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
+    mf_process_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
+    mf_process_file_to_convert_name = fields.Char()
     mf_conversion_message = fields.Char(string="Conversion information", readonly=True)
         
     # ===========================================================================
@@ -39,42 +39,43 @@ class xml_import_processing(models.Model):
         """
         Use xlsx conversion objet for create xlsx file and write file in preprocessing object.
         """ 
-        if not self.mf_process_xlsx_conversion_id:
+        if not self.mf_process_conversion_id:
             return True
-        if not self.mf_process_xlsx_file:
+        if not self.mf_process_file_to_convert:
             return False
             
-        self.mf_process_xlsx_conversion_id.write({'xlsx_file':self.mf_process_xlsx_file, 
-                                                'xlsx_file_name':self.mf_process_xlsx_file_name,
+        self.mf_process_conversion_id.write({'file_to_convert':self.mf_process_file_to_convert, 
+                                                'file_to_convert_name':self.mf_process_file_to_convert_name,
                                                 })
         
-        conversion_ok = self.mf_process_xlsx_conversion_id.mf_convert()
+        conversion_ok = self.mf_process_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
         
-        self.mf_conversion_message = self.mf_process_xlsx_conversion_id.execution_message
+        self.mf_conversion_message = self.mf_process_conversion_id.execution_message
         if conversion_ok:
-            self.write({'file': self.mf_process_xlsx_conversion_id.xml_file, 
-                        'fname': self.mf_process_xlsx_conversion_id.xml_file_name,
+            self.write({'file': self.mf_process_conversion_id.xml_file, 
+                        'fname': self.mf_process_conversion_id.xml_file_name,
                         })
         return conversion_ok
 
     @api.multi
     def preprocessing_xml_file(self):
-        if self.mf_process_xlsx_conversion_id:
+        if self.mf_process_conversion_id:
             # Don't use the current object conversion method, because it also exists in the preprocessing object 
             # Change all preprocessing parameters else the preprocessing will use it's own paramters
-            self.preprocessing_id.write({'mf_preprocess_xlsx_conversion_id':self.mf_process_xlsx_conversion_id.id, 
-                                        'mf_preprocess_xlsx_file':self.mf_process_xlsx_file,
-                                        'mf_preprocess_xlsx_file_name':self.mf_process_xlsx_file_name,
+            self.preprocessing_id.write({'mf_preprocess_conversion_id':self.mf_process_conversion_id.id, 
+                                        'mf_preprocess_file_to_convert':self.mf_process_file_to_convert,
+                                        'mf_preprocess_file_to_convert_name':self.mf_process_file_to_convert_name,
                                         'file':False,
                                         'preprocessing_file':False,
                                         })  
-                                                      
-        super(xml_import_processing, self).preprocessing_xml_file()
+
+        if self.preprocessing_id:                                              
+            super(xml_import_processing, self).preprocessing_xml_file()
 
         # After preprocessing, we get the information from object
-        if self.mf_process_xlsx_conversion_id:
-            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_xlsx_conversion_id.execution_message
+        if self.mf_process_conversion_id:
+            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_conversion_id.execution_message
 
     def create_simulate_import(self, history):
         """
@@ -96,55 +97,75 @@ class xml_import_processing(models.Model):
             super(xml_import_processing, self).file_analyse()
 
     def import_simulation_lines(self):
+        # Dict containing all the records' ids that have already been created, so they don't get created again
+        # Ex : { "product.product": [1, 5, 9], "mrp.bom", [1, 5] }
+        created_records_dict = {}
         for simulation_line_id in self.processing_simulate_action_ids:
-            simulation_line_id.process_data_import()
+            simulation_line_id.process_data_import(created_records_dict)
 
-    def mf_import_product_document(self, product_code):
+    def mf_import_product_document(self, product_code, mpr_bom):
         directory_id = self.model_id.mf_documents_directory_id
-        if directory_id.directory_scan_is_needed_mf:
-            directory_id.scan_directory()
+        if directory_id.directory_scan_is_needed_mf: directory_id.mf_scan_directory()
         for file_to_import in directory_id.files_mf:
-            file_product_code, file_product_version, file_extension = self.mf_get_data_from_file_name(file_to_import.name)
+            file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code)
             if file_product_code == product_code:
-                self.mf_import_document_to_product_internal_plans(
-                    file_to_import, file_product_code, file_product_version, file_extension
-                )
+                self._mf_import_document_to_product_internal_plans(file_to_import, file_product_code, file_product_version, file_extension, mpr_bom)
 
-    def mf_import_document_to_product_internal_plans(self, file_to_import, product_code, product_version, file_extension):
+    def _mf_import_document_to_product_internal_plans(self, file_to_import, product_code, product_version, file_extension, mpr_bom):
         product_id = self.env["product.product"].search([("code", '=', product_code)], None, 1)
         if not product_id:
             return
+
         version_id = self.env["product.version.historical"].search([
-            ("product_id", '=', product_id.id), ("version", '=', product_version)
+            ("product_id", '=', product_id.id), 
+            ("version", '=', product_version)
         ], None, 1)
         root_directory_id = self.env["document.directory"].search([("name", '=', "Root")], None, 1)
+        existing_document = self.env["document.openprod"].search(["name","=",product_code])
+        print(existing_document)
+        if not existing_document:
+            document = self.env["document.openprod"].create({
+                    "name": product_code,
+                    "attachment": file_to_import.content_mf,
+                    "user_id": self.env.user.id,
+                    "company_id": self.env.user.company_id.id,
+                    "version": product_version,
+                    "directory_id": root_directory_id.id,
+                    "extension": file_extension
+                })
+        else:
+            document = existing_document.create_new_version(datetime.datetime.now())
+            document.write({"attachment": file_to_import.content_mf,})
+
         product_write_dict = {
-            "internal_plan_ids": [(0, 0, {
-                "name": product_code,
-                "attachment": file_to_import.content_mf,
-                "user_id": self.env.user.id,
-                "company_id": self.env.user.company_id.id,
-                "version": product_version,
-                "directory_id": root_directory_id.id,
-                "extension": file_extension
-            })]
+            "internal_plan_ids": [(4, document.id, 0)]
         }
-        if not version_id:
+        mrp_bom_write_dict = {
+            "document_ids": [(4, document.id, 0)]
+        }
+        if not version_id and product_version:
             product_write_dict["version_historical_ids"] = [(0, 0, {
                 "version": product_version,
                 "start_date": datetime.datetime.now()
             })]
         product_id.write(product_write_dict)
+        mpr_bom.write(mrp_bom_write_dict)
         file_to_import.delete()
 
-    @staticmethod
-    def mf_get_data_from_file_name(file_name):
-        file_name_extension_split = file_name.split('.')
-        file_name_without_extension = file_name_extension_split[0]
-        file_extension = file_name_extension_split[1]
-        file_name_split_list = file_name_without_extension.split('-')
-        product_code = file_name_split_list[0]
-        product_version = file_name_split_list[1]
+    def _mf_get_data_from_file_name(self, file_name, code_product):
+        file_extension = self.env["mf.tools"].mf_get_file_name_extension(file_name)
+        file_without_extension = self.env["mf.tools"].mf_get_file_name_without_extension(file_name)
+        file_name_split_list = file_without_extension.split('-')
+
+        product_code = False
+        product_version = False
+        if file_without_extension == code_product:
+            product_code = code_product
+        elif file_without_extension.startswith(code_product):
+            if len(file_name_split_list) > 1:
+                product_version = file_name_split_list.pop()
+            product_code = '-'.join(file_name_split_list)
+
         return product_code, product_version, file_extension
 
     @api.multi

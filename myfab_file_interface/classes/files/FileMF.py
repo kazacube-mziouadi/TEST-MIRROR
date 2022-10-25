@@ -11,7 +11,7 @@ class FileMF(models.Model):
     # ===========================================================================
     # COLUMNS
     # ===========================================================================
-    name = fields.Char(string="Name", help='')
+    name = fields.Char(string="File name", help='')
     content_mf = fields.Binary(string="Content")
     content_preview_mf = fields.Text(string="Content preview", compute="_compute_content_preview")
     sequence = fields.Integer(string="Sequence", compute="_compute_sequence", store=True)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'myfab Base',
-    'version': '1.2.1',
+    'version': '1.3.0',
     'author': 'myfab',
     'license': 'Open-prod license',
     'summary': 'Initialisation modules et données pour myfab',
@@ -23,9 +23,10 @@
         'printers',
     ],
     'data': [
-        'classes/DataInitializerMyFabTriggerMF.yml',
         'views/my_fab_web.xml',
-        'views/DataInitializerMyFabMF.xml',
+        'views/config/mf_config.xml',
+        'classes/data_initializer/DataInitializerMyFabTriggerMF.yml',
+        'views/data_initializer/DataInitializerMyFabMF.xml',
         'static/src/xml/online_help.xml',
     ],
     'qweb': [],

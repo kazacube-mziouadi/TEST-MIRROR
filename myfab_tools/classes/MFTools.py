@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _, modules
-from openerp.exceptions import ValidationError
-from datetime import datetime, date, timedelta
+from datetime import datetime
 import pytz
 
 class MFTools(models.Model):
@@ -85,6 +84,76 @@ class MFTools(models.Model):
     """
     @staticmethod
     def are_values_equal_in_same_type(value_with_master_type, value_to_compare_with):
-        if value_to_compare_with == "False":
-            value_to_compare_with = False
+        if (value_to_compare_with and (value_with_master_type is False or value_with_master_type is None)) or (
+            value_with_master_type and (value_to_compare_with is False or value_to_compare_with is None)
+        ):
+            return False
         return value_with_master_type == type(value_with_master_type)(value_to_compare_with)
+
+    ####################################################################
+    # Dict tools
+    ####################################################################
+    @staticmethod
+    def merge_two_dicts(dict_1, dict_2):
+        merged_dict = dict_1.copy()   # copies keys and values of x
+        merged_dict.update(dict_2)    # modifies z with keys and values of y
+        return merged_dict
+
+    def dicts_non_common_elements(self, dict_1, dict_2):
+        new_dict = {}
+        if type(dict_1) == dict and type(dict_1) == type(dict_2):
+            new_dict.update(self.extract_diff_from_element_1(dict_1,dict_2))
+            new_dict.update(self.extract_diff_from_element_1(dict_2,dict_1))
+        return new_dict
+
+    def extract_diff_from_element_1(self, element_1, element_2):
+        new_values = False
+        
+        if type(element_1) in [dict,list] and type(element_1) == type(element_2):
+            if type(element_1) == dict : new_values = {}
+            if type(element_1) == list : new_values = []
+            # Compare each element from list between element 1 and 2
+            for key_1 in element_1:
+                values_1 = element_1.get(key_1) if type(element_1) is dict else key_1
+                if key_1 in element_2:
+                    if type(element_1) == dict:
+                        values_2 = element_2.get(key_1) if type(element_2) is dict else key_1
+                        new_value_nested = self.extract_diff_from_element_1(values_1,values_2)
+                        if new_value_nested:
+                            self.add_value_to_dict(new_values, key_1, new_value_nested)
+                    else:
+                        new_values = False                    
+                elif type(element_1) == dict:
+                    self.add_value_to_dict(new_values, key_1, values_1)
+                else:
+                    new_values = values_1
+        elif element_1 != element_2:
+            new_values = element_1
+        
+        return new_values
+
+    @staticmethod
+    def add_value_to_dict(dict, key, value):
+        if key in dict:
+            dict[key].append(value)
+        else:
+            dict[key] = [value]
+
+    @staticmethod
+    def generate_reference(model_name, record_id):
+        return model_name + ',' + str(record_id)
+
+    ####################################################################
+    # File tools
+    ####################################################################
+    @staticmethod
+    def mf_get_file_name_extension(file_name):
+        file_extension = file_name.split('.')[-1].upper()
+        return file_extension
+
+    @staticmethod
+    def mf_get_file_name_without_extension(file_name):
+        file_name_split = file_name.split('.')
+        file_name_split.pop()
+        file_name_without_extension = '.'.join(file_name_split)
+        return file_name_without_extension
