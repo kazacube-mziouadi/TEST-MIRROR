@@ -6,11 +6,7 @@
     'license': 'Open-prod license',
     'summary': 'Interface myfab pour échanger avec des logiciels externes via fichiers à plat.',
     'category': 'Base',
-    'description': """
-    Interface myfab pour échanger avec des logiciels externes via fichiers à plat.
-    \n\r
-    **Aide en ligne :** https://docs.myfab.fr/books/myfab-file-interface
-    """,
+    'description': """Interface myfab pour échanger avec des logiciels externes via fichiers à plat.""",
     'website': 'https://www.myfab.fr/',
     'module_type': 'base',
     'images': [],
