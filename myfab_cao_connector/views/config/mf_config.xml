@@ -8,8 +8,8 @@
 			<field name="model">mf.modules.config</field>
 			<field name="arch" type="xml">
 				<xpath expr="//notebook" position="inside">
-					<page string="CAO Processing">
-						<group colspan="8" col="2" name="group_options_cao" string="Wizard"> 
+					<page string="T.D. Integration">
+						<group colspan="8" col="2" name="group_options_cao" string="Wizard T.D. Integration"> 
 							<field name="default_processing_wizard"/>
 							<field name="default_stop_at_simulation"/>
 						</group>

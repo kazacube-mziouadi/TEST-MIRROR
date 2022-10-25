@@ -14,6 +14,7 @@ class xml_import_processing(models.Model):
     mf_process_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
     mf_process_file_to_convert_name = fields.Char()
     mf_conversion_message = fields.Char(string="Conversion information", readonly=True)
+    mf_is_model = fields.Boolean(string="Is model", default=False)
         
     # ===========================================================================
     # METHODS - WORKFLOW
@@ -34,6 +35,17 @@ class xml_import_processing(models.Model):
     # ===========================================================================
     # METHODS
     # ===========================================================================
+    @api.multi
+    def copy(self, default=None):
+        """
+        Overrider of the copy method
+        """
+        if not default:
+            default = {}
+        default['mf_is_model'] = False
+        res = super(xml_import_processing, self).copy(default=default)
+        return res
+
     @api.one
     def mf_xlsx_conversion(self):
         """

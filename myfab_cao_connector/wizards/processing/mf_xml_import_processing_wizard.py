@@ -15,10 +15,10 @@ class mf_xml_import_processing_wizard(models.TransientModel):
 
     name = fields.Char(required=True)
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Files')
-    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", default=lambda self: self._mf_compute_default_processing_id())
-    mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing")
-    mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion')
-    mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')])
+    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", domain=[('mf_is_model', '=', True)], default=lambda self: self._mf_compute_default_processing_id())
+    mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing", readonly=True)
+    mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion', readonly=True)
+    mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')], readonly=True)
     mf_stop_at_simulation = fields.Boolean(string='Stop at simulation', default=lambda self: self._mf_compute_default_stop_at_simulation())
 
     @api.one

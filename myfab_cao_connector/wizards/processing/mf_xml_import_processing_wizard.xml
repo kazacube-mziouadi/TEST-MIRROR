@@ -9,13 +9,13 @@
             <field name="arch" type="xml">
                 <form string="Wizard processing creation">
                     <group colspan="4" col="4">
-                        <group colspan="4" col="6">
+                        <group colspan="6" col="6">
                             <field name="name" />
                             <field name="mf_processing_id" />
-                            <field name="mf_process_conversion_id" />
-                            <field name="mf_preprocessing_id" />
-                            <field name="mf_configuration_table_id" />
                             <field name="mf_stop_at_simulation" />
+                            <field name="mf_process_conversion_id" invisible="1"/>
+                            <field name="mf_preprocessing_id" invisible="1"/>
+                            <field name="mf_configuration_table_id" invisible="1"/>
                         </group>
                         <group colspan="4" col="4" string="Files">
                             <field name="mf_xml_import_processing_wizard_line_ids" nolabel="1" colspan="4" >
@@ -36,7 +36,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_processing_wizard">
-            <field name="name">Wizard CAO Import</field>
+            <field name="name">Wizard T.D. Integration</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">mf.xml.import.processing.wizard</field>
             <field name="view_type">form</field>
@@ -50,7 +50,7 @@
 			<field name="model">product.product</field>
 			<field name="arch" type="xml">
                 <xpath expr="//separator[@name='separator_action_menu']" position="after">
-                    <button class="oe_inline oe_stat_button" type="action" string="CAO Import" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                    <button class="oe_inline oe_stat_button" type="action" string="T.D. Integration" name="%(action_processing_wizard)d" icon="fa-plus"/>
                 </xpath>
 			</field>
         </record>
@@ -61,7 +61,7 @@
 			<field name="model">mrp.bom</field>
 			<field name="arch" type="xml">
                 <xpath expr="//separator[@name='separator_actions_menu']" position="after">
-                    <button class="oe_inline oe_stat_button" type="action" string="CAO Import" name="%(action_processing_wizard)d" icon="fa-plus"/>
+                    <button class="oe_inline oe_stat_button" type="action" string="T.D. Integration" name="%(action_processing_wizard)d" icon="fa-plus"/>
                 </xpath>
 			</field>
         </record>        

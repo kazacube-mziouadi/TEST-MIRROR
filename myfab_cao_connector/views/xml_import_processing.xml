@@ -15,6 +15,9 @@
 							</h1>
 						</div>
 					</group>
+					<group colspan="8" col="4">
+						<field name="mf_is_model" />
+					</group>
 					<group colspan="8" col="4" string="Details">
 						<field name="mf_process_conversion_id" />
 						<field name="mf_process_file_to_convert"
@@ -69,6 +72,23 @@
 							attrs="{'invisible': [('state','!=', 'sim')]}" />
 				</xpath>
 				
+			</field>
+		</record>
+
+		<record id='mf_view_tree_xml_import_processing' model="ir.ui.view">
+			<field name="name">mf_view_tree_xml_import_processing</field>
+			<field name="inherit_id" ref="xml_import.view_tree_xml_import_processing" />
+			<field name="model">xml.import.processing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="mf_is_model"/>
+				</xpath>				
+				<xpath expr="//field[@name='model_id']" position="attributes">
+					<attribute name="column_invisible_list">"1"</attribute>
+				</xpath>
+				<xpath expr="//field[@name='file']" position="after">
+					<field name="state"/>
+				</xpath>				
 			</field>
 		</record>
 	</data>

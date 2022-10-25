@@ -69,25 +69,25 @@ msgstr "Balise associée"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_config
-msgid "CAO Configuration"
-msgstr "Configuration CAO"
+msgid "T.D. Configuration"
+msgstr "Configuration D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_base
-msgid "CAO Connector"
-msgstr "Connecteur CAO"
+msgid "T.D. Connector"
+msgstr "Connecteur D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.ui.menu,name:myfab_cao_connector.mf_cao_connector_menu_xml_import_processing_wizard
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_mrp_bom_myfab_cao_inherit
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_product_myfab_cao_inherit
-msgid "CAO Import"
-msgstr "Importation CAO"
+msgid "T.D. Integration"
+msgstr "Intégration D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_form_modules_config_cao
-msgid "CAO Processing"
-msgstr "Traitement CAO"
+msgid "T.D. Processing"
+msgstr "Traitement D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
@@ -174,8 +174,8 @@ msgstr "Nom affiché"
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_configuration_table_mf_documents_directory_id
-msgid "Documents directory"
-msgstr "Répertoire des documents"
+msgid "T.D. Integration documents directory"
+msgstr "Répertoire pour intégration des documents D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_field_setter_id
@@ -424,8 +424,8 @@ msgstr "Wizard"
 
 #. module: myfab_cao_connector
 #: model:ir.actions.act_window,name:myfab_cao_connector.action_processing_wizard
-msgid "Wizard CAO Import"
-msgstr "Wizard Importation CAO"
+msgid "Wizard T.D. Integration"
+msgstr "Wizard Intégration D.T."
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.view_form_processing_wizard
