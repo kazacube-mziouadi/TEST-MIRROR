@@ -121,8 +121,7 @@ class xml_import_processing(models.Model):
             ("version", '=', product_version)
         ], None, 1)
         root_directory_id = self.env["document.directory"].search([("name", '=', "Root")], None, 1)
-        existing_document = self.env["document.openprod"].search(["name","=",product_code])
-        print(existing_document)
+        existing_document = self.env["document.openprod"].search([("name","=",product_code)],order="create_date desc",limit=1)
         if not existing_document:
             document = self.env["document.openprod"].create({
                     "name": product_code,
@@ -135,7 +134,7 @@ class xml_import_processing(models.Model):
                 })
         else:
             document = existing_document.create_new_version(datetime.datetime.now())
-            document.write({"attachment": file_to_import.content_mf,})
+            document.write({"attachment": file_to_import.content_mf})
 
         product_write_dict = {
             "internal_plan_ids": [(4, document.id, 0)]
