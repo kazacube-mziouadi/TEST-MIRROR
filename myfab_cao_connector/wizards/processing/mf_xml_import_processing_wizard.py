@@ -9,13 +9,14 @@ class mf_xml_import_processing_wizard(models.TransientModel):
     """
     _name = 'mf.xml.import.processing.wizard'
 
-    name = fields.Char(default=lambda self: self._mf_name_sequence(), readonly=True, required=True)
+    name = fields.Char(required=True, readonly=True)
+    mf_real_name = fields.Char(required=True)
+    mf_stop_at_simulation = fields.Boolean(string='Stop at simulation')
     mf_xml_import_processing_wizard_line_ids = fields.One2many('mf.xml.import.processing.wizard.line','mf_process_conversion_id', string='Files')
-    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", domain=[('mf_is_model', '=', True)], default=lambda self: self._mf_compute_default_processing_id())
+    mf_processing_id = fields.Many2one('xml.import.processing', string="Processing", domain=[('mf_is_model', '=', True)], required=True)
     mf_preprocessing_id = fields.Many2one('xml.preprocessing', string="PreProcessing", readonly=True)
     mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX/CSV Conversion', readonly=True)
     mf_configuration_table_id = fields.Many2one('xml.import.configuration.table', string='Configuration table', domain=[('state', '=', 'active')], readonly=True)
-    mf_stop_at_simulation = fields.Boolean(string='Stop at simulation', default=lambda self: self._mf_compute_default_stop_at_simulation())
 
     @api.one
     @api.onchange('mf_processing_id')
@@ -25,10 +26,38 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             'mf_preprocessing_id':self.mf_processing_id.preprocessing_id.id,
             'mf_configuration_table_id':self.mf_processing_id.model_id.id,
         })
+        
+    @api.one
+    @api.onchange('mf_real_name')
+    def _compute_mf_name(self):
+        self.name = self.mf_real_name
 
     # ===========================================================================
     # DEFAULT VALUE METHODS
     # ===========================================================================
+    @api.model
+    def default_get(self, fields_list):
+        res = super(mf_xml_import_processing_wizard, self).default_get(fields_list=fields_list)
+
+        processing_id = False
+
+        res["mf_real_name"] = self._mf_name_sequence()
+        res["name"] = res["mf_real_name"]
+        processing_id = self._mf_compute_default_processing_id()
+        if processing_id:
+            res["mf_processing_id"] = processing_id.id
+
+        if not self.env.context.get("mf_process_conversion_id") and processing_id:
+            res["mf_process_conversion_id"] = processing_id.mf_process_conversion_id.id
+        if not self.env.context.get("mf_preprocessing_id") and processing_id:   
+            res["mf_preprocessing_id"] = processing_id.preprocessing_id.id
+        if not self.env.context.get("mf_configuration_table_id") and processing_id:
+            res["mf_configuration_table_id"] = processing_id.model_id.id
+
+        res["mf_stop_at_simulation"] = self._mf_compute_default_stop_at_simulation()
+
+        return res
+
     def _mf_default_configuration(self):
         return self.env['mf.modules.config'].search([], None, 1)
 
@@ -64,9 +93,10 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                     file_names_already_present.append(file.file_name)
                     files.append(file)
             self._mf_files_to_process(files)
+            return self._mf_open_created_records()
 
     def _mf_are_parameters_ok(self):
-        if self.env['xml.import.processing'].search([("name", '=', self.name)], None, 1):
+        if self.env['xml.import.processing'].search([("name", '=', self.mf_real_name)], None, 1):
             raise ValidationError(_("At least one processing with same name already exists. Enter an other name"))
         if not self.mf_processing_id and not self.mf_configuration_table_id: 
             raise ValidationError(_("Select at least Processing or Configuration table."))
@@ -105,7 +135,7 @@ class mf_xml_import_processing_wizard(models.TransientModel):
                 "mf_process_conversion_id":self.mf_process_conversion_id.id,
             }
         if new_file and self.mf_configuration_table_id:
-            new_file["name"] = self.name
+            new_file["name"] = self.mf_real_name
             new_file["preprocessing_file"] = False
             new_file["prefname"] = False
             new_file["preprocessing_id"] = self.mf_preprocessing_id.id
@@ -120,4 +150,12 @@ class mf_xml_import_processing_wizard(models.TransientModel):
             new_process.simulate_file_analyse()
             if not self.mf_stop_at_simulation:
                 new_process.file_analyse()
-            
+
+    def _mf_open_created_records(self):
+        return {
+            "view_mode": "tree,form",
+            "target": "main",
+            "type": "ir.actions.act_window",
+            "res_model": "xml.import.processing",
+            "domain": [("name","=",self.mf_real_name)],
+        }

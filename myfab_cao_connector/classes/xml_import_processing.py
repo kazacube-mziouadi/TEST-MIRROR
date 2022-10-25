@@ -48,6 +48,14 @@ class xml_import_processing(models.Model):
         res = super(xml_import_processing, self).copy(default=default)
         return res
 
+    @api.multi
+    def unlink(self):
+        for xml_import_processing_id in self:
+            if xml_import_processing_id.mf_is_model:
+                raise ValidationError(_('You cannot delete a processing which is model.\nYou should first unselect them as model or unselect the models.'))
+
+        return super(xml_import_processing, self).unlink()
+
     @api.onchange("mf_is_model")
     def _onchange_is_model(self):
         if not self.mf_is_model:
@@ -98,7 +106,11 @@ class xml_import_processing(models.Model):
 
         # After preprocessing, we get the information from object
         if self.mf_process_conversion_id:
-            self.mf_conversion_message = self.preprocessing_id.mf_preprocess_conversion_id.execution_message
+            self.write({
+                'file': self.preprocessing_id.file, 
+                'fname': self.preprocessing_id.fname,
+                'mf_conversion_message': self.preprocessing_id.mf_preprocess_conversion_id.execution_message,
+            })
 
     def create_simulate_import(self, history):
         """

@@ -1,7 +1,7 @@
 [
     {
         "fields": {
-            "name": "myfab - SMAPS (XML)",
+            "name": "[myfab] SMAPS (XML)",
 			"mf_is_model": true
         },
         "method": "merge",
@@ -544,15 +544,15 @@
                         "use_onchange": true
                     }
                 ],
-                "name": "myfab - PIVOT (1)",
+                "name": "[myfab] PIVOT (1)",
                 "use_onchange": true
             },
-            "name": "myfab - SMAPS (XML)",
+            "name": "[myfab] SMAPS (XML)",
 			"mf_is_model": true,
             "preprocessing_id": {
-                "name": "myfab - SMAPS (XML)",
+                "name": "[myfab] SMAPS (XML)",
                 "table_id": {
-                    "name": "myfab - SMAPS (XML)",
+                    "name": "[myfab] SMAPS (XML)",
                     "prefix_file_name": "",
                     "rules_ids": [
                         {

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-25 09:25+0000\n"
-"PO-Revision-Date: 2022-10-25 09:25+0000\n"
+"POT-Creation-Date: 2022-10-25 13:31+0000\n"
+"PO-Revision-Date: 2022-10-25 13:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -230,6 +230,11 @@ msgid "Mf process file to convert name"
 msgstr "Mf process file to convert name"
 
 #. module: myfab_cao_connector
+#: model:ir.model.fields,field_description:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_real_name
+msgid "Mf real name"
+msgstr "Nom réel"
+
+#. module: myfab_cao_connector
 #: code:addons/myfab_cao_connector/classes/xml_import_configuration_table.py:0,xml.import.configuration.table
 #, python-format
 msgid "More than one record have been found : "
@@ -282,6 +287,7 @@ msgstr "Valeur du noeud"
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_preprocessing_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_process_conversion_id
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_processing_id
+#: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_real_name
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_stop_at_simulation
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_mf_xml_import_processing_wizard_line_ids
 #: model:ir.model.fields,help:myfab_cao_connector.field_mf_xml_import_processing_wizard_name
@@ -491,6 +497,14 @@ msgid "Xml import configuration table"
 msgstr "Table de configuration d'import XML"
 
 #. module: myfab_cao_connector
+#: code:addons/myfab_cao_connector/classes/xml_import_processing.py:0,xml.import.processing
+#, python-format
+msgid "You cannot delete a processing which is model.\n"
+"You should first unselect them as model or unselect the models."
+msgstr "Vous ne pouvez pas supprimer un traitement modèle.\n"
+"Vous devez d'abord désélectionner ceux-ci ou les retirer comme modèle."
+
+#. module: myfab_cao_connector
 #: model:ir.model,name:myfab_cao_connector.model_mf_data_initializer_cao_connnector
 msgid "mf.data.initializer.cao.connnector"
 msgstr "mf.data.initializer.cao.connnector"
@@ -524,3 +538,4 @@ msgstr "xml.preprocessing"
 #: model:ir.model,name:myfab_cao_connector.model_xml_preprocessing_table_rule
 msgid "xml.preprocessing.table.rule"
 msgstr "xml.preprocessing.table.rule"
+

@@ -10,12 +10,9 @@
                 <form string="Wizard processing creation">
                     <group colspan="4" col="4">
                         <group colspan="6" col="6">
-                            <field name="name" />
+                            <field name="name"/>
                             <field name="mf_processing_id" />
                             <field name="mf_stop_at_simulation" />
-                            <field name="mf_process_conversion_id" invisible="1"/>
-                            <field name="mf_preprocessing_id" invisible="1"/>
-                            <field name="mf_configuration_table_id" invisible="1"/>
                         </group>
                         <group colspan="4" col="4" string="Files">
                             <field name="mf_xml_import_processing_wizard_line_ids" nolabel="1" colspan="4" >
