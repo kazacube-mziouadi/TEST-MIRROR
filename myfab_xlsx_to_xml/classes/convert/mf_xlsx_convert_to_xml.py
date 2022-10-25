@@ -152,7 +152,11 @@ class mf_xlsx_convert_to_xml(models.Model):
                 current_level_value = self._mf_get_XLSX_cell_value(xlsx_sheet, xlsx_row, level_id.column)
                 # We check row per row if it is a child
                 child_xlsx_row_index = xlsx_row_index + 1
-                while self._mf_is_row_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
+                #while self._mf_is_row_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id):
+                # The while condition has changed because we want to have all children of a parent line even if the children are not directly under its parent
+                # For example, we can have all parents in first lines, then the children randomly
+                # With the condition before it was not possible
+                while child_xlsx_row_index < len(xlsx_rows):
                     if child_xlsx_row_index not in xlsx_rows_in_xml and self._mf_is_direct_child(xlsx_sheet, xlsx_rows, child_xlsx_row_index, level_id, current_level_value):
                         ET_Child = self._mf_add_XML_last_sub_element(ET_row, level_id.xml_beacon_grouping_children_level, False)
                         self._mf_add_XLSX_row_to_XML(ET_Child, xlsx_sheet, xlsx_rows, child_xlsx_row_index, 
