@@ -174,20 +174,22 @@ class xml_import_processing(models.Model):
         else:
             document = existing_document.create_new_version(datetime.datetime.now())
             document.write({"attachment": file_to_import.content_mf})
+        if product_id:
+            product_write_dict = {
+                "internal_plan_ids": [(4, document.id, 0)]
+            }
+            if not version_id and product_version:
+                product_write_dict["version_historical_ids"] = [(0, 0, {
+                    "version": product_version,
+                    "start_date": datetime.datetime.now()
+                })]
+            product_id.write(product_write_dict)
+        if mpr_bom:
+            mrp_bom_write_dict = {
+                "document_ids": [(4, document.id, 0)]
+            }
+            mpr_bom.write(mrp_bom_write_dict)
 
-        product_write_dict = {
-            "internal_plan_ids": [(4, document.id, 0)]
-        }
-        mrp_bom_write_dict = {
-            "document_ids": [(4, document.id, 0)]
-        }
-        if not version_id and product_version:
-            product_write_dict["version_historical_ids"] = [(0, 0, {
-                "version": product_version,
-                "start_date": datetime.datetime.now()
-            })]
-        product_id.write(product_write_dict)
-        mpr_bom.write(mrp_bom_write_dict)
         file_to_import.delete()
 
     def _mf_get_data_from_file_name(self, file_name, code_product):
