@@ -155,11 +155,15 @@ class xml_import_processing(models.Model):
             ("product_id", '=', product_id.id), 
             ("version", '=', product_version)
         ], None, 1)
+        if product_version:
+            file_name = product_code + "-" + product_version
+        else : 
+            file_name = product_code
         root_directory_id = self.env["document.directory"].search([("name", '=', "Root")], None, 1)
-        existing_document = self.env["document.openprod"].search([("name","=",product_code)],order="create_date desc",limit=1)
+        existing_document = self.env["document.openprod"].search([("name","=",file_name)],order="create_date desc",limit=1)
         if not existing_document:
             document = self.env["document.openprod"].create({
-                    "name": product_code,
+                    "name": file_name,
                     "attachment": file_to_import.content_mf,
                     "user_id": self.env.user.id,
                     "company_id": self.env.user.company_id.id,
