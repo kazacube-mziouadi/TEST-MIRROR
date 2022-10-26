@@ -10,6 +10,9 @@
 					<field name="mf_use_old_value" attrs="{'invisible': [('action', '!=', 'modification')]}" />
 					<field name="mf_modif_old_value" attrs="{'invisible': ['|',('action', '!=', 'modification'),('mf_use_old_value', '=', False)]}" />
 				</xpath>
+				<xpath expr="//field[@name='new_name']/.." position="inside">
+					<field name="mf_result" invisible="1" />
+				</xpath>
 			</field>
 		</record>
 
