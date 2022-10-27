@@ -214,6 +214,13 @@ class xml_import_processing(models.Model):
         super(xml_import_processing, self).clear_history(history)
 
     @api.multi
+    def simulate_file_analyse(self):
+        if self.model_id.mf_documents_directory_id:
+            self.model_id.mf_documents_directory_id.mf_scan_directory()
+        super(xml_import_processing, self).simulate_file_analyse()
+
+
+    @api.multi
     def analyse_simulation(self):
         return {
             "name": _("Analyse simulation"),
