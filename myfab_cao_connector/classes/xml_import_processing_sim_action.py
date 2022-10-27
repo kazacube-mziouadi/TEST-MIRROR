@@ -199,7 +199,7 @@ class xml_import_processing_sim_action(models.Model):
     # ===========================================================================
     # METHODS - IMPORT
     # ===========================================================================
-    def process_data_import(self, created_records_dict):
+    def process_data_import(self, created_records_dict):        
         if self.mf_selected_for_import:
             # Exclude from import, manufactured components whose bom import has been unselected
             if self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
@@ -209,13 +209,23 @@ class xml_import_processing_sim_action(models.Model):
                     return False
             if self.type in ["create", "update"]:
                 self.reference = self._create_update_process(created_records_dict)
-                if self.mf_beacon_id.relation_openprod_id.model in ["mrp.bom","product.product"] and self.processing_id.model_id.mf_documents_directory_id:
-                    product_code = self.reference.product_id.code
-                    self.processing_id.mf_import_product_document(product_code,self.reference)
+                if self.mf_beacon_id.relation_openprod_id.model in ["mrp.bom","product.product"] and self._get_processing_id().model_id.mf_documents_directory_id:
+                    if self.mf_beacon_id.relation_openprod_id.model == "product.product":
+                        product_code = self.reference.code
+                    elif self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
+                        product_code = self.reference.product_id.code
+                    self._get_processing_id().mf_import_product_document(product_code,self.reference)
                 return self.reference
             if self.type == "delete":
                 self.reference.unlink()
         else:
+            if self.type == "unmodified":
+                if self.mf_beacon_id.relation_openprod_id.model in ["mrp.bom","product.product"] and self._get_processing_id().model_id.mf_documents_directory_id:
+                    if self.mf_beacon_id.relation_openprod_id.model == "product.product":
+                        product_code = self.reference.code
+                    elif self.mf_beacon_id.relation_openprod_id.model == "mrp.bom":
+                        product_code = self.reference.product_id.code
+                    self._get_processing_id().mf_import_product_document(product_code,self.reference)
             return self.reference
 
     def _create_update_process(self, created_records_dict):
