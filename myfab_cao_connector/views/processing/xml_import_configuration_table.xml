@@ -8,6 +8,7 @@
 			<field name="arch" type="xml">
 				<xpath expr="//field[@name='use_onchange']" position="after">
 					<field name="mf_documents_directory_id"/>
+					<field name="mf_file_separator"/>
 				</xpath>
 			</field>
 		</record>
