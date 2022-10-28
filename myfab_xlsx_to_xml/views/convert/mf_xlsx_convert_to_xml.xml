@@ -17,6 +17,7 @@
                             <group colspan="8" col="4" name="group_infos"> 
                                 <field name="configuration_id"/>
                                 <field name="file_to_convert" filename="file_to_convert_name"/>
+                                <field name="last_conversion_datetime"/>
                                 <field name="execution_message"/>
                                 <field name="xml_file" filename="xml_file_name"/>
                                 <field name="file_to_convert_name" invisible="1" />

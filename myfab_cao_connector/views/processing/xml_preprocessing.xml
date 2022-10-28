@@ -13,8 +13,18 @@
 				<xpath expr="//field[@name='preprocessing_file']" position="after">
 					<field name="mf_preprocess_file_to_convert_name" invisible="1"/>
 				</xpath>
+				<xpath expr="//field[@name='message']/.." position="attributes">
+					<attribute name="colspan">2</attribute>
+					<attribute name="col">2</attribute>
+				</xpath>
 				<xpath expr="//field[@name='message']" position="attributes">
 					<attribute name="readonly">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='preprocessing_file']" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='message']" position="before">
+					<field name="mf_last_conversion_datetime" attrs="{'invisible': ['|', ('mf_preprocess_conversion_id', '=', False)]}"/>
 				</xpath>
 				<xpath expr="//button[@name='pre_processing_xml_file']" position="after">
 					<separator string="XLSX Conversion" colspan="1" name="mf_separator_action_menu_xlsx" 
