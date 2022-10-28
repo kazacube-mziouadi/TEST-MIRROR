@@ -91,11 +91,11 @@
 				<xpath expr="//field[@name='file']" position="after">
 					<field name="state"/>
 					<button class="oe_inline oe_stat_button" type="object"
-						string="Simulate import XML file" name="simulate_file_analyse"
-						icon="fa-plus-square" attrs="{'invisible': ['|', '|', ('state','!=', 'wait'), ('file', '=', False), ('model_id', '=', False)]}"/> 
+						string="Simulate" name="simulate_file_analyse"
+						attrs="{'invisible': ['|', '|', ('state','!=', 'wait'), ('file', '=', False), ('model_id', '=', False)]}"/> 
 					<button class="oe_inline oe_stat_button" type="object" 
-						string="Import XML file" name="file_analyse" 
-						icon="fa-plus-square" attrs="{'invisible': ['|', '|', ('file', '=', False), ('model_id', '=', False), ('state','!=', 'wait'), ('state','!=', 'sim')]}"/>
+						string="Import" name="file_analyse" 
+						attrs="{'invisible': ['|', '|', ('file', '=', False), ('model_id', '=', False), ('state','!=', 'wait'), ('state','!=', 'sim')]}"/>
 				</xpath>				
 			</field>
 		</record>

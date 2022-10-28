@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-27 14:17+0000\n"
-"PO-Revision-Date: 2022-10-27 14:17+0000\n"
+"POT-Creation-Date: 2022-10-28 10:03+0000\n"
+"PO-Revision-Date: 2022-10-28 10:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -214,6 +214,11 @@ msgid "If old value"
 msgstr "Si l'ancienne valeur"
 
 #. module: myfab_cao_connector
+#: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_tree_xml_import_processing
+msgid "Import"
+msgstr "Importer"
+
+#. module: myfab_cao_connector
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_mf_imported_from_simulation
 msgid "Imported from simulation"
 msgstr "Importé depuis la simulation"
@@ -404,6 +409,11 @@ msgstr "Sélectionnez au moins le Traitement ou la Table de configuration."
 #: model:ir.model.fields,field_description:myfab_cao_connector.field_xml_import_processing_sim_action_mf_sequence
 msgid "Sequence"
 msgstr "Séquence"
+
+#. module: myfab_cao_connector
+#: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_tree_xml_import_processing
+msgid "Simulate"
+msgstr "Simuler"
 
 #. module: myfab_cao_connector
 #: model:ir.ui.view,arch_db:myfab_cao_connector.mf_view_structure_tree_xml_import_processing_sim_action
