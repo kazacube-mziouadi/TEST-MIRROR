@@ -72,7 +72,8 @@ class PhysicalDirectoryMF(models.Model):
         related_files_list = [(0, 0, {"name": file_name}) for file_name in files_names_list]
         # TODO : ajouter un indicateur sur les fichiers pour dire si l'extension est standard ou non avec l'extension choisie ?
         self.write({
-            "files_mf": related_files_list
+            "files_mf": related_files_list,
+            "directory_scan_is_needed_mf": False,
         })
 
     @api.one
