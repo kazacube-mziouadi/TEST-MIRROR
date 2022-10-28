@@ -13,8 +13,18 @@
 				<xpath expr="//field[@name='preprocessing_file']" position="after">
 					<field name="mf_preprocess_file_to_convert_name" invisible="1"/>
 				</xpath>
+				<xpath expr="//field[@name='message']/.." position="attributes">
+					<attribute name="colspan">2</attribute>
+					<attribute name="col">2</attribute>
+				</xpath>
 				<xpath expr="//field[@name='message']" position="attributes">
 					<attribute name="readonly">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='preprocessing_file']" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='message']" position="before">
+					<field name="mf_last_conversion_datetime" attrs="{'invisible': ['|', ('mf_preprocess_conversion_id', '=', False)]}"/>
 				</xpath>
 				<xpath expr="//button[@name='pre_processing_xml_file']" position="after">
 					<separator string="XLSX Conversion" colspan="1" name="mf_separator_action_menu_xlsx" 
@@ -26,6 +36,19 @@
 							icon="fa-plus-square" 
 							attrs="{'invisible': ['|', ('mf_preprocess_file_to_convert', '=', False), ('mf_preprocess_conversion_id', '=', False)]}"/>
 				</xpath>
+			</field>
+		</record>
+
+		<record id='mf_view_tree_xml_processing' model="ir.ui.view">
+			<field name="name">mf_view_tree_xml_processing</field>
+			<field name="inherit_id" ref="xml_import.view_tree_xml_preprocessing" />
+			<field name="model">xml.preprocessing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="table_id"/>
+					<field name="mf_preprocess_conversion_id" column_invisible_list="[('mf_preprocess_conversion_id', '=', False)]"/>
+					<field name="mf_preprocess_file_to_convert" filename="mf_preprocess_file_to_convert_name" column_invisible_list="[('mf_preprocess_conversion_id', '=', False)]"/>
+				</xpath>							
 			</field>
 		</record>
 	</data>

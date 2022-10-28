@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
 from openerp.exceptions import ValidationError
+from datetime import datetime
 
 import base64
 from StringIO import StringIO
@@ -31,6 +32,7 @@ class mf_xlsx_convert_to_xml(models.Model):
     file_to_convert_name = fields.Char()
     xml_file = fields.Binary(string="XML file converted", readonly=True)
     xml_file_name = fields.Char()
+    last_conversion_datetime = fields.Datetime(string="Last conversion datetime", readonly=True)
     execution_message = fields.Char(readonly=True)
 
     #===========================================================================
@@ -48,6 +50,7 @@ class mf_xlsx_convert_to_xml(models.Model):
                         'execution_message' : execution_message,
                         'xml_file' : xml_file,
                         'xml_file_name' : xlsx_file_name[:-5]+'.xml' if xml_file else False,
+                        'last_conversion_datetime' : datetime.now(),
                         })
         return True if xml_file else False
         

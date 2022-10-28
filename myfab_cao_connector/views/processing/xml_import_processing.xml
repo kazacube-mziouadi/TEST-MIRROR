@@ -39,6 +39,7 @@
 				</xpath>
 				<xpath expr="//field[@name='error_message']/.." position="before">
 					<group string="XLSX Conversion information" name="group_xlsx_error_message" attrs="{'invisible': [('mf_process_conversion_id', '=', False)]}">
+						<field name="mf_last_conversion_datetime" />
 						<field name="mf_conversion_message" nolabel="1"/>
 					</group>
 				</xpath>				

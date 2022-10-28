@@ -14,6 +14,7 @@ class xml_import_processing(models.Model):
     mf_process_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
     mf_process_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
     mf_process_file_to_convert_name = fields.Char()
+    mf_last_conversion_datetime = fields.Datetime(string="Last conversion datetime", readonly=True)
     mf_conversion_message = fields.Char(string="Conversion information", readonly=True)
     mf_is_model = fields.Boolean(string="Is model", default=False)
         
@@ -28,7 +29,11 @@ class xml_import_processing(models.Model):
     @api.multi
     def wkf_processing_done(self):
         if self.state == "sim":
-            self.write({"state": "done", "error_message": '', "mf_imported_from_simulation": True})
+            self.write({
+                "state": "done", 
+                "error_message": '',
+                "mf_imported_from_simulation": True
+            })
             return True
         else:
             return super(xml_import_processing, self).wkf_processing_done()
@@ -74,18 +79,21 @@ class xml_import_processing(models.Model):
         if not self.mf_process_file_to_convert:
             return False
             
-        self.mf_process_conversion_id.write({'file_to_convert':self.mf_process_file_to_convert, 
-                                                'file_to_convert_name':self.mf_process_file_to_convert_name,
-                                                })
+        self.mf_process_conversion_id.write({
+            'file_to_convert':self.mf_process_file_to_convert, 
+            'file_to_convert_name':self.mf_process_file_to_convert_name,
+        })
         
         conversion_ok = self.mf_process_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
         
         self.mf_conversion_message = self.mf_process_conversion_id.execution_message
         if conversion_ok:
-            self.write({'file': self.mf_process_conversion_id.xml_file, 
-                        'fname': self.mf_process_conversion_id.xml_file_name,
-                        })
+            self.write({
+                'file': self.mf_process_conversion_id.xml_file, 
+                'fname': self.mf_process_conversion_id.xml_file_name,
+                'mf_last_conversion_datetime': self.mf_process_conversion_id.last_conversion_datetime,
+            })
         return conversion_ok
 
     @api.multi
@@ -93,12 +101,13 @@ class xml_import_processing(models.Model):
         if self.mf_process_conversion_id:
             # Don't use the current object conversion method, because it also exists in the preprocessing object 
             # Change all preprocessing parameters else the preprocessing will use it's own paramters
-            self.preprocessing_id.write({'mf_preprocess_conversion_id':self.mf_process_conversion_id.id, 
-                                        'mf_preprocess_file_to_convert':self.mf_process_file_to_convert,
-                                        'mf_preprocess_file_to_convert_name':self.mf_process_file_to_convert_name,
-                                        'file':False,
-                                        'preprocessing_file':False,
-                                        })  
+            self.preprocessing_id.write({
+                'mf_preprocess_conversion_id':self.mf_process_conversion_id.id, 
+                'mf_preprocess_file_to_convert':self.mf_process_file_to_convert,
+                'mf_preprocess_file_to_convert_name':self.mf_process_file_to_convert_name,
+                'file':False,
+                'preprocessing_file':False,
+            })  
 
         if self.preprocessing_id:                                              
             super(xml_import_processing, self).preprocessing_xml_file()
@@ -108,6 +117,7 @@ class xml_import_processing(models.Model):
             self.write({
                 'file': self.preprocessing_id.file, 
                 'fname': self.preprocessing_id.fname,
+                'mf_last_conversion_datetime': self.preprocessing_id.mf_preprocess_conversion_id.last_conversion_datetime,
                 'mf_conversion_message': self.preprocessing_id.mf_preprocess_conversion_id.execution_message,
             })
 
@@ -136,7 +146,7 @@ class xml_import_processing(models.Model):
         created_records_dict = {}
         #Permits to scan the first time the directory with files to import
         if self.model_id.mf_documents_directory_id:
-            self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf = True
+            self.model_id.mf_documents_directory_id.mf_scan_directory()
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import(created_records_dict)
 
@@ -144,8 +154,6 @@ class xml_import_processing(models.Model):
         directory_id = self.model_id.mf_documents_directory_id
         code_product_version_separator = self.model_id.mf_file_separator
         if directory_id:
-            if directory_id.directory_scan_is_needed_mf: 
-                directory_id.mf_scan_directory()
             for file_to_import in directory_id.files_mf:
                 file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code, code_product_version_separator)
                 if file_product_code == product_code:
