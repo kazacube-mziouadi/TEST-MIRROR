@@ -27,8 +27,8 @@ class FileInterfaceImportMF(models.Model):
     # ===========================================================================
 
     @api.one
-    def launch(self):
-        if self.directory_mf.directory_scan_is_needed_mf:
+    def launch(self, force_scan_directory = True):
+        if self.directory_mf.directory_scan_is_needed_mf or force_scan_directory:
             self.directory_mf.mf_scan_directory()
         sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_mf: file_mf.sequence)
         for file_to_import in sorted_files_list:
@@ -173,7 +173,7 @@ class FileInterfaceImportMF(models.Model):
         else:
             if not self.directory_mf.files_mf:
                 raise MissingError(_("No files found in directory ") + self.directory_path_mf)
-            self.launch()
+            self.launch(False)
 
     @api.one
     def open_upload_import_file_wizard(self):
