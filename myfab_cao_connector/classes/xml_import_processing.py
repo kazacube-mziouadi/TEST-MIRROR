@@ -135,19 +135,21 @@ class xml_import_processing(models.Model):
         # Ex : { "product.product": [1, 5, 9], "mrp.bom", [1, 5] }
         created_records_dict = {}
         #Permits to scan the first time the directory with files to import
-        self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf = True
+        if self.model_id.mf_documents_directory_id:
+            self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf = True
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import(created_records_dict)
 
     def mf_import_product_document(self, product_code, mpr_bom):
         directory_id = self.model_id.mf_documents_directory_id
         code_product_version_separator = self.model_id.mf_file_separator
-        if directory_id.directory_scan_is_needed_mf: 
-            directory_id.mf_scan_directory()
-        for file_to_import in directory_id.files_mf:
-            file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code, code_product_version_separator)
-            if file_product_code == product_code:
-                self._mf_import_document_to_product_internal_plans(file_to_import, file_product_code, file_product_version, file_extension, mpr_bom)
+        if directory_id:
+            if directory_id.directory_scan_is_needed_mf: 
+                directory_id.mf_scan_directory()
+            for file_to_import in directory_id.files_mf:
+                file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code, code_product_version_separator)
+                if file_product_code == product_code:
+                    self._mf_import_document_to_product_internal_plans(file_to_import, file_product_code, file_product_version, file_extension, mpr_bom)
 
     def _mf_import_document_to_product_internal_plans(self, file_to_import, product_code, product_version, file_extension, mpr_bom):
         date_time_product = datetime.now()
@@ -196,9 +198,9 @@ class xml_import_processing(models.Model):
                 existing_document = existing_document.last_version_id
            
             date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(date_time_product, self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
-            product_version_date = ("[%s]") % (date_formated)
+            product_version_date = ("[%s]") % (date_formated) #[DD-MM-YYYY HH:MM:SS]
             if product_version:
-                product_version_date = ("%s %s") % (product_version,product_version_date)
+                product_version_date = ("%s %s") % (product_version,product_version_date) #Version [DD-MM-YYYY HH:MM:SS]
 
             document = existing_document.create_new_version(product_version_date)
             if not document:
@@ -239,13 +241,6 @@ class xml_import_processing(models.Model):
     def clear_history(self, history):
         self.processing_simulate_action_ids.unlink()
         super(xml_import_processing, self).clear_history(history)
-
-    @api.multi
-    def simulate_file_analyse(self):
-        if self.model_id.mf_documents_directory_id:
-            self.model_id.mf_documents_directory_id.mf_scan_directory()
-        super(xml_import_processing, self).simulate_file_analyse()
-
 
     @api.multi
     def analyse_simulation(self):
