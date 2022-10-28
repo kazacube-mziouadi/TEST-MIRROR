@@ -11,6 +11,8 @@ class xml_import_preprocessing(models.Model):
     mf_preprocess_conversion_id = fields.Many2one('mf.xlsx.convert.xml', string='XLSX Conversion', ondelete='set null')
     mf_preprocess_file_to_convert = fields.Binary(string="XLSX/CSV file to convert")
     mf_preprocess_file_to_convert_name = fields.Char()
+    mf_last_conversion_datetime = fields.Datetime(string="Last conversion datetime", readonly=True)
+    
     # ===========================================================================
     # METHODS
     # ===========================================================================
@@ -24,18 +26,21 @@ class xml_import_preprocessing(models.Model):
         if not self.mf_preprocess_file_to_convert:
             return False
 
-        self.mf_preprocess_conversion_id.write({'file_to_convert':self.mf_preprocess_file_to_convert, 
-                                                    'file_to_convert_name':self.mf_preprocess_file_to_convert_name,
-                                                    })
+        self.mf_preprocess_conversion_id.write({
+            'file_to_convert':self.mf_preprocess_file_to_convert, 
+            'file_to_convert_name':self.mf_preprocess_file_to_convert_name,
+        })
                         
         conversion_ok = self.mf_preprocess_conversion_id.mf_convert()
         conversion_ok = conversion_ok[0]
 
         if conversion_ok:
-            self.write({'file': self.mf_preprocess_conversion_id.xml_file, 
-                        'fname': self.mf_preprocess_conversion_id.xml_file_name,
-                        'message': self.mf_preprocess_conversion_id.execution_message,
-                        })
+            self.write({
+                'file': self.mf_preprocess_conversion_id.xml_file, 
+                'fname': self.mf_preprocess_conversion_id.xml_file_name,
+                'mf_last_conversion_datetime': self.mf_preprocess_conversion_id.last_conversion_datetime,
+                'message': self.mf_preprocess_conversion_id.execution_message,
+            })
         else:
             self.message = self.mf_preprocess_conversion_id.execution_message
 
