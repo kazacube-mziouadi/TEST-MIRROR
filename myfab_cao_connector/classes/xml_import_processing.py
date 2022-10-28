@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
 from openerp.exceptions import ValidationError
-import datetime
-import os
+from datetime import datetime
 
 class xml_import_processing(models.Model):
     _inherit = "xml.import.processing"
@@ -171,10 +170,10 @@ class xml_import_processing(models.Model):
                 existing_document = existing_document.last_version_id
 
             date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(datetime.now(), self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
+            product_version_date = ("[%s]") % (date_formated)
+
             if product_version:
-                product_version_date = ("%s [%s]") % (product_version,date_formated)
-            else:
-                product_version_date = ("[%s]") % (product_version,date_formated)
+                product_version_date = ("%s %s") % (product_version,product_version_date)
 
             document = existing_document.create_new_version(product_version_date)
             document.write({"attachment": file_to_import.content_mf})
@@ -195,7 +194,7 @@ class xml_import_processing(models.Model):
         if not version_id and product_version:
             product_write_dict["version_historical_ids"] = [(0, 0, {
                 "version": product_version,
-                "start_date": datetime.datetime.now()
+                "start_date": datetime.now()
             })]
         product_id.write(product_write_dict)
         if mpr_bom:
