@@ -134,28 +134,53 @@ class xml_import_processing(models.Model):
         # Dict containing all the records' ids that have already been created, so they don't get created again
         # Ex : { "product.product": [1, 5, 9], "mrp.bom", [1, 5] }
         created_records_dict = {}
+        #Permits to scan the first time the directory with files to import
+        self.model_id.mf_documents_directory_id.directory_scan_is_needed_mf = True
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import(created_records_dict)
 
     def mf_import_product_document(self, product_code, mpr_bom):
         directory_id = self.model_id.mf_documents_directory_id
         code_product_version_separator = self.model_id.mf_file_separator
-        if directory_id.directory_scan_is_needed_mf: directory_id.mf_scan_directory()
+        if directory_id.directory_scan_is_needed_mf: 
+            directory_id.mf_scan_directory()
         for file_to_import in directory_id.files_mf:
             file_product_code, file_product_version, file_extension = self._mf_get_data_from_file_name(file_to_import.name, product_code, code_product_version_separator)
             if file_product_code == product_code:
                 self._mf_import_document_to_product_internal_plans(file_to_import, file_product_code, file_product_version, file_extension, mpr_bom)
 
     def _mf_import_document_to_product_internal_plans(self, file_to_import, product_code, product_version, file_extension, mpr_bom):
+        date_time_product = datetime.now()
         product_id = self.env["product.product"].search([("code", '=', product_code)], None, 1)
         if not product_id:
             return
-
+        document = self._mf_write_document(product_code, product_version, file_extension, file_to_import.content_mf, date_time_product)
+        if not document:
+            return
         version_id = self.env["product.version.historical"].search([
             ("product_id", '=', product_id.id), 
             ("version", '=', product_version)
         ], None, 1)
-            
+
+        product_write_dict = {
+            "internal_plan_ids": [(4, document.id, 0)],
+        }
+        if not version_id and product_version:
+            product_write_dict["version_historical_ids"] = [(0, 0, {
+                "version": product_version,
+                "start_date": date_time_product
+            })]
+        product_id.write(product_write_dict)
+        if mpr_bom:
+            mrp_bom_write_dict = {
+                "document_ids": [(4, document.id, 0)],
+            }
+            mpr_bom.write(mrp_bom_write_dict)
+
+        file_to_import.delete()
+
+    def _mf_write_document(self, product_code, product_version, file_extension, file_content, date_time_product):
+        document = False
         root_directory_id = self.env["document.directory"].search([("name", '=', "Root")], None, 1)
         
         existing_document = self.env["document.openprod"].search([
@@ -166,44 +191,31 @@ class xml_import_processing(models.Model):
         ],order="create_date desc",limit=1)
 
         if existing_document:
+            #Get de last version document
             while existing_document.last_version_id:
                 existing_document = existing_document.last_version_id
-
-            date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(datetime.now(), self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
+           
+            date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(date_time_product, self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
             product_version_date = ("[%s]") % (date_formated)
-
             if product_version:
                 product_version_date = ("%s %s") % (product_version,product_version_date)
 
             document = existing_document.create_new_version(product_version_date)
-            document.write({"attachment": file_to_import.content_mf})
+            if not document:
+                document = existing_document
+            document.write({"attachment": file_content})
         else:
             document = self.env["document.openprod"].create({
                 "directory_id": root_directory_id.id,
                 "name": product_code,
                 "version": product_version,
                 "extension": file_extension,
-                "attachment": file_to_import.content_mf,
+                "attachment": file_content,
                 "company_id": self.env.user.company_id.id,
                 "user_id": self.env.user.id,
             })
 
-        product_write_dict = {
-            "internal_plan_ids": [(4, document.id, 0)]
-        }
-        if not version_id and product_version:
-            product_write_dict["version_historical_ids"] = [(0, 0, {
-                "version": product_version,
-                "start_date": datetime.now()
-            })]
-        product_id.write(product_write_dict)
-        if mpr_bom:
-            mrp_bom_write_dict = {
-                "document_ids": [(4, document.id, 0)]
-            }
-            mpr_bom.write(mrp_bom_write_dict)
-
-        file_to_import.delete()
+        return document
 
     def _mf_get_data_from_file_name(self, file_name, code_product, code_product_version_separator):
         if not code_product_version_separator:
