@@ -14,14 +14,16 @@
                                     <field name="name"/>
                                 </h1>
                             </div>
-                            <group colspan="8" col="4" name="group_infos"> 
+                            <group colspan="8" col="4" name="group_infos" string="Details"> 
                                 <field name="configuration_id"/>
                                 <field name="file_to_convert" filename="file_to_convert_name"/>
-                                <field name="last_conversion_datetime"/>
-                                <field name="execution_message"/>
                                 <field name="xml_file" filename="xml_file_name"/>
                                 <field name="file_to_convert_name" invisible="1" />
                                 <field name="xml_file_name" invisible="1" />
+                            </group>
+                            <group colspan="2" col="2" name="group_message" string="Message"> 
+                                <field name="last_conversion_datetime"/>
+                                <field name="execution_message" nolabel="1"/>
                             </group>
                         </group>
                         <group colspan="1" col="1" class="op_shortcuts" name="action_menu">
@@ -41,6 +43,7 @@
                 <tree string="XLSX to XML Conversion">
                     <field name="name" />
                     <field name="configuration_id" />
+                    <field name="last_conversion_datetime"/>
                 </tree>
             </field>
         </record>

@@ -38,5 +38,18 @@
 				</xpath>
 			</field>
 		</record>
+
+		<record id='mf_view_tree_xml_processing' model="ir.ui.view">
+			<field name="name">mf_view_tree_xml_processing</field>
+			<field name="inherit_id" ref="xml_import.view_tree_xml_preprocessing" />
+			<field name="model">xml.preprocessing</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="table_id"/>
+					<field name="mf_preprocess_conversion_id" column_invisible_list="[('mf_preprocess_conversion_id', '=', False)]"/>
+					<field name="mf_preprocess_file_to_convert" filename="mf_preprocess_file_to_convert_name" column_invisible_list="[('mf_preprocess_conversion_id', '=', False)]"/>
+				</xpath>							
+			</field>
+		</record>
 	</data>
 </openerp>
