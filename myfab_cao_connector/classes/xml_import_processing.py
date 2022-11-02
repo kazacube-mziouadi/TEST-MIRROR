@@ -137,6 +137,7 @@ class xml_import_processing(models.Model):
         if self.state == "sim":
             self.import_simulation_lines()
             self.wkf_processing_done()
+            self.delete_files()
         else:
             super(xml_import_processing, self).file_analyse()
 
@@ -149,6 +150,12 @@ class xml_import_processing(models.Model):
             self.model_id.mf_documents_directory_id.mf_scan_directory()
         for simulation_line_id in self.processing_simulate_action_ids:
             simulation_line_id.process_data_import(created_records_dict)
+    
+    def delete_files(self):
+        if self.model_id.mf_documents_directory_id:
+            for files in self.model_id.mf_documents_directory_id.files_mf:
+                if files.flag:
+                    files.delete()
 
     def mf_import_product_document(self, product_code, mpr_bom):
         directory_id = self.model_id.mf_documents_directory_id
@@ -187,7 +194,7 @@ class xml_import_processing(models.Model):
             }
             mpr_bom.write(mrp_bom_write_dict)
 
-        file_to_import.delete()
+        file_to_import.flag=True
 
     def _mf_write_document(self, product_code, product_version, file_extension, file_content, date_time_product):
         document = False
@@ -196,24 +203,26 @@ class xml_import_processing(models.Model):
         existing_document = self.env["document.openprod"].search([
             ("directory_id","=",root_directory_id.id),
             ("name","=",product_code),
-            ("version","=",product_version),
             ("extension","=",file_extension)
         ],order="create_date desc",limit=1)
 
         if existing_document:
-            #Get de last version document
-            while existing_document.last_version_id:
-                existing_document = existing_document.last_version_id
-           
-            date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(date_time_product, self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
-            product_version_date = ("[%s]") % (date_formated) #[DD-MM-YYYY HH:MM:SS]
-            if product_version:
-                product_version_date = ("%s %s") % (product_version,product_version_date) #Version [DD-MM-YYYY HH:MM:SS]
-
-            document = existing_document.create_new_version(product_version_date)
-            if not document:
+            if file_content.strip() == existing_document.attachment.strip():
                 document = existing_document
-            document.write({"attachment": file_content})
+            else:
+                #Get de last version document
+                while existing_document.last_version_id:
+                    existing_document = existing_document.last_version_id
+            
+                date_formated = self.env['mf.tools'].mf_convert_from_UTC_to_tz(date_time_product, self.env.user.tz).strftime("%d-%m-%Y %H:%M:%S")
+                product_version_date = ("[%s]") % (date_formated) #[DD-MM-YYYY HH:MM:SS]
+                if product_version:
+                    product_version_date = ("%s %s") % (product_version,product_version_date) #Version [DD-MM-YYYY HH:MM:SS]
+
+                document = existing_document.create_new_version(product_version_date)
+                if not document:
+                    document = existing_document
+                document.write({"attachment": file_content})
         else:
             document = self.env["document.openprod"].create({
                 "directory_id": root_directory_id.id,

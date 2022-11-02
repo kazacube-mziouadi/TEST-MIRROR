@@ -231,7 +231,7 @@ msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
 
 #. module: myfab_xlsx_to_xml
-#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_last_conversion_datetime
+#: model:ir.model.fields,field_description:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_mf_last_conversion_datetime
 msgid "Last conversion datetime"
 msgstr "Dernière date et heure de conversion"
 
@@ -352,7 +352,7 @@ msgstr "Aucun fichier XLSX/CSV à convertir."
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_file_to_convert
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_file_to_convert_name
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_id
-#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_last_conversion_datetime
+#: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_mf_last_conversion_datetime
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_name
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_write_date
 #: model:ir.model.fields,help:myfab_xlsx_to_xml.field_mf_xlsx_convert_xml_write_uid
