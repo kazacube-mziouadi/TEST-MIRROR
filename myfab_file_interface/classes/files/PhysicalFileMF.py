@@ -14,6 +14,7 @@ class PhysicalFileMF(models.TransientModel):
     last_modification_date_mf = fields.Datetime(string="Last modification date")
     directory_mf = fields.Many2one("physical.directory.mf", string="Directory")
     path_mf = fields.Char(compute="_compute_path", string="Absolute path", readonly=True)
+    flag = fields.Boolean(string="Flag",default=False)
     
     # ===========================================================================
     # METHODS
