@@ -271,3 +271,8 @@ class xml_import_processing(models.Model):
             "target": "current",
             "domain": "[('processing_id', '=', " + str(self.id) + "),('mf_tree_view_sim_action_parent_id', '=', False)]"
         }
+    @api.multi
+    def test(self):
+        print("APPEL")
+        res = self.env["mrp.bom"].create_with_onchange({'product_id': 36582, 'routing_ids': [179]})
+        print(res)

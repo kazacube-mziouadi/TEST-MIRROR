@@ -252,6 +252,12 @@ class xml_import_processing_sim_action(models.Model):
 
                     return already_created_record_id
             if self.mf_beacon_id.use_onchange:
+                print("self.mf_beacon_id")
+                print(self.mf_beacon_id)
+                print(self.mf_beacon_id.name)
+                print(model_name)
+                print(fields_dict)
+
                 record_id = self.env[model_name].create_with_onchange(fields_dict)
             else:
                 record_id = self.env[model_name].create(fields_dict)
