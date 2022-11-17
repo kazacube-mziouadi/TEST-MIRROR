@@ -51,6 +51,7 @@
                     </li>
                 </xpath>
                 <xpath expr="//ul" position="after">
+                    <button name="%(mrp.act_mrp_planning_mo_id)d" type="action" icon="fa-clock-o" style="border-style:solid;border-color:#000000;border-width:1px;background-color:#FFFFFF;float:right;" />
                     <button icon="fa-exchange" t-attf-style="background-color: #{record.mf_planned_ressource_color.raw_value};border-style:solid;border-color:#000000;border-width:1px;float:right;" name="%(action_planned_ressource)d" type="action" attrs="{'invisible': [('mf_planned_ressource_config', '=', False)]}"/>
                 </xpath>
             </field>
