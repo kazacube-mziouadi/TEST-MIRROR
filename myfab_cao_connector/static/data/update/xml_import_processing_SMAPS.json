@@ -544,7 +544,7 @@
                         "use_onchange": true
                     }
                 ],
-                "name": "[myfab] PIVOT (1)",
+                "name": "[myfab] PIVOT",
                 "use_onchange": true
             },
             "name": "[myfab] SMAPS (XML)",

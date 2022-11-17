@@ -73,6 +73,12 @@
 							name="analyse_simulation"
 							icon="fa-search"
 							attrs="{'invisible': [('state','!=', 'sim')]}" />
+					<button
+					class="oe_inline oe_stat_button"
+					type="object"
+					string="TEST"
+					icon="fa-search"
+					name="test"/>
 				</xpath>
 				
 			</field>
