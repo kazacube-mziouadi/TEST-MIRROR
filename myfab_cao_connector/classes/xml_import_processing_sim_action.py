@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, api, fields, _
+from openerp.exceptions import ValidationError
 import copy
 
 FIELD_SEQUENCES_DICT = {
@@ -252,12 +253,6 @@ class xml_import_processing_sim_action(models.Model):
 
                     return already_created_record_id
             if self.mf_beacon_id.use_onchange:
-                print("self.mf_beacon_id")
-                print(self.mf_beacon_id)
-                print(self.mf_beacon_id.name)
-                print(model_name)
-                print(fields_dict)
-
                 record_id = self.env[model_name].create_with_onchange(fields_dict)
             else:
                 record_id = self.env[model_name].create(fields_dict)
@@ -295,7 +290,12 @@ class xml_import_processing_sim_action(models.Model):
 
     @staticmethod
     def _get_relation_field_id_link_by_field_type(record_id, field_type):
-        return record_id if field_type == "many2one" else [(4, record_id)]
+        if field_type == "one2many":
+            return [(4,record_id)]
+        elif field_type == "many2many":
+            return[record_id]
+        else:
+            return record_id
 
     def _delete_useless_created_records(self, dict_1, dict_2):
         new_dict = self.env["mf.tools"].dicts_non_common_elements(dict_1,dict_2)
