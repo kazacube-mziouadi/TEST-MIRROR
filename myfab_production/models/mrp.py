@@ -16,12 +16,39 @@ class mrp_manufacturingorder(models.Model):
     mf_planned_ressource_id = fields.Many2one("mf.planned.ressource", string="Planned Ressource")
     mf_planned_ressource_color = fields.Char(string="Planned Ressource color", related="mf_planned_ressource_id.mf_color")
     mf_planned_ressource_name = fields.Char(string="Planned Ressource name", related="mf_planned_ressource_id.name", store=True)
-    mf_planned_ressource_config = fields.Boolean(string="Activate Planned ressource management", compute='test')
+    mf_planned_ressource_config = fields.Boolean(string="Activate Planned ressource management", compute='planned_ressource_config')
 
     @api.one
-    def test(self):
+    def planned_ressource_config(self):
         self.mf_planned_ressource_config = self.env['mf.production.config'].search([]).mf_planned_ressource
+        
+    @api.multi
+    def write(self, vals):
+        res = super(mrp_manufacturingorder, self).write(vals)
+        if ('mf_planned_start_date' in vals and vals['mf_planned_start_date']):
+            date = datetime.datetime.strptime(self.mf_planned_start_date,"%Y/%m/%d")
+            self.mf_rescheduling(date)
+        if ('mf_planned_start_week' in vals and vals['mf_planned_start_week']):
+            date = date = datetime.datetime.strptime(self.mf_planned_start_week+"-1","%Y/S%W-%w")
+            self.mf_rescheduling(date)
+        return res
     
+    def mf_rescheduling(self,date):
+        config = self.env['mf.production.config'].search([])
+        wizard_creation_data = {
+                "date":date,
+                "mo_id":self.id,
+                "is_sublevel":True,
+                }
+        if config.mf_rescheduling_type == False:
+            raise ValidationError(_("You need to define the rescheduling type in myfab production config"))
+        elif config.mf_rescheduling_type == "earliest":
+            wizard = self.env["mrp.planning.mo.at.earlier"].create(wizard_creation_data)
+            wizard.button_plannification_mo_at_earlier()
+        elif config.mf_rescheduling_type == "latest":
+            wizard = self.env["mrp.planning.mo.at.the.latest"].create(wizard_creation_data)
+            wizard.button_plannification_mo_at_the_latest()
+
     @api.one
     @api.depends('workorder_ids', 'workorder_ids.planned_start_date', 'workorder_ids.planned_end_date')
     def _compute_planned_date(self):
