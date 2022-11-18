@@ -12,7 +12,7 @@ class mf_xlsx_config_sheet(models.Model):
     excel_configuration_id = fields.Many2one('mf.xlsx.configuration', string='XLSX Configuration', required=True, ondelete='cascade')
     sheet_name_or_index = fields.Char(required=True, help='Sheet name or index in XLSX file')
     starting_line = fields.Integer(default=2, help='Row from which data will be read', required=True)
-    ending_line = fields.Char(help='Last row from which data will be inserted.', required=False)
+    ending_line = fields.Integer(help='Last row from which data will be inserted.', required=False)
     xml_beacon_for_sheet = fields.Char()
     xml_beacon_grouping_fields = fields.Char(required=True)
     level_field_id = fields.Many2one('mf.xlsx.config.sheet.level', string='Level field', ondelete='set null')
