@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-18 14:38+0000\n"
-"PO-Revision-Date: 2022-11-18 14:38+0000\n"
+"POT-Creation-Date: 2022-09-23 15:06+0000\n"
+"PO-Revision-Date: 2022-09-23 15:06+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,10 +37,9 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: myfab_production
-#: model:ir.actions.act_window,name:myfab_production.action_planned_ressource
 #: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
 msgid "Change planned ressource"
-msgstr "Changer la ressource planifiée"
+msgstr "Chnager la ressource planifiée"
 
 #. module: myfab_production
 #: model:ir.ui.view,arch_db:myfab_production.view_form_split_sale
@@ -51,11 +50,6 @@ msgstr "Changer la ressource"
 #: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_mf_color
 msgid "Color"
 msgstr "Couleur"
-
-#. module: myfab_production
-#: model:ir.model,name:myfab_production.model_wizard_create_timetracking
-msgid "Create a timetracking entry, or edit similar entries"
-msgstr "Create a timetracking entry, or edit similar entries"
 
 #. module: myfab_production
 #: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource_create_uid
@@ -94,12 +88,6 @@ msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: myfab_production
-#: code:addons/myfab_production/models/MFProductionConfig.py:0,mf.production.config
-#, python-format
-msgid "Earliest"
-msgstr "Au plus tôt"
-
-#. module: myfab_production
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_default_end_time
 msgid "Format HH:MM"
 msgstr "Au format HH:MM"
@@ -122,11 +110,6 @@ msgid "Is today to today +15"
 msgstr "Est d'aujourd'hui à aujourd'hui +15"
 
 #. module: myfab_production
-#: model:ir.ui.view,arch_db:myfab_production.mf_production_config_form
-msgid "Kanban view configuration"
-msgstr "Configuration de la vue kanban"
-
-#. module: myfab_production
 #: model:ir.model.fields,field_description:myfab_production.field_mf_planned_ressource___last_update
 #: model:ir.model.fields,field_description:myfab_production.field_mf_production_config___last_update
 #: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard___last_update
@@ -146,12 +129,6 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
-
-#. module: myfab_production
-#: code:addons/myfab_production/models/MFProductionConfig.py:0,mf.production.config
-#, python-format
-msgid "Latest"
-msgstr "Au plus tard"
 
 #. module: myfab_production
 #: model:ir.model.fields,field_description:myfab_production.field_planned_ressource_wizard_mf_mo_id
@@ -187,7 +164,6 @@ msgstr "Nom"
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_display_name
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_id
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_planned_ressource
-#: model:ir.model.fields,help:myfab_production.field_mf_production_config_mf_rescheduling_type
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_name
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_write_date
 #: model:ir.model.fields,help:myfab_production.field_mf_production_config_write_uid
@@ -256,12 +232,7 @@ msgstr "Configuration de ressource planifiée"
 #. module: myfab_production
 #: model:res.groups,name:myfab_production.group_menu_planned_ressource
 msgid "Planned ressource menu"
-msgstr "Menu de ressource planifiée"
-
-#. module: myfab_production
-#: model:ir.model.fields,field_description:myfab_production.field_mf_production_config_mf_rescheduling_type
-msgid "Rescheduling Type"
-msgstr "Type de replanification"
+msgstr "Menu de ressource planifiée myfab"
 
 #. module: myfab_production
 #: model:ir.ui.view,arch_db:myfab_production.mf_production_view_form_mrp_manufacturingorder
@@ -269,7 +240,7 @@ msgid "Ressource"
 msgstr "Ressource"
 
 #. module: myfab_production
-#: code:addons/myfab_production/models/MFProductionConfig.py:0,mf.production.config
+#: code:addons/myfab_production/models/MFProductionConfig.py:38
 #, python-format
 msgid "The time tracking's default end time can not be greater than 23:59"
 msgstr "La date de fin par défaut des temps passés ne peut pas être supérieure à 23:59"
@@ -293,12 +264,6 @@ msgstr "Utiliser l'heure de fin par défaut"
 #: model:ir.ui.view,arch_db:myfab_production.mf_production_view_search_mrp_manufacturingorder
 msgid "W-1 to W+1"
 msgstr "S-1 à S+1"
-
-#. module: myfab_production
-#: code:addons/myfab_production/models/mrp.py:0,mrp.manufacturingorder
-#, python-format
-msgid "You need to define the rescheduling type in myfab production config"
-msgstr "Vous devez définir un type de replanification dans la configuration myfab production"
 
 #. module: myfab_production
 #: model:ir.model,name:myfab_production.model_mf_planned_ressource

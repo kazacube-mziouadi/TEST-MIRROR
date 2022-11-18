@@ -43,6 +43,8 @@
                     <field name="mf_planned_ressource_color" invisible="1"/>
                     <field name="mf_planned_ressource_name" invisible="1"/>
                     <field name="mf_planned_ressource_config" invisible="1"/>
+                    <field name="mf_planned_start_date" invisible="1"/>
+                    <field name="mf_planned_start_week" invisible="1"/>
                 </xpath>
                 <xpath expr="//ul" position="inside">
                     <li t-if="record.mf_planned_ressource_id.raw_value &amp;&amp; record.mf_planned_ressource_config.raw_value">
