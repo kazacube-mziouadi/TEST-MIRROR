@@ -43,6 +43,8 @@
                     <field name="mf_planned_ressource_color" invisible="1"/>
                     <field name="mf_planned_ressource_name" invisible="1"/>
                     <field name="mf_planned_ressource_config" invisible="1"/>
+                    <field name="mf_planned_start_date" invisible="1"/>
+                    <field name="mf_planned_start_week" invisible="1"/>
                 </xpath>
                 <xpath expr="//ul" position="inside">
                     <li t-if="record.mf_planned_ressource_id.raw_value &amp;&amp; record.mf_planned_ressource_config.raw_value">
@@ -51,6 +53,7 @@
                     </li>
                 </xpath>
                 <xpath expr="//ul" position="after">
+                    <button name="%(mrp.act_mrp_planning_mo_id)d" type="action" icon="fa-clock-o" style="border-style:solid;border-color:#000000;border-width:1px;background-color:#FFFFFF;float:right;" />
                     <button icon="fa-exchange" t-attf-style="background-color: #{record.mf_planned_ressource_color.raw_value};border-style:solid;border-color:#000000;border-width:1px;float:right;" name="%(action_planned_ressource)d" type="action" attrs="{'invisible': [('mf_planned_ressource_config', '=', False)]}"/>
                 </xpath>
             </field>
