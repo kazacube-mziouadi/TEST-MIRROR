@@ -23,10 +23,19 @@ class MFProductionConfig(models.Model):
     )
     mf_planned_ressource = fields.Boolean(string="Activate Planned ressource management",default=False)
     mf_default_end_time = fields.Float(string="Default end time", help="Format HH:MM")
+    mf_rescheduling_type = fields.Selection("_mf_rescheduling_type_get", string="Rescheduling Type")
 
     # ===========================================================================
     # METHODS
     # ===========================================================================
+
+    @api.model
+    def _mf_rescheduling_type_get(self):
+        return [
+            ("earliest", _("Earliest")),
+            ("latest", _("Latest")),
+        ]
+
     @staticmethod
     def _get_default_name():
         return "myfab production configuration"

@@ -39,6 +39,9 @@
 					<group col="2" string="Planned ressource config">
 						<field name="mf_planned_ressource" />
 					</group>
+					<group col="2" string="Kanban view configuration">
+						<field name="mf_rescheduling_type" />
+					</group>
 				</form>
 			</field>
 		</record>
