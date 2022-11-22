@@ -39,6 +39,7 @@ class mrp_manufacturingorder(models.Model):
                 "date":date,
                 "mo_id":self.id,
                 "is_sublevel":True,
+                "is_all_done_plannif":True,
                 }
         if config.mf_rescheduling_type == False:
             raise ValidationError(_("You need to define the rescheduling type in myfab production config"))
