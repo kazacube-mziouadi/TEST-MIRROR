@@ -33,9 +33,12 @@ class FileInterfaceImportMF(models.Model):
         sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_mf: file_mf.sequence)
         for file_to_import in sorted_files_list:
             #Add the context to help all search/create function with trads, else it doesn't find all wanted elements
-            self.with_context(lang=self.env.user.lang).import_file(
-                base64.b64decode(file_to_import.content_mf), file_to_import.name
-            )
+            context = self.env.context.copy()
+            if context.get('lang', False):
+                context['lang'].append(self.env.user.lang)
+            else:
+                context.update({'lang': self.env.user.lang})
+            self.with_context(context).import_file(base64.b64decode(file_to_import.content_mf), file_to_import.name)
             self.env.cr.commit()
 
     def import_file(self, file_content, file_name):
@@ -49,6 +52,9 @@ class FileInterfaceImportMF(models.Model):
             "file_mf": import_attempt_file.id
         }
         records_to_process_list = []
+        attempt_id = self.env["file.interface.import.attempt.mf"].create(import_attempt_dict)
+        res = self.write({"import_attempts_mf": [(2, attempt_id.id, 0)]})
+        self.directory_mf.mf_delete_file(file_name)
         try:
             records_to_process_list = self.env["parser.service.mf"].get_records_from_file(
                 self.file_extension_mf, file_content, file_name, self.file_separator_mf, self.file_quoting_mf,
@@ -95,19 +101,17 @@ class FileInterfaceImportMF(models.Model):
                 import_attempt_dict.update({
                     "message_mf": _("The file's structure is incorrect.")
                 })
-            self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
-            self.directory_mf.mf_delete_file(file_name)
             # On arrete l'import ici
+            self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
             return
         # Creation de la tentative
-        import_attempt_dict.update({
+        attempt_id.write({
             "is_successful_mf": True,
             "end_datetime_mf": self.get_current_datetime(),
             "message_mf": _("Import successful."),
             "record_imports_mf": self.get_one2many_record_imports_creation_list_from_dicts_list(records_to_process_list)
         })
-        self.write({"import_attempts_mf": [(0, 0, import_attempt_dict)]})
-        self.directory_mf.mf_delete_file(file_name)
+
 
     @staticmethod
     def get_incorrect_dict_key_in_records_dicts_list(records_dicts_list):
