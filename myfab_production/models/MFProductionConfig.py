@@ -49,14 +49,12 @@ class MFProductionConfig(models.Model):
     @api.multi
     def write(self, vals):
         if 'mf_planned_ressource' in vals:
+            data_xml = self.env['ir.model.data'].search([("name","=","group_menu_planned_ressource")])
+            group = self.env['res.groups'].browse(data_xml.res_id)
             if vals['mf_planned_ressource'] == True:
                 users = self.env['res.users'].search([])
-                data_xml = self.env['ir.model.data'].search([("name","=","group_menu_planned_ressource")])
-                group = self.env['res.groups'].browse(data_xml.res_id)
                 group.write({"users":[(6, 0, users.ids)]})
             else:
-                data_xml = self.env['ir.model.data'].search([("name","=","group_menu_planned_ressource")])
-                group = self.env['res.groups'].browse(data_xml.res_id)
                 group.write({"users":[(5, 0, 0)]})
         return super(MFProductionConfig, self).write(vals)
 
