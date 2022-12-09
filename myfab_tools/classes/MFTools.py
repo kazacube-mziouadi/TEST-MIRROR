@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, _, modules
 from datetime import datetime
+from openerp.exceptions import ValidationError
 import pytz
+from ftplib import FTP
+import pysftp
 
 class MFTools(models.Model):
     _name = "mf.tools"
@@ -158,3 +161,46 @@ class MFTools(models.Model):
         file_name_split.pop()
         file_name_without_extension = '.'.join(file_name_split)
         return file_name_without_extension
+
+    ####################################################################
+    # FTP tools
+    ####################################################################
+    @staticmethod
+    def mf_login_to_ftp(ftp_adress,login,password):
+        ftp = FTP(ftp_adress, login, password)
+        ftp.login()
+        return ftp
+
+    @staticmethod
+    def mf_ftp_move_to_folder(ftp,folder):
+        ftp.cwd(folder)  
+
+    @staticmethod
+    def mf_send_file_to_ftp(ftp,file):
+        ftp.storbinary('STOR ' + file, file)
+
+    @staticmethod
+    def mf_quit_ftp(ftp):
+        ftp.quit()
+    
+    ####################################################################
+    # SFTP tools
+    ####################################################################
+    @staticmethod
+    def mf_login_to_sftp(sftp_adress,login,password):
+        cnopts = pysftp.CnOpts()
+        cnopts.hostkeys = None
+        sftp = pysftp.Connection(sftp_adress, username=login, password=password, cnopts=cnopts)
+        return sftp
+
+    @staticmethod
+    def mf_sftp_move_to_folder(sftp,folder):
+        if not sftp.exists(folder):
+            raise ValidationError(_('The folder provided does not exists on the ftp server'))
+        sftp.cwd(folder)  
+
+    @staticmethod
+    def mf_send_file_to_sftp(sftp,file):
+        sftp.put(file)
+
+    
