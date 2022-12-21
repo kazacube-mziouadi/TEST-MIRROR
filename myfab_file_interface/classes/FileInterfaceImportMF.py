@@ -34,11 +34,7 @@ class FileInterfaceImportMF(models.Model):
         for file_to_import in sorted_files_list:
             #Add the context to help all search/create function with trads, else it doesn't find all wanted elements
             context = self.env.context.copy()
-            if context.get('lang', False):
-                context['lang'].append(self.env.user.lang)
-            else:
-                context.update({'lang': self.env.user.lang})
-            self.with_context(context).import_file(base64.b64decode(file_to_import.content_mf), file_to_import.name)
+            self.with_context(lang=self.env.user.lang).import_file(base64.b64decode(file_to_import.content_mf), file_to_import.name)
             self.env.cr.commit()
 
     def import_file(self, file_content, file_name):

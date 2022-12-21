@@ -2,7 +2,9 @@
 from openerp import models, api, fields, _
 import json
 from openerp.exceptions import ValidationError
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class xml_import_configuration_table(models.Model):
     _inherit = "xml.import.configuration.table"
@@ -38,12 +40,17 @@ class xml_import_configuration_table(models.Model):
 
             if beacon_rc.domain and beacon_rc.domain != "[]":
                 # Update processing case
+                _logger.info(beacon_rc.domain)
                 research_domain_list = self.research_domain_converter(
                     beacon_rc.domain, data_dict, beacon_rc, all_data_dicts_dict
                 )
                 self._add_parent_id_filter_domain_if_necessary(research_domain_list, beacon_rc, parent_id)
                 model_name = beacon_rc.relation_openprod_id.model
+                _logger.info("research_domain_list")
+                _logger.info(research_domain_list)
                 existing_record = self.env[model_name].search(research_domain_list)
+                _logger.info("existing_record")
+                
                 if len(existing_record) > 1:
                     self._raise_domain_error(existing_record, beacon_rc)
 
@@ -91,6 +98,7 @@ class xml_import_configuration_table(models.Model):
             history_list += temp_history_list
 
     def _add_elements_to_delete_to_children_history_list(self, children_history_list, existing_record):
+        _logger.info("_add_elements_to_delete_to_children_history_list")
         children_history_sorted_list = sorted(children_history_list, key=lambda child_create_tuple: child_create_tuple[2]["mf_beacon_id"])
         children_history_sorted_list_last_index = len(children_history_sorted_list) - 1
         child_beacon_id = None
