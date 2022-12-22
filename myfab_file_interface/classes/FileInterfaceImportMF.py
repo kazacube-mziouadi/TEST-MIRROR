@@ -4,7 +4,9 @@ import traceback
 import base64
 from openerp.exceptions import MissingError
 import json
+import logging
 
+_logger = logging.getLogger(__name__)
 KEYS_IN_IMPORT_DICT = ["method", "fields", "write", "callback", "model", "status", "reference", "committed"]
 
 
@@ -33,7 +35,6 @@ class FileInterfaceImportMF(models.Model):
         sorted_files_list = sorted(self.directory_mf.files_mf, key=lambda file_mf: file_mf.sequence)
         for file_to_import in sorted_files_list:
             #Add the context to help all search/create function with trads, else it doesn't find all wanted elements
-            context = self.env.context.copy()
             self.with_context(lang=self.env.user.lang).import_file(base64.b64decode(file_to_import.content_mf), file_to_import.name)
             self.env.cr.commit()
 
@@ -49,7 +50,7 @@ class FileInterfaceImportMF(models.Model):
         }
         records_to_process_list = []
         attempt_id = self.env["file.interface.import.attempt.mf"].create(import_attempt_dict)
-        res = self.write({"import_attempts_mf": [(2, attempt_id.id, 0)]})
+        self.write({"import_attempts_mf": [(2, attempt_id.id, 0)]})
         self.directory_mf.mf_delete_file(file_name)
         try:
             records_to_process_list = self.env["parser.service.mf"].get_records_from_file(
@@ -66,7 +67,6 @@ class FileInterfaceImportMF(models.Model):
 
             # Rollback du curseur de l'ORM (pour supprimer les injections en cours + refaire des requetes dessous)
             self.env.cr.rollback()
-            # Creation du fichier de tentative non factorisable a cause du rollback ci-dessus
             import_attempt_file = self.env["file.mf"].create({
                 "name": file_name,
                 "content_mf": file_content
