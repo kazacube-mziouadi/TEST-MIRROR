@@ -203,4 +203,21 @@ class MFTools(models.Model):
     def mf_send_file_to_sftp(sftp,file):
         sftp.put(file)
 
-    
+    ####################################################################
+    # jasper report tools
+    ####################################################################
+
+    @staticmethod
+    def mf_print_report(self,report,record):
+        ctx = self.env.context.copy()            
+        report_to_print_id = report.read(['report_id'], load='_classic_write')[0]['report_id']
+        if report_to_print_id:
+            report_data = self.env['ir.actions.report.xml'].browse(
+                report_to_print_id).read(['model', 'report_name'])[0]
+            datas = {'ids': record.id, 'model': report_data['model']}
+            if ctx and 'jasper' in ctx:
+                datas['jasper'] = ctx['jasper']
+            (report_file, report_format), model_report = report.render_report(
+                self.env.cr, 1, [record.id], report_data['report_name'],
+                datas, context=ctx), report_data['report_name']
+        return report_file, report_format, model_report
