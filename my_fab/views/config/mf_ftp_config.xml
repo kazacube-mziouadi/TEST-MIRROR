@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id='mf_ftp_config_act_window' model="ir.actions.act_window">
+			<field name="name">myfab ftp config</field>
+			<field name="res_model">mf.ftp.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id='mf_ftp_config_treeview' model="ir.ui.view">
+			<field name="name">mf.ftp.config.tree</field>
+			<field name="model">mf.ftp.config</field>
+			<field name="arch" type="xml">
+				<tree string="ftp config" delete="0">
+					<field name="mf_ftp_adress" />
+				</tree>
+			</field>
+		</record>
+
+		<record id='mf_ftp_config_form' model="ir.ui.view">
+			<field name="name">mf.ftp.config.form</field>
+			<field name="model">mf.ftp.config</field>
+			<field name="arch" type="xml">
+				<form string="myfab ftp config" create="0" delete="0">
+					<group col="2" string="ftp config">
+						<field name="mf_ftp_adress" />
+						<field name="mf_login" />
+						<field name="mf_password" />
+						<field name="mf_folder_path" />
+						<field name="mf_type" />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<menuitem name="myfab ftp config"
+			action="mf_ftp_config_act_window"
+			id="menu_myfab_ftp_config"
+			parent="base.menu_communication"
+			sequence="120"
+			groups="mrp.group_manufacturing_admin" />
+	</data>
+</openerp>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-08 07:33+0000\n"
-"PO-Revision-Date: 2022-09-08 07:33+0000\n"
+"POT-Creation-Date: 2023-01-04 10:14+0000\n"
+"PO-Revision-Date: 2023-01-04 10:14+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,12 +22,14 @@ msgstr "Continuer"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_uid
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_create_uid
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_create_uid
 msgid "Created by"
 msgstr "Créé par"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_create_date
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_create_date
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_create_date
 msgid "Created on"
 msgstr "Créé le"
@@ -35,13 +37,30 @@ msgstr "Créé le"
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_display_name
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_display_name
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_display_name
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
 #. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_mf_ftp_adress
+msgid "FTP adress"
+msgstr "Adresse FTP"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_mf_type
+msgid "FTP type"
+msgstr "Type de FTP"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_mf_folder_path
+msgid "Folder Path"
+msgstr "CHemin du dossier"
+
+#. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf_id
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_id
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_id
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_id
 msgid "ID"
 msgstr "ID"
@@ -60,18 +79,21 @@ msgstr "Dépendances des modules myfab installés"
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_mf___last_update
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf___last_update
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config___last_update
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_write_uid
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_write_uid
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_write_uid
 msgid "Last Updated by"
 msgstr "Dernière mise à jour par"
 
 #. module: my_fab
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_write_date
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_write_date
 #: model:ir.model.fields,field_description:my_fab.field_mf_modules_config_write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
@@ -95,6 +117,11 @@ msgstr "Lancer l'initialisation des données de base"
 #: model:ir.model.fields,field_description:my_fab.field_data_initializer_myfab_mf_launch_data_recovery_templates_init
 msgid "Launch data recovery templates initialization"
 msgstr "Lancer l'initialisation des modèles de reprise de données"
+
+#. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_mf_login
+msgid "Login"
+msgstr "Login"
 
 #. module: my_fab
 #: model:ir.ui.menu,name:my_fab.mf_menu_modules_config
@@ -128,6 +155,18 @@ msgstr "Nom"
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_name
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_date
 #: model:ir.model.fields,help:my_fab.field_data_initializer_myfab_mf_write_uid
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config___last_update
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_create_date
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_create_uid
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_display_name
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_id
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_mf_folder_path
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_mf_ftp_adress
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_mf_login
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_mf_password
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_mf_type
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_write_date
+#: model:ir.model.fields,help:my_fab.field_mf_ftp_config_write_uid
 #: model:ir.model.fields,help:my_fab.field_mf_modules_config___last_update
 #: model:ir.model.fields,help:my_fab.field_mf_modules_config_create_date
 #: model:ir.model.fields,help:my_fab.field_mf_modules_config_create_uid
@@ -140,9 +179,19 @@ msgid "Not defined"
 msgstr "Non défini"
 
 #. module: my_fab
+#: model:ir.model.fields,field_description:my_fab.field_mf_ftp_config_mf_password
+msgid "Password"
+msgstr "Mot de passe"
+
+#. module: my_fab
 #: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
 msgid "Select the features you wish to deploy :"
 msgstr "Sélectionnez les fonctionnalités à déployer :"
+
+#. module: my_fab
+#: sql_constraint:mf.ftp.config:0
+msgid "There can only be one ftp config per type"
+msgstr "Il ne peut y avoir qu'une seule config par type de FTP"
 
 #. module: my_fab
 #: model:ir.ui.view,arch_db:my_fab.view_data_initializer_myfab_mf
@@ -160,6 +209,17 @@ msgid "data.initializer.myfab.mf"
 msgstr "data.initializer.myfab.mf"
 
 #. module: my_fab
+#: model:ir.ui.view,arch_db:my_fab.mf_ftp_config_form
+#: model:ir.ui.view,arch_db:my_fab.mf_ftp_config_treeview
+msgid "ftp config"
+msgstr "Configuration FTP"
+
+#. module: my_fab
+#: model:ir.model,name:my_fab.model_mf_ftp_config
+msgid "mf.ftp.config"
+msgstr "mf.ftp.config"
+
+#. module: my_fab
 #: model:ir.model,name:my_fab.model_mf_modules_config
 msgid "mf.modules.config"
 msgstr "mf.modules.config"
@@ -173,6 +233,13 @@ msgstr "myfab Base"
 #: model:ir.ui.menu,name:my_fab.menu_mf_modules_config
 msgid "myfab config"
 msgstr "myfab config"
+
+#. module: my_fab
+#: model:ir.actions.act_window,name:my_fab.mf_ftp_config_act_window
+#: model:ir.ui.menu,name:my_fab.menu_myfab_ftp_config
+#: model:ir.ui.view,arch_db:my_fab.mf_ftp_config_form
+msgid "myfab ftp config"
+msgstr "Configuration FTP Myfab"
 
 #. module: my_fab
 #: model:ir.actions.act_window,name:my_fab.mf_action_see_modules_config
