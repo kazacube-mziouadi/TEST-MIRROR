@@ -25,6 +25,7 @@
     'data': [
         'views/my_fab_web.xml',
         'views/config/mf_config.xml',
+        'views/config/mf_ftp_config.xml',
         'classes/data_initializer/DataInitializerMyFabTriggerMF.yml',
         'views/data_initializer/DataInitializerMyFabMF.xml',
         'static/src/xml/online_help.xml',
