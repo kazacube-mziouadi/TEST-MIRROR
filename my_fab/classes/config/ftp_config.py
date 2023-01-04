@@ -18,5 +18,5 @@ class mf_ftp_config(models.Model):
     mf_type = fields.Selection('_mf_get_ftp_type',string="FTP type")
 
     @api.model
-    def _mf_method_to_apply_get(self):
+    def _mf_get_ftp_type(self):
         return []
