@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import mf_config
+import mf_config, ftp_config
